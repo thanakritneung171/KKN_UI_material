@@ -52,23 +52,23 @@ namespace KKN_UI.Controllers
                  },
                 new categorymaterial {
                     category_id                       = 2,
-                    category_name                     = "11Steel"
+                    category_name                     = "22Steel"
                  },
                 new categorymaterial {
                     category_id                       = 3,
-                    category_name                     = "111Wood"
+                    category_name                     = "33Wood"
                  },
                 new categorymaterial {
                     category_id                       = 4,
-                    category_name                     = "111Electrical"
+                    category_name                     = "444Electrical"
                  },
                 new categorymaterial {
                     category_id                       = 5,
-                    category_name                     = "1111Sanitary"
+                    category_name                     = "55Sanitary"
                  },
                 new categorymaterial {
                        category_id                       = 6,
-                       category_name                     = "1111Colour/Paint"
+                       category_name                     = "666Colour/Paint"
                  }
             };
 
@@ -119,7 +119,8 @@ namespace KKN_UI.Controllers
                     qty_stock                     = 100,
                     groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
 
-                 },new materialModel {
+                 },
+            new materialModel {
                     item_no                       = "bm005",
                     item_name                     = "neung5",
                     group_id                      = 3,
