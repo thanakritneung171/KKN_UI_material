@@ -18,25 +18,66 @@ namespace KKN_UI.Controllers
             {
                  new groupmaterial {
                     group_id                       = 1,
-                    group_name                     = "groupp111"
+                    group_name                     = "Concrete"
 
                  },
                 new groupmaterial {
                     group_id                       = 2,
-                    group_name                     = "groupp222"
+                    group_name                     = "Steel"
                  },
                 new groupmaterial {
                     group_id                       = 3,
-                    group_name                     = "groupp3332"
+                    group_name                     = "Wood"
+                 },
+                new groupmaterial {
+                    group_id                       = 4,
+                    group_name                     = "Electrical"
+                 },
+                new groupmaterial {
+                    group_id                       = 5,
+                    group_name                     = "Sanitary"
+                 },
+                new groupmaterial {
+                    group_id                       = 6,
+                    group_name                     = "Colour/Paint"
+                 }
+            };
+
+        static IList<categorymaterial> categorymaterial = new List<categorymaterial>
+            {
+                 new categorymaterial {
+                    category_id                       = 1,
+                    category_name                     = "1111Concrete"
+
+                 },
+                new categorymaterial {
+                    category_id                       = 2,
+                    category_name                     = "11Steel"
+                 },
+                new categorymaterial {
+                    category_id                       = 3,
+                    category_name                     = "111Wood"
+                 },
+                new categorymaterial {
+                    category_id                       = 4,
+                    category_name                     = "111Electrical"
+                 },
+                new categorymaterial {
+                    category_id                       = 5,
+                    category_name                     = "1111Sanitary"
+                 },
+                new categorymaterial {
+                       category_id                       = 6,
+                       category_name                     = "1111Colour/Paint"
                  }
             };
 
         static IList<materialModel> materialModeldata = new List<materialModel>
             {
                  new materialModel {
-                    item_no                       = 1,
-                    item_name                     = "neung",
-                    group_id                         = 3,
+                    item_no                       = "bm003",
+                    item_name                     = "neung3",
+                    group_id                      = 1,
                     category                      = 2,
                     description                   = "vvfdfsdfsdsfdsfdsf",
                     status                        = true,
@@ -54,40 +95,20 @@ namespace KKN_UI.Controllers
                     uom_stock                     = "upm",
                     qty_stock                     = 100,
                     groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
                  },
-                new materialModel {
-                    item_no                       = 2,
-                    item_name                     = "songg",
-                    group_id                         = 3,
-                    category                      = 2,
-                    description                   = "vvfdfsdfsdssdsfgfdsfdsf",
-                    status                        = false,
-                    material_account              = 3,
-                    costing_method_material       = 2,
-                    stock_count                   = true,
-                    overdraw_stock                = true,
-                    picture_path                  = "Y",
-                    brand                         = "dsss",
-                    version                       = "fg",
-                    color                         = "sg",
-                    size                          = "hrs4w",
-                    uom_in                        = "uon",
-                    qty_in                        = 10,
-                    uom_stock                     = "upm",
-                    qty_stock                     = 100
-                 },
-                new materialModel {
-                    item_no                       = 3,
-                    item_name                     = "hhhhh",
-                    group_id                         = 3,
+               new materialModel {
+                    item_no                       = "bm004",
+                    item_name                     = "neung2",
+                    group_id                      = 2,
                     category                      = 2,
                     description                   = "vvfdfsdfsdsfdsfdsf",
                     status                        = true,
                     material_account              = 3,
                     costing_method_material       = 2,
-                    stock_count                   = true,
-                    overdraw_stock                = false,
-                    picture_path                  = "Y",
+                    stock_count                   = false,
+                    overdraw_stock                = true,
+                    picture_path                  = "30-windows-xp-bliss-windows-10 (1).jpg",
                     brand                         = "dsss",
                     version                       = "fg",
                     color                         = "sg",
@@ -95,12 +116,13 @@ namespace KKN_UI.Controllers
                     uom_in                        = "uon",
                     qty_in                        = 10,
                     uom_stock                     = "upm",
-                    qty_stock                     = 100
-                 },
-                new materialModel {
-                    item_no                       = 4,
-                    item_name                     = "hhhhh",
-                    group_id                         = 3,
+                    qty_stock                     = 100,
+                    groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+
+                 },new materialModel {
+                    item_no                       = "bm005",
+                    item_name                     = "neung5",
+                    group_id                      = 3,
                     category                      = 2,
                     description                   = "vvfdfsdfsdsfdsfdsf",
                     status                        = false,
@@ -108,7 +130,7 @@ namespace KKN_UI.Controllers
                     costing_method_material       = 2,
                     stock_count                   = false,
                     overdraw_stock                = true,
-                    picture_path                  = "Y",
+                    picture_path                  = "30-windows-xp-bliss-windows-10 (1).jpg",
                     brand                         = "dsss",
                     version                       = "fg",
                     color                         = "sg",
@@ -116,70 +138,9 @@ namespace KKN_UI.Controllers
                     uom_in                        = "uon",
                     qty_in                        = 10,
                     uom_stock                     = "upm",
-                    qty_stock                     = 100
-                 },
-                new materialModel {
-                    item_no                       = 5,
-                    item_name                     = "hhhhh",
-                    group_id                         = 3,
-                    category                      = 2,
-                    description                   = "vvfdfsdfsdsfdsfdsf",
-                    status                        = true,
-                    material_account              = 3,
-                    costing_method_material       = 2,
-                    stock_count                   = false,
-                    overdraw_stock                = false,
-                    picture_path                  = "Y",
-                    brand                         = "dsss",
-                    version                       = "fg",
-                    color                         = "sg",
-                    size                          = "hrs4w",
-                    uom_in                        = "uon",
-                    qty_in                        = 10,
-                    uom_stock                     = "upm",
-                    qty_stock                     = 100
-                 },
-                new materialModel {
-                    item_no                       = 6,
-                    item_name                     = "hhhhh",
-                    group_id                         = 3,
-                    category                      = 2,
-                    description                   = "vvfdfsdfsdsfdsfdsf",
-                    status                        = true,
-                    material_account              = 3,
-                    costing_method_material       = 2,
-                    stock_count                   = true,
-                    overdraw_stock                = true,
-                    picture_path                  = "Y",
-                    brand                         = "dsss",
-                    version                       = "fg",
-                    color                         = "sg",
-                    size                          = "hrs4w",
-                    uom_in                        = "uon",
-                    qty_in                        = 10,
-                    uom_stock                     = "upm",
-                    qty_stock                     = 100
-                 },
-                new materialModel {
-                    item_no                       = 7,
-                    item_name                     = "hhhhh",
-                    group_id                         = 3,
-                    category                      = 2,
-                    description                   = "vvfdfsdfsdsfdsfdsf",
-                    status                        = true,
-                    material_account              = 3,
-                    costing_method_material       = 2,
-                    stock_count                   = true,
-                    overdraw_stock                = true,
-                    picture_path                  = "Y",
-                    brand                         = "dsss",
-                    version                       = "fg",
-                    color                         = "sg",
-                    size                          = "hrs4w",
-                    uom_in                        = "uon",
-                    qty_in                        = 10,
-                    uom_stock                     = "upm",
-                    qty_stock                     = 100
+                    qty_stock                     = 100,
+                    groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+
                  }
             };
 
@@ -193,17 +154,27 @@ namespace KKN_UI.Controllers
 
         public ActionResult Creatematerial()
         {
-            return View(groupmaterial);
+            materialmodalview materialmodalviewname = new materialmodalview();
+            materialmodalviewname.grouplist = groupmaterial.ToList();
+            materialmodalviewname.categorylist = categorymaterial.ToList();
+
+            return View(materialmodalviewname);
         }
 
-        public ActionResult Editmaterial(int? id)
+        public ActionResult Editmaterial(string id)
         {
+            materialmodalview materialmodalviewname = new materialmodalview
+            {
+                categorylist= categorymaterial.ToList(),
+                grouplist = groupmaterial.ToList(),
+                materialdata = materialModeldata.Where(data => data.item_no == id).FirstOrDefault()
+        };
 
             //List<materialModel> materialModel = new data.data().Materials().ToList();
             //materialModel material = new data.data().Materials().Where(data => data.item_no == item_no).FirstOrDefault();
-            var material = materialModeldata.Where(data =>data.item_no == id).FirstOrDefault();
+            //var material = materialModeldata.Where(data =>data.item_no == id).FirstOrDefault();
             
-            return View(material);
+            return View(materialmodalviewname);
         }
 
         [HttpPost]
@@ -221,6 +192,8 @@ namespace KKN_UI.Controllers
 
             return Json(output, JsonRequestBehavior.AllowGet);
         }
+
+        
 
         [HttpPost]
         public JsonResult Createtodata(materialModel materialdata)

@@ -161,37 +161,30 @@
                         </div>
 
                         <!-- Modal
-                          --------------------------------------------------->
+    --------------------------------------------------->
 
                         @{ int i = 1;
                             foreach (var item in result)
                             {
 
-                            @*<tr class="trid" id="@item.item_no" onclick="@Url.Action("Editmaterial", "Material", new { id = item.item_no })">
-                            *@
-                            <tr class="trid" id="@item.item_no" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.item_no })'">
-                                <td class="stu_numrec" width="5%">@Url.Content(string.Format("{0}",i++))    </td>
-                                <td class="stu_no" width="10%"> @item.item_no   </td>
-                                <td class="stu_group" width="10%">@item.group_id</td>
-                                <td class="stu_category"  width="15%">@item.category</td>
-                                <td class="stu_des" width="50%">@item.item_name @item.size @item.brand</td>
-                                <td class="stu_status text-center"width="10%" >@item.status</td>
-                            </tr>
+                                @*<tr class="trid" id="@item.item_no" onclick="@Url.Action("Editmaterial", "Material", new { id = item.item_no })"> *@
+                                <tr class="trid" id="@item.item_no" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.item_no })'">
+                                    <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
+                                    <td class="stu_no" width="10%"> @item.item_no   </td>
+                                    <td class="stu_group" width="10%">@item.group_id</td>
+                                    <td class="stu_category" width="15%">@item.category</td>
+                                    <td class="stu_des" width="50%">@item.item_name @item.size @item.brand</td>
+                                    <td class="stu_status" width="5%"style="color:@(item.status? "Green": "Red")" >@item.status</td>
+                                </tr>
+                                i++;
+                            } }
 
-                                } }
-                        
-            
+
 
                     </tbody>
                 </table>
-                @*<style>
-                    .table > thead:first-child > tr:first-child > th:first-child {
-                        height: auto;
-                        width: 25px; /*change according to your need*/
-                    }
-                </style>*@
                
-
+                 
 
 
 

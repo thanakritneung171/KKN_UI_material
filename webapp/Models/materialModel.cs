@@ -8,7 +8,7 @@ namespace KKN_UI.Models
     public class materialModel
     {
 
-        public int item_no { get; set; }
+        public string item_no { get; set; }
         public string item_name { get; set; }
         public int group_id { get; set; }
         public int category { get; set; }
@@ -30,13 +30,26 @@ namespace KKN_UI.Models
         public decimal qty_stock { get; set; }
 
         public groupmaterial groupmaterial { get; set; }
-
+        public categorymaterial categorymaterial { get; set; }
     }
 
     public class groupmaterial
     {
         public int group_id { get; set; }
         public string group_name { get; set; }
+    }
+
+    public class categorymaterial
+    {
+        public int category_id { get; set; }
+        public string category_name { get; set; }
+    }
+    public class materialmodalview
+    {
+        public List<groupmaterial> grouplist { get; set; }
+        public List<categorymaterial> categorylist { get; set; }
+        public materialModel materialdata { get; set; }
+
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿@{
-    materialModel result = Model;
+    //materialModel result = Model;
+    materialmodalview result = Model;
 }
 
 @{
@@ -16,7 +17,7 @@
                 <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">วัสดุอุปกรณ์</span>
                 <i class="fa fa-chevron-right"></i>
                 <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
-                <span>@result.item_name </span>&nbsp;&nbsp;
+                <span>@result.materialdata.item_name </span>&nbsp;&nbsp;
                 <a href="@Url.Action("Index", "Material")">Back</a>
             </h3>
         </div>
@@ -42,23 +43,24 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.item_no" name="item_no" disabled>
+                        <input type="text" class="form-control" id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.materialdata.item_no" name="item_no" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="item_name" @*placeholder="ระบุ ชื่อวัสดุ"*@ value="@result.item_name" name="item_name" disabled>
+                        <input type="text" class="form-control" id="item_name" @*placeholder="ระบุ ชื่อวัสดุ"*@ value="@result.materialdata.item_name" name="item_name" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ:</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="group" name="group" disabled>
-                            <option disabled selected>@result.group</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
+                            @*<option disabled selected>@result.materialdata.groupmaterial.group_id</option>*@
+                            @foreach (var item in result.grouplist)
+                            {
+                                <option value="@item.group_id" @(item.group_id == result.materialdata.group_id? "selected" : "") >@item.group_name</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -66,10 +68,11 @@
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ:</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="category" name="category" disabled>
-                            <option disabled selected>@result.category</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
+                            <option disabled selected>@result.materialdata.category</option>
+                            @foreach ( var item in result.categorylist)
+                            {
+                                <option value="@item.category_id" @(item.category_id == result.materialdata.category? "selected" : "") >@item.category_name</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -77,7 +80,7 @@
                     <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ:</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="material_account" name="material_account" disabled>
-                            <option disabled selected>@result.material_account</option>
+                            <option disabled selected>@result.materialdata.material_account</option>
                             <option value="">1</option>
                             <option value="">2</option>
                             <option value="">3</option>
@@ -88,7 +91,7 @@
                     <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ:</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="costing_method_material" name="costing_method_material" disabled>
-                            <option disabled selected>@result.costing_method_material</option>
+                            <option disabled selected>@result.materialdata.costing_method_material</option>
                             <option value="">1</option>
                             <option value="">2</option>
                             <option value="">3</option>
@@ -103,7 +106,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="stock_count" name="stock_count" value="@result.stock_count" @(result.stock_count?"checked":"")  disabled> วัสดุนับสต๊อก</label>
+                            <label><input type="checkbox" id="stock_count" name="stock_count" value="@result.materialdata.stock_count" @(result.materialdata.stock_count?"checked":"")  disabled> วัสดุนับสต๊อก</label>
                         </div>
                     </div>
                 </div>
@@ -112,7 +115,7 @@
                         <div class="checkbox">
                             <label>
                                
-                                <input type="checkbox" id="overdraw_stock" name="overdraw_stock" value="@result.overdraw_stock" @(result.overdraw_stock?"checked":"")  disabled> ให้เบิกเกินสต๊อกได้
+                                <input type="checkbox" id="overdraw_stock" name="overdraw_stock" value="@result.materialdata.overdraw_stock" @(result.materialdata.overdraw_stock?"checked":"")  disabled> ให้เบิกเกินสต๊อกได้
                             </label>
                         </div>
                     </div>
@@ -120,7 +123,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="status" name="status" value="@result.status" @(result.status?"checked":"")  disabled> ใช้งานวัสดุ</label>
+                            <label><input type="checkbox" id="status" name="status" value="@result.materialdata.status" @(result.materialdata.status?"checked":"")  disabled> ใช้งานวัสดุ</label>
                         </div>
                     </div>
                 </div>
@@ -130,28 +133,28 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="brand" @*placeholder="ระบุ ยี่ห้อ"*@ value="@result.brand" name="brand" disabled>
+                        <input type="email" class="form-control" id="brand" @*placeholder="ระบุ ยี่ห้อ"*@ value="@result.materialdata.brand" name="brand" disabled>
                     </div>
 
                     <label class="control-label col-sm-2" for="version">รุ่น:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.version name="version" disabled>
+                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.materialdata.version name="version" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="color">สี:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="color" @*placeholder="ระบุ สี่"*@ value="@result.color" name="color" disabled>
+                        <input type="email" class="form-control" id="color" @*placeholder="ระบุ สี่"*@ value="@result.materialdata.color" name="color" disabled>
                     </div>
                     <label class="control-label col-sm-2" for="size">ขนาด:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="size" @*placeholder="ระบุ ขนาด"*@ value="@result.size" name="size" disabled>
+                        <input type="email" class="form-control" id="size" @*placeholder="ระบุ ขนาด"*@ value="@result.materialdata.size" name="size" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="3" id="description" @*placeholder="ระบุข้อมูลจำเพาะ"*@  disabled>@result.description</textarea>
+                        <textarea class="form-control" rows="3" id="description" @*placeholder="ระบุข้อมูลจำเพาะ"*@  disabled>@result.materialdata.description</textarea>
                     </div>
                 </div>
             </form>
@@ -165,7 +168,7 @@
                     <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ:</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="uom_in" name="uom_in" disabled>
-                            <option disabled selected>@result.uom_in</option>
+                            <option disabled selected>@result.materialdata.uom_in</option>
                             <option value="">1</option>
                             <option value="">2</option>
                             <option value="">3</option>
@@ -176,7 +179,7 @@
                     <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ:</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="uom_stock" name="uom_stock" disabled>
-                            <option disabled selected> @result.uom_stock</option>
+                            <option disabled selected> @result.materialdata.uom_stock</option>
                             <option value="">1</option>
                             <option value="">2</option>
                             <option value="">3</option>
@@ -186,14 +189,14 @@
 
                 <div class="form-group">
                     <div class="col-sm-4 col-xs-4">
-                        <input type="email" class="form-control" id="qty_in" value="@result.qty_in" name="qty_in" disabled>
+                        <input type="email" class="form-control" id="qty_in" value="@result.materialdata.qty_in" name="qty_in" disabled>
                     </div>
                     <label class="control-label col-sm-1 col-xs-1 text-align-left" for="qty_in">คิว</label>
                     <div class="col-sm-1 col-xs-1">
                         <p style="color:blue;">&#9868;</p>
                     </div>
                     <div class="col-sm-4 col-xs-4">
-                        <input type="email" class="form-control" id="qty_stock" value="@result.qty_stock" name="qty_stock" disabled>
+                        <input type="email" class="form-control" id="qty_stock" value="@result.materialdata.qty_stock" name="qty_stock" disabled>
                     </div>
                     <label class="control-label col-sm-1 col-xs-1 text-align-left" for="qty_stock">คิว</label>
                 </div>
@@ -201,10 +204,10 @@
 
 
             <form class="form-horizontal margin-top-10 padding-5" id="horizonform">
-                <h3 id="hrw">รูปภาพวัสดุ  @result.picture_path </h3>
+                <h3 id="hrw">รูปภาพวัสดุ  @result.materialdata.picture_path </h3>
 
                 <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
-                    <img id="blah" src="#" alt="@result.picture_path" style="display: none; max-width: 100%" />
+                    <img id="blah" src="#" alt="@result.materialdata.picture_path" style="display: none; max-width: 100%" />
                     <p id="pdisplay"><br /><br /></p>
                 </div>
                 
