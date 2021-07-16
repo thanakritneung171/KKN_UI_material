@@ -174,7 +174,7 @@
                                     <td class="stu_group" width="10%">@item.group_id</td>
                                     <td class="stu_category" width="15%">@item.category</td>
                                     <td class="stu_des" width="50%">@item.item_name @item.size @item.brand</td>
-                                    <td class="stu_status" width="5%"style="color:@(item.status? "Green": "Red")" >@item.status</td>
+                                    <td class="stu_status @(item.status? "btn-success": "btn-danger")" width="5%"@*style="color:@(item.status? "Green": "Red")"*@ > @(item.status? "ใช้งาน": "ไม่ใช้")  </td>
                                 </tr>
                                 i++;
                             } }
