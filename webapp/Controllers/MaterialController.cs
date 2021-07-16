@@ -149,7 +149,9 @@ namespace KKN_UI.Controllers
         // GET: Material
         public ActionResult Index()
         {
+            materialindex materialindexname = new materialindex();
             var materiallist = materialModeldata.ToList();
+            
             return View(materiallist);
         }
 

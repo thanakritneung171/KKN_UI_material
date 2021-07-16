@@ -51,5 +51,11 @@ namespace KKN_UI.Models
         public materialModel materialdata { get; set; }
 
     }
+    public class materialindex
+    {
+        public groupmaterial grouplist { get; set; }
+        public categorymaterial categorylist { get; set; }
+        public List<materialModel> materiallist { get; set; }
+    }
 
 }
