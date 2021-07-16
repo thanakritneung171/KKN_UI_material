@@ -149,10 +149,31 @@ namespace KKN_UI.Controllers
         // GET: Material
         public ActionResult Index()
         {
-            materialindex materialindexname = new materialindex();
-            var materiallist = materialModeldata.ToList();
-            
-            return View(materiallist);
+            List<materialModel> materialModeldatauser = materialModeldata.ToList();
+            List<groupmaterial> groupmaterialdata = groupmaterial.ToList();
+            List<categorymaterial> categorymaterialdata = categorymaterial.ToList();
+
+
+
+            var employeeData = from m in materialModeldatauser
+                               join g in groupmaterialdata on m.group_id equals g.group_id into table1
+                               from g in table1.ToList()
+                               join c in categorymaterialdata on m.category equals c.category_id into table2
+                               from c in table2.ToList()
+                               select new mateview
+                               {
+                                   materialModeldata = m,
+                                   groupmaterialdata = g,
+                                   categorymaterialdata = c
+
+                               };
+
+
+
+            //var materiallist = materialModeldata.ToList();
+
+            //return View(materiallist);
+            return View(employeeData);
         }
 
         public ActionResult Creatematerial()

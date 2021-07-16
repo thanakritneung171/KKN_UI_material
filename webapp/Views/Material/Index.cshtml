@@ -1,8 +1,10 @@
 ﻿@{
-    List<materialModel> result = Model;
+    //List<materialModel> result = Model;
+
+    //List<mateview> result = Model;
     //List<groupmaterial> result2 = Model;
 }
-
+@model IEnumerable<KKN_UI.Models.mateview>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,12 +31,12 @@
                     <option value="5">Sanitary</option>
                     <option value="6">Colour/Paint</option>
                     @*<option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>*@
+                        <option value="2">2</option>
+                        <option value="3">3</option>*@
                     @*@foreach (var itemselg in result2)
-        {
-            <option value="@itemselg.group_id ">@itemselg.group_name</option>
-        }*@
+                        {
+                            <option value="@itemselg.group_id ">@itemselg.group_name</option>
+                        }*@
 
                 </select>
                 <script>
@@ -68,8 +70,8 @@
                     <option value="2">Precast</option>
                     <option value="3">สายไฟ</option>
                     @*<option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>*@
+                        <option value="2">2</option>
+                        <option value="3">3</option>*@
 
                 </select>
             </div>
@@ -81,9 +83,9 @@
 
 
             @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
-        <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
-            <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
-        </div>*@
+                <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
+                    <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
+                </div>*@
             <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px;"><a @*href='@Url.Action("Editmaterial", "Material")'*@ class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
             <div class="hidden-lg hidden-md col-sm-8 col-xs-4 "></div>
             <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px; "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
@@ -99,7 +101,9 @@
 
     <div class="row margin-top-10 margin-bottom-10">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 "><a--> @*href='@Url.Action("Editmaterial", "Material")'*@ <!--class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 "><a-->
+@*href='@Url.Action("Editmaterial", "Material")'*@
+<!--class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
 
     </div>
 </div>-->
@@ -161,20 +165,20 @@
                         </div>
 
                         <!-- Modal
-    --------------------------------------------------->
+                        --------------------------------------------------->
 
                         @{ int i = 1;
-                            foreach (var item in result)
+                            foreach (var item in Model)
                             {
 
                                 @*<tr class="trid" id="@item.item_no" onclick="@Url.Action("Editmaterial", "Material", new { id = item.item_no })"> *@
-                                <tr class="trid" id="@item.item_no" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.item_no })'">
+                                <tr class="trid" id="@item.materialModeldata.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.materialModeldata.item_no })'">
                                     <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
-                                    <td class="stu_no" width="10%"> @item.item_no   </td>
-                                    <td class="stu_group" width="10%">@item.group_id</td>
-                                    <td class="stu_category" width="15%">@item.category</td>
-                                    <td class="stu_des" width="50%">@item.item_name @item.size @item.brand</td>
-                                    <td class="stu_status @(item.status? "btn-success": "btn-danger")" width="5%"@*style="color:@(item.status? "Green": "Red")"*@ > @(item.status? "ใช้งาน": "ไม่ใช้")  </td>
+                                    <td class="stu_no" width="10%"> @item.materialModeldata.item_no   </td>
+                                    <td class="stu_group" width="10%">@item.groupmaterialdata.group_name</td>
+                                    <td class="stu_category" width="15%">@item.categorymaterialdata.category_name</td>
+                                    <td class="stu_des" width="50%">@item.materialModeldata.item_name @item.materialModeldata.size @item.materialModeldata.brand</td>
+                                    <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" @*style="color:@(item.status? "Green": "Red")"*@> @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
                                 </tr>
                                 i++;
                             } }
@@ -183,8 +187,8 @@
 
                     </tbody>
                 </table>
-               
-                 
+
+
 
 
 
@@ -235,7 +239,7 @@
 
             Also see: http://legacy.datatables.net/usage/features
             */
-            
+
 
             /* BASIC ;*/
             var responsiveHelper_dt_basic = undefined;
@@ -385,5 +389,5 @@
 
 
     </script>
- 
+
 }

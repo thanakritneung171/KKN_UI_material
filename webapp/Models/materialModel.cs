@@ -31,6 +31,8 @@ namespace KKN_UI.Models
 
         public groupmaterial groupmaterial { get; set; }
         public categorymaterial categorymaterial { get; set; }
+        public idname idnamegroup { get; set; }
+        
     }
 
     public class groupmaterial
@@ -57,5 +59,9 @@ namespace KKN_UI.Models
         public categorymaterial categorylist { get; set; }
         public List<materialModel> materiallist { get; set; }
     }
-
+    public class idname
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+    }
 }
