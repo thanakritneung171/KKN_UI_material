@@ -1,0 +1,394 @@
+﻿@{
+    materialModel result = Model;
+}
+
+@{
+    ViewBag.Title = "Editmaterial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    <div class="row margin-top-10">
+        <div class="row">
+            <h3>
+                <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">วัสดุอุปกรณ์</span>
+                <i class="fa fa-chevron-right"></i>
+                <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
+                <span>@result.item_name </span>&nbsp;&nbsp;
+                <a href="@Url.Action("Index", "Material")">Back</a>
+            </h3>
+        </div>
+    </div>
+
+    <div class="row margin-top-10">
+        <div class="col-lg-8" id="horizonform">
+            <style>
+                #horizonform {
+                    border-style: ridge;
+                    border-width: 2px;
+                }
+
+                #hrw {
+                    display: block;
+                    border-bottom: 1px dashed
+                }
+            </style>
+
+            <form class="form-horizontal">
+                <h3 id="hrw">วัสดุ</h3>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.item_no" name="item_no" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="item_name" @*placeholder="ระบุ ชื่อวัสดุ"*@ value="@result.item_name" name="item_name" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="group" name="group" disabled>
+                            <option disabled selected>@result.group</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="category">ประเภทวัสดุ:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="category" name="category" disabled>
+                            <option disabled selected>@result.category</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="material_account" name="material_account" disabled>
+                            <option disabled selected>@result.material_account</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="costing_method_material" name="costing_method_material" disabled>
+                            <option disabled selected>@result.costing_method_material</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <style>
+                    select option[disabled]:first-child {
+                        display: none;
+                    }
+                </style>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="stock_count" name="stock_count" value="@result.stock_count" @(result.stock_count?"checked":"")  disabled> วัสดุนับสต๊อก</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                               
+                                <input type="checkbox" id="overdraw_stock" name="overdraw_stock" value="@result.overdraw_stock" @(result.overdraw_stock?"checked":"")  disabled> ให้เบิกเกินสต๊อกได้
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="status" name="status" value="@result.status" @(result.status?"checked":"")  disabled> ใช้งานวัสดุ</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h3 id="hrw">รายละเอียดวัสดุเพิ่มเติม</h3>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="brand" @*placeholder="ระบุ ยี่ห้อ"*@ value="@result.brand" name="brand" disabled>
+                    </div>
+
+                    <label class="control-label col-sm-2" for="version">รุ่น:</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.version name="version" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="color">สี:</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="color" @*placeholder="ระบุ สี่"*@ value="@result.color" name="color" disabled>
+                    </div>
+                    <label class="control-label col-sm-2" for="size">ขนาด:</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="size" @*placeholder="ระบุ ขนาด"*@ value="@result.size" name="size" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="3" id="description" @*placeholder="ระบุข้อมูลจำเพาะ"*@  disabled>@result.description</textarea>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-lg-4">
+
+            <form class="form-horizontal margin-top-10 padding-5" id="horizonform">
+                <h3 id="hrw">หน่วยวัสดุ</h3>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="uom_in" name="uom_in" disabled>
+                            <option disabled selected>@result.uom_in</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="uom_stock" name="uom_stock" disabled>
+                            <option disabled selected> @result.uom_stock</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-4">
+                        <input type="email" class="form-control" id="qty_in" value="@result.qty_in" name="qty_in" disabled>
+                    </div>
+                    <label class="control-label col-sm-1 col-xs-1 text-align-left" for="qty_in">คิว</label>
+                    <div class="col-sm-1 col-xs-1">
+                        <p style="color:blue;">&#9868;</p>
+                    </div>
+                    <div class="col-sm-4 col-xs-4">
+                        <input type="email" class="form-control" id="qty_stock" value="@result.qty_stock" name="qty_stock" disabled>
+                    </div>
+                    <label class="control-label col-sm-1 col-xs-1 text-align-left" for="qty_stock">คิว</label>
+                </div>
+            </form>
+
+
+            <form class="form-horizontal margin-top-10 padding-5" id="horizonform">
+                <h3 id="hrw">รูปภาพวัสดุ  @result.picture_path </h3>
+
+                <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
+                    <img id="blah" src="#" alt="@result.picture_path" style="display: none; max-width: 100%" />
+                    <p id="pdisplay"><br /><br /></p>
+                </div>
+                
+                <input id="file-input" type="file" name="name" style="display: none;" />
+                <script>
+                    function importData() {
+                        let input = document.createElement('input');
+                        input.type = 'file';
+                        input.onchange = evt => {
+                            const [file] = input.files
+                            if (file) {
+                                blah.src = URL.createObjectURL(file)
+                            }
+                            let files = Array.from(input.files);
+                            console.log(files);
+                            console.log(file.name);
+                            console.log(file.size);
+
+                            document.getElementById("blah").style.display = "block";
+                            document.getElementById("pdisplay").style.display = "none";
+                            var elementqqqq = document.getElementById('qqqq');
+                            elementqqqq.style.removeProperty("border-style");
+                            elementqqqq.style.removeProperty("border-width");
+                            elementqqqq.style.removeProperty("margin-bottom");
+                            document.getElementById("btn-clear").style.display = "block";
+                        };
+                        input.click();
+
+                    }
+
+                </script>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>คุณต้องการบันทึกข้อมูลใช่หรือไม่</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-lg btn-success margin-right-15" data-dismiss="modal" onclick="aabc()">ใช่</button>
+                    <button type="button" class="btn-lg btn-danger" data-dismiss="modal">ไม่</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row margin-top-10 margin-bottom-10 ">
+        <button id="btcancel" class="btn btn-danger pull-right" style="margin:5px; display:none;" onclick="canceledit()">Cancel</button>
+        <button id="btsave" class="btn btn-success pull-right" style="margin: 5px; display: none;" onclick="comfirmsave()">Save</button>
+        <button id="btedit" class="btn btn-warning pull-right" style="margin:5px;" onclick="openedit()" >Edit</button>
+
+        <script>
+            function openedit() {
+                document.getElementById("btedit").style.display = "none";
+                document.getElementById("btcancel").style.display = "block";
+                document.getElementById("btsave").style.display = "block";
+                ////////////// disable
+                //document.getElementById("item_no").disabled = false;
+                document.getElementById("item_name").disabled = false;
+                document.getElementById("group").disabled = false;
+                document.getElementById("category").disabled = false;
+                document.getElementById("material_account").disabled = false;
+                document.getElementById("costing_method_material").disabled = false;
+                document.getElementById("stock_count").disabled = false;
+                document.getElementById("overdraw_stock").disabled = false;
+                document.getElementById("status").disabled = false;
+                document.getElementById("brand").disabled = false;
+                document.getElementById("version").disabled = false;
+                document.getElementById("color").disabled = false;
+                document.getElementById("size").disabled = false;
+                document.getElementById("description").disabled = false;
+                document.getElementById("uom_in").disabled = false;
+                document.getElementById("uom_stock").disabled = false;
+                document.getElementById("qty_in").disabled = false;
+                document.getElementById("qty_stock").disabled = false;
+
+            }
+            function canceledit() {
+                document.getElementById("btedit").style.display = "block";
+                document.getElementById("btcancel").style.display = "none";
+                document.getElementById("btsave").style.display = "none";
+                /////////
+                ////////////// disable
+                document.getElementById("item_no").disabled = true;
+                document.getElementById("item_name").disabled = true;
+                document.getElementById("group").disabled = true;
+                document.getElementById("category").disabled = true;
+                document.getElementById("material_account").disabled = true;
+                document.getElementById("costing_method_material").disabled = true;
+                document.getElementById("stock_count").disabled = true;
+                document.getElementById("overdraw_stock").disabled = true;
+                document.getElementById("status").disabled = true;
+                document.getElementById("brand").disabled = true;
+                document.getElementById("version").disabled = true;
+                document.getElementById("color").disabled = true;
+                document.getElementById("size").disabled = true;
+                document.getElementById("description").disabled = true;
+                document.getElementById("uom_in").disabled = true;
+                document.getElementById("uom_stock").disabled = true;
+                document.getElementById("qty_in").disabled = true;
+                document.getElementById("qty_stock").disabled = true;
+            }
+
+            function comfirmsave() {
+                $('#myModal').modal('show')
+                var testttttt = document.getElementById("stock_count").checked
+                var testttttt1 = document.getElementById("overdraw_stock").checked
+                var testtttt2t = document.getElementById("status").checked
+               // alert(testttttt + " " + testttttt1 + " " + testtttt2t);
+            }
+            function aabc() {
+              //  alert("hello wolrd");
+                
+                saveedit()
+            }
+
+            function saveedit() {
+                console.log("in function")
+                //alert("in function")
+                ///get input to val
+
+                var material = new Object();
+                material.item_no                    = document.getElementById("item_no").value;
+                material.item_name                  = document.getElementById("item_name").value;
+                material.group                      = document.getElementById("group").value;
+                material.category                   = document.getElementById("category").value;
+                material.material_account           = document.getElementById("material_account").value;
+                material.costing_method_material    = document.getElementById("costing_method_material").value;
+                material.stock_count                = document.getElementById("stock_count").checked;
+                material.overdraw_stock             = document.getElementById("overdraw_stock").checked;
+                material.status                     = document.getElementById("status").checked;
+                material.brand                      = document.getElementById("brand").value;
+                material.version                    = document.getElementById("version").value;
+                material.color                      = document.getElementById("color").value;
+                material.size                       = document.getElementById("size").value;
+                material.description                = document.getElementById("description").value;
+                material.uom_in                     = document.getElementById("uom_in").value;
+                material.uom_stock                  = document.getElementById("uom_stock").value;
+                material.qty_in                     = document.getElementById("qty_in").value;
+                material.qty_stock                  = document.getElementById("qty_stock").value;
+                //material.blah                       = document.getElementById("file-input").value;
+
+                console.log(material);
+
+                    $.ajax({
+                    // request POST
+                    type: "POST",
+                    // Controller/method
+                    url: '@Url.Action("Editmaterialdata", "Material")',
+                    //object/parameter with value
+                    data: JSON.stringify(material),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    //response from respective action method
+                    success: function (response) {
+                        console.log("edit complete");
+                    //    alert(response + "suc");
+                        window.location.href = "/material";
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+
+
+            };
+        </script>
+
+    </div> <br /><br />
+
+</div>

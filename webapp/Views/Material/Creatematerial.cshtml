@@ -1,0 +1,560 @@
+﻿@*@model KKN_UI.Models.materialModel
+    @model KKN_UI.Models.FileUploadModel*@
+
+
+@{
+    //materialModel result = Model;
+    List<groupmaterial> result = Model;
+    //FileUploadModel fileresult = Model;
+}
+@{
+    ViewBag.Title = "Creatematerial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="container">
+    <div class="row margin-top-10">
+        <div class="row">
+            <h3>
+                <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">เพิ่มวัสดุอุปกรณ์ใหม่</span>
+                @*<i class="fa fa-chevron-right"></i>
+                    <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
+                    <span>sdfsdfsdfsdfdsssdf </span>*@  &nbsp;&nbsp;
+                <a href="@Url.Action("Index", "Material")">Back</a>
+            </h3>
+        </div>
+    </div>
+
+    <div class="row margin-top-10">
+        <div class="col-lg-8" id="horizonform">
+            <style>
+                #horizonform {
+                    border-style: ridge;
+                    border-width: 2px;
+                }
+
+                #hrw {
+                    display: block;
+                    border-bottom: 1px dashed
+                }
+            </style>
+
+            <form class="form-horizontal">
+                <h3 id="hrw">วัสดุ</h3>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
+                    <div class="col-sm-4">
+                       
+                        <select class="form-control" id="group" name="group">
+
+                            <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+                            @foreach (var item in result)
+                            {
+                                <option value="@item.group_id ">@item.group_name</option>
+                            }
+
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="category">ประเภทวัสดุ:</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="category" name="category">
+                            <option disabled value="0" selected>เลือกประเภทวัสดุ</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ:</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="material_account" name="material_account">
+                            <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ:</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="costing_method_material" name="costing_method_material">
+                            <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <style>
+                    select option[disabled]:first-child {
+                        display: none;
+                    }
+                </style>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="stock_count" name="stock_count"> วัสดุนับสต๊อก</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="overdraw_stock" name="overdraw_stock"> ให้เบิกเกินสต๊อกได้</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="status" name="status"> ใช้งานวัสดุ</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h3 id="hrw">รายละเอียดวัสดุเพิ่มเติม</h3>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="brand" placeholder="ระบุ ยี่ห้อ" name="brand">
+                    </div>
+
+                    <label class="control-label col-sm-2" for="version">รุ่น:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="version" placeholder="ระบุ รุ่น" name="version">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="color">สี:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="color" placeholder="ระบุ สี่" name="color">
+                    </div>
+                    <label class="control-label col-sm-2" for="size">ขนาด:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="size" placeholder="ระบุ ขนาด" name="size">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="3" id="description" placeholder="ระบุข้อมูลจำเพาะ"></textarea>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-lg-4">
+
+            <form class="form-horizontal margin-top-10 padding-5" id="horizonform">
+                <h3 id="hrw">หน่วยวัสดุ</h3>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="uom_in" name="uom_in" onchange="uom_inchange()">
+                            <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
+                            <option value="1" >ลัง</option>
+                            <option value="2">กล่อง</option>
+                            <option value="3">ชิ้น</option>
+                        </select>
+                    </div>
+                </div>
+                <script>
+                    function uom_inchange() {
+                        var uom_inchange = document.getElementById("uom_in");
+                        var uon_in_select = uom_inchange.selectedIndex;
+                        document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
+                        console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
+                        document.getElementById("uom_stock").selectedIndex = uon_in_select;
+                        document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
+                        
+                    }
+                    function uom_stockchange() {
+                        var uom_stockchange = document.getElementById("uom_stock");
+                        var uon_stock_select = uom_stockchange.selectedIndex;
+                        document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
+                        console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
+
+                    }
+                </script>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
+                            <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
+                            <option value="1" >ลัง</option>
+                            <option value="2">กล่อง</option>
+                            <option value="3">ชิ้น</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-4">
+                        <input type="email" class="form-control" id="qty_in" value="1.0" name="qty_in">
+                    </div>
+                    <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>
+                    <div class="col-sm-1 col-xs-1">
+                        <p style="color:blue;">&#9868;</p>
+                    </div>
+                    <div class="col-sm-4 col-xs-4">
+                        <input type="email" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
+                    </div>
+                    <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
+                </div>
+            </form>
+
+
+            <form class="form-horizontal margin-top-10 padding-5" id="horizonform">
+                <h3 id="hrw">รูปภาพวัสดุ</h3>
+
+                <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
+                    <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
+                    <p id="pdisplay"><br /><br /></p>
+                </div>
+                @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
+                @*<script>
+                        document.querySelector("#qqqq").addEventListener("change", function () {
+                            const [file] = input.files
+                            if (file) {
+                                blah.src = URL.createObjectURL(file)
+                            }
+                            let files = Array.from(input.files);
+                            console.log(files);
+                            const reader = new FileReader();
+
+                            reader.addEventListener("Load", () => {
+                                console.log("111111111");
+                                console.log(reader.result);
+                                localStorage.setItem("recent-image", reader.result);
+                            })
+                        })
+                    </script>*@
+
+
+
+                <script>
+                    function importData() {
+                        let input = document.createElement('input');
+                        input.type = 'file';
+                        input.name = 'file';
+                        input.id = 'file';
+
+                        input.onchange = evt => {
+                            const [file] = input.files
+                            if (file) {
+                                blah.src = URL.createObjectURL(file)
+                                blah.alt = (file.name)
+                            }
+                            let files = Array.from(input.files);
+                            console.log(files);
+                            console.log(input.files);
+
+                            console.log(file.name);
+                            console.log(file.size);
+                            console.log(file.type);
+
+
+                            const reader = new FileReader();
+                            reader.addEventListener("load", () => {
+                                console.log("111111111");
+                                console.log(reader.result);
+                                localStorage.setItem("recent-image", reader.result);
+                            });
+
+                            //console.log("open");
+                            //reader.readAsDataURL(this.file);
+                            //console.log("off");
+
+
+
+                            document.getElementById("blah").style.display = "block";
+                            document.getElementById("pdisplay").style.display = "none";
+                            var elementqqqq = document.getElementById('qqqq');
+                            elementqqqq.style.removeProperty("border-style");
+                            elementqqqq.style.removeProperty("border-width");
+                            elementqqqq.style.removeProperty("margin-bottom");
+
+                            //var returnfilename = file.name
+                            //return returnfilename
+                        };
+
+                        input.click();
+
+
+                    }
+
+                </script>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row margin-top-10 margin-bottom-10 ">
+        @*<button class="btn btn-danger pull-right" style="margin:5px;">Cancel</button>*@
+        <button class="btn-lg btn-success pull-right" style="margin:5px;" onclick="comfirmsave()">บันทึก</button>
+        @*<button class="btn-lg btn-success pull-right" style="margin:5px;" onclick="comfirmsave()">Save</button>*@
+
+
+        <script>
+
+
+            function validate() {
+                //alert("55")
+                //var usernameRegex = /^[a-zA-Z0-9\-]+$/;
+                //var validUsername = document.getElementById("item_no").value.match(usernameRegex);
+                //if (validUsername == null) {
+                //    alert("Your first name is not valid. Only characters A-Z, a-z and '-' are  acceptable.");
+                //    document.getElementById("item_no").focus();
+                //    return false;
+                //}
+
+                var tno = document.getElementById("item_no").value;
+                var tname = document.getElementById("item_name").value;
+                var selg = document.getElementById("group").value;
+                var selc = document.getElementById("category").value;
+                var selma = document.getElementById("material_account").value;
+                var selcmm = document.getElementById("costing_method_material").value;
+                var bn  =  document.getElementById("brand").value;
+                var vs  =   document.getElementById("version").value;
+                var cl  =   document.getElementById("color").value;
+                var sz  =   document.getElementById("size").value;
+                var des =    document.getElementById("description").value;
+                var ui  =   document.getElementById("uom_in").value;
+                var us  =   document.getElementById("uom_stock").value;
+                var qi  =   document.getElementById("qty_in").value;
+                var qs  =   document.getElementById("qty_stock").value;
+
+              
+                if (tno == '') {
+                    console.log("00000item_no")
+                    alert("โปรดใส่รหัสวัสดุ")
+                    document.getElementById("item_no").focus();
+                } else {
+                    if (tname == '') {
+                        console.log("00000item_name")
+                        alert("โปรดใส่ชื่อวัสดุ")
+                        document.getElementById("item_name").focus();
+                    } else {
+                        if (selg == '0') {
+                            console.log("00000group")
+                            alert("โปรดใส่กลุ่มวัสดุ");
+                            document.getElementById("group").focus();
+                        } else {
+                            if (selc == '0') {
+                                console.log("00000category")
+                                alert("โปรดใส่ประเภทวัสดุ");
+                                document.getElementById("category").focus();
+                            } else {
+                                if (selma == '0') {
+                                    console.log("00000material_account")
+                                    alert("โปรดใส่บัญชีวัสดุ");
+                                    document.getElementById("material_account").focus();
+                                } else {
+                                    if (selcmm == '0') {
+                                        console.log("00000costing_method_material")
+                                        alert("โปรดใส่วิธีคิดต้นทุนวัสดุ");
+                                        document.getElementById("costing_method_material").focus();
+                                    } else {
+                                        if (bn == '') {
+                                            console.log("00000brand")
+                                            alert("โปรดใส่ยี่ห้อ")
+                                            document.getElementById("brand").focus();
+                                        } else {
+                                            if (vs == '') {
+                                                console.log("00000version")
+                                                alert("โปรดใส่รุ่น")
+                                                document.getElementById("version").focus();
+                                            } else {
+                                                if (cl == '') {
+                                                    console.log("00000color")
+                                                    alert("โปรดใส่สี")
+                                                    document.getElementById("color").focus();
+                                                } else {
+                                                    if (sz == '') {
+                                                        console.log("00000size")
+                                                        alert("โปรดใส่ขนาด")
+                                                        document.getElementById("size").focus();
+                                                    } else {
+                                                        if (des == '') {
+                                                            console.log("00000description")
+                                                            alert("โปรดใส่ข้อมูลจำเพาะ")
+                                                            document.getElementById("description").focus();
+                                                        } else {
+                                                            if (ui == '0') {
+                                                                console.log("00000uom_in")
+                                                                alert("โปรดใส่หน่วยซื้อ")
+                                                                document.getElementById("uom_in").focus();
+                                                            } else {
+                                                                if (us == '0') {
+                                                                    console.log("00000uom_stock")
+                                                                    alert("โปรดใส่หน่วยเก็บ")
+                                                                    document.getElementById("uom_stock").focus();
+                                                                } else {
+                                                                    if (qi == '') {
+                                                                        console.log("00000qty_in")
+                                                                        alert("โปรดใส่จำนวนซื้อ")
+                                                                        document.getElementById("qty_in").focus();
+                                                                    } else {
+                                                                        if (qs == '') {
+                                                                            console.log("00000qty_stock")
+                                                                            alert("โปรดใส่จำนวนเก็บ")
+                                                                            document.getElementById("qty_stock").focus();
+                                                                        } else {
+                                                                            console.log("suc selc")
+                                                                            var output = 1;
+                                                                            return output;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }////////////////////////endvalid
+               
+            }
+
+
+        function comfirmsave() {
+            var va = validate();
+            console.log(va + " output")
+            if (va == '1') {
+                $('#myModal').modal('show')
+            }
+            
+            //var testttttt = document.getElementById("stock_count").checked
+            //var testttttt1 = document.getElementById("overdraw_stock").checked
+            //var testtttt2t = document.getElementById("status").checked
+            //alert(testttttt + " " + testttttt1 + " " + testtttt2t);
+        }
+        function aabc() {
+           // alert("hello wolrd");
+            insertdata()
+        }
+
+
+
+    function insertdata() {
+        console.log("in function")
+        //alert("in function")
+        ///get input to val
+
+
+        var material = new Object();
+        material.item_no                    = document.getElementById("item_no").value;
+        material.item_name                  = document.getElementById("item_name").value;
+        material.group                      = document.getElementById("group").value;
+        material.category                   = document.getElementById("category").value;
+        material.material_account           = document.getElementById("material_account").value;
+        material.costing_method_material    = document.getElementById("costing_method_material").value;
+        material.stock_count                = document.getElementById("stock_count").checked;
+        material.overdraw_stock             = document.getElementById("overdraw_stock").checked;
+        material.status                     = document.getElementById("status").checked;
+        material.brand                      = document.getElementById("brand").value;
+        material.version                    = document.getElementById("version").value;
+        material.color                      = document.getElementById("color").value;
+        material.size                       = document.getElementById("size").value;
+        material.description                = document.getElementById("description").value;
+        material.uom_in                     = document.getElementById("uom_in").value;
+        material.uom_stock                  = document.getElementById("uom_stock").value;
+        material.qty_in                     = document.getElementById("qty_in").value;
+        material.qty_stock                  = document.getElementById("qty_stock").value;
+        material.picture_path = document.getElementById("blah").alt;
+      //  material.picture_file = document.getElementById("fileinput").files[0];
+
+
+        //var FileUploadModel = new Object();
+        //FileUploadModel.filePicture = document.getElementByName("postedFile").value;
+
+        //alert(FileUploadModel);
+
+
+        console.log(material);
+        console.log(material.picture_path+"22222222");
+
+        //////////////////////////////////
+        $.ajax({
+            // request POST
+            type: "POST",
+            // Controller/method
+            url: '@Url.Action("Createtodata", "Material")',
+            //object/parameter with value
+            data: JSON.stringify(material),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            //response from respective action method
+            success: function (response) {
+                console.log("insert complete");
+                alert(response.item_no + "suc" + response.picture_path)
+                window.location.href = "/material";
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        })
+            };
+
+        </script>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>คุณต้องการบันทึกข้อมูลใช่หรือไม่</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-lg btn-success margin-right-15" data-dismiss="modal" onclick="aabc()">ใช่</button>
+                        <button type="button" class="btn-lg btn-danger" data-dismiss="modal">ไม่</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        @*<button class="btn btn-warning pull-right" style="margin:5px;">Edit</button>*@
+    </div> <br /><br />
+
+</div>

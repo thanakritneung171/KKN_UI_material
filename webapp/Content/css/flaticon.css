@@ -1,0 +1,62 @@
+/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 13/01/2017 09:45
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+    url("./Flaticon.woff") format("woff"),
+    url("./Flaticon.ttf") format("truetype"),
+    url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before,
+[class*=" flaticon-"]:before,
+[class^="flaticon-"]:after,
+[class*=" flaticon-"]:after {
+  font-family: Flaticon;
+  font-size: 20px;
+  font-style: normal;
+  /*margin-left: 20px;*/
+  width: 1.28571429em;
+  text-align: center;
+  font-size: 4em;
+}
+
+.flaticon-black:before {
+  content: "\f100";
+}
+.flaticon-business:before {
+  content: "\f101";
+}
+.flaticon-interface:before {
+  content: "\f102";
+}
+.flaticon-man:before {
+  content: "\f103";
+}
+.flaticon-people:before {
+  content: "\f104";
+}
+.flaticon-people-1:before {
+  content: "\f105";
+}
+.flaticon-people-2:before {
+  content: "\f106";
+}
+
+/*@font-face {
+   font-family: "menuicon";
+   src:url("/Content/wordicon.ttf");
+}*/

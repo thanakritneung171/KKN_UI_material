@@ -1,0 +1,54 @@
+﻿<style>
+    #logo {
+        margin-top: 15px !important;
+        width: 190px;
+    }
+
+    @@media only screen and (max-width: 479px) and (min-width: 320px) {
+        #logo {
+            width: 200px;
+        }
+    }
+</style>
+<header id="header">
+    <div id="logo-group">
+
+        <!-- PLACE YOUR LOGO HERE -->
+        @*<span id="logo" style="color:white;"><b>Karnkanok Property</b></span>*@
+        <span id="logo" style="color:#ffc800;font-size:15px;"><b style="cursor:pointer;" onclick="BackToKKNSystemMain()">KKN_UI</b><span style="color:white;margin-left:8px;">( Template )</span></span>
+        <!-- END LOGO PLACEHOLDER -->
+        @if (Request.IsAuthenticated)
+        {
+        }
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+    }
+    <section id="top-right">
+        @if (@Model is HelperResult)
+        {
+            @Model
+        }
+        else
+        {
+            <div class="pull-right">
+                @Html.Partial("_TopRight")
+            </div>
+        }
+    </section>
+</header>
+<script>
+    function ChangeCompany(comcode) {
+        //alert(comcode);
+
+        $.get("/Graph/ChangeCompany?_Company=" + comcode, function (result) {
+            location.reload();
+        });
+    }
+
+    function BackToKKNSystemMain() {
+        $("#content_ajaxloader").show();
+        window.location.href = 'http://www.kkn.co.th/system'
+    }
+</script>
+<!-- END HEADER -->

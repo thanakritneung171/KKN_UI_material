@@ -1,0 +1,139 @@
+﻿<style>
+    .smart-style-1 .login-img img {
+        width: 35px;
+        border-radius: 50%;
+    }
+
+    .login-img .dropdown-menu {
+        right: 0;
+        cursor: pointer;
+    }
+
+    @@media(max-width:337px) {
+        .hide-xs {
+            display: none;
+        }
+    }
+
+    @@media(max-width:880px) {
+        .hide-md {
+            display: none;
+        }
+    }
+
+    @@media(min-width:338px) {
+        .visi-xs {
+            display: none;
+        }
+    }
+
+    @@media(max-width:338px) {
+        .visi-md {
+            display: none;
+        }
+    }
+
+    @@media(min-width:881px) {
+        .visi-md {
+            display: none;
+        }
+    }
+</style>
+
+@*@{
+
+    KKN_Finance.Helper.UtilityHelper utilHelper = new KKN_Finance.Helper.UtilityHelper();
+    KKN_Finance.KKN_Sale_Service.UserProfileModel UserInfo = utilHelper.GetUserByUserId();
+    string UserName = UserInfo.Name;
+    string userProfileImageString = "";
+    if (UserInfo.UserProfileImage != null)
+    {
+        userProfileImageString = Convert.ToBase64String(UserInfo.UserProfileImage);
+    }
+}*@
+
+<!--Conputer Screen-->
+
+<div class="login-img hide-xs hide-md" style="padding-top:8px;padding-right:10px;">
+    <span class="btn-group">
+        <a href="#" data-toggle="dropdown" class="infologin" style="font-size:18px;color:white;">
+            @*@if (userProfileImageString != "")
+            {
+                <img src="data:image/png;base64,@userProfileImageString" alt="me" class="online" style="width:35px;height:32px;" />
+            }
+            else
+            {
+                <img src="~/content/img/avatars/male.png" alt="me" class="online" style="width:35px;height:32px;" />
+            }*@
+            @*<span>@UserName</span>*@
+            <img src="~/content/img/avatars/male.png" alt="me" class="online" width="35" height="32"/>
+            <span>@WebSecurity.CurrentUserName</span>
+            <i class="fa fa-angle-down"></i>
+        </a>
+
+
+        <ul class="dropdown-menu" style="left:initial;">
+            <li>
+                <a href="@Url.Action("Logout", "Account")" title="Sign Out" data-action="userLogout" data-html="true" data-logout-msg="@WebSecurity.CurrentUserName คุณต้องการออกจากระบบหรือไม่">ออกจากระบบ</a>
+            </li>
+        </ul>
+    </span>
+
+
+</div>
+
+
+<!--IPhone-->
+<div class="login-img visi-md hide-xs" style="padding-top:4px;padding-right:10px;">
+    <span class="btn-group">
+        <a href="#" data-toggle="dropdown" class="infologin" style="font-size:18px;color:white;">
+            @*@if (userProfileImageString != "")
+            {
+                <img src="data:image/png;base64,@userProfileImageString" alt="me" class="online" style="width:35px;height:32px;" />
+            }
+            else
+            {
+                <img src="~/content/img/avatars/male.png" alt="me" class="online" style="width:35px;height:32px;" />
+            }*@
+            <img src="~/content/img/avatars/male.png" alt="me" class="online" style="width:35px;height:32px;" />
+        </a>
+        <ul class="dropdown-menu" style="left:initial;">
+            <li>
+                <a href="@Url.Action("Logout", "Account")" title="Sign Out" data-action="userLogout" data-logout-msg="@WebSecurity.CurrentUserName คุณต้องการออกจากระบบหรือไม่">ออกจากระบบ</a>
+            </li>
+        </ul>
+    </span>
+
+
+</div>
+
+
+
+<!--small Phone-->
+<div class="login-img visi-xs" style="padding-top:3px;padding-right:10px;">
+    <span class="btn-group">
+        <a href="#" data-toggle="dropdown" class="infologin" style="font-size:18px;color:white;">
+            @*@if (userProfileImageString != "")
+            {
+                <img src="data:image/png;base64,@userProfileImageString" alt="me" class="online" style="width:35px;height:32px;" />
+            }
+            else
+            {
+                <img src="~/content/img/avatars/male.png" alt="me" class="online" style="width:35px;height:32px;" />
+            }*@
+            <img src="~/content/img/avatars/male.png" alt="me" class="online" style="width:35px;height:32px;" />
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="@Url.Action("Logout", "account")" title="Sign Out" data-action="userLogout" data-logout-msg="@WebSecurity.CurrentUserName คุณต้องการออกจากระบบหรือไม่">ออกจากระบบ</a>
+            </li>
+        </ul>
+    </span>
+</div>
+
+
+
+
+
+
+

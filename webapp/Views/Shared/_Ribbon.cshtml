@@ -1,0 +1,48 @@
+﻿<style>
+    @@media (min-width: 100px) {
+        .breadcrumb li:last-child {
+            color: none !important;
+        }
+    }
+
+    .breadcrumb li:last-child {
+        color: #b7b7b7 !important;
+    }
+
+
+    .breadcrumb > li + li:before {
+        color: #b7b7b7 !important;
+    }
+
+    @@media only screen and (max-width: 679px) and (min-width: 0) {
+        #ribbon .breadcrumb li:last-child, #ribbon .breadcrumb > .active {
+            color: #b7b7b7 !important;
+        }
+    }
+</style>
+
+<!-- RIBBON -->
+<div id="ribbon" style="background-color:#474544;color: white!important;padding:0px 5px 0px 5px !important;">
+
+    @*<span class="ribbon-button-alignment">
+            <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+                            <i class="fa fa-refresh"></i>
+                        </span>
+        </span>*@
+
+    <!-- breadcrumb -->
+    <ol class="breadcrumb" style="color: white!important;padding-right:0px!important;"></ol>
+    <!-- end breadcrumb -->
+    <!-- You can also add more buttons to the
+    ribbon for further usability
+
+    Example below:
+
+    <span class="ribbon-button-alignment pull-right">
+    <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+    <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+    <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+    </span> -->
+
+</div>
+<!-- END RIBBON -->

@@ -1,0 +1,88 @@
+﻿    <!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<style>
+    .menu-short-text {
+        max-width: 150px;
+        min-width: 50px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .menu-inside-short-text {
+        max-width: 210px;
+        min-width: 50px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .minified nav > ul > li:hover > a > .menu-item-parent {
+        min-width: 183px;
+        top: 0px;
+    }
+</style>
+<style>
+    body:not(.menu-on-top).desktop-detected {
+        min-height: 0px !important;
+    }
+
+    .desktop-detected .inbox-body .table-wrap {
+        min-height: 770px !important;
+    }
+
+    input {
+        padding-left: 15px!important;
+        padding-right: 5px!important;
+    }
+
+     .newfontsizeicon {
+        /*font-size: 4px;
+        width: 2.1em;
+        text-align: center;*/
+    }
+
+    .menu-short-text {
+        max-width: 150px;
+        min-width: 50px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .menu-inside-short-text {
+        max-width: 210px;
+        min-width: 50px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .minified nav > ul > li:hover > a > .menu-item-parent {
+        min-width: 183px;
+        top: 0px;
+    }
+
+    .normalIcon {
+        width: initial !important;
+        height: initial !important;
+        padding-top: initial !important;
+    }
+</style>
+
+<link href="~/img/Icon/flaticon.css" rel="stylesheet" type="text/css"  />
+<aside id="left-panel">
+    <nav>
+        <ul>
+            <li class="@Html.RouteIf("Home", "active")">
+                <a href="@Url.Action("Index", "Home")"><i class="fa-fw fa fix-icon-aside-size fa fa-home"></i><span class="menu-item-parent">หน้าแรก</span></a>
+            </li>
+            <li class="@Html.RouteIf("Material", "active")">
+                <a href="@Url.Action("Index", "Material")"><i class="fa-fw fa fix-icon-aside-size fa  fa-wrench"></i><span class="menu-item-parent">Material</span></a>
+            </li>
+        </ul>
+    </nav>
+    <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+</aside>

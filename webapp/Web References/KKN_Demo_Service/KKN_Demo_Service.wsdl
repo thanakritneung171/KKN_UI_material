@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetDemoById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDemoByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDemoByIdResult" type="tns:ServiceResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ServiceResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="code" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="errorLogId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="messages" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="data" />
+          <s:element minOccurs="1" maxOccurs="1" name="isSuccess" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ServiceResultNoValue">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DemoView">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DemoString" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DemoInt" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DemoIntNullable" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DemoDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DemoDateNullable" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DemoDecimal" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DemoDecimalNullable" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DemoBoolean" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="DemoBooleanNullable" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsActive" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAction" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DemoJoins" type="tns:ArrayOfIDNAME" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfIDNAME">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IDNAME" nillable="true" type="tns:IDNAME" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IDNAME">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveDemo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="model" type="tns:DemoView" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveDemoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveDemoResult" type="tns:ServiceResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveDelete">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveDeleteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveDeleteResult" type="tns:ServiceResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDemoJoinByDemoId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="demoId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDemoJoinByDemoIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDemoJoinByDemoIdResult" type="tns:ServiceResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDemoByDetailId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDemoByDetailIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDemoByDetailIdResult" type="tns:ServiceResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ServiceResult" nillable="true" type="tns:ServiceResult" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDemoByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDemoById" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDemoByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveDemoSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveDemo" />
+  </wsdl:message>
+  <wsdl:message name="SaveDemoSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveDemoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveDeleteSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveDelete" />
+  </wsdl:message>
+  <wsdl:message name="SaveDeleteSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoJoinByDemoIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDemoJoinByDemoId" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoJoinByDemoIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDemoJoinByDemoIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByDetailIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDemoByDetailId" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByDetailIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDemoByDetailIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByIdHttpGetIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:ServiceResult" />
+  </wsdl:message>
+  <wsdl:message name="SaveDeleteHttpGetIn">
+    <wsdl:part name="id" type="s:string" />
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveDeleteHttpGetOut">
+    <wsdl:part name="Body" element="tns:ServiceResult" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoJoinByDemoIdHttpGetIn">
+    <wsdl:part name="demoId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoJoinByDemoIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:ServiceResult" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByDetailIdHttpGetIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByDetailIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:ServiceResult" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByIdHttpPostIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:ServiceResult" />
+  </wsdl:message>
+  <wsdl:message name="SaveDeleteHttpPostIn">
+    <wsdl:part name="id" type="s:string" />
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveDeleteHttpPostOut">
+    <wsdl:part name="Body" element="tns:ServiceResult" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoJoinByDemoIdHttpPostIn">
+    <wsdl:part name="demoId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoJoinByDemoIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:ServiceResult" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByDetailIdHttpPostIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDemoByDetailIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:ServiceResult" />
+  </wsdl:message>
+  <wsdl:portType name="KKN_Demo_ServiceSoap">
+    <wsdl:operation name="GetDemoById">
+      <wsdl:input message="tns:GetDemoByIdSoapIn" />
+      <wsdl:output message="tns:GetDemoByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveDemo">
+      <wsdl:input message="tns:SaveDemoSoapIn" />
+      <wsdl:output message="tns:SaveDemoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveDelete">
+      <wsdl:input message="tns:SaveDeleteSoapIn" />
+      <wsdl:output message="tns:SaveDeleteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoJoinByDemoId">
+      <wsdl:input message="tns:GetDemoJoinByDemoIdSoapIn" />
+      <wsdl:output message="tns:GetDemoJoinByDemoIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoByDetailId">
+      <wsdl:input message="tns:GetDemoByDetailIdSoapIn" />
+      <wsdl:output message="tns:GetDemoByDetailIdSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="KKN_Demo_ServiceHttpGet">
+    <wsdl:operation name="GetDemoById">
+      <wsdl:input message="tns:GetDemoByIdHttpGetIn" />
+      <wsdl:output message="tns:GetDemoByIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveDelete">
+      <wsdl:input message="tns:SaveDeleteHttpGetIn" />
+      <wsdl:output message="tns:SaveDeleteHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoJoinByDemoId">
+      <wsdl:input message="tns:GetDemoJoinByDemoIdHttpGetIn" />
+      <wsdl:output message="tns:GetDemoJoinByDemoIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoByDetailId">
+      <wsdl:input message="tns:GetDemoByDetailIdHttpGetIn" />
+      <wsdl:output message="tns:GetDemoByDetailIdHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="KKN_Demo_ServiceHttpPost">
+    <wsdl:operation name="GetDemoById">
+      <wsdl:input message="tns:GetDemoByIdHttpPostIn" />
+      <wsdl:output message="tns:GetDemoByIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveDelete">
+      <wsdl:input message="tns:SaveDeleteHttpPostIn" />
+      <wsdl:output message="tns:SaveDeleteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoJoinByDemoId">
+      <wsdl:input message="tns:GetDemoJoinByDemoIdHttpPostIn" />
+      <wsdl:output message="tns:GetDemoJoinByDemoIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoByDetailId">
+      <wsdl:input message="tns:GetDemoByDetailIdHttpPostIn" />
+      <wsdl:output message="tns:GetDemoByDetailIdHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="KKN_Demo_ServiceSoap" type="tns:KKN_Demo_ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDemoById">
+      <soap:operation soapAction="http://tempuri.org/GetDemoById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveDemo">
+      <soap:operation soapAction="http://tempuri.org/SaveDemo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveDelete">
+      <soap:operation soapAction="http://tempuri.org/SaveDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoJoinByDemoId">
+      <soap:operation soapAction="http://tempuri.org/GetDemoJoinByDemoId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoByDetailId">
+      <soap:operation soapAction="http://tempuri.org/GetDemoByDetailId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="KKN_Demo_ServiceSoap12" type="tns:KKN_Demo_ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDemoById">
+      <soap12:operation soapAction="http://tempuri.org/GetDemoById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveDemo">
+      <soap12:operation soapAction="http://tempuri.org/SaveDemo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveDelete">
+      <soap12:operation soapAction="http://tempuri.org/SaveDelete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoJoinByDemoId">
+      <soap12:operation soapAction="http://tempuri.org/GetDemoJoinByDemoId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoByDetailId">
+      <soap12:operation soapAction="http://tempuri.org/GetDemoByDetailId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="KKN_Demo_ServiceHttpGet" type="tns:KKN_Demo_ServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetDemoById">
+      <http:operation location="/GetDemoById" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveDelete">
+      <http:operation location="/SaveDelete" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoJoinByDemoId">
+      <http:operation location="/GetDemoJoinByDemoId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoByDetailId">
+      <http:operation location="/GetDemoByDetailId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="KKN_Demo_ServiceHttpPost" type="tns:KKN_Demo_ServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetDemoById">
+      <http:operation location="/GetDemoById" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveDelete">
+      <http:operation location="/SaveDelete" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoJoinByDemoId">
+      <http:operation location="/GetDemoJoinByDemoId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDemoByDetailId">
+      <http:operation location="/GetDemoByDetailId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="KKN_Demo_Service">
+    <wsdl:port name="KKN_Demo_ServiceSoap" binding="tns:KKN_Demo_ServiceSoap">
+      <soap:address location="http://localhost:56117/KKN_Demo_Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="KKN_Demo_ServiceSoap12" binding="tns:KKN_Demo_ServiceSoap12">
+      <soap12:address location="http://localhost:56117/KKN_Demo_Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="KKN_Demo_ServiceHttpGet" binding="tns:KKN_Demo_ServiceHttpGet">
+      <http:address location="http://localhost:56117/KKN_Demo_Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="KKN_Demo_ServiceHttpPost" binding="tns:KKN_Demo_ServiceHttpPost">
+      <http:address location="http://localhost:56117/KKN_Demo_Service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

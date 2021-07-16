@@ -1,0 +1,203 @@
+﻿@model KKN_UI.Models.AccountLoginModel
+@{
+    //ViewBag.PageId = "extr-page";
+    ViewBag.PageClass = "animated fadeInDown";
+}
+
+
+
+@section topright{
+    <span id="extr-page-header-space"></span>
+}
+@{
+    ViewBag.PageClass = "menu-on-top pace-running desktop-detected pace-running fixed-navigation fixed-ribbon minified ";
+}
+<style>
+    body:not(.menu-on-top).desktop-detected {
+        min-height: 0px !important;
+        /*min-height: 700px;*/
+    }
+
+    .smart-form .btn {
+        float: right;
+        height: 31px;
+        margin: 10px 0 0 5px;
+        padding: 0 22px;
+        font: 300 15px/29px 'Open Sans',Helvetica,Arial,sans-serif;
+        cursor: pointer;
+    }
+
+    body {
+        /*overflow: hidden;*/
+    }
+
+
+    .smart-form footer {
+        background: rgb(255, 255, 255);
+    }
+
+    .popover {
+        max-width: 100%; /* Max Width of the popover (depending on the container!) */
+    }
+
+
+
+
+    @@media (min-width: 700px) {
+
+        .menu-on-top #main {
+            margin-top: 0 !important;
+            background-color: white;
+        }
+    }
+
+
+
+    @@media (max-height: 400px) {
+
+        body {
+            overflow: visible;
+        }
+
+        .IsHorizontal {
+            display: none;
+        }
+    }
+
+    html {
+        background: white;
+    }
+
+    .smart-style-1 .page-footer, .smart-style-1 .superbox-show, .smart-style-1 aside {
+        background: white;
+        border: none;
+    }
+
+    #main {
+        min-height: 0px;
+        padding-bottom: 0px;
+        position: initial;
+    }
+</style>
+
+
+<div style="background-color:white;">
+    <section class="container custom-container text-center hidden-xs">
+        <div class="noxs col-xs-2 col-sm-2 col-md-3 col-lg-4"></div>
+        @*@{ Html.RenderPartial("_LoginText"); }*@
+        <div class="noxs col-xs-8 col-sm-8 col-md-6 col-lg-4" style="padding-top:10%;">
+            <div class="well well-light" style="border:none;box-shadow:none;">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "smart-form client-form", id = "loginForm" }))
+                {
+                    <fieldset style="text-align:left;">
+                        <span style="font-weight:400;font-size:20px;">Sign In</span>
+                    </fieldset>
+                    @Html.HiddenFor(m => m.ReturnUrl)
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <section>
+                            <label class="label">@Html.LabelFor(u => u.Username)</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-user"></i>
+                                @Html.TextBoxFor(u => u.Username)
+                                <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>Enter your username</b>
+                            </label>
+                        </section>
+                        <section>
+                            <label class="label">@Html.LabelFor(u => u.Password)</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-lock"></i>
+                                @Html.PasswordFor(u => u.Password)
+                                <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b>
+                            </label>
+                        </section>
+                        <section>
+                            <label class="checkbox" style="text-align:left;">
+                                <input type="checkbox" name="rememberMe" value="true">
+                                <input type="hidden" name="rememberMe" value="false" />
+                                <i></i>Stay signed in
+                            </label>
+                        </section>
+                        @Html.ValidationBootstrap()
+                        <section>
+                            <button type="submit" class="btn btn-primary">
+                                <span style="font-weight:400">Sign in</span>
+                            </button>
+                        </section>
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </section>
+    <div class="page-footer IsHorizontal">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align:center;">
+                <span> CONTACT DEVELOPER 053-325890 #113</span>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="visible-xs" style="background-color: white;">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "smart-form", id = "loginForm", style = "padding: 5px;" }))
+        {
+            <fieldset style="text-align:left;">
+                <span style="font-weight:400;font-size:20px;">Sign In</span>
+            </fieldset>
+            @Html.HiddenFor(m => m.ReturnUrl)
+            @Html.AntiForgeryToken()
+
+            <fieldset style="height: auto;">
+                <section>
+                    <label class="label">@Html.LabelFor(u => u.Username)</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-user"></i>
+                        @Html.TextBoxFor(u => u.Username)
+                        <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>Enter your username</b>
+                    </label>
+                </section>
+                <section>
+                    <label class="label">@Html.LabelFor(u => u.Password)</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        @Html.PasswordFor(u => u.Password)
+                        <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b>
+                    </label>
+                </section>
+                <section>
+                    <label class="checkbox" style="text-align:left;">
+                        <input type="checkbox" name="rememberMe" value="true" checked="checked">
+                        <input type="hidden" name="rememberMe" value="false" />
+                        <i></i>Stay signed in
+                    </label>
+                </section>
+                @Html.ValidationBootstrap()
+                <section>
+                    <button type="submit" class="btn btn-primary" style="margin:0px;">
+                        <span style="font-weight:400">Sign in</span>
+                    </button>
+                </section>
+
+            </fieldset>
+
+        }
+    </div>
+    <div class="page-footer IsHorizontal">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align:center;">
+                <span> CONTACT DEVELOPER 053-325890 #113</span>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@*<link href="~/Areas/Landing/Content/css/main.css" rel="stylesheet" />*@
+<script type="text/javascript">
+    document.getElementById("Username").focus();
+
+</script>
