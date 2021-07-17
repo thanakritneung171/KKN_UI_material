@@ -29,179 +29,8 @@
     </div>
 
     <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-    <!-- Widget ID (each widget will need unique ID)-->
-    <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
-      
-        <header>
-
-        </header>
-
-        <!-- widget div-->
-        <div>
-
-            <div class="widget-body no-padding">
-
-                <form id="checkout-form" class="smart-form" novalidate="novalidate">
-
-
-                    <fieldset>
-                        <div class="row">
-                            <section class="col col-6">
-                                <label class="input">
-                                    <i class="icon-prepend fa fa-user"></i>
-                                    <input type="text" name="fname" placeholder="First name">
-
-                                </label>
-                            </section>
-                            <input type="text" class="form-control" id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
-                            <section class="col col-6">
-                                <label class="input">
-                                    <i class="icon-prepend fa fa-user"></i>
-                                    <input type="text" name="lname" placeholder="Last name">
-                                </label>
-                            </section>
-                        </div>
-
-                        <div class="row">
-                            <section class="col col-6">
-                                <label class="input">
-                                    <i class="icon-prepend fa fa-envelope-o"></i>
-                                    <input type="email" name="email" placeholder="E-mail">
-                                </label>
-                            </section>
-                            <section class="col col-6">
-                                <label class="input">
-                                    <i class="icon-prepend fa fa-phone"></i>
-                                    <input type="tel" name="phone" placeholder="Phone" data-mask="(999) 999-9999">
-                                </label>
-                            </section>
-                        </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <div class="row">
-                            <section class="col col-5">
-                                <label class="select">
-                                    <select name="country">
-                                        <option value="0" selected="" disabled="">Country</option>
-                                        <option value="244">Aaland Islands</option>
-                                        <option value="1">Afghanistan</option>
-                                        <option value="2">Albania</option>
-                                        <option value="3">Algeria</option>
-                                        <option value="4">American Samoa</option>
-                                    </select> <i></i>
-                                </label>
-                            </section>
-
-                            <section class="col col-4">
-                                <label class="input">
-                                    <input type="text" name="city" placeholder="City">
-                                </label>
-                            </section>
-
-                            <section class="col col-3">
-                                <label class="input">
-                                    <input type="text" name="code" placeholder="Post code">
-                                </label>
-                            </section>
-                        </div>
-
-                        <section>
-                            <label for="address2" class="input">
-                                <input type="text" name="address2" id="address2" placeholder="Address">
-                            </label>
-                        </section>
-
-                        <section>
-                            <label class="textarea">
-                                <textarea rows="3" name="info" placeholder="Additional info"></textarea>
-                            </label>
-                        </section>
-                    </fieldset>
-
-                    <fieldset>
-                        <section>
-                            <div class="inline-group">
-                                <label class="radio">
-                                    <input type="radio" name="radio-inline" checked="">
-                                    <i></i>Visa
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="radio-inline">
-                                    <i></i>MasterCard
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="radio-inline">
-                                    <i></i>American Express
-                                </label>
-                            </div>
-                        </section>
-
-                        <section>
-                            <label class="input">
-                                <input type="text" name="name" placeholder="Name on card">
-                            </label>
-                        </section>
-
-                        <div class="row">
-                            <section class="col col-10">
-                                <label class="input">
-                                    <input type="text" name="card" placeholder="Card number" data-mask="9999-9999-9999-9999">
-                                </label>
-                            </section>
-                            <section class="col col-2">
-                                <label class="input">
-                                    <input type="text" name="cvv" placeholder="CVV2" data-mask="999">
-                                </label>
-                            </section>
-                        </div>
-
-                        <div class="row">
-                            <label class="label col col-4">Expiration date</label>
-                            <section class="col col-5">
-                                <label class="select">
-                                    <select name="month">
-                                        <option value="0" selected="" disabled="">Month</option>
-                                        <option value="1">January</option>
-                                        <option value="1">February</option>
-                                        <option value="3">March</option>
-                                        <option value="4">April</option>
-                                        <option value="5">May</option>
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
-                                        <option value="8">August</option>
-                                        <option value="9">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select> <i></i>
-                                </label>
-                            </section>
-                            <section class="col col-3">
-                                <label class="input">
-                                    <input type="text" name="year" placeholder="Year" data-mask="2099">
-                                </label>
-                            </section>
-                        </div>
-                    </fieldset>
-
-                    <footer>
-                        <button type="submit" class="btn btn-primary">
-                            Validate Form
-                        </button>
-                    </footer>
-                </form>
-
-            </div>
-            <!-- end widget content -->
-
-        </div>
-        <!-- end widget div -->
-
-    </div>
-    <!-- end widget -->
     <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-    
+
     <div class="row margin-top-10">
 
 
@@ -729,7 +558,7 @@
                         <p>คุณต้องการบันทึกข้อมูลใช่หรือไม่</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-lg btn-success margin-right-15" data-dismiss="modal" onclick="aabc()">ใช่</button>
+                        <button type="button" class="btn-lg btn-success margin-right-15 checkout-form" data-dismiss="modal" onclick="aabc()">ใช่</button>
                         <button type="button" class="btn-lg btn-danger" data-dismiss="modal">ไม่</button>
 
                     </div>
@@ -767,7 +596,7 @@
                     },
                     material_account: {
                         required: true
-                    },
+                    }, 
                     costing_method_material: {
                         required: true
                     },
@@ -782,436 +611,61 @@
                     },
                     qty_stock: {
                         required: true
-                    },
-
-
-
-
-
-
-
-
-
-                    fname: {
-                        required: true
-                    },
-                    lname: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    phone: {
-                        required: true
-                    },
-                    country: {
-                        required: true
-                    },
-                    city: {
-                        required: true
-                    },
-                    code: {
-                        required: true,
-                        digits: true
-                    },
-                    address: {
-                        required: true
-                    },
-                    name: {
-                        required: true
-                    },
-                    card: {
-                        required: true,
-                        creditcard: true
-                    },
-                    cvv: {
-                        required: true,
-                        digits: true
-                    },
-                    month: {
-                        required: true
-                    },
-                    year: {
-                        required: true,
-                        digits: true
                     }
                 },
 
                 // Messages for form validation
                 messages: {
-                    fname: {
-                        required: 'Please enter your first name'
+                    item_no: {
+                        required: '<span style="color:red;">โปรดใส่รหัสวัสดุ</span>'
                     },
-                    lname: {
-                        required: 'Please enter your last name'
+                    item_name: {
+                        required: '<span style="color:red;">โปรดใส่ชื่อวัสดุ</span>'
                     },
-                    email: {
-                        required: 'Please enter your email address',
-                        email: 'Please enter a VALID email address'
+                    group: {
+                        required: '<span style="color:red;">โปรดใส่กลุ่มวัสดุ</span>'
                     },
-                    phone: {
-                        required: 'Please enter your phone number'
+                    category: {
+                        required: '<span style="color:red;">โปรดใส่ประเภทวัสดุ</span>'
                     },
-                    country: {
-                        required: 'Please select your country'
+                    material_account: {
+                        required: '<span style="color:red;">โปรดใส่บัญชีวัสดุ</span>'
                     },
-                    city: {
-                        required: 'Please enter your city'
+                    costing_method_material: {
+                        required: '<span style="color:red;">โปรดใส่วิธีคิดต้นทุนวัสดุ</span>'
                     },
-                    code: {
-                        required: 'Please enter code',
-                        digits: 'Digits only please'
+                    uom_in: {
+                        required: '<span style="color:red;">โปรดใส่หน่วยซื้อ</span>'
                     },
-                    address: {
-                        required: 'Please enter your full address'
+                    uom_stock: {
+                        required: '<span style="color:red;">โปรดใส่หน่วยเก็บ</span>'
                     },
-                    name: {
-                        required: 'Please enter name on your card'
+                    qty_in: {
+                        required: '<span style="color:red;">โปรดใส่จำนวนซื้อ</span>'
                     },
-                    card: {
-                        required: 'Please enter your card number'
-                    },
-                    cvv: {
-                        required: 'Enter CVV2',
-                        digits: 'Digits only'
-                    },
-                    month: {
-                        required: 'Select month'
-                    },
-                    year: {
-                        required: 'Enter year',
-                        digits: 'Digits only please'
+                    qty_stock: {
+                        required: '<span style="color:red;">โปรดใส่จำนวนเก็บ</span>'
                     }
-                },
 
+
+                },
+               
                 // Do not change code below
                 errorPlacement: function (error, element) {
                     error.insertAfter(element.parent());
                 }
+               
             });
-
-            var $registerForm = $("#smart-form-register").validate({
-
-                // Rules for form validation
-                rules: {
-                    username: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    password: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 20
-                    },
-                    passwordConfirm: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 20,
-                        equalTo: '#password'
-                    },
-                    firstname: {
-                        required: true
-                    },
-                    lastname: {
-                        required: true
-                    },
-                    gender: {
-                        required: true
-                    },
-                    terms: {
-                        required: true
-                    }
-                },
-
-                // Messages for form validation
-                messages: {
-                    login: {
-                        required: 'Please enter your login'
-                    },
-                    email: {
-                        required: 'Please enter your email address',
-                        email: 'Please enter a VALID email address'
-                    },
-                    password: {
-                        required: 'Please enter your password'
-                    },
-                    passwordConfirm: {
-                        required: 'Please enter your password one more time',
-                        equalTo: 'Please enter the same password as above'
-                    },
-                    firstname: {
-                        required: 'Please select your first name'
-                    },
-                    lastname: {
-                        required: 'Please select your last name'
-                    },
-                    gender: {
-                        required: 'Please select your gender'
-                    },
-                    terms: {
-                        required: 'You must agree with Terms and Conditions'
-                    }
-                },
-
-                // Do not change code below
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                }
-            });
-
-            var $reviewForm = $("#review-form").validate({
-                // Rules for form validation
-                rules: {
-                    name: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    review: {
-                        required: true,
-                        minlength: 20
-                    },
-                    quality: {
-                        required: true
-                    },
-                    reliability: {
-                        required: true
-                    },
-                    overall: {
-                        required: true
-                    }
-                },
-
-                // Messages for form validation
-                messages: {
-                    name: {
-                        required: 'Please enter your name'
-                    },
-                    email: {
-                        required: 'Please enter your email address',
-                        email: '<i class="fa fa-warning"></i><strong>Please enter a VALID email addres</strong>'
-                    },
-                    review: {
-                        required: 'Please enter your review'
-                    },
-                    quality: {
-                        required: 'Please rate quality of the product'
-                    },
-                    reliability: {
-                        required: 'Please rate reliability of the product'
-                    },
-                    overall: {
-                        required: 'Please rate the product'
-                    }
-                },
-
-                // Do not change code below
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                }
-            });
-
-            var $commentForm = $("#comment-form").validate({
-                // Rules for form validation
-                rules: {
-                    name: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    url: {
-                        url: true
-                    },
-                    comment: {
-                        required: true
-                    }
-                },
-
-                // Messages for form validation
-                messages: {
-                    name: {
-                        required: 'Enter your name',
-                    },
-                    email: {
-                        required: 'Enter your email address',
-                        email: 'Enter a VALID email'
-                    },
-                    url: {
-                        email: 'Enter a VALID url'
-                    },
-                    comment: {
-                        required: 'Please enter your comment'
-                    }
-                },
-
-                // Ajax form submition
-                submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        success: function () {
-                            $("#comment-form").addClass('submited');
-                        }
-                    });
-                },
-
-                // Do not change code below
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                }
-            });
-
-            var $contactForm = $("#contact-form").validate({
-                // Rules for form validation
-                rules: {
-                    name: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    message: {
-                        required: true,
-                        minlength: 10
-                    }
-                },
-
-                // Messages for form validation
-                messages: {
-                    name: {
-                        required: 'Please enter your name',
-                    },
-                    email: {
-                        required: 'Please enter your email address',
-                        email: 'Please enter a VALID email address'
-                    },
-                    message: {
-                        required: 'Please enter your message'
-                    }
-                },
-
-                // Ajax form submition
-                submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        success: function () {
-                            $("#contact-form").addClass('submited');
-                        }
-                    });
-                },
-
-                // Do not change code below
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                }
-            });
-
-            var $loginForm = $("#login-form").validate({
-                // Rules for form validation
-                rules: {
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    password: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 20
-                    }
-                },
-
-                // Messages for form validation
-                messages: {
-                    email: {
-                        required: 'Please enter your email address',
-                        email: 'Please enter a VALID email address'
-                    },
-                    password: {
-                        required: 'Please enter your password'
-                    }
-                },
-
-                // Do not change code below
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                }
-            });
-
-            var $orderForm = $("#order-form").validate({
-                // Rules for form validation
-                rules: {
-                    name: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    phone: {
-                        required: true
-                    },
-                    interested: {
-                        required: true
-                    },
-                    budget: {
-                        required: true
-                    }
-                },
-
-                // Messages for form validation
-                messages: {
-                    name: {
-                        required: 'Please enter your name'
-                    },
-                    email: {
-                        required: 'Please enter your email address',
-                        email: 'Please enter a VALID email address'
-                    },
-                    phone: {
-                        required: 'Please enter your phone number'
-                    },
-                    interested: {
-                        required: 'Please select interested service'
-                    },
-                    budget: {
-                        required: 'Please select your budget'
-                    }
-                },
-
-                // Do not change code below
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                }
-            });
-
-            // START AND FINISH DATE
-            $('#startdate').datepicker({
-                dateFormat: 'dd.mm.yy',
-                prevText: '<i class="fa fa-chevron-left"></i>',
-                nextText: '<i class="fa fa-chevron-right"></i>',
-                onSelect: function (selectedDate) {
-                    $('#finishdate').datepicker('option', 'minDate', selectedDate);
-                }
-            });
-
-            $('#finishdate').datepicker({
-                dateFormat: 'dd.mm.yy',
-                prevText: '<i class="fa fa-chevron-left"></i>',
-                nextText: '<i class="fa fa-chevron-right"></i>',
-                onSelect: function (selectedDate) {
-                    $('#startdate').datepicker('option', 'maxDate', selectedDate);
-                }
-            });
-
-
+           
+         
 
         })
 
+
     </script>
 }
+
+
+
+
+
