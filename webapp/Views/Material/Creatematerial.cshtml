@@ -50,8 +50,10 @@
                                 <label class="input">
                                     <i class="icon-prepend fa fa-user"></i>
                                     <input type="text" name="fname" placeholder="First name">
+
                                 </label>
                             </section>
+                            <input type="text" class="form-control" id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
                             <section class="col col-6">
                                 <label class="input">
                                     <i class="icon-prepend fa fa-user"></i>
@@ -204,22 +206,27 @@
 
 
 
+        <form class="form-horizontal margin-top-10 padding-5" id="checkout-form">
+            <!---------------------->
+            <div class="col-lg-8" id="horizonform">
+                <style>
+                    #horizonform {
+                        border-style: ridge;
+                        border-width: 2px;
+                    }
 
-        <!---------------------->
-        <div class="col-lg-8" id="horizonform">
-            <style>
-                #horizonform {
-                    border-style: ridge;
-                    border-width: 2px;
-                }
+                    #horizonform2 {
+                        border-style: ridge;
+                        border-width: 2px;
+                    }
 
-                #hrw {
-                    display: block;
-                    border-bottom: 1px dashed
-                }
-            </style>
+                    #hrw {
+                        display: block;
+                        border-bottom: 1px dashed
+                    }
+                </style>
 
-            <form class="form-horizontal">
+                @*<form class="form-horizontal">*@
                 <h3 id="hrw">วัสดุ</h3>
 
                 <div class="form-group">
@@ -237,9 +244,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-
                         <select class="form-control" id="group" name="group">
-
                             <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
                             @foreach (var item in result.grouplist)
                             {
@@ -342,12 +347,12 @@
                         <textarea class="form-control" rows="3" id="description" placeholder="ระบุข้อมูลจำเพาะ"></textarea>
                     </div>
                 </div>
-            </form>
+                @*</form>*@
 
-        </div>
-        <div class="col-lg-4">
+            </div>
+            <div class="col-lg-4" id="horizonform2">
 
-            <form class="form-horizontal margin-top-10 padding-5" id="horizonform">
+                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
                 <h3 id="hrw">หน่วยวัสดุ</h3>
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
@@ -395,27 +400,28 @@
 
                 <div class="form-group">
                     <div class="col-sm-4 col-xs-4">
-                        <input type="email" class="form-control" id="qty_in" value="1.0" name="qty_in">
+                        <input type="text" class="form-control" id="qty_in" value="1.0" name="qty_in">
                     </div>
                     <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>
                     <div class="col-sm-1 col-xs-1">
                         <p style="color:blue;">&#9868;</p>
                     </div>
                     <div class="col-sm-4 col-xs-4">
-                        <input type="email" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
+                        <input type="text" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
                     </div>
                     <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
                 </div>
-            </form>
+                @*</form>*@
 
 
-            <form class="form-horizontal margin-top-10 padding-5" id="horizonform">
+                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
                 <h3 id="hrw">รูปภาพวัสดุ</h3>
 
                 <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
                     <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
                     <p id="pdisplay"><br /><br /></p>
                 </div>
+                <br />
                 @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
 
 
@@ -474,16 +480,18 @@
 
                 </script>
 
-            </form>
-            <div class="row">
-                <br /><br /><br />
-                <div class="col-xs-6"></div>
-                <div class="col-xs-5 "> <button class="btn-lg btn-success pull-right margin-top-10" type="submit" style="margin:5px;" onclick="comfirmsave()">บันทึก</button></div>
-                <div class="col-xs-1"></div>
-            </div>
-        </div>
-        <!---------------------->
+                @*</form>*@
 
+            </div>
+            <!---------------------->
+            <div class="row">
+                <div class="col-xs-6"></div>
+                <div class="col-xs-5 "> <button class="btn-lg btn-success pull-right margin-top-10" @*type="submit"*@ style="margin:5px;" onclick="comfirmsave()">บันทึก</button></div>
+                <div class="col-xs-1"></div>
+
+            </div>
+
+        </form>
 
 
 
@@ -624,8 +632,8 @@
 
 
         function comfirmsave() {
-            var va = validate();
-            console.log(va + " output")
+            //var va = validate();
+            //console.log(va + " output")
             //if (va == '1') {
             //    $('#myModal').modal('show')
             //}
@@ -745,6 +753,45 @@
             var $checkoutForm = $('#checkout-form').validate({
                 // Rules for form validation
                 rules: {
+                    item_no: {
+                        required: true
+                    },
+                    item_name: {
+                        required: true
+                    },
+                    group: {
+                        required: true
+                    },
+                    category: {
+                        required: true
+                    },
+                    material_account: {
+                        required: true
+                    },
+                    costing_method_material: {
+                        required: true
+                    },
+                    uom_in: {
+                        required: true
+                    },
+                    uom_stock: {
+                        required: true
+                    },
+                    qty_in: {
+                        required: true
+                    },
+                    qty_stock: {
+                        required: true
+                    },
+
+
+
+
+
+
+
+
+
                     fname: {
                         required: true
                     },
