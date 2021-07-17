@@ -307,6 +307,7 @@ namespace KKN_UI.Controllers
                 grouplist = groupmaterial.ToList(),
                 material_account_list = material_accountdata.ToList(),
                 costing_method_material_list = costing_method_material_data.ToList(),
+                uomlist = uomdata.ToList(),
                 materialdata = materialModeldata.Where(data => data.item_no == id).FirstOrDefault()
         };
 
