@@ -146,7 +146,7 @@ namespace KKN_UI.Controllers
                     category                      = 1,
                     description                   = "ฟหกดเ้่าสว222",
                     status                        = true,
-                    material_account              = 3,
+                    material_account              = 1,
                     costing_method_material       = 2,
                     stock_count                   = false,
                     overdraw_stock                = true,
@@ -169,7 +169,7 @@ namespace KKN_UI.Controllers
                     category                      = 2,
                     description                   = "ฟหกดเ้่าสว33",
                     status                        = false,
-                    material_account              = 1,
+                    material_account              = 2,
                     costing_method_material       = 1,
                     stock_count                   = false,
                     overdraw_stock                = true,
@@ -192,7 +192,7 @@ namespace KKN_UI.Controllers
                     category                      = 1,
                     description                   = "ฟหกดเ้่าสว",
                     status                        = true,
-                    material_account              = 6,
+                    material_account              = 3,
                     costing_method_material       = 1,
                     stock_count                   = true,
                     overdraw_stock                = true,
@@ -215,8 +215,8 @@ namespace KKN_UI.Controllers
                     category                      = 2,
                     description                   = "ฟหกดเ้่าสว111",
                     status                        = false,
-                    material_account              = 6,
-                    costing_method_material       = 1,
+                    material_account              = 5,
+                    costing_method_material       = 2,
                     stock_count                   = false,
                     overdraw_stock                = true,
                     picture_path                  = "Digital-Art-HD-4K-Wallpapers-41715.jpg",
@@ -232,7 +232,7 @@ namespace KKN_UI.Controllers
                     
                  },
                   new materialModel {
-                    item_no                       = "bm006",
+                    item_no                       = "bm007",
                     item_name                     = "บัวปูนปั่น",
                     group_id                      = 3,
                     category                      = 3,
@@ -305,6 +305,8 @@ namespace KKN_UI.Controllers
             {
                 categorylist= categorymaterial.ToList(),
                 grouplist = groupmaterial.ToList(),
+                material_account_list = material_accountdata.ToList(),
+                costing_method_material_list = costing_method_material_data.ToList(),
                 materialdata = materialModeldata.Where(data => data.item_no == id).FirstOrDefault()
         };
 

@@ -31,7 +31,7 @@ namespace KKN_UI.Controllers
             {
                 var vr = conn.GetDemoByDetailId(1);
             }
-            
+
             return View();
         }
         // GET: /account/forgotpassword

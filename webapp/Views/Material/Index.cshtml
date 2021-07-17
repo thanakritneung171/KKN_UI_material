@@ -162,7 +162,7 @@
                                     <td class="stu_no" width="10%"> @item.materialModeldata.item_no   </td>
                                     <td class="stu_group" width="10%" value="@item.groupmaterialdata.group_id">@item.groupmaterialdata.group_name</td>
                                     <td class="stu_category" width="15%" value="@item.categorymaterialdata.category_id">@item.categorymaterialdata.category_name</td>
-                                    <td class="stu_des" width="50%">@item.materialModeldata.item_name @item.materialModeldata.size @item.materialModeldata.brand</td>
+                                    <td class="stu_des" width="50%">@item.materialModeldata.item_name @item.materialModeldata.size @item.materialModeldata.brand @item.materialModeldata.color @item.materialModeldata.version</td>
                                     <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" @*style="color:@(item.status? "Green": "Red")"*@> @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
                                 </tr>
                                 i++;

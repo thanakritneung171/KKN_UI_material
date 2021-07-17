@@ -68,7 +68,7 @@
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ:</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="category" name="category" disabled>
-                            <option disabled selected>@result.materialdata.category</option>
+                            @*<option disabled selected>@result.materialdata.category</option>*@
                             @foreach ( var item in result.categorylist)
                             {
                                 <option value="@item.category_id" @(item.category_id == result.materialdata.category? "selected" : "") >@item.category_name</option>
@@ -80,10 +80,11 @@
                     <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ:</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="material_account" name="material_account" disabled>
-                            <option disabled selected>@result.materialdata.material_account</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
+                            @*<option disabled selected>@result.materialdata.material_account</option>*@
+                            @foreach (var item in result.material_account_list)
+                            {
+                                <option value="@item.material_account_id" @(item.material_account_id == result.materialdata.material_account ? "selected" : "")>@item.material_account_name</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -91,10 +92,11 @@
                     <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ:</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="costing_method_material" name="costing_method_material" disabled>
-                            <option disabled selected>@result.materialdata.costing_method_material</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
+                            @*<option disabled selected>@result.materialdata.costing_method_material</option>*@
+                            @foreach (var item in result.costing_method_material_list)
+                            {
+                                <option value="@item.costing_method_material_id" @(item.costing_method_material_id == result.materialdata.costing_method_material ? "selected" : "")>@item.costing_method_material_name</option>
+                            }
                         </select>
                     </div>
                 </div>
