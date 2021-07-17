@@ -11,8 +11,8 @@ namespace KKN_UI
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new AuthorizeAttribute());
-            filters.Add(new KKN_UI.Filters.InitializeSimpleMembershipAttribute());
+            //filters.Add(new AuthorizeAttribute());
+            //filters.Add(new KKN_UI.Filters.InitializeSimpleMembershipAttribute());
         }
     }
 }
