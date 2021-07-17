@@ -30,37 +30,32 @@
                     <option value="4">Electrical</option>
                     <option value="5">Sanitary</option>
                     <option value="6">Colour/Paint</option>
-                    @*<option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>*@
-                    @*@foreach (var itemselg in result2)
-                        {
-                            <option value="@itemselg.group_id ">@itemselg.group_name</option>
-                        }*@
 
                 </select>
+            </div>
                 <script>
                     function keyupser(keyupser) {
-                        console.log(keyupser.value)
+                        console.log("ค้นหา " + keyupser.value)
                         var table1ser = $('#dt_basic').DataTable();
                         table1ser.search(keyupser.value).draw();
                     }
 
-                    function selgr(a) {
-                        console.log(a.value)
-                        var table1ser = $('#dt_basic').DataTable();
-                        table1ser.column(2).search(a.value).draw();
+                    function selgr(b) {
+                        console.log("ค้นหากลุ่ม" + b.value)
+                        var table2ser = $('#dt_basic').DataTable();
+                        table2ser.column(2).search(b.value).draw();
+                        console.log("ค้นหากลุ่ม" + b.value+"out")
                     }
 
-                    function selcat(a) {
-                        console.log(a.value)
+                    function selcat(c) {
+                        console.log("ค้นหาประเภท" +c.value)
                         var table1ser = $('#dt_basic').DataTable();
-                        table1ser.column(3).search(a.value).draw();
+                        table1ser.column(3).search(c.value).draw();
                     }
 
 
                 </script>
-            </div>
+            
 
             <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
                 <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)">
@@ -97,16 +92,6 @@
     </div>
 </div>
 
-<!--<div class="container">
-
-    <div class="row margin-top-10 margin-bottom-10">
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 "><a-->
-@*href='@Url.Action("Editmaterial", "Material")'*@
-<!--class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
-
-    </div>
-</div>-->
 
 <div class="container margin-top-5">
     <!-- widget grid -->
@@ -173,10 +158,10 @@
 
                                 @*<tr class="trid" id="@item.item_no" onclick="@Url.Action("Editmaterial", "Material", new { id = item.item_no })"> *@
                                 <tr class="trid" id="@item.materialModeldata.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.materialModeldata.item_no })'">
-                                    <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
+                                    <td class="stu_numrec"  width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
                                     <td class="stu_no" width="10%"> @item.materialModeldata.item_no   </td>
-                                    <td class="stu_group" width="10%">@item.groupmaterialdata.group_name</td>
-                                    <td class="stu_category" width="15%">@item.categorymaterialdata.category_name</td>
+                                    <td class="stu_group" width="10%" value="@item.groupmaterialdata.group_id">@item.groupmaterialdata.group_name</td>
+                                    <td class="stu_category" width="15%" value="@item.categorymaterialdata.category_id">@item.categorymaterialdata.category_name</td>
                                     <td class="stu_des" width="50%">@item.materialModeldata.item_name @item.materialModeldata.size @item.materialModeldata.brand</td>
                                     <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" @*style="color:@(item.status? "Green": "Red")"*@> @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
                                 </tr>

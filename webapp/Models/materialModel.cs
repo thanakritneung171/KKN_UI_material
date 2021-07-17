@@ -24,9 +24,9 @@ namespace KKN_UI.Models
         public string version { get; set; }
         public string color { get; set; }
         public string size { get; set; }
-        public string uom_in { get; set; }
+        public int uom_in { get; set; }
         public decimal qty_in { get; set; }
-        public string uom_stock { get; set; }
+        public int uom_stock { get; set; }
         public decimal qty_stock { get; set; }
 
         public groupmaterial groupmaterial { get; set; }
@@ -50,6 +50,9 @@ namespace KKN_UI.Models
     {
         public List<groupmaterial> grouplist { get; set; }
         public List<categorymaterial> categorylist { get; set; }
+        public List<material_account> material_account_list { get; set; }
+        public List<costing_method_material> costing_method_material_list { get; set; }
+        public List<uom> uomlist { get; set; }
         public materialModel materialdata { get; set; }
 
     }
@@ -63,5 +66,23 @@ namespace KKN_UI.Models
     {
         public int id { get; set; }
         public string name { get; set; }
+    }
+
+    public class material_account
+    {
+        public int material_account_id { get; set; }
+        public string material_account_name { get; set; }
+    }
+
+    public class costing_method_material
+    {
+        public int costing_method_material_id { get; set; }
+        public string costing_method_material_name { get; set; }
+    }
+
+    public class uom
+    {
+        public int uom_id { get; set; }
+        public string uom_name { get; set; }
     }
 }
