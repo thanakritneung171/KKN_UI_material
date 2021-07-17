@@ -13,326 +13,459 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    #Msg_ajaxloader {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
+    }
 
 
-<div class="container">
-    <div class="row margin-top-10">
-        <div class="row">
-            <h3>
-                <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">เพิ่มวัสดุอุปกรณ์ใหม่</span>
-                @*<i class="fa fa-chevron-right"></i>
-                    <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
-                    <span>sdfsdfsdfsdfdsssdf </span>*@  &nbsp;&nbsp;
-                <a href="@Url.Action("Index", "Material")">Back</a>
-            </h3>
-        </div>
-    </div>
+    body:not(.menu-on-top).desktop-detected {
+        min-height: 0px !important;
+    }
 
-    <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-    <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    .desktop-detected .inbox-body .table-wrap {
+        min-height: 770px !important;
+    }
 
-    <div class="row margin-top-10">
+    .status .comments li {
+        border-bottom: 1px solid rgba(0,0,0,0);
+        display: block;
+        padding: 15px 0 15px 40px;
+        position: relative;
+    }
 
+    .classli:hover {
+        background: #ddd;
+        cursor: pointer;
+    }
 
+    label:hover {
+        cursor: pointer;
+    }
 
-        <form class="form-horizontal margin-top-10 padding-5" id="checkout-form">
-            <!---------------------->
-            <div class="col-lg-8" id="horizonform">
-                <style>
-                    #horizonform {
-                        border-style: ridge;
-                        border-width: 2px;
-                    }
+    .carousel-indicators li {
+        border-color: #999;
+        background-color: #ccc;
+    }
 
-                    #horizonform2 {
-                        border-style: ridge;
-                        border-width: 2px;
-                    }
+    .carousel-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        z-index: 15;
+        /* width: 60%; */
+        margin-left: -30%;
+        padding-left: 0;
+        list-style: none;
+        text-align: center;
+    }
 
-                    #hrw {
-                        display: block;
-                        border-bottom: 1px dashed
-                    }
-                </style>
-
-                @*<form class="form-horizontal">*@
-                <h3 id="hrw">วัสดุ</h3>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-4">
-                        <select class="form-control" id="group" name="group">
-                            <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
-                            @foreach (var item in result.grouplist)
-                            {
-                                <option value="@item.group_id ">@item.group_name</option>
-                            }
+    .MessageCenter {
+        padding: 12px 10px 8px 10px !important;
+    }
 
 
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-4">
-                        <select class="form-control" id="category" name="category">
-                            <option disabled value="0" selected>เลือกประเภทวัสดุ</option>
-                            @foreach (var item in result.categorylist)
-                            {
-                                <option value="@item.category_id ">@item.category_name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-4">
-                        <select class="form-control" id="material_account" name="material_account">
-                            <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
-                            @foreach (var item in result.material_account_list)
-                            {
-                                <option value="@item.material_account_id ">@item.material_account_name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-4">
-                        <select class="form-control" id="costing_method_material" name="costing_method_material">
-                            <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
-                            @foreach (var item in result.costing_method_material_list)
-                            {
-                                <option value="@item.costing_method_material_id ">@item.costing_method_material_name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <style>
-                    select option[disabled]:first-child {
-                        display: none;
-                    }
-                </style>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label><input type="checkbox" id="stock_count" name="stock_count"> วัสดุนับสต๊อก</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label><input type="checkbox" id="overdraw_stock" name="overdraw_stock"> ให้เบิกเกินสต๊อกได้</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label><input type="checkbox" id="status" name="status"> ใช้งานวัสดุ</label>
-                        </div>
-                    </div>
-                </div>
+    @@media (min-width: 1332px) {
+        .col-lg-3 {
+            width: 33.33%;
+        }
 
+        .col-lg-6 {
+            width: 66.66%;
+        }
+    }
 
-                <h3 id="hrw">รายละเอียดวัสดุเพิ่มเติม</h3>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="brand" placeholder="ระบุ ยี่ห้อ" name="brand">
-                    </div>
+    @@media (min-width: 1500px) {
+        .col-lg-3 {
+            width: 25%;
+        }
 
-                    <label class="control-label col-sm-2" for="version">รุ่น:</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="version" placeholder="ระบุ รุ่น" name="version">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="color">สี:</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="color" placeholder="ระบุ สี่" name="color">
-                    </div>
-                    <label class="control-label col-sm-2" for="size">ขนาด:</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="size" placeholder="ระบุ ขนาด" name="size">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="3" id="description" placeholder="ระบุข้อมูลจำเพาะ"></textarea>
-                    </div>
-                </div>
-                @*</form>*@
+        .col-lg-6 {
+            width: 50%;
+        }
+    }
 
-            </div>
-            <div class="col-lg-4" id="horizonform2">
+    .label {
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
 
-                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                <h3 id="hrw">หน่วยวัสดุ</h3>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="uom_in" name="uom_in" onchange="uom_inchange()">
-                            <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
-                            @foreach (var item in result.uomlist)
-                            {
-                                <option value="@item.uom_id ">@item.uom_name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <script>
-                    /////functionchangeuom
-                    function uom_inchange() {
-                        var uom_inchange = document.getElementById("uom_in");
-                        var uon_in_select = uom_inchange.selectedIndex;
-                        document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
-                        console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
-                        document.getElementById("uom_stock").selectedIndex = uon_in_select;
-                        document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
+    .fix-iconsize {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        padding-top: 10px;
+    }
 
-                    }
-                    function uom_stockchange() {
-                        var uom_stockchange = document.getElementById("uom_stock");
-                        var uon_stock_select = uom_stockchange.selectedIndex;
-                        document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
-                        console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
+    @@media (max-width: 769px) {
+        .fix-iconsize {
+            font-size: 40px;
+            width: 40px;
+            height: 40px;
+            padding-top: 10px;
+        }
 
-                    }
-                </script>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
-                            <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
-                            @foreach (var item in result.uomlist)
-                            {
-                                <option value="@item.uom_id ">@item.uom_name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
+        .home-title {
+            display: none;
+        }
+    }
 
-                <div class="form-group">
-                    <div class="col-sm-4 col-xs-4">
-                        <input type="text" class="form-control" id="qty_in" value="1.0" name="qty_in">
-                    </div>
-                    <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>
-                    <div class="col-sm-1 col-xs-1">
-                        <p style="color:blue;">&#9868;</p>
-                    </div>
-                    <div class="col-sm-4 col-xs-4">
-                        <input type="text" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
-                    </div>
-                    <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
-                </div>
-                @*</form>*@
+    .form-group {
+        margin-top: 10px;
+    }
 
+    .fix-margintop {
+        margin-bottom: 40px;
+    }
 
-                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                <h3 id="hrw">รูปภาพวัสดุ</h3>
+    .form-horizontal .form-group {
+        margin-left: 20px !important;
+        margin-right: 0px !important;
+    }
 
-                <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
-                    <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
-                    <p id="pdisplay"><br /><br /></p>
-                </div>
-                <br />
-                @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
+    .fix-flaticon {
+        font-size: 10px;
+    }
+    .validateclass {
+        border-style: 5px !solid;
+        border-color: red;
+    }
 
+</style>
 
-
-
-                <script>
-                    function importData() {
-                        let input = document.createElement('input');
-                        input.type = 'file';
-                        input.name = 'file';
-                        input.id = 'file';
-
-                        input.onchange = evt => {
-                            const [file] = input.files
-                            if (file) {
-                                blah.src = URL.createObjectURL(file)
-                                blah.alt = (file.name)
-                            }
-                            let files = Array.from(input.files);
-                            console.log(files);
-                            console.log(input.files);
-
-                            console.log(file.name);
-                            console.log(file.size);
-                            console.log(file.type);
-
-
-                            const reader = new FileReader();
-                            reader.addEventListener("load", () => {
-                                console.log("111111111");
-                                console.log(reader.result);
-                                localStorage.setItem("recent-image", reader.result);
-                            });
-
-                            //console.log("open");
-                            //reader.readAsDataURL(this.file);
-                            //console.log("off");
-
-
-
-                            document.getElementById("blah").style.display = "block";
-                            document.getElementById("pdisplay").style.display = "none";
-                            var elementqqqq = document.getElementById('qqqq');
-                            elementqqqq.style.removeProperty("border-style");
-                            elementqqqq.style.removeProperty("border-width");
-                            elementqqqq.style.removeProperty("margin-bottom");
-
-                            //var returnfilename = file.name
-                            //return returnfilename
-                        };
-
-                        input.click();
-
-
-                    }
-
-                </script>
-
-                @*</form>*@
-
-            </div>
-            <!---------------------->
+<div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
+  @*  <div class="container">*@
+        <div class="row margin-top-10">
             <div class="row">
-                <div class="col-xs-6"></div>
-                <div class="col-xs-5 "> <button class="btn-lg btn-success pull-right margin-top-10" @*type="submit"*@ style="margin:5px;" onclick="comfirmsave()">บันทึก</button></div>
-                <div class="col-xs-1"></div>
-
+                <h3>
+                    <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">เพิ่มวัสดุอุปกรณ์ใหม่</span>
+                    @*<i class="fa fa-chevron-right"></i>
+                        <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
+                        <span>sdfsdfsdfsdfdsssdf </span>*@  &nbsp;&nbsp;
+                    <a href="@Url.Action("Index", "Material")">Back</a>
+                </h3>
             </div>
+        </div>
 
-        </form>
+        <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
-
-
-
-    </div>
-
-    <div class="row margin-top-10 margin-bottom-10 ">
-
-        @*<button class="btn-lg btn-success pull-right" type="submit" style="margin:5px;" onclick="comfirmsave()">บันทึก</button>*@
+        <div class="row margin-top-10">
 
 
-        <script>
+
+            <form class="form-horizontal margin-top-10 padding-5" id="checkout-form">
+                <!---------------------->
+                <div class="col-lg-8" id="horizonform">
+                    <style>
+                        #horizonform {
+                            border-style: ridge;
+                            border-width: 2px;
+                        }
+
+                        #horizonform2 {
+                            border-style: ridge;
+                            border-width: 2px;
+                        }
+
+                        #hrw {
+                            display: block;
+                            border-bottom: 1px dashed
+                        }
+                    </style>
+
+                    @*<form class="form-horizontal">*@
+                    <h3 id="hrw">วัสดุ</h3>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-4">
+                                <input type="text" class="form-control " id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="group" name="group">
+                                <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+                                @foreach (var item in result.grouplist)
+                                {
+                                    <option value="@item.group_id ">@item.group_name</option>
+                                }
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="category" name="category">
+                                <option disabled value="0" selected>เลือกประเภทวัสดุ</option>
+                                @foreach (var item in result.categorylist)
+                                {
+                                    <option value="@item.category_id ">@item.category_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="material_account" name="material_account">
+                                <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
+                                @foreach (var item in result.material_account_list)
+                                {
+                                    <option value="@item.material_account_id ">@item.material_account_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="costing_method_material" name="costing_method_material">
+                                <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
+                                @foreach (var item in result.costing_method_material_list)
+                                {
+                                    <option value="@item.costing_method_material_id ">@item.costing_method_material_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <style>
+                        select option[disabled]:first-child {
+                            display: none;
+                        }
+                    </style>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="stock_count" name="stock_count"> วัสดุนับสต๊อก</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="overdraw_stock" name="overdraw_stock"> ให้เบิกเกินสต๊อกได้</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="status" name="status"> ใช้งานวัสดุ</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h3 id="hrw">รายละเอียดวัสดุเพิ่มเติม</h3>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="brand" placeholder="ระบุ ยี่ห้อ" name="brand">
+                        </div>
+
+                        <label class="control-label col-sm-2" for="version">รุ่น:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="version" placeholder="ระบุ รุ่น" name="version">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="color">สี:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="color" placeholder="ระบุ สี่" name="color">
+                        </div>
+                        <label class="control-label col-sm-2" for="size">ขนาด:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="size" placeholder="ระบุ ขนาด" name="size">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" id="description" placeholder="ระบุข้อมูลจำเพาะ"></textarea>
+                        </div>
+                    </div>
+                    @*</form>*@
+
+                </div>
+                <div class="col-lg-4" id="horizonform2">
+
+                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+                    <h3 id="hrw">หน่วยวัสดุ</h3>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="uom_in" name="uom_in" onchange="uom_inchange()">
+                                <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
+                                @foreach (var item in result.uomlist)
+                                {
+                                    <option value="@item.uom_id ">@item.uom_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <script>
+                        /////functionchangeuom
+                        function uom_inchange() {
+                            var uom_inchange = document.getElementById("uom_in");
+                            var uon_in_select = uom_inchange.selectedIndex;
+                            document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
+                            console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
+                            document.getElementById("uom_stock").selectedIndex = uon_in_select;
+                            document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
+
+                        }
+                        function uom_stockchange() {
+                            var uom_stockchange = document.getElementById("uom_stock");
+                            var uon_stock_select = uom_stockchange.selectedIndex;
+                            document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
+                            console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
+
+                        }
+                    </script>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
+                                <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
+                                @foreach (var item in result.uomlist)
+                                {
+                                    <option value="@item.uom_id ">@item.uom_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-4">
+                            <input type="text" class="form-control" id="qty_in" value="1.0" name="qty_in">
+                        </div>
+                        <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>
+                        <div class="col-sm-1 col-xs-1">
+                            <p style="color:blue;">&#9868;</p>
+                        </div>
+                        <div class="col-sm-4 col-xs-4">
+                            <input type="text" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
+                        </div>
+                        <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
+                    </div>
+                    @*</form>*@
+
+
+                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+                    <h3 id="hrw">รูปภาพวัสดุ</h3>
+
+                    <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
+                        <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
+                        <p id="pdisplay"><br /><br /></p>
+                    </div>
+                    <br />
+                    @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
+
+
+
+
+                    <script>
+                        function importData() {
+                            let input = document.createElement('input');
+                            input.type = 'file';
+                            input.name = 'file';
+                            input.id = 'file';
+
+                            input.onchange = evt => {
+                                const [file] = input.files
+                                if (file) {
+                                    blah.src = URL.createObjectURL(file)
+                                    blah.alt = (file.name)
+                                }
+                                let files = Array.from(input.files);
+                                console.log(files);
+                                console.log(input.files);
+
+                                console.log(file.name);
+                                console.log(file.size);
+                                console.log(file.type);
+
+
+                                const reader = new FileReader();
+                                reader.addEventListener("load", () => {
+                                    console.log("111111111");
+                                    console.log(reader.result);
+                                    localStorage.setItem("recent-image", reader.result);
+                                });
+
+                                //console.log("open");
+                                //reader.readAsDataURL(this.file);
+                                //console.log("off");
+
+
+
+                                document.getElementById("blah").style.display = "block";
+                                document.getElementById("pdisplay").style.display = "none";
+                                var elementqqqq = document.getElementById('qqqq');
+                                elementqqqq.style.removeProperty("border-style");
+                                elementqqqq.style.removeProperty("border-width");
+                                elementqqqq.style.removeProperty("margin-bottom");
+
+                                //var returnfilename = file.name
+                                //return returnfilename
+                            };
+
+                            input.click();
+
+
+                        }
+
+                    </script>
+
+                    @*</form>*@
+
+                </div>
+                <!---------------------->
+                <div class="row">
+                    <div class="col-xs-6"></div>
+                    <div class="col-xs-5 "> <button class="btn-lg btn-success pull-right margin-top-10" @*type="submit"*@ style="margin:5px;" onclick="comfirmsave()">บันทึก</button></div>
+                    <div class="col-xs-1"></div>
+
+                </div>
+
+            </form>
+
+
+
+
+        </div>
+
+        <div class="row margin-top-10 margin-bottom-10 ">
+
+            @*<button class="btn-lg btn-success pull-right" type="submit" style="margin:5px;" onclick="comfirmsave()">บันทึก</button>*@
+
+
+            <script>
 
 
             function validate() {
@@ -543,33 +676,34 @@
         })
             };
 
-        </script>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+            </script>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>คุณต้องการบันทึกข้อมูลใช่หรือไม่</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-lg btn-success margin-right-15 checkout-form" data-dismiss="modal" onclick="aabc()">ใช่</button>
-                        <button type="button" class="btn-lg btn-danger" data-dismiss="modal">ไม่</button>
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>คุณต้องการบันทึกข้อมูลใช่หรือไม่</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-lg btn-success margin-right-15 checkout-form" data-dismiss="modal" onclick="aabc()">ใช่</button>
+                            <button type="button" class="btn-lg btn-danger" data-dismiss="modal">ไม่</button>
 
+                        </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
 
 
-    </div> <br /><br />
+        </div> <br /><br />
 
+    @*</div>*@
 </div>
 
 @section pagespecific {
@@ -578,12 +712,17 @@
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
         $(document).ready(function () {
-
+            
             var $checkoutForm = $('#checkout-form').validate({
+                //validClass: 'validateclass',
+               
                 // Rules for form validation
                 rules: {
                     item_no: {
                         required: true
+                        //,highlight: function (element, errorClass, validClass) {
+                        //    $('#item_no').addClass('validateclass');
+                        //}
                     },
                     item_name: {
                         required: true
@@ -603,9 +742,9 @@
                     uom_in: {
                         required: true
                     },
-                    uom_stock: {
-                        required: true
-                    },
+                    //uom_stock: {
+                    //    required: true
+                    //},
                     qty_in: {
                         required: true
                     },
@@ -613,7 +752,6 @@
                         required: true
                     }
                 },
-
                 // Messages for form validation
                 messages: {
                     item_no: {
@@ -635,11 +773,11 @@
                         required: '<span style="color:red;">โปรดใส่วิธีคิดต้นทุนวัสดุ</span>'
                     },
                     uom_in: {
-                        required: '<span style="color:red;">โปรดใส่หน่วยซื้อ</span>'
+                        required: '<br /><br /><span style="color:red;">โปรดใส่หน่วยซื้อ</span>'
                     },
-                    uom_stock: {
-                        required: '<span style="color:red;">โปรดใส่หน่วยเก็บ</span>'
-                    },
+                    //uom_stock: {
+                    //    required: '<br /><br /><span style="color:red;">โปรดใส่หน่วยเก็บ</span>'
+                    //},
                     qty_in: {
                         required: '<span style="color:red;">โปรดใส่จำนวนซื้อ</span>'
                     },
@@ -649,10 +787,10 @@
 
 
                 },
-               
                 // Do not change code below
                 errorPlacement: function (error, element) {
                     error.insertAfter(element.parent());
+                    //error.removeClass('validateclass');
                 }
                
             });
@@ -661,11 +799,7 @@
 
         })
 
-
+        
     </script>
 }
-
-
-
-
 
