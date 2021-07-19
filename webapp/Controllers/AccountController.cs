@@ -18,7 +18,11 @@ using System.Web;
 
 namespace KKN_UI.Controllers
 {
+    /// <summary>
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// </summary>
     //[Authorize]
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     [KKN_UI.Filters.InitializeSimpleMembership]
     public class AccountController : Controller
     {
@@ -119,9 +123,11 @@ namespace KKN_UI.Controllers
             if (!ModelState.IsValid)
                 return View(viewModel);
             await Task.Delay(500);
+            /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //if (WebSecurity.Login(viewModel.Username, viewModel.Password, persistCookie: viewModel.RememberMe))
             //{
-                string encode = Base64Encode(viewModel.Password);
+            /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            string encode = Base64Encode(viewModel.Password);
 
                 Session["SessionUsername"] = viewModel.Username;
                 Session["SessionPassword"] = encode;
@@ -140,8 +146,9 @@ namespace KKN_UI.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //}
-
+            /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // No existing user was found that matched the given criteria
             ModelState.AddModelError("", "Invalid username or password.");
             
