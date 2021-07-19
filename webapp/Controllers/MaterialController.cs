@@ -47,28 +47,34 @@ namespace KKN_UI.Controllers
             {
                  new categorymaterial {
                     category_id                       = 1,
-                    category_name                     = "1111Concrete"
+                    group_id                       = 1,
+                    category_name                     = "ปูนมิกซ์"
 
                  },
                 new categorymaterial {
                     category_id                       = 2,
-                    category_name                     = "22Steel"
+                    group_id                       = 1,
+                    category_name                     = "ปูนถง"
                  },
                 new categorymaterial {
                     category_id                       = 3,
-                    category_name                     = "33Wood"
+                    group_id                       = 1,
+                    category_name                     = "เคมีภัณฑ์"
                  },
                 new categorymaterial {
                     category_id                       = 4,
-                    category_name                     = "444Electrical"
+                    group_id                       = 2,
+                    category_name                     = "เหล็กเส้น"
                  },
                 new categorymaterial {
                     category_id                       = 5,
-                    category_name                     = "55Sanitary"
+                    group_id                       = 2,
+                    category_name                     = "เหล็กรูปพรรณ"
                  },
                 new categorymaterial {
                        category_id                       = 6,
-                       category_name                     = "666Colour/Paint"
+                       group_id                       = 3,
+                       category_name                     = "ไม้ห้องซาวน่า"
                  }
             };
 
@@ -135,8 +141,6 @@ namespace KKN_UI.Controllers
                  }
             };
 
-
-
         static IList<materialModel> materialModeldata = new List<materialModel>
             {
                 new materialModel {
@@ -189,7 +193,7 @@ namespace KKN_UI.Controllers
                     item_no                       = "bm005",
                     item_name                     = "บัวปูนปั่น",
                     group_id                      = 2,
-                    category                      = 1,
+                    category                      = 4,
                     description                   = "ฟหกดเ้่าสว",
                     status                        = true,
                     material_account              = 3,
@@ -212,7 +216,7 @@ namespace KKN_UI.Controllers
                     item_no                       = "bm006",
                     item_name                     = "บัวปูนปั่น",
                     group_id                      = 2,
-                    category                      = 2,
+                    category                      = 5,
                     description                   = "ฟหกดเ้่าสว111",
                     status                        = false,
                     material_account              = 5,
@@ -235,7 +239,7 @@ namespace KKN_UI.Controllers
                     item_no                       = "bm007",
                     item_name                     = "บัวปูนปั่น",
                     group_id                      = 3,
-                    category                      = 3,
+                    category                      = 6,
                     description                   = "ฟหกดเ้่าสว55",
                     status                        = true,
                     material_account              = 6,
@@ -265,25 +269,19 @@ namespace KKN_UI.Controllers
             List<categorymaterial> categorymaterialdata = categorymaterial.ToList();
 
 
-
             var employeeData = from m in materialModeldatauser
-                               join g in groupmaterialdata on m.group_id equals g.group_id into table1
-                               from g in table1.ToList()
-                               join c in categorymaterialdata on m.category equals c.category_id into table2
-                               from c in table2.ToList()
-                               select new mateview
-                               {
-                                   materialModeldata = m,
-                                   groupmaterialdata = g,
-                                   categorymaterialdata = c
+                            join g in groupmaterialdata on m.group_id equals g.group_id into table1
+                            from g in table1.ToList()
+                            join c in categorymaterialdata on m.category equals c.category_id into table2
+                            from c in table2.ToList()
+                            select new mateview
+                            {
+                                materialModeldata = m,
+                                groupmaterialdata = g,
+                                categorymaterialdata = c
 
-                               };
+                            };
 
-
-
-            //var materiallist = materialModeldata.ToList();
-
-            //return View(materiallist);
             return View(employeeData);
         }
 
@@ -343,7 +341,7 @@ namespace KKN_UI.Controllers
             {
                 item_no                        =  materialdata.item_no,      
                 item_name                      =  materialdata.item_name,
-                group_id =  materialdata.group_id,                  
+                group_id                        =  materialdata.group_id,                  
                 category                       =  materialdata.category,               
                 material_account               =  materialdata.material_account,       
                 costing_method_material        =  materialdata.costing_method_material,

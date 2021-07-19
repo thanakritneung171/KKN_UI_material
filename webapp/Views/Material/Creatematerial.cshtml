@@ -140,16 +140,47 @@
     .fix-flaticon {
         font-size: 10px;
     }
-    .validateclass {
-        border-style: 5px !solid;
+
+        /*.validateclass {*/
+        /*border-style: 5px !solid;*/
+        /*border-color: red;
+        border: 1px solid;
+        border-radius: 5px;
+    }*/
+
+ /*   input.invalid {
         border-color: red;
+        border: 1px solid;
+        border-radius: 5px;
     }
+*/
+    input[type=text].invalid {
+        /*box-sizing: border-box;*/
+        border: 2px solid red;
+        border-radius: 4px;
+    }
+
+    select.invalid {
+        border: 2px solid red;
+        border-radius: 4px;
+    }
+
+    input[type=text].valid {
+        /*box-sizing: border-box;*/
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
+    select.valid {
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
+
 
 </style>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
   @*  <div class="container">*@
-        <div class="row margin-top-10">
+        <div class="row margin-top-10 margin-left-10">
             <div class="row">
                 <h3>
                     <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">เพิ่มวัสดุอุปกรณ์ใหม่</span>
@@ -161,12 +192,7 @@
             </div>
         </div>
 
-        <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-        <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-
         <div class="row margin-top-10">
-
-
 
             <form class="form-horizontal margin-top-10 padding-5" id="checkout-form">
                 <!---------------------->
@@ -190,11 +216,11 @@
 
                     @*<form class="form-horizontal">*@
                     <h3 id="hrw">วัสดุ</h3>
-
+                    <input type="text" class="form-control hidden" id="id" name="id" maxlength="5">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
                         <div class="col-sm-4">
-                                <input type="text" class="form-control " id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
+                            <input type="text" class="form-control " id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
                         </div>
                     </div>
                     <div class="form-group">
@@ -448,7 +474,7 @@
                 <!---------------------->
                 <div class="row">
                     <div class="col-xs-6"></div>
-                    <div class="col-xs-5 "> <button class="btn-lg btn-success pull-right margin-top-10" @*type="submit"*@ style="margin:5px;" onclick="comfirmsave()">บันทึก</button></div>
+                    <div class="col-xs-5 "> @*<button class="btn-lg btn-success pull-right margin-top-10" style="margin:5px;" onclick="comfirmsave()">บันทึก</button>*@</div>
                     <div class="col-xs-1"></div>
 
                 </div>
@@ -462,7 +488,7 @@
 
         <div class="row margin-top-10 margin-bottom-10 ">
 
-            @*<button class="btn-lg btn-success pull-right" type="submit" style="margin:5px;" onclick="comfirmsave()">บันทึก</button>*@
+            <button class="btn-lg btn-success pull-right" style="margin:5px;" onclick="comfirmsave()">บันทึก</button>
 
 
             <script>
@@ -595,10 +621,18 @@
 
         function comfirmsave() {
             //var va = validate();
-            //console.log(va + " output")
+           
+            //validatedata()
+            //var va =  validatedata()
+            //alert(va)
+
+
+            //var va = validatedata()
             //if (va == '1') {
-            //    $('#myModal').modal('show')
+                $('#myModal').modal('show')
             //}
+
+
 
             //var testttttt = document.getElementById("stock_count").checked
             //var testttttt1 = document.getElementById("overdraw_stock").checked
@@ -621,7 +655,7 @@
         var material = new Object();
         material.item_no                    = document.getElementById("item_no").value;
         material.item_name                  = document.getElementById("item_name").value;
-        material.group                      = document.getElementById("group").value;
+        material.group_id                      = document.getElementById("group").value;
         material.category                   = document.getElementById("category").value;
         material.material_account           = document.getElementById("material_account").value;
         material.costing_method_material    = document.getElementById("costing_method_material").value;
@@ -648,6 +682,7 @@
 
 
         console.log(material);
+        alert(material);
         console.log(material.picture_path+"22222222");
 
         //////////////////////////////////
@@ -665,7 +700,7 @@
             success: function (response) {
                 console.log("insert complete");
                 alert(response.item_no + "suc" + response.picture_path)
-                window.location.href = "/material";
+                window.location.href = "/material/Creatematerial";
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -711,11 +746,18 @@
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
-        $(document).ready(function () {
-            
-            var $checkoutForm = $('#checkout-form').validate({
+
+        //$(document).ready(validatedata());
+
+
+        function validatedata() {
+            //function validatedata() {
+            console.log("val function")
+
+            var checkoutForm = $('#checkout-form').validate({
+                //var $checkoutForm = $('#checkout-form').validate({
                 //validClass: 'validateclass',
-               
+
                 // Rules for form validation
                 rules: {
                     item_no: {
@@ -735,7 +777,7 @@
                     },
                     material_account: {
                         required: true
-                    }, 
+                    },
                     costing_method_material: {
                         required: true
                     },
@@ -789,15 +831,22 @@
                 },
                 // Do not change code below
                 errorPlacement: function (error, element) {
+
                     error.insertAfter(element.parent());
                     //error.removeClass('validateclass');
-                }
-               
-            });
-           
-         
 
-        })
+                }
+                //,
+                //success: function (output) {
+                //    var output = 1;
+                //    alert(output)
+                //    console.log(output+"out")
+                //    return output;
+                //}
+                
+            })
+
+        }
 
         
     </script>

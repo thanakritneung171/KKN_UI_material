@@ -45,6 +45,7 @@ namespace KKN_UI.Models
     {
         public int category_id { get; set; }
         public string category_name { get; set; }
+        public int group_id { get; set; }
     }
     public class materialmodalview
     {
@@ -54,6 +55,9 @@ namespace KKN_UI.Models
         public List<costing_method_material> costing_method_material_list { get; set; }
         public List<uom> uomlist { get; set; }
         public materialModel materialdata { get; set; }
+        /// <summary>
+        public IEnumerable<mateview> materialModel { get; internal set; }
+        /// </summary>
 
     }
     public class materialindex
