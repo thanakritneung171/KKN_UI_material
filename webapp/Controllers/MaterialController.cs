@@ -323,7 +323,8 @@ namespace KKN_UI.Controllers
             //List<materialModel> materialModel = new data.data().Materials().ToList();
             //materialModel material = new data.data().Materials().Where(data => data.item_no == item_no).FirstOrDefault();
             var student = materialModeldata.Where(s => s.item_no == material.item_no).FirstOrDefault();
-
+       
+            //student.size = material.size;
             materialModeldata.Remove(student);
             materialModeldata.Add(material);
 
@@ -337,6 +338,14 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Createtodata(materialModel materialdata)
         {
+            var i = materialModeldata.Where(s => s.item_no == materialdata.item_no).FirstOrDefault();
+            string output;
+            if (i != null)
+            {
+                 output = "0";
+                return Json(new {  output=output }, JsonRequestBehavior.AllowGet);
+            }
+
             materialModel materialListpush = new materialModel
             {
                 item_no                        =  materialdata.item_no,      
@@ -365,7 +374,7 @@ namespace KKN_UI.Controllers
           //  UploadFiles(materialListpush.picture_file);
             materialModeldata.Add(materialListpush);
             
-            string output = "1";
+             output = "1";
 
 
             return Json(materialListpush, output, JsonRequestBehavior.AllowGet);

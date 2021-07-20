@@ -56,7 +56,7 @@ namespace KKN_UI.Models
         public List<uom> uomlist { get; set; }
         public materialModel materialdata { get; set; }
         /// <summary>
-        public IEnumerable<mateview> materialModel { get; internal set; }
+        //public IEnumerable<mateview> materialModel { get; internal set; }
         /// </summary>
 
     }

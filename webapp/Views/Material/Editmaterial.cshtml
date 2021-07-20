@@ -310,7 +310,7 @@
 
                     <label class="control-label col-sm-2" for="version">รุ่น:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.materialdata.version name="version" disabled>
+                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.materialdata.version" name="version" disabled>
                     </div>
                 </div>
                 <div class="form-group">
@@ -383,22 +383,26 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-4 col-xs-4">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <input type="email" class="form-control" id="qty_in" value="@result.materialdata.qty_in" name="qty_in" disabled>
                     </div>
-                    <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in"> @(result.materialdata.uom_in ) </label>
-                    <div class="col-sm-1 col-xs-1">
-                        <p style="color:blue;">&#9868;</p>
+                    <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">@foreach (var item in result.uomlist)
+                    {@(item.uom_id == result.materialdata.uom_in ?item.uom_name: "")}</label>
+                    @*@(result.materialdata.uom_in )*@
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-center">
+                        <p style="color:blue; margin-top:7px;">&#9868;</p>
                     </div>
-                    <div class="col-sm-4 col-xs-4">
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <input type="email" class="form-control" id="qty_stock" value="@result.materialdata.qty_stock" name="qty_stock" disabled>
                     </div>
-
-
                     @*@(result.uomlist.uom_id == result.materialdata.uom_stock ? true : false)*@
 
-                    <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">@(result.materialdata.uom_stock ) </label>
+                    <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">@foreach (var item in result.uomlist)
+                    {@(item.uom_id == result.materialdata.uom_stock ?item.uom_name: "")}</label>
                 </div>
+
+
                 @*</form>*@
 
 
@@ -471,7 +475,8 @@
         <button id="btsave" class="btn btn-success pull-right" style="margin: 5px; display: none;" onclick="comfirmsave()">Save</button>
         <button id="btedit" class="btn btn-warning pull-right" style="margin:5px;" onclick="openedit()">Edit</button>
 
-        <script>
+    </div> <br /><br />
+    <script>
             function openedit() {
                 document.getElementById("btedit").style.display = "none";
                 document.getElementById("btcancel").style.display = "block";
@@ -577,8 +582,8 @@
                     //response from respective action method
                     success: function (response) {
                         console.log("edit complete");
-                    //    alert(response + "suc");
-                        window.location.href = "/material";
+                        //    alert(response + "suc");
+                        window.location.href = "/material/editmaterial" /*+"id="+*/+"/"+ material.item_no;
                     },
                     failure: function (response) {
                         alert(response.responseText);
@@ -590,9 +595,7 @@
 
 
             };
-        </script>
-
-    </div> <br /><br />
+    </script>
 
     @*</div>*@
 </div>
