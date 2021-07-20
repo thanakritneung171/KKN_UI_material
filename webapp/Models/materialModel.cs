@@ -11,7 +11,7 @@ namespace KKN_UI.Models
         public string item_no { get; set; }
         public string item_name { get; set; }
         public int group_id { get; set; }
-        public int category { get; set; }
+        public int category_id { get; set; }
         public string description { get; set; }
         public Boolean status { get; set; }
         public int material_account { get; set; }
