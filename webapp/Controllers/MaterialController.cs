@@ -8,12 +8,27 @@ using KKN_UI.Models;
 using System.Data;
 using KKN_UI.data;
 using System.IO;
-
+using System.Data.SqlClient;
 
 namespace KKN_UI.Controllers
 {
     public class MaterialController : Controller
     {
+
+        private SqlConnection conn;
+        private SqlTransaction tran;
+
+        protected SqlConnection OpenDbConnection()
+        {
+            string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
+            conn = new SqlConnection(connString);
+            conn.Open();
+            return conn;
+        }
+
+
+
+
         static IList<groupmaterial> groupmaterial = new List<groupmaterial>
             {
                  new groupmaterial {
@@ -257,6 +272,351 @@ namespace KKN_UI.Controllers
                     qty_stock                     = 100,
                     //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
                     
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
+                 },
+                  new materialModel {
+                    item_no                       = "bm007",
+                    item_name                     = "บัวปูนปั่น",
+                    group_id                      = 3,
+                    category                      = 6,
+                    description                   = "ฟหกดเ้่าสว55",
+                    status                        = true,
+                    material_account              = 6,
+                    costing_method_material       = 1,
+                    stock_count                   = false,
+                    overdraw_stock                = false,
+                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
+                    brand                         = "กุซซี่6",
+                    version                       = "เวอร์ชั่นปรับปรุง1",
+                    color                         = "ม่วง",
+                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
+                    uom_in                        = 3,
+                    qty_in                        = 100,
+                    uom_stock                     = 3,
+                    qty_stock                     = 100,
+                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
+                    
                  }
             };
 
@@ -281,6 +641,41 @@ namespace KKN_UI.Controllers
                                 categorymaterialdata = c
 
                             };
+
+
+
+
+
+            using (var conn = OpenDbConnection())
+            {
+                var query = "select * from item_master";
+
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    // Open your connection
+
+                    // Add your parameters
+                    cmd.CommandType = System.Data.CommandType.Text;
+
+
+                    var result = new materialModel();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result=mapView(rdr);
+                        }
+                    }
+
+
+                }
+            }
+
+
+
+
+            
 
             return View(employeeData);
         }
@@ -407,6 +802,16 @@ namespace KKN_UI.Controllers
                 }
             }
             return View("Index");
+        }
+
+
+        public materialModel mapView(SqlDataReader rdr)
+        {
+            var model = new materialModel();
+
+            model.item_no = rdr.GetString(0);
+
+            return model;
         }
 
 

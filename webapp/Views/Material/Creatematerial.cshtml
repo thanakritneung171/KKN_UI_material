@@ -23,7 +23,15 @@
         width: 100%;
         background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
     }
-
+    #content_ajaxloader {
+        position: fixed;
+        z-index: 1 !important;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
+    }
 
     body:not(.menu-on-top).desktop-detected {
         min-height: 0px !important;
@@ -338,149 +346,156 @@
                 @*</form>*@
 
             </div>
-            <div class="col-lg-4" id="horizonform2">
+            <div class="col-lg-4" >
+                <div id="horizonform2">
+                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+                    <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="uom_in" name="uom_in" onchange="uom_inchange()">
+                                <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
+                                @foreach (var item in result.uomlist)
+                                {
+                                    <option value="@item.uom_id ">@item.uom_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <script>
+                        /////functionchangeuom
+                        function uom_inchange() {
+                            var uom_inchange = document.getElementById("uom_in");
+                            var uon_in_select = uom_inchange.selectedIndex;
+                            document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
+                            console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
+                            document.getElementById("uom_stock").selectedIndex = uon_in_select;
+                            document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
 
-                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                <h3 id="hrw">หน่วยวัสดุ</h3>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="uom_in" name="uom_in" onchange="uom_inchange()">
-                            <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
-                            @foreach (var item in result.uomlist)
-                            {
-                                <option value="@item.uom_id ">@item.uom_name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <script>
-                    /////functionchangeuom
-                    function uom_inchange() {
-                        var uom_inchange = document.getElementById("uom_in");
-                        var uon_in_select = uom_inchange.selectedIndex;
-                        document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
-                        console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
-                        document.getElementById("uom_stock").selectedIndex = uon_in_select;
-                        document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
+                        }
+                        function uom_stockchange() {
+                            var uom_stockchange = document.getElementById("uom_stock");
+                            var uon_stock_select = uom_stockchange.selectedIndex;
+                            document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
+                            console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
 
-                    }
-                    function uom_stockchange() {
-                        var uom_stockchange = document.getElementById("uom_stock");
-                        var uon_stock_select = uom_stockchange.selectedIndex;
-                        document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
-                        console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
+                        }
+                    </script>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
+                                <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
+                                @foreach (var item in result.uomlist)
+                                {
+                                    <option value="@item.uom_id ">@item.uom_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
 
-                    }
-                </script>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
-                            <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
-                            @foreach (var item in result.uomlist)
-                            {
-                                <option value="@item.uom_id ">@item.uom_name</option>
-                            }
-                        </select>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-4">
+                            <input type="text" class="form-control" id="qty_in" value="1.0" name="qty_in">
+                        </div>
+                        @*<label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>*@
+                        <label class="control-label col-sm-1 col-xs-1" style="text-align:left" id="qty_inshow" for="qty_in">หน่วย</label>
+                        <div class="col-sm-1 col-xs-1">
+                            <p style="color: blue; margin-top: 7px; margin-left:5px">&#9868;</p>
+                        </div>
+                        <div class="col-sm-4 col-xs-4">
+                            <input type="text" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
+                        </div>
+                        <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
                     </div>
-                </div>
+                    @*</form>*@
 
-                <div class="form-group">
-                    <div class="col-sm-4 col-xs-4">
-                        <input type="text" class="form-control" id="qty_in" value="1.0" name="qty_in">
+
+                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+                    <h3 class="margin-left-10" id="hrw">รูปภาพวัสดุ</h3>
+
+                    <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
+                        <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
+                        <p id="pdisplay"><br /><br /></p>
                     </div>
-                    @*<label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>*@
-                    <label class="control-label col-sm-1 col-xs-1" style="text-align:left" id="qty_inshow" for="qty_in">หน่วย</label>
-                    <div class="col-sm-1 col-xs-1">
-                        <p style="color: blue; margin-top: 7px; margin-left:5px">&#9868;</p>
-                    </div>
-                    <div class="col-sm-4 col-xs-4">
-                        <input type="text" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
-                    </div>
-                    <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
+                    <br />
+                    @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
+
+
+
+
+                    <script>
+                        function importData() {
+                            let input = document.createElement('input');
+                            input.type = 'file';
+                            input.name = 'file';
+                            input.id = 'file';
+
+                            input.onchange = evt => {
+                                const [file] = input.files
+                                if (file) {
+                                    blah.src = URL.createObjectURL(file)
+                                    blah.alt = (file.name)
+                                }
+                                let files = Array.from(input.files);
+                                console.log(files);
+                                console.log(input.files);
+
+                                console.log(file.name);
+                                console.log(file.size);
+                                console.log(file.type);
+
+
+                                const reader = new FileReader();
+                                reader.addEventListener("load", () => {
+                                    console.log("111111111");
+                                    console.log(reader.result);
+                                    localStorage.setItem("recent-image", reader.result);
+                                });
+
+                                //console.log("open");
+                                //reader.readAsDataURL(this.file);
+                                //console.log("off");
+
+
+
+                                document.getElementById("blah").style.display = "block";
+                                document.getElementById("pdisplay").style.display = "none";
+                                var elementqqqq = document.getElementById('qqqq');
+                                elementqqqq.style.removeProperty("border-style");
+                                elementqqqq.style.removeProperty("border-width");
+                                elementqqqq.style.removeProperty("margin-bottom");
+
+                                //var returnfilename = file.name
+                                //return returnfilename
+                            };
+
+                            input.click();
+
+
+                        }
+
+                    </script>
+
+
                 </div>
                 @*</form>*@
 
 
-                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                <h3 id="hrw">รูปภาพวัสดุ</h3>
-
-                <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
-                    <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
-                    <p id="pdisplay"><br /><br /></p>
-                </div>
-                <br />
-                @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
 
 
 
-
-                <script>
-                    function importData() {
-                        let input = document.createElement('input');
-                        input.type = 'file';
-                        input.name = 'file';
-                        input.id = 'file';
-
-                        input.onchange = evt => {
-                            const [file] = input.files
-                            if (file) {
-                                blah.src = URL.createObjectURL(file)
-                                blah.alt = (file.name)
-                            }
-                            let files = Array.from(input.files);
-                            console.log(files);
-                            console.log(input.files);
-
-                            console.log(file.name);
-                            console.log(file.size);
-                            console.log(file.type);
-
-
-                            const reader = new FileReader();
-                            reader.addEventListener("load", () => {
-                                console.log("111111111");
-                                console.log(reader.result);
-                                localStorage.setItem("recent-image", reader.result);
-                            });
-
-                            //console.log("open");
-                            //reader.readAsDataURL(this.file);
-                            //console.log("off");
-
-
-
-                            document.getElementById("blah").style.display = "block";
-                            document.getElementById("pdisplay").style.display = "none";
-                            var elementqqqq = document.getElementById('qqqq');
-                            elementqqqq.style.removeProperty("border-style");
-                            elementqqqq.style.removeProperty("border-width");
-                            elementqqqq.style.removeProperty("margin-bottom");
-
-                            //var returnfilename = file.name
-                            //return returnfilename
-                        };
-
-                        input.click();
-
-
-                    }
-
-                </script>
-
-                @*</form>*@
-
-            </div>
-            <!---------------------->
-            <div class="row">
-                <div class="col-xs-6"></div>
-                <div class="col-xs-5 ">
-                    @*<button class="btn-lg btn-success pull-right margin-top-10" style="margin:5px;" onclick="comfirmsave()">บันทึก</button>*@
-                </div>
+                <div class="row">
+                    <div class="col-xs-6"></div>
+                    <div class="col-xs-5 ">
+                        <button class="btn-lg btn-success pull-right margin-top-10" style="margin:5px;" onclick="validatedata()">validate</button>
+                    </div>
                     <div class="col-xs-1"></div>
 
                 </div>
+            </div>
+            <!---------------------->
+            
 
         </form>
 
@@ -586,6 +601,7 @@
         console.log(material.picture_path+"22222222");
 
         //////////////////////////////////
+        $("#content_ajaxloader").show();
         $.ajax({
             // request POST
             type: "POST",
@@ -600,10 +616,15 @@
             success: function (response) {
                 if (response.output == 0) {
                     alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
+                    
+                    $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
                 console.log("insert complete");
                 console.log(response.output1);
+                
+                $("#content_ajaxloader").fadeOut("fast");
+                alert("บันทึกเรียบร้อย")
                 //alert(response.item_no + "suc" + response.picture_path)
                 window.location.href = "/material/Creatematerial";
             },

@@ -19,7 +19,15 @@
             width: 100%;
             background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
         }
-
+        #content_ajaxloader {
+            position: fixed;
+            z-index: 1 !important;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
+        }
 
         body:not(.menu-on-top).desktop-detected {
             min-height: 0px !important;
@@ -171,6 +179,22 @@
             border: 2px solid #49C204;
             border-radius: 4px;
         }
+
+    input[disabled]:disabled {
+        /*border: 2px solid #49C204;*/
+        /*border-radius: 4px;*/
+        background-color: #CCCCCC;
+    }
+    select[disabled]:disabled {
+        /*border: 2px solid #49C204;*/
+        /*border-radius: 4px;*/
+        background-color: #CCCCCC;
+    }
+    textarea[disabled]:disabled {
+        /*border: 2px solid #49C204;*/
+        /*border-radius: 4px;*/
+        background-color: #CCCCCC;
+    }
 </style>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
@@ -212,19 +236,19 @@
 
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.materialdata.item_no" name="item_no" disabled>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control " id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.materialdata.item_no" name="item_no" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <input type="text" class="form-control" id="item_name" @*placeholder="ระบุ ชื่อวัสดุ"*@ value="@result.materialdata.item_name" name="item_name" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select class="form-control" id="group" name="group" disabled>
                             @*<option disabled selected>@result.materialdata.groupmaterial.group_id</option>*@
                             @foreach (var item in result.grouplist)
@@ -236,7 +260,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select class="form-control" id="category" name="category" disabled>
                             @*<option disabled selected>@result.materialdata.category</option>*@
                             @foreach (var item in result.categorylist)
@@ -248,7 +272,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select class="form-control" id="material_account" name="material_account" disabled>
                             @*<option disabled selected>@result.materialdata.material_account</option>*@
                             @foreach (var item in result.material_account_list)
@@ -260,7 +284,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select class="form-control" id="costing_method_material" name="costing_method_material" disabled>
                             @*<option disabled selected>@result.materialdata.costing_method_material</option>*@
                             @foreach (var item in result.costing_method_material_list)
@@ -545,7 +569,7 @@
                 console.log("in function")
                 //alert("in function")
                 ///get input to val
-
+                $("#content_ajaxloader").show();
                 var material = new Object();
                 material.item_no                    = document.getElementById("item_no").value;
                 material.item_name                  = document.getElementById("item_name").value;
@@ -568,7 +592,7 @@
                 //material.blah                       = document.getElementById("file-input").value;
 
                 console.log(material);
-
+                $("#content_ajaxloader").show();
                     $.ajax({
                     // request POST
                     type: "POST",
@@ -583,6 +607,8 @@
                     success: function (response) {
                         console.log("edit complete");
                         //    alert(response + "suc");
+                        $("#content_ajaxloader").fadeOut("fast");
+                        alert("บันทึกเรียบร้อย")
                         window.location.href = "/material/editmaterial" /*+"id="+*/+"/"+ material.item_no;
                     },
                     failure: function (response) {
