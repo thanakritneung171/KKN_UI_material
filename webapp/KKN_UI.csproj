@@ -1080,6 +1080,7 @@
     <Compile Include="Models\Enum\UtilEnum.cs" />
     <Compile Include="Models\FileUploadModel.cs" />
     <Compile Include="Models\materialModel.cs" />
+    <Compile Include="Models\MaterialSQL.cs" />
     <Compile Include="Models\mateview.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
