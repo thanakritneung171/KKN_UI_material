@@ -4,7 +4,7 @@
     //List<mateview> result = Model;
     //List<groupmaterial> result2 = Model;
 }
-@model IEnumerable<KKN_UI.Models.mateview>
+@model IEnumerable<KKN_UI.Models.MaterialSQL>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -343,21 +343,30 @@
                             </div>
 
                             <!-- Modal
-                            --------------------------------------------------->
+    --------------------------------------------------->
 
                             @{ int i = 1;
                                 foreach (var item in Model)
                                 {
-
-                                    @*<tr class="trid" id="@item.item_no" onclick="@Url.Action("Editmaterial", "Material", new { id = item.item_no })"> *@
+                                    @*
                                     <tr class="trid" id="@item.materialModeldata.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.materialModeldata.item_no })'">
-                                        <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
+                                        <td class="stu_numrec" width="5%"> @i </td>
                                         <td class="stu_no" width="10%"> @item.materialModeldata.item_no   </td>
                                         <td class="stu_group" width="10%" value="@item.groupmaterialdata.group_id">@item.groupmaterialdata.group_name</td>
                                         <td class="stu_category" width="15%" value="@item.categorymaterialdata.category_id">@item.categorymaterialdata.category_name</td>
                                         <td class="stu_des" width="50%">@item.materialModeldata.item_name @item.materialModeldata.size @item.materialModeldata.brand @item.materialModeldata.color @item.materialModeldata.version</td>
-                                        <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" @*style="color:@(item.status? "Green": "Red")"*@> @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
+                                        <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" > @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
+                                    </tr>*@
+
+                                    <tr class="trid" id="@item.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.item_no })'">
+                                        <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
+                                        <td class="stu_no" width="10%"> @item.item_no   </td>
+                                        <td class="stu_group" width="10%" value="@item.GroupSQLModel.group_id">@item.GroupSQLModel.group_name</td>
+                                        <td class="stu_category" width="15%" value="@item.CategorySQLModel.category_id">@item.CategorySQLModel.category_name</td>
+                                        <td class="stu_des" width="50%">@item.item_name @item.size @item.brand @item.color @item.version</td>
+                                        <td class="stu_status " width="5%" style="color:@(item.status? "Green": "Red")">  @(item.status ? "ใช้งาน": "ไม่ใช้")  </td>
                                     </tr>
+
                                     i++;
                                 } }
 

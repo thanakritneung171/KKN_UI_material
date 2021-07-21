@@ -13,11 +13,11 @@ namespace KKN_UI.Models
         public int group_id { get; set; }
         public int category_id { get; set; }
         public string description { get; set; }
-        public string status { get; set; }
+        public Boolean status { get; set; }
         public int material_acc_id { get; set; }
         public int costing_method_id { get; set; }
-        public string stock_count { get; set; }
-        public string overdraw_stock { get; set; }
+        public Boolean stock_count { get; set; }
+        public Boolean overdraw_stock { get; set; }
         public string picture_path { get; set; }
         public string brand { get; set; }
         public string version { get; set; }
@@ -27,6 +27,8 @@ namespace KKN_UI.Models
         public decimal qty_in { get; set; }
         public int uom_stock { get; set; }
         public decimal qty_stock { get; set; }
+        public GroupSQL GroupSQLModel { get; set; }
+        public CategorySQL CategorySQLModel { get; set; }
 
     }
 

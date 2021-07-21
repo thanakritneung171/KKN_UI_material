@@ -9,6 +9,7 @@ using System.Data;
 using KKN_UI.data;
 using System.IO;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace KKN_UI.Controllers
 {
@@ -35,26 +36,6 @@ namespace KKN_UI.Controllers
                     group_id                       = 1,
                     group_name                     = "Concrete"
 
-                 },
-                new groupmaterial {
-                    group_id                       = 2,
-                    group_name                     = "Steel"
-                 },
-                new groupmaterial {
-                    group_id                       = 3,
-                    group_name                     = "Wood"
-                 },
-                new groupmaterial {
-                    group_id                       = 4,
-                    group_name                     = "Electrical"
-                 },
-                new groupmaterial {
-                    group_id                       = 5,
-                    group_name                     = "Sanitary"
-                 },
-                new groupmaterial {
-                    group_id                       = 6,
-                    group_name                     = "Colour/Paint"
                  }
             };
 
@@ -65,31 +46,6 @@ namespace KKN_UI.Controllers
                     group_id                       = 1,
                     category_name                     = "ปูนมิกซ์"
 
-                 },
-                new categorymaterial {
-                    category_id                       = 2,
-                    group_id                       = 1,
-                    category_name                     = "ปูนถง"
-                 },
-                new categorymaterial {
-                    category_id                       = 3,
-                    group_id                       = 1,
-                    category_name                     = "เคมีภัณฑ์"
-                 },
-                new categorymaterial {
-                    category_id                       = 4,
-                    group_id                       = 2,
-                    category_name                     = "เหล็กเส้น"
-                 },
-                new categorymaterial {
-                    category_id                       = 5,
-                    group_id                       = 2,
-                    category_name                     = "เหล็กรูปพรรณ"
-                 },
-                new categorymaterial {
-                       category_id                       = 6,
-                       group_id                       = 3,
-                       category_name                     = "ไม้ห้องซาวน่า"
                  }
             };
 
@@ -99,30 +55,6 @@ namespace KKN_UI.Controllers
                     material_account_id                       = 1,
                     material_account_name                     = "1000-00 สินทรัพย์"
 
-                 },
-                new material_account {
-                    material_account_id                       = 2,
-                    material_account_name                     = "1100-00 สินทรัพย์หมุนเวียน"
-                 },
-                new material_account {
-                    material_account_id                       = 3,
-                    material_account_name                     = "1110-00 เงินสดและเงินฝากธนาคาร"
-                 },
-                new material_account {
-                    material_account_id                       = 4,
-                    material_account_name                     = "1111-00 เงินสด"
-                 },
-                new material_account {
-                    material_account_id                       = 5,
-                    material_account_name                     = "1111-01 เงินสดระหว่างทาง"
-                 },
-                new material_account {
-                    material_account_id                       = 6,
-                    material_account_name                     = "1111-02 เงินสดย่อย"
-                 },
-                new material_account {
-                    material_account_id                       = 7,
-                    material_account_name                     = "1112-00 เงินฝากกระแสรายวัน"
                  }
             };
 
@@ -132,10 +64,6 @@ namespace KKN_UI.Controllers
                     costing_method_material_id                       = 1,
                     costing_method_material_name                     = "FIFO"
 
-                 },
-                new costing_method_material {
-                    costing_method_material_id                       = 2,
-                    costing_method_material_name                     = "Average"
                  }
             };
         
@@ -145,14 +73,6 @@ namespace KKN_UI.Controllers
                     uom_id                       = 1,
                     uom_name                     = "ลัง"
 
-                 },
-                new uom {
-                    uom_id                       = 2,
-                    uom_name                     = "กล่อง"
-                 },
-                new uom {
-                    uom_id                       = 3,
-                    uom_name                     = "ชิ้น"
                  }
             };
 
@@ -180,98 +100,6 @@ namespace KKN_UI.Controllers
                     qty_stock                     = 100,
                     //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
                     
-                 },
-                 new materialModel {
-                    item_no                       = "bm004",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 1,
-                    category_id                      = 2,
-                    description                   = "ฟหกดเ้่าสว33",
-                    status                        = false,
-                    material_account              = 2,
-                    costing_method_material       = 1,
-                    stock_count                   = false,
-                    overdraw_stock                = true,
-                    picture_path                  = "windows-xp-7680x4320-day-microsoft-8k-23307.jpg",
-                    brand                         = "กุซซี่4",
-                    version                       = "เวอร์ชั่นปรับปรุง4",
-                    color                         = "ส้ม",
-                    size                          = "30 cm, หนา 3 cm , ยาว 2.2m ",
-                    uom_in                        = 1,
-                    qty_in                        = 1,
-                    uom_stock                     = 1,
-                    qty_stock                     = 1,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 },
-                 new materialModel {
-                    item_no                       = "bm005",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 2,
-                    category_id                      = 4,
-                    description                   = "ฟหกดเ้่าสว",
-                    status                        = true,
-                    material_account              = 3,
-                    costing_method_material       = 1,
-                    stock_count                   = true,
-                    overdraw_stock                = true,
-                    picture_path                  = "windows-xp-7680x4320-abstract-microsoft-8k-23308.jpg",
-                    brand                         = "กุซซี่5",
-                    version                       = "เวอร์ชั่นปรับปรุง3",
-                    color                         = "เขียว",
-                    size                          = "20 cm, หนา 2.5 cm , ยาว 2.2m ",
-                    uom_in                        = 2,
-                    qty_in                        = 1,
-                    uom_stock                     = 3,
-                    qty_stock                     = 10,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 },
-                  new materialModel {
-                    item_no                       = "bm006",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 2,
-                    category_id                      = 5,
-                    description                   = "ฟหกดเ้่าสว111",
-                    status                        = false,
-                    material_account              = 5,
-                    costing_method_material       = 2,
-                    stock_count                   = false,
-                    overdraw_stock                = true,
-                    picture_path                  = "Digital-Art-HD-4K-Wallpapers-41715.jpg",
-                    brand                         = "กุซซี่",
-                    version                       = "เวอร์ชั่นปรับปรุง2",
-                    color                         = "เหลือง",
-                    size                          = "40 cm, หนา 4.5 cm , ยาว 2.2m ",
-                    uom_in                        = 2,
-                    qty_in                        = 1,
-                    uom_stock                     = 2,
-                    qty_stock                     = 1,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 },
-                  new materialModel {
-                    item_no                       = "bm007",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 3,
-                    category_id                      = 6,
-                    description                   = "ฟหกดเ้่าสว55",
-                    status                        = true,
-                    material_account              = 6,
-                    costing_method_material       = 1,
-                    stock_count                   = false,
-                    overdraw_stock                = false,
-                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
-                    brand                         = "กุซซี่6",
-                    version                       = "เวอร์ชั่นปรับปรุง1",
-                    color                         = "ม่วง",
-                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
-                    uom_in                        = 3,
-                    qty_in                        = 100,
-                    uom_stock                     = 3,
-                    qty_stock                     = 100,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
                  }
             };
 
@@ -279,47 +107,40 @@ namespace KKN_UI.Controllers
         // GET: Material
         public ActionResult Index()
         {
-            List<materialModel> materialModeldatauser = materialModeldata.ToList();
-            List<groupmaterial> groupmaterialdata = groupmaterial.ToList();
-            List<categorymaterial> categorymaterialdata = categorymaterial.ToList();
+            //List<materialModel> materialModeldatauser = materialModeldata.ToList();
+            //List<groupmaterial> groupmaterialdata = groupmaterial.ToList();
+            //List<categorymaterial> categorymaterialdata = categorymaterial.ToList();
 
+            //var employeeData = from m in materialModeldatauser
+            //                join g in groupmaterialdata on m.group_id equals g.group_id into table1
+            //                from g in table1.ToList()
+            //                join c in categorymaterialdata on m.category_id equals c.category_id into table2
+            //                from c in table2.ToList()
+            //                select new mateview
+            //                {
+            //                    materialModeldata = m,
+            //                    groupmaterialdata = g,
+            //                    categorymaterialdata = c
 
-            var employeeData = from m in materialModeldatauser
-                            join g in groupmaterialdata on m.group_id equals g.group_id into table1
-                            from g in table1.ToList()
-                            join c in categorymaterialdata on m.category_id equals c.category_id into table2
-                            from c in table2.ToList()
-                            select new mateview
-                            {
-                                materialModeldata = m,
-                                groupmaterialdata = g,
-                                categorymaterialdata = c
+            //                };
 
-                            };
-
-
-
-
-
+            List<MaterialSQL> mtlist = new List<MaterialSQL>();
             using (var conn = OpenDbConnection())
             {
-                var query = "select * from item_master";
+                var query = "SELECT * FROM  MaterialView";
 
                 // Build a command to execute this
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    // Open your connection
+                    cmd.CommandType = CommandType.Text;
 
-                    // Add your parameters
-                    cmd.CommandType = System.Data.CommandType.Text;
-
-
-                    var result = new materialModel();
+                    //var result = new MaterialSQL();
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            result=mapView(rdr);
+                            //result=mapView(rdr);
+                            mtlist.Add(mapView(rdr));
                         }
                     }
 
@@ -328,12 +149,49 @@ namespace KKN_UI.Controllers
             }
 
 
+            //List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            //string CS = ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
+            //using (SqlConnection con = new SqlConnection(CS))
+            //{
+            //    SqlCommand cmd = new SqlCommand("SELECT * FROM item_master", con);
+            //    cmd.CommandType = CommandType.Text;
+            //    con.Open();
+
+            //    SqlDataReader rdr = cmd.ExecuteReader();
+            //    while (rdr.Read())
+            //    {
+            //        var result = new MaterialSQL();
+
+            //        result.item_no = rdr["item_no"].ToString();
+            //        result.item_name = rdr["item_name"].ToString();
+            //        result.category_id = Convert.ToInt32(rdr["category_id"]);
+            //        result.description = rdr["description"].ToString();
+            //        result.status = rdr["status"].ToString();
+            //        result.material_acc_id = Convert.ToInt32(rdr["material_acc_id"]);
+            //        result.group_id = Convert.ToInt32(rdr["group_id"]);
+            //        result.costing_method_id = Convert.ToInt32(rdr["costing_method_id"]);
+            //        result.stock_count = rdr["stock_count"].ToString();
+            //        result.overdraw_stock = rdr["overdraw_stock"].ToString();
+            //        result.picture_path = rdr["picture_path"].ToString();
+            //        result.brand = rdr["brand"].ToString();
+            //        result.version = rdr["version"].ToString();
+            //        result.color = rdr["color"].ToString();
+            //        result.size = rdr["size"].ToString();
+            //        result.uom_in = Convert.ToInt32(rdr["uom_in"]);
+            //        result.qty_in = Convert.ToDecimal(rdr["qty_in"]);
+            //        result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
+            //        result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
 
 
-            
+            //        mtlist.Add(result);
+            //    }
+            //}
 
-            return View(employeeData);
+
+
+            return View(mtlist);
         }
+
 
         public ActionResult Creatematerial()
         {
@@ -460,14 +318,66 @@ namespace KKN_UI.Controllers
         }
 
 
-        public materialModel mapView(SqlDataReader rdr)
+        public MaterialSQL mapView(SqlDataReader rdr)
         {
-            var model = new materialModel();
+            
 
-            model.item_no = rdr.GetString(0);
+            var result = new MaterialSQL();
+            result.item_no = rdr["item_no"].ToString();
+            result.item_name = rdr["item_name"].ToString();
+            //result.category_id = Convert.ToInt32(rdr["category_id"]);
+            result.description = rdr["description"].ToString();
+            //result.status = rdr.GetBool("status");
+            result.status = (bool)rdr["status"];
+            //result.material_acc_id = Convert.ToInt32(rdr["material_acc_id"]);
+            //result.group_id = Convert.ToInt32(rdr["group_id"]);
+            //result.costing_method_id = Convert.ToInt32(rdr["costing_method_id"]);
+            result.stock_count = (bool)rdr["stock_count"];
+            result.overdraw_stock = (bool)rdr["overdraw_stock"];
+            result.picture_path = rdr["picture_path"].ToString();
+            result.brand = rdr["brand"].ToString();
+            result.version = rdr["version"].ToString();
+            result.color = rdr["color"].ToString();
+            result.size = rdr["size"].ToString();
+            //result.uom_in = Convert.ToInt32(rdr["uom_in"]);
+            result.qty_in = Convert.ToDecimal(rdr["qty_in"]);
+            //result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
+            result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
 
-            return model;
+
+            result.GroupSQLModel = mapviewgroup(rdr);
+            result.CategorySQLModel = mapviewcategory(rdr);
+
+
+            return result;
         }
+
+        public GroupSQL mapviewgroup(SqlDataReader rdr)
+        {
+
+
+            var resultgroup = new GroupSQL();
+            //resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
+            resultgroup.group_name = rdr["group_name"].ToString();
+            //result.GroupSQLModel = 
+
+
+            return resultgroup;
+        }
+
+        public CategorySQL mapviewcategory(SqlDataReader rdr)
+        {
+
+
+            var resultcategory = new CategorySQL();
+            //resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
+            resultcategory.category_name = rdr["category_name"].ToString();
+            //result.GroupSQLModel = 
+
+
+            return resultcategory;
+        }
+
 
 
     }
