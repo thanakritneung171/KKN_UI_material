@@ -363,48 +363,79 @@ namespace KKN_UI.Controllers
         
 
         [HttpPost]
-        public JsonResult Createtodata(materialModel materialdata)
+        public JsonResult Createtodata(MaterialSQL materialdata)
         {
-            var i = materialModeldata.Where(s => s.item_no == materialdata.item_no).FirstOrDefault();
-            string output;
-            if (i != null)
+
+            using (var conn = OpenDbConnection())
             {
-                 output = "0";
-                return Json(new {  output=output }, JsonRequestBehavior.AllowGet);
+               
+                using (SqlCommand cmd = new SqlCommand("dbo.item_masterCreate", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@item_no           ",materialdata.item_no);
+                    cmd.Parameters.AddWithValue("@item_name         ",materialdata.item_name        );
+                    cmd.Parameters.AddWithValue("@group_id          ",materialdata.group_id         );
+                    cmd.Parameters.AddWithValue("@category_id       ",materialdata.category_id      );
+                    cmd.Parameters.AddWithValue("@material_acc_id   ",materialdata.material_acc_id  );
+                    cmd.Parameters.AddWithValue("@costing_method_id ",materialdata.costing_method_id);
+                    cmd.Parameters.AddWithValue("@description       ", materialdata.description);
+                    cmd.Parameters.AddWithValue("@status            ",materialdata.status           );
+                    cmd.Parameters.AddWithValue("@stock_count       ",materialdata.stock_count      );
+                    cmd.Parameters.AddWithValue("@overdraw_stock    ",materialdata.overdraw_stock   );
+                    //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
+                    cmd.Parameters.AddWithValue("@brand             ",materialdata.brand            );
+                    cmd.Parameters.AddWithValue("@version           ",materialdata.version          );
+                    cmd.Parameters.AddWithValue("@color             ",materialdata.color            );
+                    cmd.Parameters.AddWithValue("@size              ",materialdata.size             );
+                    cmd.Parameters.AddWithValue("@uom_in            ",materialdata.uom_in           );
+                    cmd.Parameters.AddWithValue("@uom_stock         ",materialdata.uom_stock        );
+                    cmd.Parameters.AddWithValue("@qty_in            ",materialdata.qty_in           );
+                    cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
+
+                    cmd.ExecuteReader();
+                }
             }
 
-            materialModel materialListpush = new materialModel
-            {
-                item_no                        =  materialdata.item_no,      
-                item_name                      =  materialdata.item_name,
-                group_id                        =  materialdata.group_id,                  
-                category_id                       =  materialdata.category_id,               
-                material_account               =  materialdata.material_account,       
-                costing_method_material        =  materialdata.costing_method_material,
-                stock_count                    =  materialdata.stock_count,            
-                overdraw_stock                 =  materialdata.overdraw_stock,         
-                status                         =  materialdata.status,                 
-                brand                          =  materialdata.brand,                  
-                version                        =  materialdata.version,                
-                color                          =  materialdata.color,                  
-                size                           =  materialdata.size,                   
-                description                    =  materialdata.description,            
-                uom_in                         =  materialdata.uom_in,                 
-                uom_stock                      =  materialdata.uom_stock,              
-                qty_in                         =  materialdata.qty_in,                 
-                qty_stock                      =  materialdata.qty_stock,
-                picture_path                   =  materialdata.picture_path,
-                //picture_file                   = materialdata.picture_file
+            //    var i = materialModeldata.Where(s => s.item_no == materialdata.item_no).FirstOrDefault();
+            //string output;
+            //if (i != null)
+            //{
+            //     output = "0";
+            //    return Json(new {  output=output }, JsonRequestBehavior.AllowGet);
+            //}
+
+            //MaterialSQL materialListpush = new MaterialSQL
+            //{
+            //    item_no                        =  materialdata.item_no,      
+            //    item_name                      =  materialdata.item_name,
+            //    group_id                       =  materialdata.group_id,                  
+            //    category_id                    =  materialdata.category_id,               
+            //    material_acc_id                =  materialdata.material_acc_id,       
+            //    costing_method_id              =  materialdata.costing_method_id,
+            //    stock_count                    =  materialdata.stock_count,            
+            //    overdraw_stock                 =  materialdata.overdraw_stock,         
+            //    status                         =  materialdata.status,                 
+            //    brand                          =  materialdata.brand,                  
+            //    version                        =  materialdata.version,                
+            //    color                          =  materialdata.color,                  
+            //    size                           =  materialdata.size,                   
+            //    description                    =  materialdata.description,            
+            //    uom_in                         =  materialdata.uom_in,                 
+            //    uom_stock                      =  materialdata.uom_stock,              
+            //    qty_in                         =  materialdata.qty_in,                 
+            //    qty_stock                      =  materialdata.qty_stock,
+            //    picture_path                   =  materialdata.picture_path,
+            //    //picture_file                   = materialdata.picture_file
                 
-            };
+            //};
 
-          //  UploadFiles(materialListpush.picture_file);
-            materialModeldata.Add(materialListpush);
+            //materialModeldata.Add(MaterialSQLlist);
             
-             output = "1";
+             //output = "1";
 
 
-            return Json(materialListpush, output, JsonRequestBehavior.AllowGet);
+            return Json( JsonRequestBehavior.AllowGet);
         }
 
 
