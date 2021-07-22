@@ -103,28 +103,25 @@ namespace KKN_UI.Controllers
                  }
             };
 
+
+
+
+
+
+
+
+
+
+
+
         //private materialModel data = new materialModel();
         // GET: Material
         public ActionResult Index()
         {
-            //List<materialModel> materialModeldatauser = materialModeldata.ToList();
-            //List<groupmaterial> groupmaterialdata = groupmaterial.ToList();
-            //List<categorymaterial> categorymaterialdata = categorymaterial.ToList();
-
-            //var employeeData = from m in materialModeldatauser
-            //                join g in groupmaterialdata on m.group_id equals g.group_id into table1
-            //                from g in table1.ToList()
-            //                join c in categorymaterialdata on m.category_id equals c.category_id into table2
-            //                from c in table2.ToList()
-            //                select new mateview
-            //                {
-            //                    materialModeldata = m,
-            //                    groupmaterialdata = g,
-            //                    categorymaterialdata = c
-
-            //                };
-
+            MaterialSQLindex listindex = new MaterialSQLindex();
             List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            List<GroupSQL> gtlist = new List<GroupSQL>();
+            List<CategorySQL> ctlist = new List<CategorySQL>();
             using (var conn = OpenDbConnection())
             {
                 var query = "SELECT * FROM  MaterialView";
@@ -146,50 +143,57 @@ namespace KKN_UI.Controllers
 
 
                 }
+                
             }
+            using (var conn = OpenDbConnection())
+            {
+                var query = "SELECT * FROM  group_item";
+
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    //var result = new MaterialSQL();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //result=mapView(rdr);
+                            gtlist.Add(maplistgroup(rdr));
+                        }
+                    }
 
 
-            //List<MaterialSQL> mtlist = new List<MaterialSQL>();
-            //string CS = ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
-            //using (SqlConnection con = new SqlConnection(CS))
-            //{
-            //    SqlCommand cmd = new SqlCommand("SELECT * FROM item_master", con);
-            //    cmd.CommandType = CommandType.Text;
-            //    con.Open();
+                }
+            }
+            using (var conn = OpenDbConnection())
+            {
+                var query = "SELECT * FROM  category";
 
-            //    SqlDataReader rdr = cmd.ExecuteReader();
-            //    while (rdr.Read())
-            //    {
-            //        var result = new MaterialSQL();
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
 
-            //        result.item_no = rdr["item_no"].ToString();
-            //        result.item_name = rdr["item_name"].ToString();
-            //        result.category_id = Convert.ToInt32(rdr["category_id"]);
-            //        result.description = rdr["description"].ToString();
-            //        result.status = rdr["status"].ToString();
-            //        result.material_acc_id = Convert.ToInt32(rdr["material_acc_id"]);
-            //        result.group_id = Convert.ToInt32(rdr["group_id"]);
-            //        result.costing_method_id = Convert.ToInt32(rdr["costing_method_id"]);
-            //        result.stock_count = rdr["stock_count"].ToString();
-            //        result.overdraw_stock = rdr["overdraw_stock"].ToString();
-            //        result.picture_path = rdr["picture_path"].ToString();
-            //        result.brand = rdr["brand"].ToString();
-            //        result.version = rdr["version"].ToString();
-            //        result.color = rdr["color"].ToString();
-            //        result.size = rdr["size"].ToString();
-            //        result.uom_in = Convert.ToInt32(rdr["uom_in"]);
-            //        result.qty_in = Convert.ToDecimal(rdr["qty_in"]);
-            //        result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
-            //        result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
+                    //var result = new MaterialSQL();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //result=mapView(rdr);
+                            ctlist.Add(maplistcategory(rdr));
+                        }
+                    }
 
 
-            //        mtlist.Add(result);
-            //    }
-            //}
+                }
+            }
+            listindex.MaterialSQLlist = mtlist.ToList();
+            listindex.GroupSQLlist = gtlist.ToList();
+            listindex.CategorySQLlist = ctlist.ToList();
 
-
-
-            return View(mtlist);
+            return View(listindex);
         }
 
 
@@ -323,26 +327,25 @@ namespace KKN_UI.Controllers
             
 
             var result = new MaterialSQL();
-            result.item_no = rdr["item_no"].ToString();
-            result.item_name = rdr["item_name"].ToString();
-            //result.category_id = Convert.ToInt32(rdr["category_id"]);
-            result.description = rdr["description"].ToString();
-            //result.status = rdr.GetBool("status");
-            result.status = (bool)rdr["status"];
-            //result.material_acc_id = Convert.ToInt32(rdr["material_acc_id"]);
-            //result.group_id = Convert.ToInt32(rdr["group_id"]);
-            //result.costing_method_id = Convert.ToInt32(rdr["costing_method_id"]);
-            result.stock_count = (bool)rdr["stock_count"];
-            result.overdraw_stock = (bool)rdr["overdraw_stock"];
-            result.picture_path = rdr["picture_path"].ToString();
-            result.brand = rdr["brand"].ToString();
-            result.version = rdr["version"].ToString();
-            result.color = rdr["color"].ToString();
-            result.size = rdr["size"].ToString();
-            //result.uom_in = Convert.ToInt32(rdr["uom_in"]);
-            result.qty_in = Convert.ToDecimal(rdr["qty_in"]);
-            //result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
-            result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
+            result.item_no = rdr["item_master_item_no"].ToString();
+            result.item_name = rdr["item_master_item_name"].ToString();
+            result.group_id = Convert.ToInt32(rdr["item_master_group_id"]);
+            result.category_id = Convert.ToInt32(rdr["item_master_category_id"]);
+            result.description = rdr["item_master_description"].ToString();
+            result.status = (bool)rdr["item_master_status"];
+            result.material_acc_id = Convert.ToInt32(rdr["item_master_material_acc_id"]);
+            result.costing_method_id = Convert.ToInt32(rdr["item_master_costing_meterial"]);
+            result.stock_count = (bool)rdr["item_master_stock_count"];
+            result.overdraw_stock = (bool)rdr["item_master_overdraw_stock"];
+            result.picture_path = rdr["item_master_picture_path"].ToString();
+            result.brand = rdr["item_master_brand"].ToString();
+            result.version = rdr["item_master_version"].ToString();
+            result.color = rdr["item_master_color"].ToString();
+            result.size = rdr["item_master_size"].ToString();
+            result.uom_in = Convert.ToInt32(rdr["item_master_uom_in"]);
+            result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
+            result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
+            result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
 
 
             result.GroupSQLModel = mapviewgroup(rdr);
@@ -358,9 +361,7 @@ namespace KKN_UI.Controllers
 
             var resultgroup = new GroupSQL();
             //resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
-            resultgroup.group_name = rdr["group_name"].ToString();
-            //result.GroupSQLModel = 
-
+            resultgroup.group_name = rdr["group_time_group_name"].ToString();
 
             return resultgroup;
         }
@@ -371,14 +372,35 @@ namespace KKN_UI.Controllers
 
             var resultcategory = new CategorySQL();
             //resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
-            resultcategory.category_name = rdr["category_name"].ToString();
+            resultcategory.category_name = rdr["category_category_name"].ToString();
             //result.GroupSQLModel = 
 
 
             return resultcategory;
         }
 
+        public GroupSQL maplistgroup(SqlDataReader rdr)
+        {
 
+
+            var resultgroup = new GroupSQL();
+            resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
+            resultgroup.group_name = rdr["group_name"].ToString();
+
+            return resultgroup;
+        }
+
+        public CategorySQL maplistcategory(SqlDataReader rdr)
+        {
+
+
+            var resultcategory = new CategorySQL();
+            resultcategory.category_id = Convert.ToInt32(rdr["category_id"]);
+            resultcategory.group_id = Convert.ToInt32(rdr["group_id"]);
+            resultcategory.category_name = rdr["category_name"].ToString();
+   
+            return resultcategory;
+        }
 
     }
 }

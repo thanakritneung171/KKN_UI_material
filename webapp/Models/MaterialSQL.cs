@@ -61,4 +61,11 @@ namespace KKN_UI.Models
         public int uom_id { get; set; }
         public string uom_name { get; set; }
     }
+
+    public class MaterialSQLindex
+    {
+        public List<GroupSQL> GroupSQLlist { get; set; }
+        public List<CategorySQL>  CategorySQLlist { get; set; }
+        public List<MaterialSQL> MaterialSQLlist { get; set; }
+    }
 }
