@@ -143,14 +143,11 @@ namespace KKN_UI.Controllers
 
 
                 }
-                
-            }
-            using (var conn = OpenDbConnection())
-            {
-                var query = "SELECT * FROM  group_item";
+
+                var query2 = "SELECT * FROM  group_item";
 
                 // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query2, conn))
                 {
                     cmd.CommandType = CommandType.Text;
 
@@ -163,16 +160,12 @@ namespace KKN_UI.Controllers
                             gtlist.Add(maplistgroup(rdr));
                         }
                     }
-
-
                 }
-            }
-            using (var conn = OpenDbConnection())
-            {
-                var query = "SELECT * FROM  category";
+
+                var query3 = "SELECT * FROM  category";
 
                 // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query3, conn))
                 {
                     cmd.CommandType = CommandType.Text;
 
@@ -185,10 +178,9 @@ namespace KKN_UI.Controllers
                             ctlist.Add(maplistcategory(rdr));
                         }
                     }
-
-
                 }
             }
+           
             listindex.MaterialSQLlist = mtlist.ToList();
             listindex.GroupSQLlist = gtlist.ToList();
             listindex.CategorySQLlist = ctlist.ToList();
@@ -199,14 +191,137 @@ namespace KKN_UI.Controllers
 
         public ActionResult Creatematerial()
         {
-            materialmodalview materialmodalviewname = new materialmodalview();
-            materialmodalviewname.grouplist = groupmaterial.ToList();
-            materialmodalviewname.categorylist = categorymaterial.ToList();
-            materialmodalviewname.material_account_list = material_accountdata.ToList();
-            materialmodalviewname.costing_method_material_list = costing_method_material_data.ToList();
-            materialmodalviewname.uomlist = uomdata.ToList();
+            MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
+            List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            List<GroupSQL> gtlist = new List<GroupSQL>();
+            List<CategorySQL> ctlist = new List<CategorySQL>();
+            List<Material_accSQL> macclist = new List<Material_accSQL>();
+            List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
+            List<uomSQL> uomlist = new List<uomSQL>();
+            using (var conn = OpenDbConnection())
+            {
+                var query = "SELECT * FROM  MaterialView";
 
-            return View(materialmodalviewname);
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    //var result = new MaterialSQL();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //result=mapView(rdr);
+                            mtlist.Add(mapView(rdr));
+                        }
+                    }
+
+
+                }
+
+                var query2 = "SELECT * FROM  group_item";
+
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query2, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    //var result = new MaterialSQL();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //result=mapView(rdr);
+                            gtlist.Add(maplistgroup(rdr));
+                        }
+                    }
+                }
+
+                var query3 = "SELECT * FROM  category";
+
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query3, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    //var result = new MaterialSQL();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //result=mapView(rdr);
+                            ctlist.Add(maplistcategory(rdr));
+                        }
+                    }
+                }
+
+                var query4 = "SELECT * FROM  material_acc";
+
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query4, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    //var result = new MaterialSQL();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //result=mapView(rdr);
+                            macclist.Add(maplistmaterialacc(rdr));
+                        }
+                    }
+
+
+                }
+
+                var query5 = "SELECT * FROM  costing_method";
+
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query5, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    //var result = new MaterialSQL();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //result=mapView(rdr);
+                            costinglist.Add(maplistcosting(rdr));
+                        }
+                    }
+                }
+
+                var query6 = "SELECT * FROM  uom";
+
+                // Build a command to execute this
+                using (SqlCommand cmd = new SqlCommand(query6, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    //var result = new MaterialSQL();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //result=mapView(rdr);
+                            uomlist.Add(maplistuom(rdr));
+                        }
+                    }
+                }
+            }
+
+            MaterialSQLlistindex.MaterialSQLlist = mtlist.ToList();
+            MaterialSQLlistindex.GroupSQLlist = gtlist.ToList();
+            MaterialSQLlistindex.CategorySQLlist = ctlist.ToList();
+            MaterialSQLlistindex.Material_accSQLlist = macclist.ToList();
+            MaterialSQLlistindex.Costing_methodSQL_list = costinglist.ToList();
+            MaterialSQLlistindex.UomSQL_list = uomlist.ToList();
+            
+
+            return View(MaterialSQLlistindex);
         }
 
         public ActionResult Editmaterial(string id)
@@ -357,8 +472,6 @@ namespace KKN_UI.Controllers
 
         public GroupSQL mapviewgroup(SqlDataReader rdr)
         {
-
-
             var resultgroup = new GroupSQL();
             //resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
             resultgroup.group_name = rdr["group_time_group_name"].ToString();
@@ -368,8 +481,6 @@ namespace KKN_UI.Controllers
 
         public CategorySQL mapviewcategory(SqlDataReader rdr)
         {
-
-
             var resultcategory = new CategorySQL();
             //resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
             resultcategory.category_name = rdr["category_category_name"].ToString();
@@ -381,8 +492,6 @@ namespace KKN_UI.Controllers
 
         public GroupSQL maplistgroup(SqlDataReader rdr)
         {
-
-
             var resultgroup = new GroupSQL();
             resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
             resultgroup.group_name = rdr["group_name"].ToString();
@@ -402,6 +511,32 @@ namespace KKN_UI.Controllers
             return resultcategory;
         }
 
+        public Material_accSQL maplistmaterialacc(SqlDataReader rdr)
+        {
+            var resultmacc = new Material_accSQL();
+            resultmacc.material_acc_id = Convert.ToInt32(rdr["material_acc_id"]);
+            resultmacc.material_acc_name = rdr["material_acc_name"].ToString();
+
+            return resultmacc;
+        }
+
+        public Costing_methodSQL maplistcosting(SqlDataReader rdr)
+        {
+            var resultcosting = new Costing_methodSQL();
+            resultcosting.costing_method_id = Convert.ToInt32(rdr["costing_method_id"]);
+            resultcosting.costing_method_name = rdr["costing_method_name"].ToString();
+
+            return resultcosting;
+        }
+
+        public uomSQL maplistuom(SqlDataReader rdr)
+        {
+            var resultuom = new uomSQL();
+            resultuom.uom_id = Convert.ToInt32(rdr["uom_id"]);
+            resultuom.uom_name = rdr["uom_name"].ToString();
+
+            return resultuom;
+        }
     }
 }
 

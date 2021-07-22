@@ -64,6 +64,9 @@ namespace KKN_UI.Models
 
     public class MaterialSQLindex
     {
+        public List<uomSQL> UomSQL_list { get; set; }
+        public List<Costing_methodSQL> Costing_methodSQL_list { get; set; }
+        public List<Material_accSQL> Material_accSQLlist { get; set; }
         public List<GroupSQL> GroupSQLlist { get; set; }
         public List<CategorySQL>  CategorySQLlist { get; set; }
         public List<MaterialSQL> MaterialSQLlist { get; set; }

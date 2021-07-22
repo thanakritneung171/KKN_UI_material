@@ -5,7 +5,7 @@
 @{
     //materialModel result = Model;
     //List<groupmaterial> result = Model;
-    materialmodalview result = Model;
+    MaterialSQLindex result = Model;
     //FileUploadModel fileresult = Model;
 }
 @{
@@ -242,7 +242,7 @@
                     <div class="col-sm-4">
                         <select class="form-control" id="group" name="group">
                             <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
-                            @foreach (var item in result.grouplist)
+                            @foreach (var item in result.GroupSQLlist)
                             {
                                 <option value="@item.group_id ">@item.group_name</option>
                             }
@@ -256,7 +256,7 @@
                     <div class="col-sm-4">
                         <select class="form-control" id="category" name="category">
                             <option disabled value="0" selected>เลือกประเภทวัสดุ</option>
-                            @foreach (var item in result.categorylist)
+                            @foreach (var item in result.CategorySQLlist)
                             {
                                 <option value="@item.category_id ">@item.category_name</option>
                             }
@@ -268,9 +268,9 @@
                     <div class="col-sm-4">
                         <select class="form-control" id="material_account" name="material_account">
                             <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
-                            @foreach (var item in result.material_account_list)
+                            @foreach (var item in result.Material_accSQLlist)
                             {
-                                <option value="@item.material_account_id ">@item.material_account_name</option>
+                                <option value="@item.material_acc_id ">@item.material_acc_name</option>
                             }
                         </select>
                     </div>
@@ -280,9 +280,9 @@
                     <div class="col-sm-4">
                         <select class="form-control" id="costing_method_material" name="costing_method_material">
                             <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
-                            @foreach (var item in result.costing_method_material_list)
+                            @foreach (var item in result.Costing_methodSQL_list)
                             {
-                                <option value="@item.costing_method_material_id ">@item.costing_method_material_name</option>
+                                <option value="@item.costing_method_id ">@item.costing_method_name</option>
                             }
                         </select>
                     </div>
@@ -355,7 +355,7 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="uom_in" name="uom_in" onchange="uom_inchange()">
                                 <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
-                                @foreach (var item in result.uomlist)
+                                @foreach (var item in result.UomSQL_list)
                                 {
                                     <option value="@item.uom_id ">@item.uom_name</option>
                                 }
@@ -386,7 +386,7 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
                                 <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
-                                @foreach (var item in result.uomlist)
+                                @foreach (var item in result.UomSQL_list)
                                 {
                                     <option value="@item.uom_id ">@item.uom_name</option>
                                 }
