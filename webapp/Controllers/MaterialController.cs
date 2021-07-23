@@ -425,7 +425,7 @@ namespace KKN_UI.Controllers
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@item_id           ",materialdata.item_id);
+                    //cmd.Parameters.AddWithValue("@item_id           ",materialdata.item_id);
                     cmd.Parameters.AddWithValue("@item_no           ",materialdata.item_no);
                     cmd.Parameters.AddWithValue("@item_name         ",materialdata.item_name        );
                     cmd.Parameters.AddWithValue("@group_id          ",materialdata.group_id         );
