@@ -1,6 +1,7 @@
 ﻿@{
     //materialModel result = Model;
-    materialmodalview result = Model;
+    //materialmodalview result = Model;
+    MaterialSQLindex result = Model;
 }
 
 @{
@@ -197,6 +198,8 @@
     }
 </style>
 
+<input hidden id="item_id" value="@result.MaterialSQLdataselect.item_id" />
+
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
     @*<div class="container">*@
     <div class="row margin-top-10 margin-left-10">
@@ -205,7 +208,7 @@
                 <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">วัสดุอุปกรณ์</span>
                 <i class="fa fa-chevron-right"></i>
                 <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
-                <span>@result.materialdata.item_no - @result.materialdata.item_name </span>&nbsp;&nbsp;
+                <span>@result.MaterialSQLdataselect.item_name - @result.MaterialSQLdataselect.item_name </span>&nbsp;&nbsp;
                 <a href="@Url.Action("Index", "Material")">Back</a>
             </h3>
         </div>
@@ -235,61 +238,61 @@
                 <h3 id="hrw">วัสดุ</h3>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control " id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.materialdata.item_no" name="item_no" disabled>
+                        <input type="text" class="form-control " id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.MaterialSQLdataselect.item_no" name="item_no" disabled>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="item_name" @*placeholder="ระบุ ชื่อวัสดุ"*@ value="@result.materialdata.item_name" name="item_name" disabled>
+                        <input type="text" class="form-control" id="item_name" @*placeholder="ระบุ ชื่อวัสดุ"*@ value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
                         <select class="form-control" id="group" name="group" disabled>
                             @*<option disabled selected>@result.materialdata.groupmaterial.group_id</option>*@
-                            @foreach (var item in result.grouplist)
+                            @foreach (var item in result.GroupSQLlist)
                             {
-                                <option value="@item.group_id" @(item.group_id == result.materialdata.group_id ? "selected" : "")>@item.group_name</option>
+                                <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
                             }
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="category">ประเภทวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
                         <select class="form-control" id="category" name="category" disabled>
                             @*<option disabled selected>@result.materialdata.category</option>*@
-                            @foreach (var item in result.categorylist)
+                            @foreach (var item in result.CategorySQLlist)
                             {
-                                <option value="@item.category_id" @(item.category_id == result.materialdata.category_id ? "selected" : "")>@item.category_name</option>
+                                <option value="@item.category_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
                             }
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
                         <select class="form-control" id="material_account" name="material_account" disabled>
                             @*<option disabled selected>@result.materialdata.material_account</option>*@
-                            @foreach (var item in result.material_account_list)
+                            @foreach (var item in result.Material_accSQLlist)
                             {
-                                <option value="@item.material_account_id" @(item.material_account_id == result.materialdata.material_account ? "selected" : "")>@item.material_account_name</option>
+                                <option value="@item.material_acc_id" @(item.material_acc_id == result.MaterialSQLdataselect.material_acc_id ? "selected" : "")>@item.material_acc_name</option>
                             }
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
                         <select class="form-control" id="costing_method_material" name="costing_method_material" disabled>
                             @*<option disabled selected>@result.materialdata.costing_method_material</option>*@
-                            @foreach (var item in result.costing_method_material_list)
+                            @foreach (var item in result.Costing_methodSQL_list)
                             {
-                                <option value="@item.costing_method_material_id" @(item.costing_method_material_id == result.materialdata.costing_method_material ? "selected" : "")>@item.costing_method_material_name</option>
+                                <option value="@item.costing_method_id" @(item.costing_method_id == result.MaterialSQLdataselect.costing_method_id ? "selected" : "")>@item.costing_method_name</option>
                             }
                         </select>
                     </div>
@@ -302,7 +305,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="stock_count" name="stock_count" value="@result.materialdata.stock_count" @(result.materialdata.stock_count ? "checked" : "") disabled> วัสดุนับสต๊อก</label>
+                            <label><input type="checkbox" id="stock_count" name="stock_count" value="@result.MaterialSQLdataselect.stock_count" @(result.MaterialSQLdataselect.stock_count ? "checked" : "") disabled> วัสดุนับสต๊อก</label>
                         </div>
                     </div>
                 </div>
@@ -311,7 +314,7 @@
                         <div class="checkbox">
                             <label>
 
-                                <input type="checkbox" id="overdraw_stock" name="overdraw_stock" value="@result.materialdata.overdraw_stock" @(result.materialdata.overdraw_stock ? "checked" : "") disabled> ให้เบิกเกินสต๊อกได้
+                                <input type="checkbox" id="overdraw_stock" name="overdraw_stock" value="@result.MaterialSQLdataselect.overdraw_stock" @(result.MaterialSQLdataselect.overdraw_stock ? "checked" : "") disabled> ให้เบิกเกินสต๊อกได้
                             </label>
                         </div>
                     </div>
@@ -319,7 +322,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="status" name="status" value="@result.materialdata.status" @(result.materialdata.status ? "checked" : "") disabled> ใช้งานวัสดุ</label>
+                            <label><input type="checkbox" id="status" name="status" value="@result.MaterialSQLdataselect.status" @(result.MaterialSQLdataselect.status ? "checked" : "") disabled> ใช้งานวัสดุ</label>
                         </div>
                     </div>
                 </div>
@@ -329,143 +332,146 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="brand" @*placeholder="ระบุ ยี่ห้อ"*@ value="@result.materialdata.brand" name="brand" disabled>
+                        <input type="email" class="form-control" id="brand" @*placeholder="ระบุ ยี่ห้อ"*@ value="@result.MaterialSQLdataselect.brand" name="brand" disabled>
                     </div>
 
                     <label class="control-label col-sm-2" for="version">รุ่น:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.materialdata.version" name="version" disabled>
+                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.MaterialSQLdataselect.version" name="version" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="color">สี:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="color" @*placeholder="ระบุ สี่"*@ value="@result.materialdata.color" name="color" disabled>
+                        <input type="email" class="form-control" id="color" @*placeholder="ระบุ สี่"*@ value="@result.MaterialSQLdataselect.color" name="color" disabled>
                     </div>
                     <label class="control-label col-sm-2" for="size">ขนาด:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="size" @*placeholder="ระบุ ขนาด"*@ value="@result.materialdata.size" name="size" disabled>
+                        <input type="email" class="form-control" id="size" @*placeholder="ระบุ ขนาด"*@ value="@result.MaterialSQLdataselect.size" name="size" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="3" id="description" @*placeholder="ระบุข้อมูลจำเพาะ"*@ disabled>@result.materialdata.description</textarea>
+                        <textarea class="form-control" rows="3" id="description" @*placeholder="ระบุข้อมูลจำเพาะ"*@ disabled>@result.MaterialSQLdataselect.description</textarea>
                     </div>
                 </div>
                 @*</form>*@
 
             </div>
-            <div class="col-lg-4" id="horizonform2">
-
-                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                <h3 id="hrw">หน่วยวัสดุ</h3>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ:</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="uom_in" name="uom_in" disabled onchange="uom_inchange()">
-                            <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
-                            @foreach (var item in result.uomlist)
-                            {
-                                <option value="@item.uom_id" @(item.uom_id == result.materialdata.uom_in ? "selected" : "")>@item.uom_name</option>
-                            }
-                        </select>
-
-
+            <div class="col-lg-4">
+                <div id="horizonform2">
+                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+                    <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="uom_in" name="uom_in" disabled onchange="uom_inchange()">
+                                <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
+                                @foreach (var item in result.UomSQL_list)
+                                {
+                                    <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_in ? "selected" : "")>@item.uom_name</option>
+                                }
+                            </select>
+                        </div>
                     </div>
+                    <script>
+                        /////functionchangeuom
+                        function uom_inchange() {
+                            var uom_inchange = document.getElementById("uom_in");
+                            var uon_in_select = uom_inchange.selectedIndex;
+                            document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
+                            console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
+                            document.getElementById("uom_stock").selectedIndex = uon_in_select;
+                            document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
+
+                        }
+                        function uom_stockchange() {
+                            var uom_stockchange = document.getElementById("uom_stock");
+                            var uon_stock_select = uom_stockchange.selectedIndex;
+                            document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
+                            console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
+
+                        }
+                    </script>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="uom_stock" name="uom_stock" disabled onchange="uom_stockchange()">
+                                <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
+                                @foreach (var item in result.UomSQL_list)
+                                {
+                                    <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_stock ? "selected" : "")>@item.uom_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <input type="email" class="form-control" id="qty_in" value="@result.MaterialSQLdataselect.qty_in" name="qty_in" disabled>
+                        </div>
+                        <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">
+                            @foreach (var item in result.UomSQL_list)
+                            {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}
+                        </label>
+                        @*@(result.materialdata.uom_in )*@
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-center">
+                            <p style="color:blue; margin-top:7px;">&#9868;</p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <input type="email" class="form-control" id="qty_stock" value="@result.MaterialSQLdataselect.qty_stock" name="qty_stock" disabled>
+                        </div>
+                        @*@(result.uomlist.uom_id == result.materialdata.uom_stock ? true : false)*@
+
+                        <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">
+                            @foreach (var item in result.UomSQL_list)
+                            {@(item.uom_id == result.MaterialSQLdataselect.uom_stock ?item.uom_name: "")}
+                        </label>
+                    </div>
+
+
+                    @*</form>*@
+
+
+                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+                    <h3 class="margin-left-10" id="hrw">รูปภาพวัสดุ  @result.MaterialSQLdataselect.picture_path </h3>
+
+                    <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
+                        <img id="blah" src="#" alt="@result.MaterialSQLdataselect.picture_path" style="display: none; max-width: 100%" />
+                        <p id="pdisplay"><br /><br /></p>
+                    </div>
+                    <br />
+                    <input id="file-input" type="file" name="name" style="display: none;" />
+                    <script>
+                        function importData() {
+                            let input = document.createElement('input');
+                            input.type = 'file';
+                            input.onchange = evt => {
+                                const [file] = input.files
+                                if (file) {
+                                    blah.src = URL.createObjectURL(file)
+                                }
+                                let files = Array.from(input.files);
+                                console.log(files);
+                                console.log(file.name);
+                                console.log(file.size);
+
+                                document.getElementById("blah").style.display = "block";
+                                document.getElementById("pdisplay").style.display = "none";
+                                var elementqqqq = document.getElementById('qqqq');
+                                elementqqqq.style.removeProperty("border-style");
+                                elementqqqq.style.removeProperty("border-width");
+                                elementqqqq.style.removeProperty("margin-bottom");
+                                document.getElementById("btn-clear").style.display = "block";
+                            };
+                            input.click();
+
+                        }
+
+                    </script>
                 </div>
-                <script>
-                    /////functionchangeuom
-                    function uom_inchange() {
-                        var uom_inchange = document.getElementById("uom_in");
-                        var uon_in_select = uom_inchange.selectedIndex;
-                        document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
-                        console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
-                        document.getElementById("uom_stock").selectedIndex = uon_in_select;
-                        document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
-
-                    }
-                    function uom_stockchange() {
-                        var uom_stockchange = document.getElementById("uom_stock");
-                        var uon_stock_select = uom_stockchange.selectedIndex;
-                        document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
-                        console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
-
-                    }
-                </script>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ:</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="uom_stock" name="uom_stock" disabled onchange="uom_stockchange()">
-                            <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
-                            @foreach (var item in result.uomlist)
-                            {
-                                <option value="@item.uom_id" @(item.uom_id == result.materialdata.uom_stock ? "selected" : "")>@item.uom_name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <input type="email" class="form-control" id="qty_in" value="@result.materialdata.qty_in" name="qty_in" disabled>
-                    </div>
-                    <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">@foreach (var item in result.uomlist)
-                    {@(item.uom_id == result.materialdata.uom_in ?item.uom_name: "")}</label>
-                    @*@(result.materialdata.uom_in )*@
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-center">
-                        <p style="color:blue; margin-top:7px;">&#9868;</p>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <input type="email" class="form-control" id="qty_stock" value="@result.materialdata.qty_stock" name="qty_stock" disabled>
-                    </div>
-                    @*@(result.uomlist.uom_id == result.materialdata.uom_stock ? true : false)*@
-
-                    <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">@foreach (var item in result.uomlist)
-                    {@(item.uom_id == result.materialdata.uom_stock ?item.uom_name: "")}</label>
-                </div>
-
-
-                @*</form>*@
-
-
-                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                <h3 id="hrw">รูปภาพวัสดุ  @result.materialdata.picture_path </h3>
-
-                <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
-                    <img id="blah" src="#" alt="@result.materialdata.picture_path" style="display: none; max-width: 100%" />
-                    <p id="pdisplay"><br /><br /></p>
-                </div>
-                <br />
-                <input id="file-input" type="file" name="name" style="display: none;" />
-                <script>
-                    function importData() {
-                        let input = document.createElement('input');
-                        input.type = 'file';
-                        input.onchange = evt => {
-                            const [file] = input.files
-                            if (file) {
-                                blah.src = URL.createObjectURL(file)
-                            }
-                            let files = Array.from(input.files);
-                            console.log(files);
-                            console.log(file.name);
-                            console.log(file.size);
-
-                            document.getElementById("blah").style.display = "block";
-                            document.getElementById("pdisplay").style.display = "none";
-                            var elementqqqq = document.getElementById('qqqq');
-                            elementqqqq.style.removeProperty("border-style");
-                            elementqqqq.style.removeProperty("border-width");
-                            elementqqqq.style.removeProperty("margin-bottom");
-                            document.getElementById("btn-clear").style.display = "block";
-                        };
-                        input.click();
-
-                    }
-
-                </script>
                 @*</form>*@
 
             </div>
@@ -490,17 +496,40 @@
 
                 </div>
             </div>
+        </div>
+    </div>
 
+    <div class="modal fade" id="myModaldelete" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>คุณต้องการลบข้อมูลใช่หรือไม่</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-lg btn-success margin-right-15" data-dismiss="modal" onclick="aadelete()">ใช่</button>
+                    <button type="button" class="btn-lg btn-danger" data-dismiss="modal">ไม่</button>
+
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row margin-top-10 margin-bottom-10 ">
         <button id="btcancel" class="btn btn-danger pull-right" style="margin:5px; display:none;" onclick="canceledit()">Cancel</button>
         <button id="btsave" class="btn btn-success pull-right" style="margin: 5px; display: none;" onclick="comfirmsave()">Save</button>
+        <button id="btedit" class="btn btn-danger pull-right" style="margin:5px;" onclick="deleteedit()">Delete</button>
         <button id="btedit" class="btn btn-warning pull-right" style="margin:5px;" onclick="openedit()">Edit</button>
 
     </div> <br /><br />
-    <script>
+
+
+                 <script>
             function openedit() {
                 document.getElementById("btedit").style.display = "none";
                 document.getElementById("btcancel").style.display = "block";
@@ -551,6 +580,36 @@
                 document.getElementById("qty_in").disabled = true;
                 document.getElementById("qty_stock").disabled = true;
             }
+
+            function deleteedit()
+            {
+                $('#myModaldelete').modal('show')
+            }
+
+                     function aadelete() {
+                         var mateid = new Object();
+                         mateid.item_id = document.getElementById("item_id").value;
+                          $("#content_ajaxloader").show();
+                         $.ajax({
+                             type: "POST",
+                             url: '@Url.Action("DeleteMaterial", "Material")',
+                             data: JSON.stringify(mateid) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("edit complete");
+                        $("#content_ajaxloader").fadeOut("fast");
+                        alert("บันทึกเรียบร้อย")
+                        window.location.href = "/material";
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+                     }
 
             function comfirmsave() {
                 $('#myModal').modal('show')
@@ -618,10 +677,8 @@
                         alert(response.responseText);
                     }
                 })
-
-
             };
-    </script>
+                 </script>
 
     @*</div>*@
 </div>

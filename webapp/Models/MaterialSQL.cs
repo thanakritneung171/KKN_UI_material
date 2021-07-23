@@ -70,5 +70,6 @@ namespace KKN_UI.Models
         public List<GroupSQL> GroupSQLlist { get; set; }
         public List<CategorySQL>  CategorySQLlist { get; set; }
         public List<MaterialSQL> MaterialSQLlist { get; set; }
+        public MaterialSQL MaterialSQLdataselect { get; set; }
     }
 }

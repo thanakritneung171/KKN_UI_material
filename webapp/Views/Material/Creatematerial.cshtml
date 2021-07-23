@@ -201,9 +201,7 @@
     </div>
 
     <div class="row margin-top-10">
-
         <form class="form-horizontal margin-top-10 padding-5" id="checkout-form">
-            <!---------------------->
             <div class="col-lg-8" id="horizonform">
                 <style>
                     #horizonform {
@@ -290,7 +288,7 @@
                 <style>
                     select option[disabled]:first-child {
                         display: none;
-                    } 
+                    }
                 </style>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -330,7 +328,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="color">สี:</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="color" placeholder="ระบุ สี่" name="color">
+                        <input type="text" class="form-control" id="color" placeholder="ระบุ สี" name="color">
                     </div>
                     <label class="control-label col-sm-2" for="size">ขนาด:</label>
                     <div class="col-sm-4">
@@ -346,7 +344,7 @@
                 @*</form>*@
 
             </div>
-            <div class="col-lg-4" >
+            <div class="col-lg-4">
                 <div id="horizonform2">
                     @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
                     <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
@@ -400,12 +398,15 @@
                         </div>
                         @*<label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>*@
                         <label class="control-label col-sm-1 col-xs-1" style="text-align:left" id="qty_inshow" for="qty_in">หน่วย</label>
+                       
                         <div class="col-sm-1 col-xs-1">
                             <p style="color: blue; margin-top: 7px; margin-left:5px">&#9868;</p>
                         </div>
+
                         <div class="col-sm-4 col-xs-4">
                             <input type="text" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
                         </div>
+
                         <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
                     </div>
                     @*</form>*@
@@ -420,8 +421,6 @@
                     </div>
                     <br />
                     @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
-
-
 
 
                     <script>
@@ -481,10 +480,6 @@
                 </div>
                 @*</form>*@
 
-
-
-
-
                 <div class="row">
                     <div class="col-xs-6"></div>
                     <div class="col-xs-5 ">
@@ -493,22 +488,11 @@
                     <div class="col-xs-1"></div>
 
                 </div>
+
             </div>
-            <!---------------------->
-            
-
         </form>
-
-
-
-
     </div>
 
-    <div class="row margin-top-10 margin-bottom-10 ">
-
-        <button class="btn-lg btn-success " style="margin:5px;" onclick="comfirmsave()">บันทึก</button>
-
-    </div> <br /><br />
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -529,9 +513,15 @@
 
                 </div>
             </div>
-
         </div>
     </div>
+
+
+    <div class="row margin-top-10 margin-bottom-10 ">
+
+        <button class="btn-lg btn-success " style="margin:5px;" onclick="comfirmsave()">บันทึก</button>
+
+    </div> <br /><br />
 
     <script>
 
@@ -616,13 +606,13 @@
             success: function (response) {
                 if (response.output == 0) {
                     alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
-                    
+
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
                 console.log("insert complete");
                 console.log(response.output1);
-                
+
                 $("#content_ajaxloader").fadeOut("fast");
                 alert("บันทึกเรียบร้อย")
                 //alert(response.item_no + "suc" + response.picture_path)
@@ -634,7 +624,7 @@
             error: function (response) {
                 alert(response.responseText);
             }
-        })
+         })
             };
 
     </script>
