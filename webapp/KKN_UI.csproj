@@ -1075,6 +1075,7 @@
     <Compile Include="Helper\DecimalModelBinder.cs" />
     <Compile Include="Helper\FileManager.cs" />
     <Compile Include="Helper\UtilityHelper.cs" />
+    <Compile Include="material\group\GroupDao.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\Enum\UtilEnum.cs" />
