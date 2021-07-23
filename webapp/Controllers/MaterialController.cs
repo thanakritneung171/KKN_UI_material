@@ -27,93 +27,6 @@ namespace KKN_UI.Controllers
             return conn;
         }
 
-
-
-
-        static IList<groupmaterial> groupmaterial = new List<groupmaterial>
-            {
-                 new groupmaterial {
-                    group_id                       = 1,
-                    group_name                     = "Concrete"
-
-                 }
-            };
-
-        static IList<categorymaterial> categorymaterial = new List<categorymaterial>
-            {
-                 new categorymaterial {
-                    category_id                       = 1,
-                    group_id                       = 1,
-                    category_name                     = "ปูนมิกซ์"
-
-                 }
-            };
-
-        static IList<material_account> material_accountdata = new List<material_account>
-            {
-                 new material_account {
-                    material_account_id                       = 1,
-                    material_account_name                     = "1000-00 สินทรัพย์"
-
-                 }
-            };
-
-        static IList<costing_method_material> costing_method_material_data = new List<costing_method_material>
-            {
-                 new costing_method_material {
-                    costing_method_material_id                       = 1,
-                    costing_method_material_name                     = "FIFO"
-
-                 }
-            };
-        
-        static IList<uom> uomdata = new List<uom>
-            {
-                 new uom {
-                    uom_id                       = 1,
-                    uom_name                     = "ลัง"
-
-                 }
-            };
-
-        static IList<materialModel> materialModeldata = new List<materialModel>
-            {
-                new materialModel {
-                    item_no                       = "bm003",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 1,
-                    category_id                      = 1,
-                    description                   = "ฟหกดเ้่าสว222",
-                    status                        = true,
-                    material_account              = 1,
-                    costing_method_material       = 2,
-                    stock_count                   = false,
-                    overdraw_stock                = true,
-                    picture_path                  = "30-windows-xp-bliss-windows-10 (1).jpg",
-                    brand                         = "กุซซี่",
-                    version                       = "เวอร์ชั่นปรับปรุง5",
-                    color                         = "แดง",
-                    size                          = "20 cm, หนา 2.5 cm , ยาว 2.2m ",
-                    uom_in                        = 1,
-                    qty_in                        = 1,
-                    uom_stock                     = 3,
-                    qty_stock                     = 100,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 }
-            };
-
-
-
-
-
-
-
-
-
-
-
-
         //private materialModel data = new materialModel();
         // GET: Material
         public ActionResult Index()
@@ -187,7 +100,6 @@ namespace KKN_UI.Controllers
 
             return View(listindex);
         }
-
 
         public ActionResult Creatematerial()
         {
@@ -452,20 +364,40 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Editmaterialdata(materialModel material)
+        public JsonResult Editmaterialdata(MaterialSQL materialdata)
         {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.item_masterUpdate", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-            //List<materialModel> materialModel = new data.data().Materials().ToList();
-            //materialModel material = new data.data().Materials().Where(data => data.item_no == item_no).FirstOrDefault();
-            var student = materialModeldata.Where(s => s.item_no == material.item_no).FirstOrDefault();
-       
-            //student.size = material.size;
-            materialModeldata.Remove(student);
-            materialModeldata.Add(material);
+                    cmd.Parameters.AddWithValue("@item_id           ", materialdata.item_id);
+                    cmd.Parameters.AddWithValue("@item_no           ", materialdata.item_no);
+                    cmd.Parameters.AddWithValue("@item_name         ", materialdata.item_name);
+                    cmd.Parameters.AddWithValue("@group_id          ", materialdata.group_id);
+                    cmd.Parameters.AddWithValue("@category_id       ", materialdata.category_id);
+                    cmd.Parameters.AddWithValue("@material_acc_id   ", materialdata.material_acc_id);
+                    cmd.Parameters.AddWithValue("@costing_method_id ", materialdata.costing_method_id);
+                    cmd.Parameters.AddWithValue("@description       ", materialdata.description);
+                    cmd.Parameters.AddWithValue("@status            ", materialdata.status);
+                    cmd.Parameters.AddWithValue("@stock_count       ", materialdata.stock_count);
+                    cmd.Parameters.AddWithValue("@overdraw_stock    ", materialdata.overdraw_stock);
+                    //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
+                    cmd.Parameters.AddWithValue("@brand             ", materialdata.brand);
+                    cmd.Parameters.AddWithValue("@version           ", materialdata.version);
+                    cmd.Parameters.AddWithValue("@color             ", materialdata.color);
+                    cmd.Parameters.AddWithValue("@size              ", materialdata.size);
+                    cmd.Parameters.AddWithValue("@uom_in            ", materialdata.uom_in);
+                    cmd.Parameters.AddWithValue("@uom_stock         ", materialdata.uom_stock);
+                    cmd.Parameters.AddWithValue("@qty_in            ", materialdata.qty_in);
+                    cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
 
-            string output = "1";
+                    cmd.ExecuteReader();
+                }
+            }
 
-            return Json(output, JsonRequestBehavior.AllowGet);
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -480,26 +412,20 @@ namespace KKN_UI.Controllers
                     cmd.Parameters.AddWithValue("@item_id", mateid.item_id);
                     cmd.ExecuteReader();
                 }
-                        
             }
                 return Json(JsonRequestBehavior.AllowGet);
         }
 
-
-
-
-
         [HttpPost]
         public JsonResult Createtodata(MaterialSQL materialdata)
         {
-
             using (var conn = OpenDbConnection())
             {
-               
                 using (SqlCommand cmd = new SqlCommand("dbo.item_masterCreate", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@item_id           ",materialdata.item_id);
                     cmd.Parameters.AddWithValue("@item_no           ",materialdata.item_no);
                     cmd.Parameters.AddWithValue("@item_name         ",materialdata.item_name        );
                     cmd.Parameters.AddWithValue("@group_id          ",materialdata.group_id         );
@@ -523,51 +449,8 @@ namespace KKN_UI.Controllers
                     cmd.ExecuteReader();
                 }
             }
-
-            //    var i = materialModeldata.Where(s => s.item_no == materialdata.item_no).FirstOrDefault();
-            //string output;
-            //if (i != null)
-            //{
-            //     output = "0";
-            //    return Json(new {  output=output }, JsonRequestBehavior.AllowGet);
-            //}
-
-            //MaterialSQL materialListpush = new MaterialSQL
-            //{
-            //    item_no                        =  materialdata.item_no,      
-            //    item_name                      =  materialdata.item_name,
-            //    group_id                       =  materialdata.group_id,                  
-            //    category_id                    =  materialdata.category_id,               
-            //    material_acc_id                =  materialdata.material_acc_id,       
-            //    costing_method_id              =  materialdata.costing_method_id,
-            //    stock_count                    =  materialdata.stock_count,            
-            //    overdraw_stock                 =  materialdata.overdraw_stock,         
-            //    status                         =  materialdata.status,                 
-            //    brand                          =  materialdata.brand,                  
-            //    version                        =  materialdata.version,                
-            //    color                          =  materialdata.color,                  
-            //    size                           =  materialdata.size,                   
-            //    description                    =  materialdata.description,            
-            //    uom_in                         =  materialdata.uom_in,                 
-            //    uom_stock                      =  materialdata.uom_stock,              
-            //    qty_in                         =  materialdata.qty_in,                 
-            //    qty_stock                      =  materialdata.qty_stock,
-            //    picture_path                   =  materialdata.picture_path,
-            //    //picture_file                   = materialdata.picture_file
-                
-            //};
-
-            //materialModeldata.Add(MaterialSQLlist);
-            
-             //output = "1";
-
-
             return Json( JsonRequestBehavior.AllowGet);
         }
-
-
-       
-
 
         [HttpPost]
         public ActionResult UploadFiles(HttpPostedFileBase file)
@@ -594,11 +477,8 @@ namespace KKN_UI.Controllers
             return View("Index");
         }
 
-
         public MaterialSQL mapView(SqlDataReader rdr)
         {
-            
-
             var result = new MaterialSQL();
             result.item_id = Convert.ToInt32(rdr["item_master_item_id"]);
             result.item_no = rdr["item_master_item_no"].ToString();
@@ -621,10 +501,8 @@ namespace KKN_UI.Controllers
             result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
 
-
             result.GroupSQLModel = mapviewgroup(rdr);
             result.CategorySQLModel = mapviewcategory(rdr);
-
 
             return result;
         }
@@ -632,7 +510,6 @@ namespace KKN_UI.Controllers
         public GroupSQL mapviewgroup(SqlDataReader rdr)
         {
             var resultgroup = new GroupSQL();
-            //resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
             resultgroup.group_name = rdr["group_time_group_name"].ToString();
 
             return resultgroup;
@@ -641,11 +518,8 @@ namespace KKN_UI.Controllers
         public CategorySQL mapviewcategory(SqlDataReader rdr)
         {
             var resultcategory = new CategorySQL();
-            //resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
             resultcategory.category_name = rdr["category_category_name"].ToString();
-            //result.GroupSQLModel = 
-
-
+            
             return resultcategory;
         }
 
@@ -660,8 +534,6 @@ namespace KKN_UI.Controllers
 
         public CategorySQL maplistcategory(SqlDataReader rdr)
         {
-
-
             var resultcategory = new CategorySQL();
             resultcategory.category_id = Convert.ToInt32(rdr["category_id"]);
             resultcategory.group_id = Convert.ToInt32(rdr["group_id"]);

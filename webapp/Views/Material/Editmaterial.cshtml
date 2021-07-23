@@ -523,7 +523,7 @@
     <div class="row margin-top-10 margin-bottom-10 ">
         <button id="btcancel" class="btn btn-danger pull-right" style="margin:5px; display:none;" onclick="canceledit()">Cancel</button>
         <button id="btsave" class="btn btn-success pull-right" style="margin: 5px; display: none;" onclick="comfirmsave()">Save</button>
-        <button id="btedit" class="btn btn-danger pull-right" style="margin:5px;" onclick="deleteedit()">Delete</button>
+        <button id="btdelte" class="btn btn-danger pull-right" style="margin:5px;" onclick="deleteedit()">Delete</button>
         <button id="btedit" class="btn btn-warning pull-right" style="margin:5px;" onclick="openedit()">Edit</button>
 
     </div> <br /><br />
@@ -534,6 +534,7 @@
                 document.getElementById("btedit").style.display = "none";
                 document.getElementById("btcancel").style.display = "block";
                 document.getElementById("btsave").style.display = "block";
+                document.getElementById("btdelte").style.display = "none";
                 ////////////// disable
                 //document.getElementById("item_no").disabled = false;
                 document.getElementById("item_name").disabled = false;
@@ -559,6 +560,7 @@
                 document.getElementById("btedit").style.display = "block";
                 document.getElementById("btcancel").style.display = "none";
                 document.getElementById("btsave").style.display = "none";
+                document.getElementById("btdelte").style.display = "block";
                 /////////
                 ////////////// disable
                 document.getElementById("item_no").disabled = true;
@@ -597,9 +599,9 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-                        console.log("edit complete");
+                        console.log("delete complete");
                         $("#content_ajaxloader").fadeOut("fast");
-                        alert("บันทึกเรียบร้อย")
+                        alert("ลบเรียบร้อย")
                         window.location.href = "/material";
                     },
                     failure: function (response) {
@@ -630,24 +632,26 @@
                 ///get input to val
                 $("#content_ajaxloader").show();
                 var material = new Object();
+                material.item_id                    = document.getElementById("item_id").value;
                 material.item_no                    = document.getElementById("item_no").value;
                 material.item_name                  = document.getElementById("item_name").value;
                 material.group_id                      = document.getElementById("group").value;
                 material.category_id                   = document.getElementById("category").value;
-                material.material_account           = document.getElementById("material_account").value;
-                material.costing_method_material    = document.getElementById("costing_method_material").value;
+                material.material_acc_id           = document.getElementById("material_account").value;
+                material.costing_method_id    = document.getElementById("costing_method_material").value;
+                material.description                = document.getElementById("description").value;
+                material.status                     = document.getElementById("status").checked;
                 material.stock_count                = document.getElementById("stock_count").checked;
                 material.overdraw_stock             = document.getElementById("overdraw_stock").checked;
-                material.status                     = document.getElementById("status").checked;
                 material.brand                      = document.getElementById("brand").value;
                 material.version                    = document.getElementById("version").value;
                 material.color                      = document.getElementById("color").value;
                 material.size                       = document.getElementById("size").value;
-                material.description                = document.getElementById("description").value;
                 material.uom_in                     = document.getElementById("uom_in").value;
                 material.uom_stock                  = document.getElementById("uom_stock").value;
                 material.qty_in                     = document.getElementById("qty_in").value;
                 material.qty_stock                  = document.getElementById("qty_stock").value;
+                material.picture_path = document.getElementById("blah").alt;
                 //material.blah                       = document.getElementById("file-input").value;
 
                 console.log(material);
