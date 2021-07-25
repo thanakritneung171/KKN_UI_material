@@ -1075,7 +1075,11 @@
     <Compile Include="Helper\DecimalModelBinder.cs" />
     <Compile Include="Helper\FileManager.cs" />
     <Compile Include="Helper\UtilityHelper.cs" />
+    <Compile Include="material\category\CategoryDao.cs" />
+    <Compile Include="material\Costing_method\Costing_methodDao.cs" />
     <Compile Include="material\group\GroupDao.cs" />
+    <Compile Include="material\Material_acc\Material_accDao.cs" />
+    <Compile Include="material\uom\uomDao.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\Enum\UtilEnum.cs" />
