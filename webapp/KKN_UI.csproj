@@ -1083,10 +1083,16 @@
     <Compile Include="materialDao\stock\stock.cs" />
     <Compile Include="materialDao\uom\uomDao.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category\CategorySQL.cs" />
     <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\Costing_method\Costing_methodSQL.cs" />
     <Compile Include="Models\Enum\UtilEnum.cs" />
     <Compile Include="Models\FileUploadModel.cs" />
+    <Compile Include="Models\Group\GroupSQL.cs" />
     <Compile Include="Models\MaterialSQL.cs" />
+    <Compile Include="Models\Material\MaterialSQL.cs" />
+    <Compile Include="Models\Material_acc\Material_accSQL.cs" />
+    <Compile Include="Models\Uom\UomSQL.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

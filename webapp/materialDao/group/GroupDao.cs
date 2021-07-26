@@ -1,4 +1,5 @@
 ﻿using KKN_UI.Models;
+using KKN_UI.Models.Group;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,10 +10,12 @@ namespace KKN_UI.material.group
 {
     public class GroupDao
     {
-        private const string Read = "";
-        private const string Creat = "";
-        private const string Update = "";
-        private const string Delete = "";
+        private const string READ       = "group_itemRead";
+        private const string CREATE     = "group_itemCreate";
+        private const string DELETE     = "group_itemDelete";
+        private const string UPDATE     = "group_itemUpdate";
+                                           
+        private const string READ_BYID  = "group_itemRead_Byid";
 
 
 

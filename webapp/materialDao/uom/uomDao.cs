@@ -8,6 +8,7 @@ using System.Net;
 using System.Web.Mvc;
 using System.Data;
 using System.IO;
+using KKN_UI.Models.Uom;
 
 namespace KKN_UI.material.uom
 {
@@ -24,19 +25,19 @@ namespace KKN_UI.material.uom
             return conn;
         }
 
-        private const string READ_BYID   = "uomRead";
-        private const string CREATE = "uomCreate";
-        private const string UPDATE = "uomUpdate";
-        private const string DELETE = "uomDelete";
+        private const string READ       = "uomRead";
+        private const string CREATE     = "uomCreate";
+        private const string UPDATE     = "uomUpdate";
+        private const string DELETE     = "uomDelete";
 
-        private const string READ = "uomRead";
+        private const string READ_BYID  = "uomRead_Byid";
 
-        public IEnumerable<uomSQL> uomlistdata
+        public IEnumerable<UomSQL> uomlistdata
         {
             get
             {
                
-                List<uomSQL> uomlist = new List<uomSQL>();
+                List<UomSQL> uomlist = new List<UomSQL>();
                 using (var conn = OpenDbConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand(READ,conn))
@@ -47,7 +48,7 @@ namespace KKN_UI.material.uom
                         {
                             while(rdr.Read())
                             {
-                                uomSQL uomdata = new uomSQL();
+                                UomSQL uomdata = new UomSQL();
                                 uomdata.uom_id = Convert.ToInt32(rdr["uom_id"]);
                                 uomdata.uom_name = rdr["uom_name"].ToString();
                                 uomlist.Add(uomdata);

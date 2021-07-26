@@ -11,6 +11,12 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
 using KKN_UI.material.uom;
+using KKN_UI.Models.Material;
+using KKN_UI.Models.Group;
+using KKN_UI.Models.Category;
+using KKN_UI.Models.Uom;
+using KKN_UI.Models.Material_acc;
+using KKN_UI.Models.Costing_method;
 
 namespace KKN_UI.Controllers
 {
@@ -86,7 +92,7 @@ namespace KKN_UI.Controllers
             }
 
             //uomDao uomd = new uomDao();
-            List<uomSQL> uud = new uomDao().uomlistdata.ToList();
+            //List<UomSQL> uud = new uomDao().uomlistdata.ToList();
 
             listindex.MaterialSQLlist = mtlist.ToList();
             listindex.GroupSQLlist = gtlist.ToList();
@@ -105,7 +111,7 @@ namespace KKN_UI.Controllers
             List<CategorySQL> ctlist = new List<CategorySQL>();
             List<Material_accSQL> macclist = new List<Material_accSQL>();
             List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
-            List<uomSQL> uomlist = new List<uomSQL>();
+            List<UomSQL> uomlist = new List<UomSQL>();
             using (var conn = OpenDbConnection())
             {
                 //var query = "SELECT * FROM  MaterialView";
@@ -235,7 +241,7 @@ namespace KKN_UI.Controllers
             List<CategorySQL> ctlist = new List<CategorySQL>();
             List<Material_accSQL> macclist = new List<Material_accSQL>();
             List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
-            List<uomSQL> uomlist = new List<uomSQL>();
+            List<UomSQL> uomlist = new List<UomSQL>();
             using (var conn = OpenDbConnection())
             {
                 var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'"+ id+"'";
@@ -556,9 +562,9 @@ namespace KKN_UI.Controllers
             return resultcosting;
         }
 
-        public uomSQL maplistuom(SqlDataReader rdr)
+        public UomSQL maplistuom(SqlDataReader rdr)
         {
-            var resultuom = new uomSQL();
+            var resultuom = new UomSQL();
             resultuom.uom_id = Convert.ToInt32(rdr["uom_id"]);
             resultuom.uom_name = rdr["uom_name"].ToString();
 
