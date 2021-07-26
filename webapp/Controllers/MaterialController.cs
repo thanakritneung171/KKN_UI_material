@@ -17,6 +17,7 @@ using KKN_UI.Models.Category;
 using KKN_UI.Models.Uom;
 using KKN_UI.Models.Material_acc;
 using KKN_UI.Models.Costing_method;
+using KKN_UI.material.group;
 
 namespace KKN_UI.Controllers
 {
@@ -60,20 +61,20 @@ namespace KKN_UI.Controllers
 
                 }
 
-                var query2 = "SELECT * FROM  group_item";
+                //var query2 = "SELECT * FROM  group_item";
 
-                using (SqlCommand cmd = new SqlCommand(query2, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+                //using (SqlCommand cmd = new SqlCommand(query2, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
 
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            gtlist.Add(maplistgroup(rdr));
-                        }
-                    }
-                }
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            gtlist.Add(maplistgroup(rdr));
+                //        }
+                //    }
+                //}
 
                 var query3 = "SELECT * FROM  category";
 
@@ -95,7 +96,8 @@ namespace KKN_UI.Controllers
             //List<UomSQL> uud = new uomDao().uomlistdata.ToList();
 
             listindex.MaterialSQLlist = mtlist.ToList();
-            listindex.GroupSQLlist = gtlist.ToList();
+            //listindex.GroupSQLlist = gtlist.ToList();
+            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = ctlist.ToList();
 
 

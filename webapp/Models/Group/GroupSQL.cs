@@ -10,4 +10,15 @@ namespace KKN_UI.Models.Group
         public int group_id { get; set; }
         public string group_name { get; set; }
     }
+
+    public class GroupSQLlist
+    {
+        public List<GroupSQL> Grouplist { get; set; }
+        public GroupSQLlist() 
+        {
+            this.Grouplist = new List<GroupSQL>();
+        }
+    }
+
+
 }
