@@ -10,6 +10,7 @@ using KKN_UI.data;
 using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
+using KKN_UI.material.uom;
 
 namespace KKN_UI.Controllers
 {
@@ -27,8 +28,7 @@ namespace KKN_UI.Controllers
             return conn;
         }
 
-        //private materialModel data = new materialModel();
-        // GET: Material
+      
         public ActionResult Index()
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
@@ -39,17 +39,14 @@ namespace KKN_UI.Controllers
             {
                 var query = "SELECT * FROM  MaterialView";
 
-                // Build a command to execute this
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            //result=mapView(rdr);
                             mtlist.Add(mapView(rdr));
                         }
                     }
@@ -59,17 +56,14 @@ namespace KKN_UI.Controllers
 
                 var query2 = "SELECT * FROM  group_item";
 
-                // Build a command to execute this
                 using (SqlCommand cmd = new SqlCommand(query2, conn))
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            //result=mapView(rdr);
                             gtlist.Add(maplistgroup(rdr));
                         }
                     }
@@ -77,26 +71,28 @@ namespace KKN_UI.Controllers
 
                 var query3 = "SELECT * FROM  category";
 
-                // Build a command to execute this
                 using (SqlCommand cmd = new SqlCommand(query3, conn))
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            //result=mapView(rdr);
                             ctlist.Add(maplistcategory(rdr));
                         }
                     }
                 }
             }
-           
+
+            //uomDao uomd = new uomDao();
+            List<uomSQL> uud = new uomDao().uomlistdata.ToList();
+
             listindex.MaterialSQLlist = mtlist.ToList();
             listindex.GroupSQLlist = gtlist.ToList();
             listindex.CategorySQLlist = ctlist.ToList();
+
+
 
             return View(listindex);
         }
@@ -124,7 +120,7 @@ namespace KKN_UI.Controllers
                 //            mtlist.Add(mapView(rdr));
                 //        }
                 //    }
-                //}
+                //} 
 
                 var query2 = "SELECT * FROM  group_item";
 

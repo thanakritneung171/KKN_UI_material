@@ -1078,15 +1078,15 @@
     <Compile Include="materialDao\category\CategoryDao.cs" />
     <Compile Include="materialDao\Costing_method\Costing_methodDao.cs" />
     <Compile Include="materialDao\group\GroupDao.cs" />
+    <Compile Include="materialDao\item_master\item_master.cs" />
     <Compile Include="materialDao\Material_acc\Material_accDao.cs" />
+    <Compile Include="materialDao\stock\stock.cs" />
     <Compile Include="materialDao\uom\uomDao.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\Enum\UtilEnum.cs" />
     <Compile Include="Models\FileUploadModel.cs" />
-    <Compile Include="Models\materialModel.cs" />
     <Compile Include="Models\MaterialSQL.cs" />
-    <Compile Include="Models\mateview.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
