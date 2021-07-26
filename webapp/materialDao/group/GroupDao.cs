@@ -153,7 +153,7 @@ namespace KKN_UI.material.group
         public GroupSQL maplistgroupDao(SqlDataReader rdr)
         {
             var resultgroup = new GroupSQL();
-            resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
+            resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);  
             resultgroup.group_name = rdr["group_name"].ToString();
 
             return resultgroup;

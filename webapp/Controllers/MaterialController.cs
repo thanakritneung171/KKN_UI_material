@@ -18,6 +18,7 @@ using KKN_UI.Models.Uom;
 using KKN_UI.Models.Material_acc;
 using KKN_UI.Models.Costing_method;
 using KKN_UI.material.group;
+using KKN_UI.material.category;
 
 namespace KKN_UI.Controllers
 {
@@ -40,8 +41,8 @@ namespace KKN_UI.Controllers
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
             List<MaterialSQL> mtlist = new List<MaterialSQL>();
-            List<GroupSQL> gtlist = new List<GroupSQL>();
-            List<CategorySQL> ctlist = new List<CategorySQL>();
+            //List<GroupSQL> gtlist = new List<GroupSQL>();
+            //List<CategorySQL> ctlist = new List<CategorySQL>();
             using (var conn = OpenDbConnection())
             {
                 var query = "SELECT * FROM  MaterialView";
@@ -76,29 +77,32 @@ namespace KKN_UI.Controllers
                 //    }
                 //}
 
-                var query3 = "SELECT * FROM  category";
+                //var query3 = "SELECT * FROM  category";
 
-                using (SqlCommand cmd = new SqlCommand(query3, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+                //using (SqlCommand cmd = new SqlCommand(query3, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
 
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            ctlist.Add(maplistcategory(rdr));
-                        }
-                    }
-                }
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            ctlist.Add(maplistcategory(rdr));
+                //        }
+                //    }
+                //}
             }
 
             //uomDao uomd = new uomDao();
             //List<UomSQL> uud = new uomDao().uomlistdata.ToList();
 
             listindex.MaterialSQLlist = mtlist.ToList();
+
             //listindex.GroupSQLlist = gtlist.ToList();
+            //listindex.CategorySQLlist = ctlist.ToList();
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
-            listindex.CategorySQLlist = ctlist.ToList();
+            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            
 
 
 
