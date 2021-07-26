@@ -77,6 +77,78 @@ namespace KKN_UI.material.group
 
         }
 
+        public GroupSQL InsertGroup(GroupSQL groupobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CREATE,conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
+                    cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
+
+                    GroupSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if(rdr.HasRows)
+                        {
+                            result = maplistgroupDao(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public GroupSQL UpdateGroup(GroupSQL groupobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(UPDATE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
+                    cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
+
+                    GroupSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = maplistgroupDao(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public GroupSQL DeleteGroup(GroupSQL groupobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
+                    cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
+
+                    GroupSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = maplistgroupDao(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
 
         public GroupSQL maplistgroupDao(SqlDataReader rdr)
         {
