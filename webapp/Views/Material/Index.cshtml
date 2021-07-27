@@ -202,17 +202,29 @@
                         {
                             <option value="@itemgroup.group_id">@itemgroup.group_name </option>
                         }
-                        @*<option value="">ทั้งหมด</option>
-                            <option value="1">Concrete</option>
-                            <option value="2">Steel</option>
-                            <option value="3">Wood</option>
-                            <option value="4">Electrical</option>
-                            <option value="5">Sanitary</option>
-                            <option value="6">Colour/Paint</option>*@
+                    </select>
+                </div>
+
+                <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
+                    <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)" @*disabled*@>
+                        <option disabled selected>ไม่พบประเภทวัสดุ</option>
+                        <option style="display:none" value="">ทั้งหมด</option>
+                        @foreach (var itemcategory in result.CategorySQLlist)
+                        {
+                            <option value="@itemcategory.category_id" id="opcate" name="opcate" @*style="display:none"*@ valuegroup="@itemcategory.group_id">@itemcategory.category_name</option>
+                        }
+
+                        <!--<option--> @*style="display:none"*@                        <!--value="1">ปูนมิกซ์</option>            
+                            <option-->                        @*style="display:none"*@                        <!--value="2">ปูนถง</option>            
+                            <option-->                        @*style="display:none"*@                        <!--value="3">เคมีภัณฑ์</option>            
+                            <option-->                        @*style="display:none"*@                        <!--value="4">เหล็กเส้น</option>            
+                            <option-->                        @*style="display:none"*@                        <!--value="5">เหล็กรูปพรรณ</option>           
+                            <option-->                        @*style="display:none"*@ <!--value="6">ไม้ห้องซาวน่า</option>-->
 
                     </select>
                 </div>
                 <script>
+                 
                     function keyupser(keyupser) {
                         console.log("ค้นหา " + keyupser.value)
                         var table1ser = $('#dt_basic').DataTable();
@@ -220,22 +232,29 @@
                     }
 
                     function selgr(b) {
+                        console.log(b.value);
+                        //document.getElementById("selcategory").value = b.value
                         if (b.value != "") {
 
                             var table2ser = $('#dt_basic').DataTable();
                             table2ser.column(2).search(b.options[b.selectedIndex].text).draw();
+                            
 
                         } else {
                             var table2ser = $('#dt_basic').DataTable();
                             table2ser.column(2).search(b.value).draw();
 
                         }
+
+                        ////////////
+                        //if (b.valuegroup = document.getElementById("opcate").valuegroup)
+                        //{
+                        //    document.getElementById("opcate").disabled = false;
+
+                        //}
+                        ////////////
                         console.log("ค้นหากลุ่ม" + b.options[b.selectedIndex].text)
                         console.log("ค้นหากลุ่ม" + b.value + "out")
-
-
-
-
 
                     }
 
@@ -255,24 +274,7 @@
                 </script>
                 @*<button onclick="insertoption()"> 111111</button>*@
 
-                <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
-                    <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)">
-                        <option disabled selected>ไม่พบประเภทวัสดุ</option>
-                        <option @*style="display:none"*@ value="">ทั้งหมด</option>
-                        @foreach(var itemcategory in result.CategorySQLlist)
-                            {
-                                <option value="@itemcategory.category_id">@itemcategory.category_name</option>
-                            }
 
-                        <!--<option--> @*style="display:none"*@ <!--value="1">ปูนมิกซ์</option>
-                        <option--> @*style="display:none"*@ <!--value="2">ปูนถง</option>
-                        <option--> @*style="display:none"*@ <!--value="3">เคมีภัณฑ์</option>
-                        <option--> @*style="display:none"*@ <!--value="4">เหล็กเส้น</option>
-                        <option--> @*style="display:none"*@ <!--value="5">เหล็กรูปพรรณ</option>
-                        <option--> @*style="display:none"*@ <!--value="6">ไม้ห้องซาวน่า</option>-->
-
-                    </select>
-                </div>
                 <style>
                     select option[disabled]:first-child {
                         display: none;
@@ -281,9 +283,9 @@
 
 
                 @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
-                    <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
-                        <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
-                    </div>*@
+        <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
+            <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
+        </div>*@
                 <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px;"><a @*href='@Url.Action("Editmaterial", "Material")'*@ class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
                 <div class="hidden-lg hidden-md col-sm-8 col-xs-4 "></div>
                 <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px; "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
