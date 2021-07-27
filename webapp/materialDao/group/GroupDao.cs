@@ -72,9 +72,7 @@ namespace KKN_UI.material.group
                     }
                     return (result);
                 }
-
             }
-
         }
 
         public GroupSQL InsertGroup(GroupSQL groupobject)
@@ -84,7 +82,7 @@ namespace KKN_UI.material.group
                 using (SqlCommand cmd = new SqlCommand(CREATE,conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
+                    //cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
                     cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
 
                     GroupSQL result = null;
@@ -159,5 +157,13 @@ namespace KKN_UI.material.group
             return resultgroup;
         }
 
+        public GroupSQL mapviewlistgroupDao(SqlDataReader rdr)
+        {
+            var resultgroup = new GroupSQL();
+            resultgroup.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
+            resultgroup.group_name = rdr["group_time_group_name"].ToString();
+
+            return resultgroup;
+        }
     }
 }

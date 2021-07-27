@@ -14,9 +14,9 @@ namespace KKN_UI.Models.Uom
     public class UomSQLlist
     {
         public List<UomSQL> Uomlist { get; set; }
-        public UomSQLlist()
-        {
-            this.Uomlist = new List<UomSQL>();
-        }
+        //public UomSQLlist()
+        //{
+        //    this.Uomlist = new List<UomSQL>();
+        //}
     }
 }

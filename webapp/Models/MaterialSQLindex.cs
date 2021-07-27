@@ -35,7 +35,6 @@ namespace KKN_UI.Models
     //    public decimal qty_stock { get; set; }
     //    public GroupSQL GroupSQLModel { get; set; }
     //    public CategorySQL CategorySQLModel { get; set; }
-
     //}
 
     //public class GroupSQL

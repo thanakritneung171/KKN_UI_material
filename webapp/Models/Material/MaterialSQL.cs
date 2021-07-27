@@ -33,4 +33,13 @@ namespace KKN_UI.Models.Material
         public CategorySQL CategorySQLModel { get; set; }
 
     }
+
+    public class MaterialSQLlist
+    {
+        public List<MaterialSQL> materiallist { get; set; }
+        public MaterialSQLlist()
+        {
+            this.materiallist = new List<MaterialSQL>();
+        }
+    }
 }

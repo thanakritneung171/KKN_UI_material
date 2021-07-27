@@ -14,9 +14,9 @@ namespace KKN_UI.Models.Costing_method
     public class Costing_methodSQLlist
     {
         public List<Costing_methodSQL> Costing_methodlist { get; set; }
-        //public Costing_methodSQLlist()
-        //{
-        //    this.Costing_methodlist = new List<Costing_methodSQL>();
-        //}
+        public Costing_methodSQLlist()
+        {
+            this.Costing_methodlist = new List<Costing_methodSQL>();
+        }
     }
 }

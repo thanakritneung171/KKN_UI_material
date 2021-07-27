@@ -76,12 +76,97 @@ namespace KKN_UI.material.category
 
         }
 
+        public CategorySQL InsertCategory(CategorySQL categoryobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CREATE,conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
+                    cmd.Parameters.AddWithValue("@group_id", categoryobject.group_id);
+                    cmd.Parameters.AddWithValue("@category_name", categoryobject.category_name);
+
+                    CategorySQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if(rdr.HasRows)
+                        {
+                            result = maplistcategory(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public CategorySQL UpdateCategory(CategorySQL categoryobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(UPDATE,conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
+                    cmd.Parameters.AddWithValue("@group_id", categoryobject.group_id);
+                    cmd.Parameters.AddWithValue("@category_name", categoryobject.category_name);
+
+                    CategorySQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if(rdr.HasRows)
+                        {
+                            result = maplistcategory(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public CategorySQL DeleteCategory(CategorySQL categoryobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETE,conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
+                    cmd.Parameters.AddWithValue("@category_name", categoryobject.category_name);
+
+                    CategorySQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if(rdr.HasRows)
+                        {
+                            result = maplistcategory(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+
         public CategorySQL maplistcategory(SqlDataReader rdr)
         {
             var resultcategory = new CategorySQL();
             resultcategory.category_id = Convert.ToInt32(rdr["category_id"]);
             resultcategory.group_id = Convert.ToInt32(rdr["group_id"]);
             resultcategory.category_name = rdr["category_name"].ToString();
+
+            return resultcategory;
+        }
+
+        public CategorySQL mapviewlistcategory(SqlDataReader rdr)
+        {
+            var resultcategory = new CategorySQL();
+            resultcategory.category_id = Convert.ToInt32(rdr["category_category_id"]);
+            resultcategory.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
+            resultcategory.category_name = rdr["category_category_name"].ToString();
 
             return resultcategory;
         }

@@ -37,7 +37,7 @@ namespace KKN_UI.material.Costing_method
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     Costing_methodSQLlist result = new Costing_methodSQLlist();
-                    //var result = new List<GroupSQL>()
+                    //var result = new List<Costing_methodSQL>()
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
@@ -47,15 +47,103 @@ namespace KKN_UI.material.Costing_method
                     }
                     return result;
                 }
-
             }
+        }
 
+        public Costing_methodSQL GetdataByid(int id)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(READ_BYID, conn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@costing_method_id", id);
+                    Costing_methodSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result = maplistcosting(rdr);
+                        }
+                    }
+                    return (result);
+                }
+            }
         }
 
 
+        public Costing_methodSQL InsertCosting_method(Costing_methodSQL costing_methodobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CREATE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@costing_method_id", costing_methodobject.costing_method_id);
+                    cmd.Parameters.AddWithValue("@costing_method_name", costing_methodobject.costing_method_name);
 
+                    Costing_methodSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = maplistcosting(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
 
+        public Costing_methodSQL UpdateCosting_method(Costing_methodSQL costing_methodobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(UPDATE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@costing_method_id", costing_methodobject.costing_method_id);
+                    cmd.Parameters.AddWithValue("@costing_method_name", costing_methodobject.costing_method_name);
 
+                    Costing_methodSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = maplistcosting(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public Costing_methodSQL DeleteCosting_method(Costing_methodSQL costing_methodobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@costing_method_id", costing_methodobject.costing_method_id);
+                    cmd.Parameters.AddWithValue("@costing_method_name", costing_methodobject.costing_method_name);
+
+                    Costing_methodSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = maplistcosting(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
 
 
 
@@ -66,7 +154,6 @@ namespace KKN_UI.material.Costing_method
             resultcosting.costing_method_name = rdr["costing_method_name"].ToString();
 
             return resultcosting;
-        }
-
+        } 
     }
 }

@@ -20,6 +20,8 @@ using KKN_UI.Models.Costing_method;
 using KKN_UI.material.group;
 using KKN_UI.material.category;
 using KKN_UI.material.Costing_method;
+using KKN_UI.material.Material_acc;
+using KKN_UI.materialDao.item_master;
 
 namespace KKN_UI.Controllers
 {
@@ -51,18 +53,17 @@ namespace KKN_UI.Controllers
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.CommandType = CommandType.Text;
-
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            mtlist.Add(mapView(rdr));
+                            //mtlist.Add(mapView(rdr));
+                            mtlist.Add(new item_masterDao().mapView(rdr));
                         }
                     }
-
-
                 }
 
+                #region old
                 //var query2 = "SELECT * FROM  group_item";
 
                 //using (SqlCommand cmd = new SqlCommand(query2, conn))
@@ -92,151 +93,199 @@ namespace KKN_UI.Controllers
                 //        }
                 //    }
                 //}
+                #endregion
             }
+            //listindex.GroupSQLlist = gtlist.ToList();
+            //listindex.CategorySQLlist = ctlist.ToList();
+
 
             //uomDao uomd = new uomDao();
             //List<UomSQL> uud = new uomDao().uomlistdata.ToList();
 
             listindex.MaterialSQLlist = mtlist.ToList();
-
-            //listindex.GroupSQLlist = gtlist.ToList();
-            //listindex.CategorySQLlist = ctlist.ToList();
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             
-
-
-
             return View(listindex);
         }
 
         public ActionResult Creatematerial()
         {
             MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
-            //List<MaterialSQL> mtlist = new List<MaterialSQL>();
-            List<GroupSQL> gtlist = new List<GroupSQL>();
-            List<CategorySQL> ctlist = new List<CategorySQL>();
-            List<Material_accSQL> macclist = new List<Material_accSQL>();
-            List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
-            List<UomSQL> uomlist = new List<UomSQL>();
-            using (var conn = OpenDbConnection())
-            {
-                //var query = "SELECT * FROM  MaterialView";
-                //using (SqlCommand cmd = new SqlCommand(query, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
 
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            mtlist.Add(mapView(rdr));
-                //        }
-                //    }
-                //} 
-
-                //var query2 = "SELECT * FROM  group_item";
-
-                //// Build a command to execute this
-                //using (SqlCommand cmd = new SqlCommand(query2, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    //var result = new MaterialSQL();
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            //result=mapView(rdr);
-                //            gtlist.Add(maplistgroup(rdr));
-                //        }
-                //    }
-                //}
-
-                //var query3 = "SELECT * FROM  category";
-
-                //// Build a command to execute this
-                //using (SqlCommand cmd = new SqlCommand(query3, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    //var result = new MaterialSQL();
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            //result=mapView(rdr);
-                //            ctlist.Add(maplistcategory(rdr));
-                //        }
-                //    }
-                //}
-
-                var query4 = "SELECT * FROM  material_acc";
-
-                // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query4, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
-
-                    //var result = new MaterialSQL();
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            //result=mapView(rdr);
-                            macclist.Add(maplistmaterialacc(rdr));
-                        }
-                    }
+            #region older
+            ////List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            //List<GroupSQL> gtlist = new List<GroupSQL>();
+            //List<CategorySQL> ctlist = new List<CategorySQL>();
+            //List<Material_accSQL> macclist = new List<Material_accSQL>();
+            //List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
+            //List<UomSQL> uomlist = new List<UomSQL>();
 
 
-                }
+            //using (var conn = OpenDbConnection())
+            //{
+            //    //var query = "SELECT * FROM  MaterialView";
+            //    //using (SqlCommand cmd = new SqlCommand(query, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
 
-                //var query5 = "SELECT * FROM  costing_method";
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            mtlist.Add(mapView(rdr));
+            //    //        }
+            //    //    }
+            //    //} 
 
-                //// Build a command to execute this
-                //using (SqlCommand cmd = new SqlCommand(query5, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
+            //    //var query2 = "SELECT * FROM  group_item";
 
-                //    //var result = new MaterialSQL();
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            //result=mapView(rdr);
-                //            costinglist.Add(maplistcosting(rdr));
-                //        }
-                //    }
-                //}
+            //    //// Build a command to execute this
+            //    //using (SqlCommand cmd = new SqlCommand(query2, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
 
-                var query6 = "SELECT * FROM  uom";
+            //    //    //var result = new MaterialSQL();
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            //result=mapView(rdr);
+            //    //            gtlist.Add(maplistgroup(rdr));
+            //    //        }
+            //    //    }
+            //    //}
 
-                // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query6, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+            //    //var query3 = "SELECT * FROM  category";
 
-                    //var result = new MaterialSQL();
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            //result=mapView(rdr);
-                            uomlist.Add(maplistuom(rdr));
-                        }
-                    }
-                }
-            }
+            //    //// Build a command to execute this
+            //    //using (SqlCommand cmd = new SqlCommand(query3, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    //var result = new MaterialSQL();
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            //result=mapView(rdr);
+            //    //            ctlist.Add(maplistcategory(rdr));
+            //    //        }
+            //    //    }
+            //    //}
+
+            //    //var query4 = "SELECT * FROM  material_acc";
+
+            //    //// Build a command to execute this
+            //    //using (SqlCommand cmd = new SqlCommand(query4, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    //var result = new MaterialSQL();
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            //result=mapView(rdr);
+            //    //            macclist.Add(maplistmaterialacc(rdr));
+            //    //        }
+            //    //    }
+
+
+            //    //}
+
+            //    //var query5 = "SELECT * FROM  costing_method";
+
+            //    //// Build a command to execute this
+            //    //using (SqlCommand cmd = new SqlCommand(query5, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            costinglist.Add(maplistcosting(rdr));
+            //    //        }
+            //    //    }
+            //    //}
+
+            //    //var query6 = "SELECT * FROM  uom";
+
+            //    //using (SqlCommand cmd = new SqlCommand(query6, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    //var result = new MaterialSQL();
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            uomlist.Add(maplistuom(rdr));
+            //    //        }
+            //    //    }
+            //    //}
+            //}
+
+
+            ////MaterialSQLlistindex.MaterialSQLlist = mtlist.ToList();
+            //MaterialSQLlistindex.GroupSQLlist = gtlist.ToList();
+            //MaterialSQLlistindex.CategorySQLlist = ctlist.ToList();
+            //MaterialSQLlistindex.Material_accSQLlist = macclist.ToList();
+            //MaterialSQLlistindex.Costing_methodSQL_list = costinglist.ToList();
+            //MaterialSQLlistindex.UomSQL_list = uomlist.ToList();       
+            #endregion
 
             //MaterialSQLlistindex.MaterialSQLlist = mtlist.ToList();
-            MaterialSQLlistindex.GroupSQLlist = gtlist.ToList();
-            MaterialSQLlistindex.CategorySQLlist = ctlist.ToList();
-            MaterialSQLlistindex.Material_accSQLlist = macclist.ToList();
-            MaterialSQLlistindex.Costing_methodSQL_list = costinglist.ToList();
-            MaterialSQLlistindex.UomSQL_list = uomlist.ToList();
-            
+            MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
+            MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
+            MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
+
 
             return View(MaterialSQLlistindex);
+        }
+
+        [HttpPost]
+        public JsonResult Createtodata(MaterialSQL materialdata)
+        {
+
+            new item_masterDao().InsertItem_master(materialdata);
+            #region hidden
+            //using (var conn = OpenDbConnection())
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterCreate", conn))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+
+            //        //cmd.Parameters.AddWithValue("@item_id           ",materialdata.item_id);
+            //        cmd.Parameters.AddWithValue("@item_no           ",materialdata.item_no);
+            //        cmd.Parameters.AddWithValue("@item_name         ",materialdata.item_name        );
+            //        cmd.Parameters.AddWithValue("@group_id          ",materialdata.group_id         );
+            //        cmd.Parameters.AddWithValue("@category_id       ",materialdata.category_id      );
+            //        cmd.Parameters.AddWithValue("@material_acc_id   ",materialdata.material_acc_id  );
+            //        cmd.Parameters.AddWithValue("@costing_method_id ",materialdata.costing_method_id);
+            //        cmd.Parameters.AddWithValue("@description       ", materialdata.description);
+            //        cmd.Parameters.AddWithValue("@status            ",materialdata.status           );
+            //        cmd.Parameters.AddWithValue("@stock_count       ",materialdata.stock_count      );
+            //        cmd.Parameters.AddWithValue("@overdraw_stock    ",materialdata.overdraw_stock   );
+            //        //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
+            //        cmd.Parameters.AddWithValue("@brand             ",materialdata.brand            );
+            //        cmd.Parameters.AddWithValue("@version           ",materialdata.version          );
+            //        cmd.Parameters.AddWithValue("@color             ",materialdata.color            );
+            //        cmd.Parameters.AddWithValue("@size              ",materialdata.size             );
+            //        cmd.Parameters.AddWithValue("@uom_in            ",materialdata.uom_in           );
+            //        cmd.Parameters.AddWithValue("@uom_stock         ",materialdata.uom_stock        );
+            //        cmd.Parameters.AddWithValue("@qty_in            ",materialdata.qty_in           );
+            //        cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
+
+            //        cmd.ExecuteReader();
+            //    }
+            //}
+            #endregion
+
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Editmaterial(string id)
@@ -264,102 +313,104 @@ namespace KKN_UI.Controllers
                         while (rdr.Read())
                         {
                             //result=mapView(rdr);
-                            mtlist = mapView(rdr);
+                            mtlist = new item_masterDao().mapView(rdr);
                         }
                     }
                 }
 
-                var query2 = "SELECT * FROM  group_item";
+                #region old
+                //var query2 = "SELECT * FROM  group_item";
 
-                // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query2, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+                //// Build a command to execute this
+                //using (SqlCommand cmd = new SqlCommand(query2, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            //result=mapView(rdr);
-                            gtlist.Add(maplistgroup(rdr));
-                        }
-                    }
-                }
+                //    //var result = new MaterialSQL();
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            //result=mapView(rdr);
+                //            gtlist.Add(maplistgroup(rdr));
+                //        }
+                //    }
+                //}
 
-                var query3 = "SELECT * FROM  category";
+                //var query3 = "SELECT * FROM  category";
 
-                // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query3, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+                //// Build a command to execute this
+                //using (SqlCommand cmd = new SqlCommand(query3, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            //result=mapView(rdr);
-                            ctlist.Add(maplistcategory(rdr));
-                        }
-                    }
-                }
+                //    //var result = new MaterialSQL();
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            //result=mapView(rdr);
+                //            ctlist.Add(maplistcategory(rdr));
+                //        }
+                //    }
+                //}
 
-                var query4 = "SELECT * FROM  material_acc";
+                //var query4 = "SELECT * FROM  material_acc";
 
-                // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query4, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+                //// Build a command to execute this
+                //using (SqlCommand cmd = new SqlCommand(query4, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            //result=mapView(rdr);
-                            macclist.Add(maplistmaterialacc(rdr));
-                        }
-                    }
+                //    //var result = new MaterialSQL();
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            //result=mapView(rdr);
+                //            macclist.Add(maplistmaterialacc(rdr));
+                //        }
+                //    }
 
 
-                }
+                //}
 
-                var query5 = "SELECT * FROM  costing_method";
+                //var query5 = "SELECT * FROM  costing_method";
 
-                // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query5, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+                //// Build a command to execute this
+                //using (SqlCommand cmd = new SqlCommand(query5, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            //result=mapView(rdr);
-                            costinglist.Add(maplistcosting(rdr));
-                        }
-                    }
-                }
+                //    //var result = new MaterialSQL();
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            //result=mapView(rdr);
+                //            costinglist.Add(maplistcosting(rdr));
+                //        }
+                //    }
+                //}
 
-                var query6 = "SELECT * FROM  uom";
+                //var query6 = "SELECT * FROM  uom";
 
-                // Build a command to execute this
-                using (SqlCommand cmd = new SqlCommand(query6, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+                //// Build a command to execute this
+                //using (SqlCommand cmd = new SqlCommand(query6, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            //result=mapView(rdr);
-                            uomlist.Add(maplistuom(rdr));
-                        }
-                    }
-                }
+                //    //var result = new MaterialSQL();
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            //result=mapView(rdr);
+                //            uomlist.Add(maplistuom(rdr));
+                //        }
+                //    }
+                //}
+                #endregion
             }
 
             //MaterialSQLlistindex.MaterialSQLdataselect = mtlist;
@@ -368,14 +419,13 @@ namespace KKN_UI.Controllers
             //MaterialSQLlistindex.Material_accSQLlist = macclist.ToList();
             //MaterialSQLlistindex.Costing_methodSQL_list = costinglist.ToList();
             //MaterialSQLlistindex.UomSQL_list = uomlist.ToList(); 
-            
-            
+
+
             MaterialSQLlistindex.MaterialSQLdataselect = mtlist;
             MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
-            MaterialSQLlistindex.Material_accSQLlist = macclist.ToList();
+            MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
             MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
-            //MaterialSQLlistindex.UomSQL_list = uomlist.ToList();
             MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
 
             return View(MaterialSQLlistindex);
@@ -384,36 +434,39 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Editmaterialdata(MaterialSQL materialdata)
         {
-            using (var conn = OpenDbConnection())
-            {
-                using (SqlCommand cmd = new SqlCommand("dbo.item_masterUpdate", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+            #region old
+            //using (var conn = OpenDbConnection())
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterUpdate", conn))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@item_id           ", materialdata.item_id);
-                    cmd.Parameters.AddWithValue("@item_no           ", materialdata.item_no);
-                    cmd.Parameters.AddWithValue("@item_name         ", materialdata.item_name);
-                    cmd.Parameters.AddWithValue("@group_id          ", materialdata.group_id);
-                    cmd.Parameters.AddWithValue("@category_id       ", materialdata.category_id);
-                    cmd.Parameters.AddWithValue("@material_acc_id   ", materialdata.material_acc_id);
-                    cmd.Parameters.AddWithValue("@costing_method_id ", materialdata.costing_method_id);
-                    cmd.Parameters.AddWithValue("@description       ", materialdata.description);
-                    cmd.Parameters.AddWithValue("@status            ", materialdata.status);
-                    cmd.Parameters.AddWithValue("@stock_count       ", materialdata.stock_count);
-                    cmd.Parameters.AddWithValue("@overdraw_stock    ", materialdata.overdraw_stock);
-                    //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
-                    cmd.Parameters.AddWithValue("@brand             ", materialdata.brand);
-                    cmd.Parameters.AddWithValue("@version           ", materialdata.version);
-                    cmd.Parameters.AddWithValue("@color             ", materialdata.color);
-                    cmd.Parameters.AddWithValue("@size              ", materialdata.size);
-                    cmd.Parameters.AddWithValue("@uom_in            ", materialdata.uom_in);
-                    cmd.Parameters.AddWithValue("@uom_stock         ", materialdata.uom_stock);
-                    cmd.Parameters.AddWithValue("@qty_in            ", materialdata.qty_in);
-                    cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
+            //        cmd.Parameters.AddWithValue("@item_id           ", materialdata.item_id);
+            //        cmd.Parameters.AddWithValue("@item_no           ", materialdata.item_no);
+            //        cmd.Parameters.AddWithValue("@item_name         ", materialdata.item_name);
+            //        cmd.Parameters.AddWithValue("@group_id          ", materialdata.group_id);
+            //        cmd.Parameters.AddWithValue("@category_id       ", materialdata.category_id);
+            //        cmd.Parameters.AddWithValue("@material_acc_id   ", materialdata.material_acc_id);
+            //        cmd.Parameters.AddWithValue("@costing_method_id ", materialdata.costing_method_id);
+            //        cmd.Parameters.AddWithValue("@description       ", materialdata.description);
+            //        cmd.Parameters.AddWithValue("@status            ", materialdata.status);
+            //        cmd.Parameters.AddWithValue("@stock_count       ", materialdata.stock_count);
+            //        cmd.Parameters.AddWithValue("@overdraw_stock    ", materialdata.overdraw_stock);
+            //        //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
+            //        cmd.Parameters.AddWithValue("@brand             ", materialdata.brand);
+            //        cmd.Parameters.AddWithValue("@version           ", materialdata.version);
+            //        cmd.Parameters.AddWithValue("@color             ", materialdata.color);
+            //        cmd.Parameters.AddWithValue("@size              ", materialdata.size);
+            //        cmd.Parameters.AddWithValue("@uom_in            ", materialdata.uom_in);
+            //        cmd.Parameters.AddWithValue("@uom_stock         ", materialdata.uom_stock);
+            //        cmd.Parameters.AddWithValue("@qty_in            ", materialdata.qty_in);
+            //        cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
 
-                    cmd.ExecuteReader();
-                }
-            }
+            //        cmd.ExecuteReader();
+            //    }
+            //}
+            #endregion
+            new item_masterDao().UpdateItem_master(materialdata);
 
             return Json(JsonRequestBehavior.AllowGet);
         }
@@ -421,61 +474,31 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult DeleteMaterial(MaterialSQL mateid)
         {
-            using (var coon = OpenDbConnection())
-            {
-                using (SqlCommand cmd = new SqlCommand("dbo.item_masterDelete",coon))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+            #region old
+            //using (var coon = OpenDbConnection())
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterDelete",coon))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@item_id", mateid.item_id);
-                    cmd.ExecuteReader();
-                }
-            }
+            //        cmd.Parameters.AddWithValue("@item_id", mateid.item_id);
+            //        cmd.ExecuteReader();
+            //    }
+            //}
+            #endregion
+
+            new item_masterDao().DeleteItem_master(mateid);
                 return Json(JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult Createtodata(MaterialSQL materialdata)
-        {
-            using (var conn = OpenDbConnection())
-            {
-                using (SqlCommand cmd = new SqlCommand("dbo.item_masterCreate", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.AddWithValue("@item_id           ",materialdata.item_id);
-                    cmd.Parameters.AddWithValue("@item_no           ",materialdata.item_no);
-                    cmd.Parameters.AddWithValue("@item_name         ",materialdata.item_name        );
-                    cmd.Parameters.AddWithValue("@group_id          ",materialdata.group_id         );
-                    cmd.Parameters.AddWithValue("@category_id       ",materialdata.category_id      );
-                    cmd.Parameters.AddWithValue("@material_acc_id   ",materialdata.material_acc_id  );
-                    cmd.Parameters.AddWithValue("@costing_method_id ",materialdata.costing_method_id);
-                    cmd.Parameters.AddWithValue("@description       ", materialdata.description);
-                    cmd.Parameters.AddWithValue("@status            ",materialdata.status           );
-                    cmd.Parameters.AddWithValue("@stock_count       ",materialdata.stock_count      );
-                    cmd.Parameters.AddWithValue("@overdraw_stock    ",materialdata.overdraw_stock   );
-                    //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
-                    cmd.Parameters.AddWithValue("@brand             ",materialdata.brand            );
-                    cmd.Parameters.AddWithValue("@version           ",materialdata.version          );
-                    cmd.Parameters.AddWithValue("@color             ",materialdata.color            );
-                    cmd.Parameters.AddWithValue("@size              ",materialdata.size             );
-                    cmd.Parameters.AddWithValue("@uom_in            ",materialdata.uom_in           );
-                    cmd.Parameters.AddWithValue("@uom_stock         ",materialdata.uom_stock        );
-                    cmd.Parameters.AddWithValue("@qty_in            ",materialdata.qty_in           );
-                    cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
-
-                    cmd.ExecuteReader();
-                }
-            }
-            return Json( JsonRequestBehavior.AllowGet);
-        }
+ 
 
         [HttpPost]
         public ActionResult UploadFiles(HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                try
+                try 
                 {
 
                     //Method 2 Get file details from HttpPostedFileBase class    
@@ -495,97 +518,102 @@ namespace KKN_UI.Controllers
             return View("Index");
         }
 
-        public MaterialSQL mapView(SqlDataReader rdr)
-        {
-            var result = new MaterialSQL();
-            result.item_id = Convert.ToInt32(rdr["item_master_item_id"]);
-            result.item_no = rdr["item_master_item_no"].ToString();
-            result.item_name = rdr["item_master_item_name"].ToString();
-            result.group_id = Convert.ToInt32(rdr["item_master_group_id"]);
-            result.category_id = Convert.ToInt32(rdr["item_master_category_id"]);
-            result.description = rdr["item_master_description"].ToString();
-            result.status = (bool)rdr["item_master_status"];
-            result.material_acc_id = Convert.ToInt32(rdr["item_master_material_acc_id"]);
-            result.costing_method_id = Convert.ToInt32(rdr["item_master_costing_meterial"]);
-            result.stock_count = (bool)rdr["item_master_stock_count"];
-            result.overdraw_stock = (bool)rdr["item_master_overdraw_stock"];
-            result.picture_path = rdr["item_master_picture_path"].ToString();
-            result.brand = rdr["item_master_brand"].ToString();
-            result.version = rdr["item_master_version"].ToString();
-            result.color = rdr["item_master_color"].ToString();
-            result.size = rdr["item_master_size"].ToString();
-            result.uom_in = Convert.ToInt32(rdr["item_master_uom_in"]);
-            result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
-            result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
-            result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
 
-            result.GroupSQLModel = mapviewgroup(rdr);
-            result.CategorySQLModel = mapviewcategory(rdr);
+        #region map older
+        //public MaterialSQL mapView(SqlDataReader rdr)
+        //{
+        //    var result = new MaterialSQL();
+        //    result.item_id = Convert.ToInt32(rdr["item_master_item_id"]);
+        //    result.item_no = rdr["item_master_item_no"].ToString();
+        //    result.item_name = rdr["item_master_item_name"].ToString();
+        //    result.group_id = Convert.ToInt32(rdr["item_master_group_id"]);
+        //    result.category_id = Convert.ToInt32(rdr["item_master_category_id"]);
+        //    result.description = rdr["item_master_description"].ToString();
+        //    result.status = (bool)rdr["item_master_status"];
+        //    result.material_acc_id = Convert.ToInt32(rdr["item_master_material_acc_id"]);
+        //    result.costing_method_id = Convert.ToInt32(rdr["item_master_costing_meterial"]);
+        //    result.stock_count = (bool)rdr["item_master_stock_count"];
+        //    result.overdraw_stock = (bool)rdr["item_master_overdraw_stock"];
+        //    result.picture_path = rdr["item_master_picture_path"].ToString();
+        //    result.brand = rdr["item_master_brand"].ToString();
+        //    result.version = rdr["item_master_version"].ToString();
+        //    result.color = rdr["item_master_color"].ToString();
+        //    result.size = rdr["item_master_size"].ToString();
+        //    result.uom_in = Convert.ToInt32(rdr["item_master_uom_in"]);
+        //    result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
+        //    result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
+        //    result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
 
-            return result;
-        }
+        //    result.GroupSQLModel = new GroupDao().maplistgroupDao(rdr);
+        //    result.CategorySQLModel = new CategoryDao().maplistcategory(rdr);
 
-        public GroupSQL mapviewgroup(SqlDataReader rdr)
-        {
-            var resultgroup = new GroupSQL();
-            resultgroup.group_name = rdr["group_time_group_name"].ToString();
+        //    return result;
+        //}
 
-            return resultgroup;
-        }
+        //public GroupSQL mapviewgroup(SqlDataReader rdr)
+        //{
+        //    var resultgroup = new GroupSQL();
+        //    resultgroup.group_name = rdr["group_time_group_name"].ToString();
 
-        public CategorySQL mapviewcategory(SqlDataReader rdr)
-        {
-            var resultcategory = new CategorySQL();
-            resultcategory.category_name = rdr["category_category_name"].ToString();
-            
-            return resultcategory;
-        }
+        //    return resultgroup;
+        //}
 
-        public GroupSQL maplistgroup(SqlDataReader rdr)
-        {
-            var resultgroup = new GroupSQL();
-            resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
-            resultgroup.group_name = rdr["group_name"].ToString();
+        //public CategorySQL mapviewcategory(SqlDataReader rdr)
+        //{
+        //    var resultcategory = new CategorySQL();
+        //    resultcategory.category_name = rdr["category_category_name"].ToString();
 
-            return resultgroup;
-        }
+        //    return resultcategory;
+        //}
 
-        public CategorySQL maplistcategory(SqlDataReader rdr)
-        {
-            var resultcategory = new CategorySQL();
-            resultcategory.category_id = Convert.ToInt32(rdr["category_id"]);
-            resultcategory.group_id = Convert.ToInt32(rdr["group_id"]);
-            resultcategory.category_name = rdr["category_name"].ToString();
-   
-            return resultcategory;
-        }
 
-        public Material_accSQL maplistmaterialacc(SqlDataReader rdr)
-        {
-            var resultmacc = new Material_accSQL();
-            resultmacc.material_acc_id = Convert.ToInt32(rdr["material_acc_id"]);
-            resultmacc.material_acc_name = rdr["material_acc_name"].ToString();
+        //public GroupSQL maplistgroup(SqlDataReader rdr)
+        //{
+        //    var resultgroup = new GroupSQL();
+        //    resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
+        //    resultgroup.group_name = rdr["group_name"].ToString();
 
-            return resultmacc;
-        }
+        //    return resultgroup;
+        //}
 
-        public Costing_methodSQL maplistcosting(SqlDataReader rdr)
-        {
-            var resultcosting = new Costing_methodSQL();
-            resultcosting.costing_method_id = Convert.ToInt32(rdr["costing_method_id"]);
-            resultcosting.costing_method_name = rdr["costing_method_name"].ToString();
+        //public CategorySQL maplistcategory(SqlDataReader rdr)
+        //{
+        //    var resultcategory = new CategorySQL();
+        //    resultcategory.category_id = Convert.ToInt32(rdr["category_id"]);
+        //    resultcategory.group_id = Convert.ToInt32(rdr["group_id"]);
+        //    resultcategory.category_name = rdr["category_name"].ToString();
 
-            return resultcosting;
-        }
+        //    return resultcategory;
+        //}
 
-        public UomSQL maplistuom(SqlDataReader rdr)
-        {
-            var resultuom = new UomSQL();
-            resultuom.uom_id = Convert.ToInt32(rdr["uom_id"]);
-            resultuom.uom_name = rdr["uom_name"].ToString();
+        //public Material_accSQL maplistmaterialacc(SqlDataReader rdr)
+        //{
+        //    var resultmacc = new Material_accSQL();
+        //    resultmacc.material_acc_id = Convert.ToInt32(rdr["material_acc_id"]);
+        //    resultmacc.material_acc_name = rdr["material_acc_name"].ToString();
 
-            return resultuom;
-        }
+        //    return resultmacc;
+        //}
+
+        //public Costing_methodSQL maplistcosting(SqlDataReader rdr)
+        //{
+        //    var resultcosting = new Costing_methodSQL();
+        //    resultcosting.costing_method_id = Convert.ToInt32(rdr["costing_method_id"]);
+        //    resultcosting.costing_method_name = rdr["costing_method_name"].ToString();
+
+        //    return resultcosting;
+        //}
+
+        //public UomSQL maplistuom(SqlDataReader rdr)
+        //{
+        //    var resultuom = new UomSQL();
+        //    resultuom.uom_id = Convert.ToInt32(rdr["uom_id"]);
+        //    resultuom.uom_name = rdr["uom_name"].ToString();
+
+        //    return resultuom;
+        //}
+        #endregion
+
     }
 }
 
