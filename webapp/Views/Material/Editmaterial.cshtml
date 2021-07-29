@@ -252,7 +252,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="group" name="group" disabled>
+                        <select class="form-control" id="group" name="group" disabled onchange="myselect(this)">
                             @*<option disabled selected>@result.materialdata.groupmaterial.group_id</option>*@
                             @foreach (var item in result.GroupSQLlist)
                             {
@@ -265,14 +265,51 @@
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
                         <select class="form-control" id="category" name="category" disabled>
-                            @*<option disabled selected>@result.materialdata.category</option>*@
+                            <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
                             @foreach (var item in result.CategorySQLlist)
                             {
-                                <option value="@item.category_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
+                                <option value="@item.category_id" style="display:none" id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
                             }
                         </select>
                     </div>
                 </div>
+
+                <script>
+                    
+                    document.addEventListener("DOMContentLoaded", function (event) {
+                        var sc = document.getElementById("category");
+                        var sg = document.getElementById("group").value;
+
+                        getSelectedOptions(sc, sg)
+
+                    });
+
+                    function myselect(th) {
+                        console.log("select");
+                        document.getElementById("category").options.selectedIndex = 0;
+                        var sc = document.getElementById("category");
+                        var sg = document.getElementById("group").value;
+
+                        getSelectedOptions(sc, sg)
+                        document.getElementById("dontcate").select = true;
+                    }
+
+                    function getSelectedOptions(select, option) {
+                        var result = [];
+                        var options = select.getElementsByTagName('option');
+                        for (var i = 0; i < options.length; i++) {
+                            options[i].style.display = "none";
+                            for (var k = 0; k < select.length; k++) {
+                                if (option == k && options[i].id == k) {
+                                    console.log("option" + k)
+                                    options[i].style.display = "block";
+                                }
+                            }
+                        }
+                    }
+                </script>
+
+
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">

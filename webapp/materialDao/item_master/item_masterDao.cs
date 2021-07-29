@@ -84,7 +84,7 @@ namespace KKN_UI.materialDao.item_master
                 using (SqlCommand cmd = new SqlCommand(CREATE, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@item_id           ", materialobject.item_id);
+                    //cmd.Parameters.AddWithValue("@item_id           ", materialobject.item_id);
                     cmd.Parameters.AddWithValue("@item_no           ", materialobject.item_no);
                     cmd.Parameters.AddWithValue("@item_name         ", materialobject.item_name);
                     cmd.Parameters.AddWithValue("@group_id          ", materialobject.group_id);
@@ -111,7 +111,12 @@ namespace KKN_UI.materialDao.item_master
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            result = mapinsert(rdr);
+                            var t = Convert.ToInt32(rdr["msg"]);
+                            if (Convert.ToInt32(rdr["msg"]) == 1)
+                            {
+                                result = mapinsert(rdr);
+                            }
+                            
                         }
                     }
                     return result;

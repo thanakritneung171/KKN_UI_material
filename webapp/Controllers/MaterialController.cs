@@ -251,7 +251,7 @@ namespace KKN_UI.Controllers
         public JsonResult Createtodata(MaterialSQL materialdata)
         {
 
-            new item_masterDao().InsertItem_master(materialdata);
+         var output =   new item_masterDao().InsertItem_master(materialdata);
             #region hidden
             //using (var conn = OpenDbConnection())
             //{
@@ -285,7 +285,8 @@ namespace KKN_UI.Controllers
             //}
             #endregion
 
-            return Json(JsonRequestBehavior.AllowGet);
+            
+            return Json( new {output = output is null ? 0:1 }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Editmaterial(string id)
@@ -302,17 +303,14 @@ namespace KKN_UI.Controllers
             {
                 var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'"+ id+"'";
 
-                // Build a command to execute this
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    //var result = new MaterialSQL();
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            //result=mapView(rdr);
                             mtlist = new item_masterDao().mapView(rdr);
                         }
                     }
@@ -421,7 +419,7 @@ namespace KKN_UI.Controllers
             //MaterialSQLlistindex.UomSQL_list = uomlist.ToList(); 
 
 
-            MaterialSQLlistindex.MaterialSQLdataselect = mtlist;
+            MaterialSQLlistindex.MaterialSQLdataselect = new materialviewDao().GetdataByid(id);
             MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();

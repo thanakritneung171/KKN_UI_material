@@ -1079,6 +1079,7 @@
     <Compile Include="materialDao\Costing_method\Costing_methodDao.cs" />
     <Compile Include="materialDao\group\GroupDao.cs" />
     <Compile Include="materialDao\item_master\item_masterDao.cs" />
+    <Compile Include="materialDao\item_master\materialviewDao.cs" />
     <Compile Include="materialDao\Material_acc\Material_accDao.cs" />
     <Compile Include="materialDao\stock\stock.cs" />
     <Compile Include="materialDao\uom\uomDao.cs" />
