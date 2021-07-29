@@ -182,178 +182,241 @@
             border: 2px solid #49C204;
             border-radius: 4px;
         }
+
+   
 </style>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
     @*<div class="container">*@
-        <div class="row margin-top-10  ">
-            @*<div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>*@
+    <div class="row margin-top-10  ">
+        @*<div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>*@
 
-            <div class="col-lg-12  col-md-12 col-sm-12">
-                <div class="row col-lg-4 col-md-4  col-sm-12 col-xs-12" style="padding: 2.5px; margin-right: 15px">
-                    <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)">
-                </div>
-
-                <div class="row col-lg-2 col-md-2 col-sm-12 hidden-xs" style="padding: 2.5px; margin-right:15px">
-                    <select class="form-control" id="selgroup" name="selgroup" @*onchange="selgr(this)"*@ onchange="myselect(this)">
-                        <option disabled selected value="เลือกกลุ่มวัสดุ">เลือกกลุ่มวัสดุ</option>
-                        <option value="">ทั้งหมด</option>
-                        @foreach (var itemgroup in result.GroupSQLlist)
-                        {
-                            <option value="@itemgroup.group_id">@itemgroup.group_name </option>
-                        }
-                    </select>
-                </div>
-
-                <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
-                    <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)"  >
-                        <option id="dontcate" disabled selected  value="">ไม่พบประเภทวัสดุ</option>
-                        <option style="display:none" id="selcatall" value="">ทั้งหมด</option>
-                        @foreach (var itemcategory in result.CategorySQLlist)
-                        {
-                            <option value="@itemcategory.category_id"  name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
-                        }
-                    </select>
-                </div>
-                <script>
-                    function myselect(th) {
-                        console.log("select");
-                        document.getElementById("selcategory").options.selectedIndex = 0;
-                        selcat(document.getElementById("selcategory"))
-                        var sc = document.getElementById("selcategory");
-                        var sg = document.getElementById("selgroup").value;
-
-                        getSelectedOptions(sc, sg)
-                        document.getElementById("dontcate").select = true;
-                        selgr(th)
-                    }
-
-                    function getSelectedOptions(select, option) {
-                        var result = [];
-                        var options = select.getElementsByTagName('option');
-                        for (var i = 0; i < options.length; i++) {
-                            options[i].style.display = "none";
-                            if (document.getElementById("selgroup").value != "") {
-                                document.getElementById("selcatall").style.display = "block"
-                            }
-                           
-                            /////////
-                            for (var k = 0; k < select.length; k++) {
-                                if (option == k && options[i].id == k) {
-                                    console.log("option" + k)
-                                    options[i].style.display = "block";
-                                }
-                            }
-                                /////////
-                            //if (option == "1" && options[i].id == "1") {
-                            //    console.log("optien 1")
-                            //    options[i].style.display = "block";
-                            //} else if (option == "2" && options[i].id == "2") {
-                            //    console.log("optien 2")
-                            //    options[i].style.display = "block";
-                            //} else if (option == "3" && options[i].id == "3") {
-                            //    console.log("optien 3")
-                            //    options[i].style.display = "block";
-                            //} else if (option == "4" && options[i].id == "4") {
-                            //    console.log("optien 4")
-                            //    options[i].style.display = "block";
-                            //} else if (option == "5" && options[i].id == "5") {
-                            //    console.log("optien 5")
-                            //    options[i].style.display = "block";
-                            //} else if (option == "6" && options[i].id == "6") {
-                            //    console.log("optien 6")
-                            //    options[i].style.display = "block";
-                            //} else if (option == "7" && options[i].id == "7") {
-                            //    console.log("optien 7")
-                            //    options[i].style.display = "block";
-                            //} else if (option == "8" && options[i].id == "8") {
-                            //    console.log("optien 8")
-                            //    options[i].style.display = "block";
-                            //}
-                        }
-                    }
-
-
-                    function keyupser(keyupser) {
-                        console.log("ค้นหา " + keyupser.value)
-                        var table1ser = $('#dt_basic').DataTable();
-                        table1ser.search(keyupser.value).draw();
-                    }
-
-                    function selgr(b) {
-
-                        //var categoryselect = document.getElementById("selcategory")
-                        //var groupselect = b.value
-
-                        //$(categoryselect).each(function () {
-                        //    if ($(this).valuegroup == vehicleValue) {
-                        //        $(brandsSelect).append($(this));
-                        //    }
-                        //}
-
-                        console.log(b.value);
-                        //document.getElementById("selcategory").value = b.value
-                        if (b.value != "") {
-
-                            var table2ser = $('#dt_basic').DataTable();
-                            table2ser.column(2).search(b.options[b.selectedIndex].text).draw();
-                            
-
-                        } else {
-                            var table2ser = $('#dt_basic').DataTable();
-                            table2ser.column(2).search(b.value).draw();
-
-                        }
-
-                        ////////////
-                        //if (b.valuegroup = document.getElementById("opcate").valuegroup)
-                        //{
-                        //    document.getElementById("opcate").disabled = false;
-
-                        //}
-                        ////////////
-                        console.log("ค้นหากลุ่ม" + b.options[b.selectedIndex].text)
-                        console.log("ค้นหากลุ่ม" + b.value + "out")
-
-                    }
-
-                    function selcat(c) {
-                        if (c.value != "") {
-                            var table1ser = $('#dt_basic').DataTable();
-                            table1ser.column(3).search(c.options[c.selectedIndex].text).draw();
-                        } else {
-                            var table1ser = $('#dt_basic').DataTable();
-                            table1ser.column(3).search(c.value).draw();
-                        }
-                        console.log("ค้นหาประเภท" + c.options[c.selectedIndex].text)
-                        console.log("ค้นหากลุ่ม" + c.value + "out")
-                    }
-
-
-                </script>
-                @*<button onclick="insertoption()"> 111111</button>*@
-
-
-                <style>
-                    select option[disabled]:first-child {
-                        display: none;
-                    }
-                </style>
-
-
-                @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
-        <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
-            <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
-        </div>*@
-                <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px;"><a @*href='@Url.Action("Editmaterial", "Material")'*@ class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
-                <div class="hidden-lg hidden-md col-sm-8 col-xs-4 "></div>
-                <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px; "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
-
-
+        <div class="col-lg-12  col-md-12 col-sm-12">
+            <div class="row col-lg-4 col-md-4  col-sm-12 col-xs-12" style="padding: 2.5px; margin-right: 15px">
+                <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)">
             </div>
+
+            <div class="row col-lg-2 col-md-2 col-sm-12 hidden-xs" style="padding: 2.5px; margin-right:15px">
+                <select class="form-control" id="selgroup" name="selgroup" @*onchange="selgr(this)"*@ onchange="myselect(this)">
+                    <option disabled selected value="เลือกกลุ่มวัสดุ">เลือกกลุ่มวัสดุ</option>
+                    <option value="">ทั้งหมด</option>
+                    @foreach (var itemgroup in result.GroupSQLlist)
+                    {
+                        <option value="@itemgroup.group_id">@itemgroup.group_name </option>
+                    }
+                </select>
+            </div>
+
+            <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
+                <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)">
+                    <option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>
+                    <option style="display:none" id="selcatall" value="">ทั้งหมด</option>
+                    @foreach (var itemcategory in result.CategorySQLlist)
+                    {
+                        <option value="@itemcategory.category_id" name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
+                    }
+                </select>
+            </div>
+            <script>
+                function myselect(th) {
+                    console.log("select");
+                    document.getElementById("selcategory").options.selectedIndex = 0;
+                    selcat(document.getElementById("selcategory"))
+                    var sc = document.getElementById("selcategory");
+                    var sg = document.getElementById("selgroup").value;
+
+                    getSelectedOptions(sc, sg)
+                    document.getElementById("dontcate").select = true;
+                    selgr(th)
+                }
+
+                function getSelectedOptions(select, option) {
+                    var result = [];
+                    var options = select.getElementsByTagName('option');
+                    for (var i = 0; i < options.length; i++) {
+                        options[i].style.display = "none";
+                        if (document.getElementById("selgroup").value != "") {
+                            document.getElementById("selcatall").style.display = "block"
+                        }
+
+                        /////////
+                        for (var k = 0; k < select.length; k++) {
+                            if (option == k && options[i].id == k) {
+                                console.log("option" + k)
+                                options[i].style.display = "block";
+                            }
+                        }
+                        /////////
+                        //if (option == "1" && options[i].id == "1") {
+                        //    console.log("optien 1")
+                        //    options[i].style.display = "block";
+                        //} else if (option == "2" && options[i].id == "2") {
+                        //    console.log("optien 2")
+                        //    options[i].style.display = "block";
+                        //} else if (option == "3" && options[i].id == "3") {
+                        //    console.log("optien 3")
+                        //    options[i].style.display = "block";
+                        //} else if (option == "4" && options[i].id == "4") {
+                        //    console.log("optien 4")
+                        //    options[i].style.display = "block";
+                        //} else if (option == "5" && options[i].id == "5") {
+                        //    console.log("optien 5")
+                        //    options[i].style.display = "block";
+                        //} else if (option == "6" && options[i].id == "6") {
+                        //    console.log("optien 6")
+                        //    options[i].style.display = "block";
+                        //} else if (option == "7" && options[i].id == "7") {
+                        //    console.log("optien 7")
+                        //    options[i].style.display = "block";
+                        //} else if (option == "8" && options[i].id == "8") {
+                        //    console.log("optien 8")
+                        //    options[i].style.display = "block";
+                        //}
+                    }
+                }
+
+
+                function keyupser(keyupser) {
+                    console.log("ค้นหา " + keyupser.value)
+                    var table1ser = $('#dt_basic').DataTable();
+                    table1ser.search(keyupser.value).draw();
+                }
+
+                function selgr(b) {
+
+                    //var categoryselect = document.getElementById("selcategory")
+                    //var groupselect = b.value
+
+                    //$(categoryselect).each(function () {
+                    //    if ($(this).valuegroup == vehicleValue) {
+                    //        $(brandsSelect).append($(this));
+                    //    }
+                    //}
+
+                    console.log(b.value);
+                    //document.getElementById("selcategory").value = b.value
+                    if (b.value != "") {
+
+                        var table2ser = $('#dt_basic').DataTable();
+                        table2ser.column(2).search(b.options[b.selectedIndex].text).draw();
+
+
+                    } else {
+                        var table2ser = $('#dt_basic').DataTable();
+                        table2ser.column(2).search(b.value).draw();
+
+                    }
+
+                    ////////////
+                    //if (b.valuegroup = document.getElementById("opcate").valuegroup)
+                    //{
+                    //    document.getElementById("opcate").disabled = false;
+
+                    //}
+                    ////////////
+                    console.log("ค้นหากลุ่ม" + b.options[b.selectedIndex].text)
+                    console.log("ค้นหากลุ่ม" + b.value + "out")
+
+                }
+
+                function selcat(c) {
+                    if (c.value != "") {
+                        var table1ser = $('#dt_basic').DataTable();
+                        table1ser.column(3).search(c.options[c.selectedIndex].text).draw();
+                    } else {
+                        var table1ser = $('#dt_basic').DataTable();
+                        table1ser.column(3).search(c.value).draw();
+                    }
+                    console.log("ค้นหาประเภท" + c.options[c.selectedIndex].text)
+                    console.log("ค้นหากลุ่ม" + c.value + "out")
+                }
+
+
+            </script>
+            @*<button onclick="insertoption()"> 111111</button>*@
+
+
+            <style>
+                select option[disabled]:first-child {
+                    display: none;
+                }
+            </style>
+
+
+            @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
+            <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
+                <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
+            </div>*@
+            <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px;"><a @*href='@Url.Action("Editmaterial", "Material")'*@ class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
+            <div class="hidden-lg hidden-md col-sm-8 col-xs-4 "></div>
+            <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px; "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
 
 
         </div>
+
+
+
+
+
+
+        <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+            <div id="panel-div">
+            </div>
+        </div>
+
+        <div> <button onclick="AddPanel()"> เพิ่มกลุ่ม </button></div>
+
+
+
+        <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
+            </div>
+        </div>
+    </div>-->
+
+        <script>
+             function AddPanel() {
+                 $('#content_ajaxloader').fadeIn();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_insertGroup", "Material")',
+                dataType: 'html',
+                data: {},
+                success: function (result) {
+                    $('#panel-div').html('');
+                    $('#panel-div').html(result);
+                    $('.cd-panel').addClass("cd-panel--is-visible"); //แสดงแถบ right Panel$('#Modal').modal('show');
+                    $('#content_ajaxloader').fadeOut();
+                }
+            });
+        }
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
     @*</div>*@
 
 
@@ -392,7 +455,7 @@
                             <!-- Modal ---------------------------------------------------->
                             <div class="modal fade" id="myModal" role="dialog">
                                 <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
+                                    <div class="modal-content1">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             <h4 class="modal-title">Modal Header</h4>
@@ -468,6 +531,9 @@
 
     @*</div>*@
 </div>
+
+
+
 
 
 

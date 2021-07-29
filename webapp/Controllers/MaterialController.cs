@@ -612,10 +612,29 @@ namespace KKN_UI.Controllers
         //}
         #endregion
 
+
+
+
+        public ActionResult _insertGroup ()
+        {
+
+            return PartialView(/*data,*/"_insertGroup");
+        }
+
+
+        [HttpPost]
+        public JsonResult CreateGroup(GroupSQL groupdata)
+        {
+            var output = new GroupDao().InsertGroup(groupdata);
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult _confirmsave()
+        {
+            return PartialView("_confirmsave");
+        }
+
     }
 }
-
-
-
-
-

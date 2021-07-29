@@ -91,8 +91,11 @@ namespace KKN_UI.material.group
                         rdr.Read();
                         if(rdr.HasRows)
                         {
-                            result = maplistgroupDao(rdr);
-                        }
+                            var t = Convert.ToInt32(rdr["msg"]);
+                            if (Convert.ToInt32(rdr["msg"]) == 1)
+                            {
+                                result = maplistgroupDao(rdr);
+                            }                        }
                     }
                     return result;
                 }
