@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using KKN_UI.material.uom;
 using KKN_UI.Models.Material;
-using KKN_UI.Models.Group;
+//using KKN_UI.Models.Group;
 using KKN_UI.Models.Category;
 using KKN_UI.Models.Uom;
 using KKN_UI.Models.Material_acc;
@@ -617,9 +617,12 @@ namespace KKN_UI.Controllers
 
         public ActionResult _groupView()
         {
-            List<GroupSQL> Grouplist = new List<GroupSQL>();
-            Grouplist = new GroupDao().Getdata().Grouplist.ToList();
-            return PartialView("Groupmaterial/_groupView", Grouplist);
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+
+            List<GroupSQL> Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
+            
+            return PartialView("Groupmaterial/_groupView", Grouplistdata);
         }
 
 
@@ -632,10 +635,29 @@ namespace KKN_UI.Controllers
         }
 
 
-        public ActionResult _confirmsave()
+        public ActionResult _creategroup()
         {
-            return PartialView("_confirmsave");
+            GroupSQL gdata = new GroupSQL();
+            return PartialView("Groupmaterial/_creategroup", gdata);
         }
 
+        public ActionResult _editgroup(int id)
+        {
+            GroupSQL gdata = new GroupDao().GetdataByid(id);
+            return PartialView("Groupmaterial/_creategroup", gdata);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteGroup(GroupSQL groupdata)
+        {
+            var output = new GroupDao().DeleteGroup(groupdata);
+
+            return Json(/*new { output = output is null ? 0 : 1 },*/ JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _comfirmgroup()
+        {
+            return PartialView("Groupmaterial/_comfirmgroup");
+        }
     }
 }

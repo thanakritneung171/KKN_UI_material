@@ -30,7 +30,7 @@ namespace KKN_UI.materialDao.item_master
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@item_id", id);
+                    cmd.Parameters.AddWithValue("@item_no", id);
                     MaterialSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
                     {

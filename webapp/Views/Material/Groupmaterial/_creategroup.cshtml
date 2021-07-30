@@ -1,0 +1,63 @@
+﻿@{ 
+    GroupSQL result = Model;
+}
+
+<div class="modal-content">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> @(result.group_id == 0 ? "สร้างกลุ่ม" : "แก้ไขกลุ่ม")</h4>
+    </div>
+    <div class="modal-body">
+        <form align="center">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
+                    <label id="labelGid" class="margin-top-10" hidden>รหัสกลุ่ม</label>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left" >
+                    <input type="hidden" id="inputGid" class="form-control" name="name" value="@result.group_id" disabled  />
+                </div>
+            </div>
+            <div class="row margin-top-10">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
+                    <label class="margin-top-10">ชื่อกลุ่ม</label>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
+                    <input type="text" class="form-control" id="insertG" name="insertG" value="@result.group_name"  @(result.group_id != 0 ? "disabled" :"" ) />
+                </div>
+            </div>
+        </form>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="createbtn"    class="btn-lg btn-success margin-right-5 " style="display:@(result.group_id == 0 ? "inline" : "none");" onclick="createG()">สร้าง</button>
+        <button type="button" id="editbtn"      class="btn-lg btn-warning margin-right-5 " style="display:@(result.group_id != 0 ? "inline" : "none");" onclick="editopen()">แก้ไข</button>
+        <button type="button" id="delebtn"      class="btn-lg btn-danger margin-right-5 " style="display: @(result.group_id != 0 ? "inline" : "none");" onclick="deleteG()">ลบ</button>
+        <button type="button" id="savebtn"      class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="">บันทึก</button>
+        <button type="button" id="cacelbtn"     class="btn-lg btn-danger margin-right-5" style="display:none" onclick="caceledit()">ยกเลิก</button>
+        @*<button type="button" class="btn-lg btn-danger margin-right-5" data-dismiss="modal" style="display: @(result.group_id == 0 ? "inline" : "none");">กลับ</button>*@
+    </div>
+</div>
+
+<script>
+    function editopen() {
+        document.getElementById("editbtn").style.display = "none";
+        document.getElementById("delebtn").style.display = "none";
+        document.getElementById("savebtn").style.display = "inline";
+        document.getElementById("cacelbtn").style.display = "inline";
+        document.getElementById("insertG").disabled = false;
+        document.getElementById("inputGid").setAttribute('type', 'text');
+        document.getElementById("labelGid").hidden = false;
+
+    }
+
+    function caceledit() {
+        document.getElementById("cacelbtn").style.display = "none"
+        document.getElementById("savebtn").style.display = "none";
+        document.getElementById("editbtn").style.display = "inline";
+        document.getElementById("delebtn").style.display = "inline";
+        document.getElementById("insertG").disabled = true;
+        document.getElementById("inputGid").setAttribute('type', 'hidden');
+        document.getElementById("labelGid").hidden = true;
+    }
+</script>

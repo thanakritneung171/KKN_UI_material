@@ -1033,7 +1033,8 @@
     <Content Include="Views\Material\Creatematerial.cshtml" />
     <Content Include="Views\Material\Editmaterial.cshtml" />
     <Content Include="Views\Material\Groupmaterial\_groupView.cshtml" />
-    <Content Include="Views\Material\_confirmsave.cshtml" />
+    <Content Include="Views\Material\Groupmaterial\_creategroup.cshtml" />
+    <Content Include="Views\Material\_comfirmgroup.cshtml" />
     <None Include="Web References\KKN_Demo_Service\KKN_Demo_Service.wsdl" />
     <None Include="Web References\KKN_Demo_Service\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

@@ -1,4 +1,6 @@
-﻿
+﻿@{ 
+    List<GroupSQL> groupSQL = Model;
+}
 
 <header class="cd-panel__header">
     <h1 style="color:#3276b1;">จัดการกลุ่มวัสดุ</h1>
@@ -6,21 +8,31 @@
 </header>
 <div class="cd-panel__container">
     <div class="cd-panel__content">
-        <div class="table-responsive">
-            <table class="table">
+        <div class="row" style="padding: 2.5px; "><a  class="btn btn-success glyphicon glyphicon-plus" onclick="openmodalcreate();">เพิ่มวัสดุใหม่</a></div>
+        <div class="table-responsive margin-top-10">
+            <style>
+                .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+                    background-color: #8adafe;
+                }
+            </style>
+            <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Firstname</th>
-                       
+                        <th align="right">#</th>
+                        <th>ชื่อกลุ่ม</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Anna</td>
-                        
-                    </tr>
+                    @foreach (var item in groupSQL)
+                    {
+                        <tr class="trid" id="@item.group_id" value="@item.group_id" onclick="openmodaledit(this.id)">
+                            <td class="stu_numrec" width="1%" align="right">@item.group_id</td>
+                            <td class="stu_no" width="10%">@item.group_name</td>
+
+                        </tr>
+                    }
+
                 </tbody>
             </table>
         </div>
@@ -30,11 +42,11 @@
 
 
 <script>
-    function AddPanel111() {
+    function openmodalcreate() {
         $('#content_ajaxloader').show();
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("_confirmsave", "Material")',
+                url: '@Url.Action("_creategroup", "Material")',
                 dataType: 'html',
                 data: {},
                 success: function (result) {
@@ -46,10 +58,26 @@
             });
     }
 
+    function openmodaledit(editidG) {
+        console.log(editidG);
+        var idedit = editidG;
+        $('#content_ajaxloader').show();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_editgroup", "Material")',
+                dataType: 'html',
+                data: {id: idedit},
+                success: function (result) {
+                    $('#Modal_Content').html('');
+                    $('#Modal_Content').html(result);
+                    $('#Modal').modal('show');
+                    $('#content_ajaxloader').hide();
+                }
+            });
+    }
 
 
-
-    function OnSubmit() {
+    function createG() {
         var inG = new Object();
         inG.group_name = document.getElementById("insertG").value;
 
@@ -72,8 +100,10 @@
                 console.log(response.output1);
 
                 $("#content_ajaxloader").fadeOut("fast");
-                alert("บันทึกเรียบร้อย")
-                window.location.href = "/material/";
+                alert("บันทึกเรียบร้อย");
+                $('#Modal').modal('hide');
+                //window.location.href = "/material/";
+                AddPanel();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -83,6 +113,34 @@
             }
          })
 
+    }
+
+
+      function deleteG() {
+                         var dg = new Object();
+                         dg.group_id = document.getElementById("inputGid").value;
+                          $("#content_ajaxloader").show();
+                         $.ajax({
+                             type: "POST",
+                             url: '@Url.Action("DeleteGroup", "Material")',
+                             data: JSON.stringify(dg) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("delete complete");
+                        $("#content_ajaxloader").fadeOut("fast");
+                        alert("ลบเรียบร้อย")
+                        $('#Modal').modal('hide');
+                        /*window.location.href = "/material";*/
+                        AddPanel();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
     }
 
 </script>

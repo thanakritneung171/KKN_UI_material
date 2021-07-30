@@ -1,5 +1,5 @@
 ﻿using KKN_UI.Models;
-using KKN_UI.Models.Group;
+//using KKN_UI.Models.Group;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -134,7 +134,7 @@ namespace KKN_UI.material.group
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
-                    cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
+                    //cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
 
                     GroupSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
