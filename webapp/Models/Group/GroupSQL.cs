@@ -14,7 +14,7 @@ namespace KKN_UI.Models.Group
     public class GroupSQLlist
     {
         public List<GroupSQL> Grouplist { get; set; }
-        public GroupSQLlist() 
+        public GroupSQLlist()
         {
             this.Grouplist = new List<GroupSQL>();
         }

@@ -358,15 +358,18 @@
 
 
 
+        <div> 
+            <button class="btn btn-primary" onclick="AddPanel()">จัดการกลุ่ม</button>
+            <button class="btn btn-primary" onclick="AddPanel()">จัดการประเภท</button>
+        
+        </div>
+
+
 
         <div class="cd-panel cd-panel--from-right js-cd-panel-main">
             <div id="panel-div">
             </div>
         </div>
-
-        <div> <button onclick="AddPanel()"> เพิ่มกลุ่ม </button></div>
-
-
 
         <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
             <div class="modal-dialog modal-lg">
@@ -377,19 +380,15 @@
             </div>
         </div>
 
-        <!--<div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
-            </div>
-        </div>
-    </div>-->
+
+
 
         <script>
              function AddPanel() {
                  $('#content_ajaxloader').fadeIn();
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("_insertGroup", "Material")',
+                url: '@Url.Action("_groupView", "Material")',
                 dataType: 'html',
                 data: {},
                 success: function (result) {

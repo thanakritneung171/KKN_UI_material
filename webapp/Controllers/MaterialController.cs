@@ -615,10 +615,11 @@ namespace KKN_UI.Controllers
 
 
 
-        public ActionResult _insertGroup ()
+        public ActionResult _groupView()
         {
-
-            return PartialView(/*data,*/"_insertGroup");
+            List<GroupSQL> Grouplist = new List<GroupSQL>();
+            Grouplist = new GroupDao().Getdata().Grouplist.ToList();
+            return PartialView("Groupmaterial/_groupView", Grouplist);
         }
 
 
