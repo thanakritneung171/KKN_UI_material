@@ -1034,7 +1034,10 @@
     <Content Include="Views\Material\Editmaterial.cshtml" />
     <Content Include="Views\Material\Groupmaterial\_groupView.cshtml" />
     <Content Include="Views\Material\Groupmaterial\_creategroup.cshtml" />
-    <Content Include="Views\Material\_comfirmgroup.cshtml" />
+    <Content Include="Views\Material\Groupmaterial\_comfirmgroup.cshtml" />
+    <Content Include="Views\Material\Categorymaterial\_categoryView.cshtml" />
+    <Content Include="Views\Material\Categorymaterial\_createcategory.cshtml" />
+    <Content Include="Views\Material\Categorymaterial\_comfirmcategory.cshtml" />
     <None Include="Web References\KKN_Demo_Service\KKN_Demo_Service.wsdl" />
     <None Include="Web References\KKN_Demo_Service\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -1118,7 +1121,6 @@
     <Folder Include="Report\" />
     <Folder Include="Repositories\" />
     <Folder Include="UploadedFiles\" />
-    <Folder Include="Views\Material\Categorymaterial\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

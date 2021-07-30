@@ -1,14 +1,17 @@
-﻿@{ 
-    List<GroupSQL> groupSQL = Model;
+﻿@*@{
+    List<CategorySQL> categorySQL = Model;
+}*@
+@{ 
+    List<CategorySQL> categorySQL = Model;
 }
 
 <header class="cd-panel__header">
-    <h1 style="color:#3276b1;">จัดการกลุ่มวัสดุ</h1>
+    <h1 style="color:#3276b1;">จัดการประเภทวัสดุ</h1>
     <a onclick="ClosePanel()" class="cd-panel__close js-cd-close">Close</a>
 </header>
 <div class="cd-panel__container">
     <div class="cd-panel__content">
-        <div class="row" style="padding: 2.5px; "><a  class="btn btn-success glyphicon glyphicon-plus" onclick="openmodalcreate();">เพิ่มวัสดุใหม่</a></div>
+        <div class="row" style="padding: 2.5px; "><a class="btn btn-success glyphicon glyphicon-plus" onclick="openmodalcreateC();">เพิ่มประเภทวัสดุ</a></div>
         <div class="table-responsive margin-top-10">
             <style>
                 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
@@ -19,16 +22,18 @@
                 <thead>
                     <tr>
                         <th align="right">#</th>
-                        <th>ชื่อกลุ่ม</th>
+                        <th>กลุ่ม</th>
+                        <th>ประเภท</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in groupSQL)
+                    @foreach (var item in categorySQL)
                     {
-                        <tr class="trid" id="@item.group_id" value="@item.group_id" onclick="openmodaledit(this.id)">
-                            <td class="stu_numrec" width="1%" align="right">@item.group_id</td>
-                            <td class="stu_name" width="10%">@item.group_name</td>
+                        <tr class="trid" id="@item.category_id" value="@item.category_id" onclick="openmodaleditC(this.id)">
+                            <td class="stu_numrec" width="1%" align="right">@item.category_id</td>
+                            <td class="stu_gid" width="2%" align="center">@item.group_id</td>
+                            <td class="stu_name" width="10%">@item.category_name</td>
 
                         </tr>
                     }
@@ -46,11 +51,11 @@
     function ClosePanel() {
         $(".cd-panel").removeClass("cd-panel--is-visible"); //ปิดแถบ right Panel
     }
-    function openmodalcreate() {
+    function openmodalcreateC() {
         $('#content_ajaxloader').show();
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("_creategroup", "Material")',
+                url: '@Url.Action("_createcategory", "Material")',
                 dataType: 'html',
                 data: {},
                 success: function (result) {
@@ -62,13 +67,13 @@
             });
     }
 
-    function openmodaledit(editidG) {
-        console.log(editidG);
-        var idedit = editidG;
+    function openmodaleditC(editidC) {
+        console.log(editidC);
+        var idedit = editidC;
         $('#content_ajaxloader').show();
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("_editgroup", "Material")',
+                url: '@Url.Action("_editcategory", "Material")',
                 dataType: 'html',
                 data: {id: idedit},
                 success: function (result) {
@@ -81,14 +86,14 @@
     }
 
 
-    function createG() {
+    function createC() {
         var inG = new Object();
         inG.group_name = document.getElementById("insertG").value;
         console.log(inG);
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",
-            url: '@Url.Action("CreateGroup", "Material")',
+            url: '@Url.Action("CreateCategory", "Material")',
             data: JSON.stringify(inG),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -119,7 +124,7 @@
 
     }
 
-    function updateG() {
+    function updateC() {
         var inG = new Object();
         inG.group_id = document.getElementById("inputGid").value;
         inG.group_name = document.getElementById("insertG").value;
@@ -127,13 +132,13 @@
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",
-            url: '@Url.Action("UpdateGroup", "Material")',
+            url: '@Url.Action("UpdateCategory", "Material")',
             data: JSON.stringify(inG),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
 
             success: function (response) {
-              
+
                 console.log("insert complete");
                 console.log(response.output1);
 
@@ -153,13 +158,13 @@
 
     }
 
-      function deleteG() {
+      function deleteC() {
                          var dg = new Object();
                          dg.group_id = document.getElementById("inputGid").value;
                           $("#content_ajaxloader").show();
                          $.ajax({
                              type: "POST",
-                             url: '@Url.Action("DeleteGroup", "Material")',
+                             url: '@Url.Action("DeleteCategory", "Material")',
                              data: JSON.stringify(dg) ,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",

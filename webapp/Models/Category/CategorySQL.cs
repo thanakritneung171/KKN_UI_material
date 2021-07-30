@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KKN_UI.Models.Category
+namespace KKN_UI.Models
+//namespace KKN_UI.Models.Category
 {
     public class CategorySQL
     {

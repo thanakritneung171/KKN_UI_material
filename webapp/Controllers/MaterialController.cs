@@ -13,7 +13,7 @@ using System.Configuration;
 using KKN_UI.material.uom;
 using KKN_UI.Models.Material;
 //using KKN_UI.Models.Group;
-using KKN_UI.Models.Category;
+//using KKN_UI.Models.Category;
 using KKN_UI.Models.Uom;
 using KKN_UI.Models.Material_acc;
 using KKN_UI.Models.Costing_method;
@@ -648,6 +648,14 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
+        public JsonResult UpdateGroup(GroupSQL groupdata)
+        {
+           new GroupDao().UpdateGroup(groupdata);
+
+            return Json( JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult DeleteGroup(GroupSQL groupdata)
         {
             var output = new GroupDao().DeleteGroup(groupdata);
@@ -659,5 +667,64 @@ namespace KKN_UI.Controllers
         {
             return PartialView("Groupmaterial/_comfirmgroup");
         }
+
+        ///////////////////////////////////////////////////
+        public ActionResult _categoryView()
+        {
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+
+            List<CategorySQL> Categorylistdata = new CategoryDao().Getdata().Categorylist.ToList();
+
+            return PartialView("Categorymaterial/_categoryView", Categorylistdata);
+        }
+
+
+        [HttpPost]
+        public JsonResult CreateCategory(CategorySQL categorydata)
+        {
+            var output = new CategoryDao().InsertCategory(categorydata);
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult _createcategory()
+        {
+            CategorySQL gdata = new CategorySQL();
+            return PartialView("Categorymaterial/_createcategory", gdata);
+        }
+
+        public ActionResult _editcategory(int id)
+        {
+            CategorySQL gdata = new CategoryDao().GetdataByid(id);
+            return PartialView("Categorymaterial/_createcategory", gdata);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCategory(CategorySQL categorydata)
+        {
+            new CategoryDao().UpdateCategory(categorydata);
+
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCategory(CategorySQL categorydata)
+        {
+            var output = new CategoryDao().DeleteCategory(categorydata);
+
+            return Json(/*new { output = output is null ? 0 : 1 },*/ JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _comfirmcategory()
+        {
+            return PartialView("Categorymaterial/_comfirmcategory");
+        }
+
+
+
+
+
     }
 }
