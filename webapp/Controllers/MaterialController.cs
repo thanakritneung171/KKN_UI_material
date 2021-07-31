@@ -619,7 +619,6 @@ namespace KKN_UI.Controllers
         {
             //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
 
-
             List<GroupSQL> Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
             
             return PartialView("Groupmaterial/_groupView", Grouplistdata);
@@ -673,9 +672,8 @@ namespace KKN_UI.Controllers
         {
             //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
 
-
-            List<CategorySQL> Categorylistdata = new CategoryDao().Getdata().Categorylist.ToList();
-
+            //CategorySQL CGlist = new CategorySQL();
+            List<CategorySQL> Categorylistdata = new CategoryDao().GetdataView().Categorylist.ToList();
             return PartialView("Categorymaterial/_categoryView", Categorylistdata);
         }
 
@@ -691,14 +689,21 @@ namespace KKN_UI.Controllers
 
         public ActionResult _createcategory()
         {
+            MaterialSQLindex materiallist = new MaterialSQLindex();
             CategorySQL gdata = new CategorySQL();
-            return PartialView("Categorymaterial/_createcategory", gdata);
+            materiallist.CategorySQL = gdata;
+            materiallist.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+
+            return PartialView("Categorymaterial/_createcategory", materiallist);
         }
 
         public ActionResult _editcategory(int id)
         {
+            MaterialSQLindex materiallist = new MaterialSQLindex();
             CategorySQL gdata = new CategoryDao().GetdataByid(id);
-            return PartialView("Categorymaterial/_createcategory", gdata);
+            materiallist.CategorySQL = gdata;
+            materiallist.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            return PartialView("Categorymaterial/_createcategory", materiallist);
         }
 
         [HttpPost]

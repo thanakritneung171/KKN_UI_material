@@ -1,22 +1,22 @@
 ﻿
 @{
-    CategorySQL result = Model;
+    MaterialSQLindex result = Model;
 }
 
 <div class="modal-content">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @(result.category_id == 0 ? "สร้างประเภท" : "แก้ไขกลุ่ม")</h4>
+        <h4 class="modal-title"> @(result.CategorySQL.category_id == 0 ? "สร้างประเภท" : "แก้ไขประเภท")</h4>
     </div>
     <div class="modal-body">
         <form align="center">
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
-                    <label id="labelGid" class="margin-top-10" hidden>รหัสกลุ่ม</label>
+                    <label id="labelCid" class="margin-top-10" hidden>รหัสประเภท</label>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
-                    <input type="hidden" id="inputGid" class="form-control" name="name" value="@result.category_id" disabled />
+                    <input type="hidden" id="inputCid" class="form-control" name="name" value="@result.CategorySQL.category_id" disabled />
                 </div>
             </div>
             <div class="row margin-top-10">
@@ -24,9 +24,12 @@
                     <label class="margin-top-10">ชื่อกลุ่ม</label>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
-                    <select>
-                        <option value="value">text</option>
-                        <option value="value">text</option>
+                    <select class="form-control" id="groupC" name="group" @(result.CategorySQL.category_id == 0 ? "" : "disabled") >
+                        <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+                        @foreach (var item in result.GroupSQLlist)
+                        {
+                            <option value="@item.group_id"  @(result.CategorySQL.group_id==item.group_id? "selected":"") >@item.group_name</option>
+                        }
                     </select>
                 </div>
             </div>
@@ -35,17 +38,17 @@
                     <label class="margin-top-10">ชื่อประเภท</label>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
-                    <input type="text" class="form-control" id="insertC" name="insertC" value="@result.category_name" @(result.category_id != 0 ? "disabled" : "" ) />
+                    <input type="text" class="form-control" id="insertC" name="insertC" value="@result.CategorySQL.category_name" @(result.CategorySQL.category_id != 0 ? "disabled" : "" ) />
                 </div>
             </div>
         </form>
 
     </div>
     <div class="modal-footer">
-        <button type="button" id="createbtn" class="btn-lg btn-success margin-right-5 " style="display:@(result.category_id == 0 ? "inline" : "none");" onclick="conf()">สร้าง</button>
-        <button type="button" id="editbtn" class="btn-lg btn-warning margin-right-5 " style="display:@(result.category_id != 0 ? "inline" : "none");" onclick="editopen()">แก้ไข</button>
-        <button type="button" id="delebtn" class="btn-lg btn-danger margin-right-5 " style="display: @(result.category_id != 0 ? "inline" : "none");" onclick="deleteG()">ลบ</button>
-        <button type="button" id="savebtn" class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="updateG()">บันทึก</button>
+        <button type="button" id="createbtn" class="btn-lg btn-success margin-right-5 " style="display:@(result.CategorySQL.category_id == 0 ? "inline" : "none");" onclick="confC()">สร้าง</button>
+        <button type="button" id="editbtn" class="btn-lg btn-warning margin-right-5 " style="display:@(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="editopen()">แก้ไข</button>
+        <button type="button" id="delebtn" class="btn-lg btn-danger margin-right-5 " style="display: @(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="deleteC()">ลบ</button>
+        <button type="button" id="savebtn" class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="updateC()">บันทึก</button>
         <button type="button" id="cacelbtn" class="btn-lg btn-danger margin-right-5" style="display:none" onclick="caceledit()">ยกเลิก</button>
         @*<button type="button" class="btn-lg btn-danger margin-right-5" data-dismiss="modal" style="display: @(result.group_id == 0 ? "inline" : "none");">กลับ</button>*@
     </div>
@@ -61,9 +64,10 @@
         document.getElementById("delebtn").style.display = "none";
         document.getElementById("savebtn").style.display = "inline";
         document.getElementById("cacelbtn").style.display = "inline";
-        document.getElementById("insertG").disabled = false;
-        document.getElementById("inputGid").setAttribute('type', 'text');
-        document.getElementById("labelGid").hidden = false;
+        document.getElementById("insertC").disabled = false;
+        document.getElementById("inputCid").setAttribute('type', 'text');
+        document.getElementById("labelCid").hidden = false;
+        document.getElementById("groupC").disabled = false;
 
     }
 
@@ -72,17 +76,18 @@
         document.getElementById("savebtn").style.display = "none";
         document.getElementById("editbtn").style.display = "inline";
         document.getElementById("delebtn").style.display = "inline";
-        document.getElementById("insertG").disabled = true;
-        document.getElementById("inputGid").setAttribute('type', 'hidden');
-        document.getElementById("labelGid").hidden = true;
+        document.getElementById("insertC").disabled = true;
+        document.getElementById("inputCid").setAttribute('type', 'hidden');
+        document.getElementById("labelCid").hidden = true;
+        document.getElementById("groupC").disabled = true;
     }
 
-    function conf() {
+    function confC() {
         var inGC = new Object();
-        inGC.group_name = document.getElementById("insertG").value;
-        if (inGC.group_name == "") {
-            alert("โปรดระบุข้อมูล");
-            document.getElementById("insertG").focus();
+        inGC.category_name = document.getElementById("insertC").value;
+        if (inGC.category_name == "") {
+            alert("โปรดระบุข้อมูลประเภท");
+            document.getElementById("insertC").focus();
             return;
         }
          $('#content_ajaxloader').show();

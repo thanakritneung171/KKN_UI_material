@@ -11,7 +11,13 @@ namespace KKN_UI.Models
         public int category_id { get; set; }
         public int group_id { get; set; }
         public string category_name { get; set; }
+        public GroupSQL GroupModel { get; set; }
     }
+    //public class CategoryGroupSQL
+    //{
+    //    public List<CategorySQL> CategoryGlist { get; set; }
+    //    public List<GroupSQL> GroupClist { get; set; }
+    //}
 
     public class CategorySQLlist
     {

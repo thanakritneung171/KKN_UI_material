@@ -1,4 +1,5 @@
 ﻿//using KKN_UI.Models.Category;
+using KKN_UI.material.group;
 using KKN_UI.Models;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace KKN_UI.material.category
         }
 
         private const string READ       = "categoryRead";
+        private const string READVIEW       = "categoryReadView";
         private const string CREATE     = "categoryCreate";
         private const string DELETE     = "categoryDelete";
         private const string UPDATE     = "categoryUpdate";
@@ -44,6 +46,29 @@ namespace KKN_UI.material.category
                         while (rdr.Read())
                         {
                             result.Categorylist.Add(maplistcategory(rdr));
+                        }
+                    }
+                    return result;
+                }
+
+            }
+
+        }
+
+        public CategorySQLlist GetdataView()
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(READVIEW, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    CategorySQLlist result = new CategorySQLlist();
+                    //var result = new List<GroupSQL>()
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result.Categorylist.Add(mapviewcategory(rdr));
                         }
                     }
                     return result;
@@ -135,7 +160,6 @@ namespace KKN_UI.material.category
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
-                    cmd.Parameters.AddWithValue("@category_name", categoryobject.category_name);
 
                     CategorySQL result = null;
                     using (var rdr = cmd.ExecuteReader())
@@ -159,6 +183,7 @@ namespace KKN_UI.material.category
             resultcategory.group_id = Convert.ToInt32(rdr["group_id"]);
             resultcategory.category_name = rdr["category_name"].ToString();
 
+            //resultcategory.GroupModel = new GroupDao().maplistgroupDao(rdr);
             return resultcategory;
         }
 
@@ -171,5 +196,17 @@ namespace KKN_UI.material.category
 
             return resultcategory;
         }
+
+        public CategorySQL mapviewcategory(SqlDataReader rdr)
+        {
+            var resultcategory = new CategorySQL();
+            resultcategory.category_id = Convert.ToInt32(rdr["category_category_id"]);
+            resultcategory.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
+            resultcategory.category_name = rdr["category_category_name"].ToString();
+
+            resultcategory.GroupModel = new GroupDao().mapviewlistgroupDao(rdr);
+            return resultcategory;
+        }
     }
 }
+

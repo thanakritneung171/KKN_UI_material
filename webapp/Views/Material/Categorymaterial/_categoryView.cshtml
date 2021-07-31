@@ -22,7 +22,7 @@
                 <thead>
                     <tr>
                         <th align="right">#</th>
-                        <th>กลุ่ม</th>
+                        <th align="center">กลุ่ม</th>
                         <th>ประเภท</th>
 
                     </tr>
@@ -32,7 +32,7 @@
                     {
                         <tr class="trid" id="@item.category_id" value="@item.category_id" onclick="openmodaleditC(this.id)">
                             <td class="stu_numrec" width="1%" align="right">@item.category_id</td>
-                            <td class="stu_gid" width="2%" align="center">@item.group_id</td>
+                            <td class="stu_gid" width="2%" align="center" value="@item.group_id">@item.GroupModel.group_name</td>
                             <td class="stu_name" width="10%">@item.category_name</td>
 
                         </tr>
@@ -88,7 +88,8 @@
 
     function createC() {
         var inG = new Object();
-        inG.group_name = document.getElementById("insertG").value;
+        inG.group_id = document.getElementById("groupC").value;
+        inG.category_name = document.getElementById("insertC").value;
         console.log(inG);
          $("#content_ajaxloader").show();
         $.ajax({
@@ -112,7 +113,7 @@
                 alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
-                AddPanel();
+                AddPanelcate();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -126,8 +127,9 @@
 
     function updateC() {
         var inG = new Object();
-        inG.group_id = document.getElementById("inputGid").value;
-        inG.group_name = document.getElementById("insertG").value;
+        inG.category_id = document.getElementById("inputCid").value;
+        inG.group_id = document.getElementById("groupC").value;
+        inG.category_name = document.getElementById("insertC").value;
 
          $("#content_ajaxloader").show();
         $.ajax({
@@ -146,7 +148,7 @@
                 alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
-                AddPanel();
+                AddPanelcate();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -160,7 +162,7 @@
 
       function deleteC() {
                          var dg = new Object();
-                         dg.group_id = document.getElementById("inputGid").value;
+          dg.category_id = document.getElementById("inputCid").value;
                           $("#content_ajaxloader").show();
                          $.ajax({
                              type: "POST",
@@ -174,7 +176,7 @@
                         alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
                         /*window.location.href = "/material";*/
-                        AddPanel();
+                        AddPanelcate();
                     },
                     failure: function (response) {
                         alert(response.responseText);
