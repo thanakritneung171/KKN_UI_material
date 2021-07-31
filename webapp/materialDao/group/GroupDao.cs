@@ -160,7 +160,7 @@ namespace KKN_UI.material.group
             return resultgroup;
         }
 
-        public GroupSQL mapviewlistgroupDao(SqlDataReader rdr)
+        internal static GroupSQL mapviewlistgroupDao(SqlDataReader rdr)
         {
             var resultgroup = new GroupSQL();
             resultgroup.group_id = Convert.ToInt32(rdr["group_time_group_id"]);

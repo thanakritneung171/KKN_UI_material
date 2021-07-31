@@ -91,15 +91,16 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@category_id       ", materialobject.category_id);
                     cmd.Parameters.AddWithValue("@material_acc_id   ", materialobject.material_acc_id);
                     cmd.Parameters.AddWithValue("@costing_method_id ", materialobject.costing_method_id);
-                    cmd.Parameters.AddWithValue("@description       ", materialobject.description);
+                    cmd.Parameters.AddWithValue("@description       ", (object)materialobject.description ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@status            ", materialobject.status);
                     cmd.Parameters.AddWithValue("@stock_count       ", materialobject.stock_count);
                     cmd.Parameters.AddWithValue("@overdraw_stock    ", materialobject.overdraw_stock);
                     //cmd.Parameters.AddWithValue("@picture_path      ",materialobject.picture_path     );
-                    cmd.Parameters.AddWithValue("@brand             ", materialobject.brand);
-                    cmd.Parameters.AddWithValue("@version           ", materialobject.version);
-                    cmd.Parameters.AddWithValue("@color             ", materialobject.color);
-                    cmd.Parameters.AddWithValue("@size              ", materialobject.size);
+                    cmd.Parameters.AddWithValue("@brand", (object)materialobject.brand ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@version", (object)materialobject.version ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@color", (object)materialobject.color ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@size", (object)materialobject.size ?? DBNull.Value);
+                    //cmd.Parameters.AddWithValue("@size", materialobject.size);
                     cmd.Parameters.AddWithValue("@uom_in            ", materialobject.uom_in);
                     cmd.Parameters.AddWithValue("@uom_stock         ", materialobject.uom_stock);
                     cmd.Parameters.AddWithValue("@qty_in            ", materialobject.qty_in);
@@ -116,10 +117,24 @@ namespace KKN_UI.materialDao.item_master
                             {
                                 result = mapinsert(rdr);
                             }
+                            //else
+                            //{
+                                
+                            //    //return result = Convert.ToInt32(rdr["msg"]);
+                            //    result = mapinsert(rdr);
+                            //}
                             
                         }
                     }
-                    return result;
+                    //if (result ==null)
+                    //{
+                    //    //return t;
+                    //}
+                    //else
+                    //{
+                        return result;
+
+                    //}
                 }
             }
         }
@@ -214,6 +229,11 @@ namespace KKN_UI.materialDao.item_master
         }
         public MaterialSQL mapView(SqlDataReader rdr)
         {
+            if (Convert.ToInt32(rdr["item_master_item_id"]) == null)
+            {
+                return new MaterialSQL();
+            }
+
             var result = new MaterialSQL();
             result.item_id = Convert.ToInt32(rdr["item_master_item_id"]);
             result.item_no = rdr["item_master_item_no"].ToString();
@@ -236,12 +256,19 @@ namespace KKN_UI.materialDao.item_master
             result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
 
-            result.GroupSQLModel = new GroupDao().mapviewlistgroupDao(rdr);
+            result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
             result.CategorySQLModel = new CategoryDao().mapviewlistcategory(rdr);
 
             return result;
         }
+        //public MaterialSearch mapSearch(SqlDataReader rdr)
+        //{
+        //    var result = mapView(rdr);
 
-
+        //    if (rdr["Count"])
+        //    {
+        //        result.Count = Convert.ToInt32(rdr["item_master_uom_in"]);
+        //    }
+        //}
     }
 }

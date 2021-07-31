@@ -204,7 +204,7 @@ namespace KKN_UI.material.category
             resultcategory.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
             resultcategory.category_name = rdr["category_category_name"].ToString();
 
-            resultcategory.GroupModel = new GroupDao().mapviewlistgroupDao(rdr);
+            resultcategory.GroupModel =  GroupDao.mapviewlistgroupDao(rdr);
             return resultcategory;
         }
     }

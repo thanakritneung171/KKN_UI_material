@@ -250,7 +250,6 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Createtodata(MaterialSQL materialdata)
         {
-
          var output =   new item_masterDao().InsertItem_master(materialdata);
             #region hidden
             //using (var conn = OpenDbConnection())
@@ -720,6 +719,8 @@ namespace KKN_UI.Controllers
             var output = new CategoryDao().DeleteCategory(categorydata);
 
             return Json(/*new { output = output is null ? 0 : 1 },*/ JsonRequestBehavior.AllowGet);
+            //var output = DeleteService(12);
+            return Json(/*new { output = output is null ? 0 : 1 },*/ JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _comfirmcategory()
@@ -729,7 +730,17 @@ namespace KKN_UI.Controllers
 
 
 
+        //public ActionResult DeleteService(int id)
+        //{
+        //    var code = CategoryDao().Code(string);
+        //    if (code != null)
+        //    {
+        //        return "duplicate";
+        //    }
 
+        //    var output = new CategoryDao().DeleteCategory(id);
+        //    return output;
+        //}
 
     }
 }

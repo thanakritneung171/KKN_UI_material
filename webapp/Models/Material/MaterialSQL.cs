@@ -9,8 +9,8 @@ namespace KKN_UI.Models.Material
 {
     public class MaterialSQL
     {
-        public string item_no { get; set; }
         public int item_id { get; set; }
+        public string item_no { get; set; }
         public string item_name { get; set; }
         public int group_id { get; set; }
         public int category_id { get; set; }
@@ -32,6 +32,10 @@ namespace KKN_UI.Models.Material
         public GroupSQL GroupSQLModel { get; set; }
         public CategorySQL CategorySQLModel { get; set; }
 
+    }
+    public class MaterialSearch : MaterialSQL
+    {
+        public int Count { get; set; }
     }
 
     public class MaterialSQLlist
