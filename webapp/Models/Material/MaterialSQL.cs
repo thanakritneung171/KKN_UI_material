@@ -31,6 +31,7 @@ namespace KKN_UI.Models.Material
         public decimal qty_stock { get; set; }
         public GroupSQL GroupSQLModel { get; set; }
         public CategorySQL CategorySQLModel { get; set; }
+        public int msg { get; set; }
 
     }
     public class MaterialSearch : MaterialSQL

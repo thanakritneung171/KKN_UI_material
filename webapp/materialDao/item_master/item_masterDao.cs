@@ -116,14 +116,20 @@ namespace KKN_UI.materialDao.item_master
                             if (Convert.ToInt32(rdr["msg"]) == 1)
                             {
                                 result = mapinsert(rdr);
+                            }else if (Convert.ToInt32(rdr["msg"]) == 3)
+                            {
+                                result.msg = Convert.ToInt32(rdr["msg"]);
                             }
+
+
                             //else
+
                             //{
-                                
+
                             //    //return result = Convert.ToInt32(rdr["msg"]);
                             //    result = mapinsert(rdr);
                             //}
-                            
+
                         }
                     }
                     //if (result ==null)
@@ -222,6 +228,8 @@ namespace KKN_UI.materialDao.item_master
             result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
 
+
+            result.msg = Convert.ToInt32(rdr["msg"]);
             //result.GroupSQLModel = new GroupDao().maplistgroupDao(rdr);
             //result.CategorySQLModel = new CategoryDao().maplistcategory(rdr);
 
