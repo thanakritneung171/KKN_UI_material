@@ -109,6 +109,14 @@ namespace KKN_UI.Controllers
             return View(listindex);
         }
 
+        public ActionResult selectcategory(int id)
+        {
+            List<CategorySQL> listca = new List<CategorySQL>();
+            //listca = CategoryDao.GetdataByid(id);
+
+            return View();
+        }
+
         public ActionResult Creatematerial()
         {
             MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
