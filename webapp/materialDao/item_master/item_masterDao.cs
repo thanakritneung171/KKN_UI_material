@@ -21,6 +21,8 @@ namespace KKN_UI.materialDao.item_master
             string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
             conn = new SqlConnection(connString);
             conn.Open();
+           
+            
             return conn;
         }
 
@@ -31,7 +33,9 @@ namespace KKN_UI.materialDao.item_master
                                            
         private const string READ_BYID  = "item_masterRead_Byid";
 
-
+        private const string CHECKITEMNO = "CheckItemNo";
+        private const string CHECKITEMNAME = "CheckItemName";
+        private const string CHECKDETAILITEM = "CheckDetailItem";
 
         public MaterialSQLlist Getdata()
         {
@@ -77,6 +81,95 @@ namespace KKN_UI.materialDao.item_master
         }
 
 
+        public MaterialSQL CheckItemNo(MaterialSQL materialobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CHECKITEMNO,conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@item_no", materialobject.item_no);
+
+                    MaterialSQL resultcheckno = new MaterialSQL();
+                    //MaterialSQL resultcheckno = null;
+                    using (var  rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            resultcheckno.msg =2;
+                            return resultcheckno;
+                        }else
+                        {
+                            resultcheckno = CheckItemName(materialobject);
+                        }
+                    }
+                    return resultcheckno;
+                }
+            }
+        }
+
+        public MaterialSQL CheckItemName(MaterialSQL materialobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CHECKITEMNAME, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@item_name", materialobject.item_name);
+
+                    MaterialSQL resultcheckno = new MaterialSQL();
+                    //MaterialSQL resultcheckno = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            resultcheckno = CheckDetialItem(materialobject);
+                        }
+                        else
+                        {
+                            resultcheckno = InsertItem_master(materialobject);
+                        }
+                    }
+                    return resultcheckno;
+                }
+            }
+        }
+
+        public MaterialSQL CheckDetialItem(MaterialSQL materialobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CHECKDETAILITEM, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@item_name", materialobject.item_name);
+                    cmd.Parameters.AddWithValue("@brand", (object)materialobject.brand ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@version", (object)materialobject.version ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@color", (object)materialobject.color ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@size", (object)materialobject.size ?? DBNull.Value);
+
+                    MaterialSQL resultcheckno = new MaterialSQL();
+                    //MaterialSQL resultcheckno = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            resultcheckno.msg = 3;
+                            return resultcheckno;
+                        }
+                        else
+                        {
+                            resultcheckno = InsertItem_master(materialobject);
+                        }
+                    }
+                    return resultcheckno;
+                }
+            }
+        }
+
         public MaterialSQL InsertItem_master(MaterialSQL materialobject)
         {
             using (var conn = OpenDbConnection())
@@ -112,35 +205,14 @@ namespace KKN_UI.materialDao.item_master
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            var t = Convert.ToInt32(rdr["msg"]);
-                            if (Convert.ToInt32(rdr["msg"]) == 1)
-                            {
-                                result = mapinsert(rdr);
-                            }else if (Convert.ToInt32(rdr["msg"]) == 3)
-                            {
-                                result.msg = Convert.ToInt32(rdr["msg"]);
-                            }
-
-
-                            //else
-
+                            //var t = Convert.ToInt32(rdr["msg"]);
+                            //if (Convert.ToInt32(rdr["msg"]) == 1)
                             //{
-
-                            //    //return result = Convert.ToInt32(rdr["msg"]);
-                            //    result = mapinsert(rdr);
+                                result = mapinsert(rdr);
                             //}
-
                         }
                     }
-                    //if (result ==null)
-                    //{
-                    //    //return t;
-                    //}
-                    //else
-                    //{
                         return result;
-
-                    //}
                 }
             }
         }
@@ -207,7 +279,7 @@ namespace KKN_UI.materialDao.item_master
         public MaterialSQL mapinsert(SqlDataReader rdr)
         {
             var result = new MaterialSQL();
-            result.item_id = Convert.ToInt32(rdr["item_id"]);
+            //result.item_id = Convert.ToInt32(rdr["item_id"]);
             result.item_no = rdr["item_no"].ToString();
             result.item_name = rdr["item_name"].ToString();
             result.group_id = Convert.ToInt32(rdr["group_id"]);
@@ -229,7 +301,7 @@ namespace KKN_UI.materialDao.item_master
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
 
 
-            result.msg = Convert.ToInt32(rdr["msg"]);
+            //result.msg = Convert.ToInt32(rdr["msg"]);
             //result.GroupSQLModel = new GroupDao().maplistgroupDao(rdr);
             //result.CategorySQLModel = new CategoryDao().maplistcategory(rdr);
 

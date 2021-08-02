@@ -630,12 +630,27 @@
 
             //response from respective action method
             success: function (response) {
-                if (response.output == 0) {
+                //if (response.output == 0) {
+                //    alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
+
+                //    $("#content_ajaxloader").fadeOut("fast");
+                //    return;
+                //}
+
+                if (response.output.msg == 2) {
                     alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
 
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
+                } else if (response.output.msg == 3) {
+
+                    alert('รายละเอียด มีบันทึกอยู่แล้ว');
+
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
                 }
+
+
                 console.log("insert complete");
                 console.log(response.output1);
 

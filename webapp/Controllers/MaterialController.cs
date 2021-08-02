@@ -250,7 +250,10 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Createtodata(MaterialSQL materialdata)
         {
-         var output =   new item_masterDao().InsertItem_master(materialdata);
+         var output =   new item_masterDao().CheckItemNo(materialdata);
+
+         //var output =   new item_masterDao().InsertItem_master(materialdata);
+
             #region hidden
             //using (var conn = OpenDbConnection())
             //{
@@ -285,7 +288,7 @@ namespace KKN_UI.Controllers
             #endregion
 
             
-            return Json( new {output = output is null ? 0:1 }, JsonRequestBehavior.AllowGet);
+            return Json( new {output = output  }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Editmaterial(string id)
