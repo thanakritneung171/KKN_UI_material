@@ -443,7 +443,7 @@
                     <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
                         <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
                         <p id="pdisplay"><br /><br /></p>
-                        <input type="file" id="input" name="file" value="" hidden />
+                        <input class="hidden" type="file" id="input" name="file" value=""  />
                     </div>
                     <br />
                     @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
@@ -634,7 +634,7 @@
             // Controller/method
             url: '@Url.Action("Createtodata", "Material")',
             //object/parameter with value
-            data: JSON.stringify(material, ffill),
+            data: JSON.stringify(material),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
 
