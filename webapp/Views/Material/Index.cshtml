@@ -207,16 +207,45 @@
                 </select>
             </div>
 
+
             <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
                 <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)">
                     <option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>
                     <option style="display:none" id="selcatall" value="">ทั้งหมด</option>
-                    @foreach (var itemcategory in result.CategorySQLlist)
+                    @*@foreach (var itemcategory in result.CategorySQLlist)
                     {
                         <option value="@itemcategory.category_id" name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
-                    }
+                    }*@
                 </select>
             </div>
+
+            <script>
+                function AddoptionC() {
+                    var sg = document.getElementById("selgroup").value;
+                 $('#content_ajaxloader').fadeIn();
+            @*$.ajax({
+                type: "POST",
+                url: '@Url.Action("_selectcategory", "Material")',
+                dataType: 'html',
+                data: {id:sg},
+                success: function (result) {
+                    //$('#selcategory').html('');
+                    //$('#selcategory').html(result);
+                    $('#selcategory').load('_selectcategory');
+                }
+                  });*@
+                    $("#selcategory").load('@Url.Action("_selectcategory", "Material")', { id: sg }, function (result) {
+                        $('#content_ajaxloader').fadeOut();
+                    });
+
+                }
+
+
+
+
+
+            </script>
+
             <script>
                 function myselect(th) {
                     console.log("select");
@@ -228,6 +257,7 @@
                     getSelectedOptions(sc, sg)
                     document.getElementById("dontcate").select = true;
                     selgr(th)
+                    AddoptionC()
                 }
 
                 function getSelectedOptions(select, option) {

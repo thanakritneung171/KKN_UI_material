@@ -30,6 +30,7 @@ namespace KKN_UI.material.category
         private const string UPDATE     = "categoryUpdate";
 
         private const string READ_BYID  = "categoryRead_Byid";
+        private const string READ_BYGROUPID  = "categoryRead_ByGroupid";
 
 
         public CategorySQLlist Getdata()
@@ -95,6 +96,30 @@ namespace KKN_UI.material.category
                             result = maplistcategory(rdr);
                         }
                     }
+                    return (result);
+                }
+
+            }
+
+        }
+
+        public CategorySQLlist GetdataCategoryGourpByid(int id)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(READ_BYGROUPID, conn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", id);
+                    CategorySQLlist result = new CategorySQLlist();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result.Categorylist.Add(maplistcategory(rdr));
+                        }
+                                                                                                                                                                                                                                                                                                                                                                                            }
                     return (result);
                 }
 

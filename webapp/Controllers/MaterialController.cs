@@ -109,12 +109,11 @@ namespace KKN_UI.Controllers
             return View(listindex);
         }
 
-        public ActionResult selectcategory(int id)
+        public ActionResult _selectcategory(int id)
         {
-            List<CategorySQL> listca = new List<CategorySQL>();
-            //listca = CategoryDao.GetdataByid(id);
+            CategorySQLlist Cdata = new CategoryDao().GetdataCategoryGourpByid(id);
 
-            return View();
+            return PartialView(Cdata);
         }
 
         public ActionResult Creatematerial()
