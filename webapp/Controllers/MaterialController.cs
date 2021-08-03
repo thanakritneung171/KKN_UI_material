@@ -256,7 +256,7 @@ namespace KKN_UI.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(MaterialSQL eventmodel, HttpPostedFileBase file)
+        public ActionResult Createfile(MaterialSQL eventmodel, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
