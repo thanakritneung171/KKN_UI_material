@@ -254,10 +254,51 @@ namespace KKN_UI.Controllers
             return View(MaterialSQLlistindex);
         }
 
+
         [HttpPost]
-        public JsonResult Createtodata(MaterialSQL materialdata)
+        public ActionResult Create(MaterialSQL eventmodel, HttpPostedFileBase file)
         {
-         var output =   new item_masterDao().CheckItemNo(materialdata);
+            if (ModelState.IsValid)
+            {
+                var originalFilename = Path.GetFileName(file.FileName);
+                //string fileId = Guid.NewGuid().ToString().Replace("-", "");
+                //string userId = GetUserId(); // Function to get user id based on your schema
+
+                var path = Path.Combine(Server.MapPath("~/UploadedFiles/Photo/")/*, userId, fileId*/);
+                file.SaveAs(path);
+
+                //eventmodel.picture_path = fileId;
+                eventmodel.picture_path = originalFilename;
+
+                //_db.EventModels.AddObject(eventmodel);
+                //_db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(eventmodel);
+        }
+
+        [HttpPost]
+        public JsonResult Createtodata(MaterialSQL materialdata, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                var originalFilename = Path.GetFileName(file.FileName);
+                //string fileId = Guid.NewGuid().ToString().Replace("-", "");
+                //string userId = GetUserId(); // Function to get user id based on your schema
+
+                var path = Path.Combine(Server.MapPath("~/UploadedFiles/Photo/")/*, userId, fileId*/);
+                file.SaveAs(path);
+
+                //eventmodel.picture_path = fileId;
+                materialdata.picture_path = originalFilename;
+
+                //_db.EventModels.AddObject(eventmodel);
+                //_db.SaveChanges();
+                //return RedirectToAction("Index");
+            }
+
+
+            var output =   new item_masterDao().CheckItemNo(materialdata);
 
          //var output =   new item_masterDao().InsertItem_master(materialdata);
 

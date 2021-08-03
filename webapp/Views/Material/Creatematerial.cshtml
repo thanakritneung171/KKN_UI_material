@@ -443,6 +443,7 @@
                     <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
                         <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
                         <p id="pdisplay"><br /><br /></p>
+                        <input type="file" id="input" name="file" value="" hidden />
                     </div>
                     <br />
                     @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
@@ -450,11 +451,13 @@
 
                     <script>
                         function importData() {
-                            let input = document.createElement('input');
-                            input.type = 'file';
-                            input.name = 'file';
-                            input.id = 'file';
+                            //let input = document.createElement('input');
+                            //input.type = 'file';
+                            //input.name = 'file';
+                            //input.id = 'file';
 
+                            let input = document.getElementById('input');
+                            var ffill = document.getElementById('input').value;
                             input.onchange = evt => {
                                 const [file] = input.files
                                 if (file) {
@@ -603,7 +606,14 @@
         material.qty_in                     = document.getElementById("qty_in").value;
         material.qty_stock                  = document.getElementById("qty_stock").value;
         material.picture_path = document.getElementById("blah").alt;
-       
+
+
+        var ffill = document.getElementById('input').value;
+        //var ffilldata = new FormData(ffill);
+        //var xhr = new XMLHttpRequest();
+
+        //xhr.open('open', ffill.getAttribute('action'), true);
+        //xhr.send(ffilldata);
       //  material.picture_file = document.getElementById("fileinput").files[0];
 
 
@@ -624,7 +634,7 @@
             // Controller/method
             url: '@Url.Action("Createtodata", "Material")',
             //object/parameter with value
-            data: JSON.stringify(material),
+            data: JSON.stringify(material, ffill),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
 
