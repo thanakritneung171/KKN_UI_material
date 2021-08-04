@@ -814,7 +814,15 @@
                     }
 
 
-                },
+                }
+                , success: function (element) {
+
+                    // or maybe this
+                    // $(element).closest('.control-group').find('.help-block').hide();
+                    // but you'll need a ".show()" at the end of your line in "errorPlacement"
+                }
+
+                ,
                 // Do not change code below
                 errorPlacement: function (error, element) {
 
@@ -822,16 +830,10 @@
                     //error.removeClass('validateclass');
 
                 }
-                //,
-                //success: function (output) {
-                //    var output = 1;
-                //    alert(output)
-                //    console.log(output+"out")
-                //    return output;
-                //}
 
             })
-
+            console.log(checkoutForm + "checkoutForm");
+            alert(checkoutForm + "checkoutForm");
         }
 
 
