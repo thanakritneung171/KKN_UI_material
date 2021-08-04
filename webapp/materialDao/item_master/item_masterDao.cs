@@ -21,17 +21,17 @@ namespace KKN_UI.materialDao.item_master
             string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
             conn = new SqlConnection(connString);
             conn.Open();
-
-
+           
+            
             return conn;
         }
 
-        private const string READ = "item_masterRead";
-        private const string CREATE = "item_masterCreate";
-        private const string DELETE = "item_masterDelete";
-        private const string UPDATE = "item_masterUpdate";
-
-        private const string READ_BYID = "item_masterRead_Byid";
+        private const string READ       = "item_masterRead";
+        private const string CREATE     = "item_masterCreate";
+        private const string DELETE     = "item_masterDelete";
+        private const string UPDATE     = "item_masterUpdate";
+                                           
+        private const string READ_BYID  = "item_masterRead_Byid";
 
         private const string CHECKITEMNO = "CheckItemNo";
         private const string CHECKITEMNAME = "CheckItemName";
@@ -85,22 +85,21 @@ namespace KKN_UI.materialDao.item_master
         {
             using (var conn = OpenDbConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(CHECKITEMNO, conn))
+                using (SqlCommand cmd = new SqlCommand(CHECKITEMNO,conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@item_no", materialobject.item_no);
 
                     MaterialSQL result = new MaterialSQL();
                     //MaterialSQL result = null;
-                    using (var rdr = cmd.ExecuteReader())
+                    using (var  rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            result.msg = 2;
+                            result.msg =2;
                             return result;
-                        }
-                        else
+                        }else
                         {
                             result = CheckItemName(materialobject);
                         }
@@ -211,11 +210,11 @@ namespace KKN_UI.materialDao.item_master
                             //var t = Convert.ToInt32(rdr["msg"]);
                             //if (Convert.ToInt32(rdr["msg"]) == 1)
                             //{
-                            result = mapinsert(rdr);
+                                result = mapinsert(rdr);
                             //}
                         }
                     }
-                    return result;
+                        return result;
                 }
             }
         }
@@ -265,7 +264,7 @@ namespace KKN_UI.materialDao.item_master
         public int /*MaterialSQL*/ DeleteItem_master(MaterialSQL materialobject)
         {
             //MaterialSQL result = null;
-            int result = 1;
+            int result =1;
             using (var coon = OpenDbConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(DELETE, coon))
@@ -304,7 +303,9 @@ namespace KKN_UI.materialDao.item_master
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
 
 
-            //result.msg = Convert.ToInt32(rdr["msg"]);
+            result.msg = Convert.ToInt32(rdr["msg"]);
+
+
             //result.GroupSQLModel = new GroupDao().maplistgroupDao(rdr);
             //result.CategorySQLModel = new CategoryDao().maplistcategory(rdr);
 

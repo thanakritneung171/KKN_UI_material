@@ -361,7 +361,7 @@ namespace KKN_UI.Controllers
 
 
 
-            return Json(new { output = output }, JsonRequestBehavior.AllowGet);
+            return Json(new { output = output, responseText = 2 }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Editmaterial(string id)
