@@ -39,7 +39,7 @@ namespace KKN_UI.Controllers
             return conn;
         }
 
-      
+
         public ActionResult Index()
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
@@ -105,7 +105,7 @@ namespace KKN_UI.Controllers
             listindex.MaterialSQLlist = mtlist.ToList();
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
-            
+
             return View(listindex);
         }
 
@@ -255,52 +255,76 @@ namespace KKN_UI.Controllers
         }
 
 
+        private static string FILE_PATH111 = @"C:\UploadedFiles";
         [HttpPost]
-        public ActionResult Createfile(MaterialSQL eventmodel, HttpPostedFileBase file)
+        public ActionResult Createfile111111(MaterialSQL material, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 var originalFilename = Path.GetFileName(file.FileName);
-                //string fileId = Guid.NewGuid().ToString().Replace("-", "");
+                string fileId = Guid.NewGuid().ToString().Replace("-", "");
                 //string userId = GetUserId(); // Function to get user id based on your schema
+                string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
 
-                var path = Path.Combine(Server.MapPath("~/UploadedFiles/Photo/")/*, userId, fileId*/);
+                var path = Path.Combine(Server.MapPath("~/UploadedFiles/Photo/") + newnamesave);
                 file.SaveAs(path);
 
                 //eventmodel.picture_path = fileId;
-                eventmodel.picture_path = originalFilename;
+                material.picture_path = newnamesave;
 
                 //_db.EventModels.AddObject(eventmodel);
                 //_db.SaveChanges();
-                return RedirectToAction("Index");
+                //return Json(new {success = true, Error = "" },JsonRequestBehavior.AllowGet);
             }
-            return View(eventmodel);
+            return Json(new { success = material.picture_path, Error = "error cant save" }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        private static string FILE_PATH = @"C:\UploadedFiles";
+        public static void Createfile(string path, string newnamesave, HttpPostedFileBase file)
+        {
+            var pathus = Path.Combine(path, newnamesave);
+            file.SaveAs(pathus);
+
+        }
+
+        public static MaterialSQL genaratePathfile(MaterialSQL material, HttpPostedFileBase file)
+        {
+            var originalFilename = Path.GetFileName(file.FileName);
+            string fileId = Guid.NewGuid().ToString().Replace("-", "");
+            //string userId = GetUserId(); // Function to get user id based on your schema
+            string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
+
+            material.picture_path = newnamesave;
+
+            return material;
         }
 
         [HttpPost]
-        public JsonResult Createtodata(MaterialSQL materialdata, HttpPostedFileBase file)
+        public JsonResult Createtodata(MaterialSQL material, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+
+            //////Createfile;
+            ////if (ModelState.IsValid)
+            ////{
+            ////    var originalFilename = Path.GetFileName(file.FileName);
+            ////    string fileid = Guid.NewGuid().ToString().Replace("-", "");
+            ////    string newnamesavefile = string.Format("{0}{1}{2}", fileid);
+            ////}
+            genaratePathfile(material, file);
+
+            var output = new item_masterDao().CheckItemNo(material);
+            if (output.msg == 1)
             {
-                var originalFilename = Path.GetFileName(file.FileName);
-                //string fileId = Guid.NewGuid().ToString().Replace("-", "");
-                //string userId = GetUserId(); // Function to get user id based on your schema
-
-                var path = Path.Combine(Server.MapPath("~/UploadedFiles/Photo/")/*, userId, fileId*/);
-                file.SaveAs(path);
-
-                //eventmodel.picture_path = fileId;
-                materialdata.picture_path = originalFilename;
-
-                //_db.EventModels.AddObject(eventmodel);
-                //_db.SaveChanges();
-                //return RedirectToAction("Index");
+                var path = Server.MapPath("~/UploadedFiles/Photo/");
+                Createfile(path, material.picture_path, file);
             }
 
 
-            var output =   new item_masterDao().CheckItemNo(materialdata);
+            //new  MaterialController().Createfile(material, file);
 
-         //var output =   new item_masterDao().InsertItem_master(materialdata);
+            //var output =   new item_masterDao().InsertItem_master(materialdata);
 
             #region hidden
             //using (var conn = OpenDbConnection())
@@ -335,13 +359,14 @@ namespace KKN_UI.Controllers
             //}
             #endregion
 
-            
-            return Json( new {output = output  }, JsonRequestBehavior.AllowGet);
+
+
+            return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Editmaterial(string id)
         {
-           
+
             MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
             MaterialSQL mtlist = new MaterialSQL();
             List<GroupSQL> gtlist = new List<GroupSQL>();
@@ -351,7 +376,7 @@ namespace KKN_UI.Controllers
             List<UomSQL> uomlist = new List<UomSQL>();
             using (var conn = OpenDbConnection())
             {
-                var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'"+ id+"'";
+                var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'" + id + "'";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -536,17 +561,17 @@ namespace KKN_UI.Controllers
             #endregion
 
             new item_masterDao().DeleteItem_master(mateid);
-                return Json(JsonRequestBehavior.AllowGet);
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
- 
+
 
         [HttpPost]
         public ActionResult UploadFiles(HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                try 
+                try
                 {
 
                     //Method 2 Get file details from HttpPostedFileBase class    
@@ -670,7 +695,7 @@ namespace KKN_UI.Controllers
             //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
 
             List<GroupSQL> Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
-            
+
             return PartialView("Groupmaterial/_groupView", Grouplistdata);
         }
 
@@ -699,9 +724,9 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult UpdateGroup(GroupSQL groupdata)
         {
-           new GroupDao().UpdateGroup(groupdata);
+            new GroupDao().UpdateGroup(groupdata);
 
-            return Json( JsonRequestBehavior.AllowGet);
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

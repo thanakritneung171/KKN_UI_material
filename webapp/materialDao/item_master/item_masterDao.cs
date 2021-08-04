@@ -21,17 +21,17 @@ namespace KKN_UI.materialDao.item_master
             string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
             conn = new SqlConnection(connString);
             conn.Open();
-           
-            
+
+
             return conn;
         }
 
-        private const string READ       = "item_masterRead";
-        private const string CREATE     = "item_masterCreate";
-        private const string DELETE     = "item_masterDelete";
-        private const string UPDATE     = "item_masterUpdate";
-                                           
-        private const string READ_BYID  = "item_masterRead_Byid";
+        private const string READ = "item_masterRead";
+        private const string CREATE = "item_masterCreate";
+        private const string DELETE = "item_masterDelete";
+        private const string UPDATE = "item_masterUpdate";
+
+        private const string READ_BYID = "item_masterRead_Byid";
 
         private const string CHECKITEMNO = "CheckItemNo";
         private const string CHECKITEMNAME = "CheckItemName";
@@ -85,26 +85,27 @@ namespace KKN_UI.materialDao.item_master
         {
             using (var conn = OpenDbConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(CHECKITEMNO,conn))
+                using (SqlCommand cmd = new SqlCommand(CHECKITEMNO, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@item_no", materialobject.item_no);
 
-                    MaterialSQL resultcheckno = new MaterialSQL();
-                    //MaterialSQL resultcheckno = null;
-                    using (var  rdr = cmd.ExecuteReader())
+                    MaterialSQL result = new MaterialSQL();
+                    //MaterialSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            resultcheckno.msg =2;
-                            return resultcheckno;
-                        }else
+                            result.msg = 2;
+                            return result;
+                        }
+                        else
                         {
-                            resultcheckno = CheckItemName(materialobject);
+                            result = CheckItemName(materialobject);
                         }
                     }
-                    return resultcheckno;
+                    return result;
                 }
             }
         }
@@ -118,21 +119,22 @@ namespace KKN_UI.materialDao.item_master
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@item_name", materialobject.item_name);
 
-                    MaterialSQL resultcheckno = new MaterialSQL();
-                    //MaterialSQL resultcheckno = null;
+                    MaterialSQL result = new MaterialSQL();
+                    //MaterialSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            resultcheckno = CheckDetialItem(materialobject);
+                            result = CheckDetialItem(materialobject);
                         }
                         else
                         {
-                            resultcheckno = InsertItem_master(materialobject);
+                            result.msg = 1;
+                            result = InsertItem_master(materialobject);
                         }
                     }
-                    return resultcheckno;
+                    return result;
                 }
             }
         }
@@ -150,22 +152,23 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@color", (object)materialobject.color ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@size", (object)materialobject.size ?? DBNull.Value);
 
-                    MaterialSQL resultcheckno = new MaterialSQL();
-                    //MaterialSQL resultcheckno = null;
+                    MaterialSQL result = new MaterialSQL();
+                    //MaterialSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            resultcheckno.msg = 3;
-                            return resultcheckno;
+                            result.msg = 3;
+                            return result;
                         }
                         else
                         {
-                            resultcheckno = InsertItem_master(materialobject);
+                            result.msg = 1;
+                            result = InsertItem_master(materialobject);
                         }
                     }
-                    return resultcheckno;
+                    return result;
                 }
             }
         }
@@ -188,7 +191,7 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@status            ", materialobject.status);
                     cmd.Parameters.AddWithValue("@stock_count       ", materialobject.stock_count);
                     cmd.Parameters.AddWithValue("@overdraw_stock    ", materialobject.overdraw_stock);
-                    //cmd.Parameters.AddWithValue("@picture_path      ",materialobject.picture_path     );
+                    cmd.Parameters.AddWithValue("@picture_path      ", materialobject.picture_path);
                     cmd.Parameters.AddWithValue("@brand", (object)materialobject.brand ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@version", (object)materialobject.version ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@color", (object)materialobject.color ?? DBNull.Value);
@@ -208,11 +211,11 @@ namespace KKN_UI.materialDao.item_master
                             //var t = Convert.ToInt32(rdr["msg"]);
                             //if (Convert.ToInt32(rdr["msg"]) == 1)
                             //{
-                                result = mapinsert(rdr);
+                            result = mapinsert(rdr);
                             //}
                         }
                     }
-                        return result;
+                    return result;
                 }
             }
         }
@@ -262,7 +265,7 @@ namespace KKN_UI.materialDao.item_master
         public int /*MaterialSQL*/ DeleteItem_master(MaterialSQL materialobject)
         {
             //MaterialSQL result = null;
-            int result =1;
+            int result = 1;
             using (var coon = OpenDbConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(DELETE, coon))
@@ -290,7 +293,7 @@ namespace KKN_UI.materialDao.item_master
             result.status = (bool)rdr["status"];
             result.stock_count = (bool)rdr["stock_count"];
             result.overdraw_stock = (bool)rdr["overdraw_stock"];
-            //result.picture_path = rdr["picture_path"].ToString();
+            result.picture_path = rdr["picture_path"].ToString();
             result.brand = rdr["brand"].ToString();
             result.version = rdr["version"].ToString();
             result.color = rdr["color"].ToString();

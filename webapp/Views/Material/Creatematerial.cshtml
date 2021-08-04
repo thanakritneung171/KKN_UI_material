@@ -23,6 +23,7 @@
         width: 100%;
         background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
     }
+
     #content_ajaxloader {
         position: fixed;
         z-index: 1 !important;
@@ -149,19 +150,19 @@
         font-size: 10px;
     }
 
-        /*.validateclass {*/
-        /*border-style: 5px !solid;*/
-        /*border-color: red;
-        border: 1px solid;
-        border-radius: 5px;
-    }*/
+    /*.validateclass {*/
+    /*border-style: 5px !solid;*/
+    /*border-color: red;
+            border: 1px solid;
+            border-radius: 5px;
+        }*/
 
- /*   input.invalid {
-        border-color: red;
-        border: 1px solid;
-        border-radius: 5px;
-    }
-*/
+    /*   input.invalid {
+            border-color: red;
+            border: 1px solid;
+            border-radius: 5px;
+        }
+    */
     input[type=text].invalid {
         /*box-sizing: border-box;*/
         border: 2px solid red;
@@ -178,12 +179,11 @@
         border: 2px solid #49C204;
         border-radius: 4px;
     }
+
     select.valid {
         border: 2px solid #49C204;
         border-radius: 4px;
     }
-
-
 </style>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
@@ -423,7 +423,7 @@
                         </div>
                         @*<label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>*@
                         <label class="control-label col-sm-1 col-xs-1" style="text-align:left" id="qty_inshow" for="qty_in">หน่วย</label>
-                       
+
                         <div class="col-sm-1 col-xs-1">
                             <p style="color: blue; margin-top: 7px; margin-left:5px">&#9868;</p>
                         </div>
@@ -443,7 +443,7 @@
                     <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
                         <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
                         <p id="pdisplay"><br /><br /></p>
-                        <input class="hidden" type="file" id="input" name="file" value=""  />
+                        <input class="hidden" type="file" id="input" name="file" value="" />
                     </div>
                     <br />
                     @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
@@ -551,7 +551,7 @@
 
     </div> <br /><br />
 
-                 <script>
+    <script>
 
         function comfirmsave() {
             //var va = validate();
@@ -584,26 +584,71 @@
         console.log("in function")
         //alert("in function")
         ///get input to val
+        var material = new Object();
+        material.item_no            = document.getElementById("item_no").value;
+        material.item_name          = document.getElementById("item_name").value;
+        material.group_id           = document.getElementById("group").value;
+        material.category_id        = document.getElementById("category").value;
+        material.material_acc_id    = document.getElementById("material_account").value;
+        material.costing_method_id  = document.getElementById("costing_method_material").value;
+        material.description        = document.getElementById("description").value;
+        material.status             = document.getElementById("status").checked;
+        material.stock_count        = document.getElementById("stock_count").checked;
+        material.overdraw_stock     = document.getElementById("overdraw_stock").checked;
+        material.brand              = document.getElementById("brand").value;
+        material.version            = document.getElementById("version").value;
+        material.color              = document.getElementById("color").value;
+        material.size               = document.getElementById("size").value;
+        material.uom_in             = document.getElementById("uom_in").value;
+        material.uom_stock          = document.getElementById("uom_stock").value;
+        material.qty_in             = document.getElementById("qty_in").value;
+        material.qty_stock          = document.getElementById("qty_stock").value;
+        material.picture_path       = document.getElementById("blah").alt;
+
 
         var file_data = $('#input').prop('files')[0];
         var form_data = new FormData();
         form_data.append('file', file_data);
         console.log('form_data');
         alert(form_data);
+        //form_data.append('eventmodel', material)
+        form_data.append('material.item_no', material.item_no)
+        form_data.append('material.item_name', material.item_name)
+        form_data.append('material.group_id', material.group_id)
+        form_data.append('material.category_id', material.category_id)
+        form_data.append('material.material_acc_id', material.material_acc_id)
+        form_data.append('material.costing_method_id', material.costing_method_id)
+        form_data.append('material.description', material.description)
+        form_data.append('material.status', material.status)
+        form_data.append('material.stock_count', material.stock_count)
+        form_data.append('material.overdraw_stock', material.overdraw_stock)
+        form_data.append('material.brand', material.brand)
+        form_data.append('material.version', material.version)
+        form_data.append('material.color', material.color)
+        form_data.append('material.size', material.size)
+        form_data.append('material.uom_in', material.uom_in)
+        form_data.append('material.uom_stock', material.uom_stock)
+        form_data.append('material.qty_in', material.qty_in)
+        form_data.append('material.qty_stock', material.qty_stock)
+        //form_data.append('material.picture_path', material.picture_path)
 
-
-        $.ajax({
-            url: '@Url.Action("Createfile", "Material")', // point to server-side PHP script
-            dataType: 'text',  // what to expect back from the PHP script, if anything
+        @*$.ajax({
+            url: '@Url.Action("Createfile", "Material")',
+            dataType: 'text',
             cache: false,
             contentType: false,
             processData: false,
             data: form_data,
             type: 'post',
-            success: function (response) {
-                alert(response);
+            success: function (data) {
+                if (data.success) {
+                    alert("success");
+                } else {
+                    alert("error");
+                }
+                alert(data);
             }
-        });
+        });*@
 
 
         //var myFormData = new FormData();
@@ -619,60 +664,25 @@
         //});
 
 
-        var material = new Object();
-        material.item_no                    = document.getElementById("item_no").value;
-        material.item_name                  = document.getElementById("item_name").value;
-        material.group_id                      = document.getElementById("group").value;
-        material.category_id                   = document.getElementById("category").value;
-        material.material_acc_id           = document.getElementById("material_account").value;
-        material.costing_method_id    = document.getElementById("costing_method_material").value;
-        material.description                = document.getElementById("description").value;
-        material.status                     = document.getElementById("status").checked;
-        material.stock_count                = document.getElementById("stock_count").checked;
-        material.overdraw_stock             = document.getElementById("overdraw_stock").checked;
-        material.brand                      = document.getElementById("brand").value;
-        material.version                    = document.getElementById("version").value;
-        material.color                      = document.getElementById("color").value;
-        material.size                       = document.getElementById("size").value;
-        material.uom_in                     = document.getElementById("uom_in").value;
-        material.uom_stock                  = document.getElementById("uom_stock").value;
-        material.qty_in                     = document.getElementById("qty_in").value;
-        material.qty_stock                  = document.getElementById("qty_stock").value;
-        material.picture_path = document.getElementById("blah").alt;
-
-
-        var ffill = document.getElementById('input').value;
-        //var ffilldata = new FormData(ffill);
-        //var xhr = new XMLHttpRequest();
-
-        //xhr.open('open', ffill.getAttribute('action'), true);
-        //xhr.send(ffilldata);
-      //  material.picture_file = document.getElementById("fileinput").files[0];
-
-
-        //var FileUploadModel = new Object();
-        //FileUploadModel.filePicture = document.getElementByName("postedFile").value;
-
-        //alert(FileUploadModel);
-
-
-        console.log(material);
-        console.log(material.picture_path+"22222222");
-
         //////////////////////////////////
         $("#content_ajaxloader").show();
         $.ajax({
-            // request POST
             type: "POST",
-            // Controller/method
             url: '@Url.Action("Createtodata", "Material")',
-            //object/parameter with value
-            data: JSON.stringify(material),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            //data: JSON.stringify(material),
+            dataType: 'text',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: form_data,
+            //contentType: "application/json; charset=utf-8",
+            //dataType: "json",
 
-            //response from respective action method
             success: function (response) {
+                console.log("response");
+                console.log(response);
+                console.log("responseoutput");
+                console.log(response.output[0]);
                 //if (response.output == 0) {
                 //    alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
 
@@ -680,6 +690,8 @@
                 //    return;
                 //}
 
+                //console.log(response.output.msg + "  respone out succes");
+                //alert(response.output.msg + "  respone out succes");
                 if (response.output.msg == 2) {
                     alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
 
@@ -699,7 +711,7 @@
 
                 $("#content_ajaxloader").fadeOut("fast");
                 alert("บันทึกเรียบร้อย")
-                //alert(response.item_no + "suc" + response.picture_path)
+                alert(response.item_no + "suc" + response.picture_path)
                 window.location.href = "/material/Creatematerial";
             },
             failure: function (response) {
@@ -708,10 +720,10 @@
             error: function (response) {
                 alert(response.responseText);
             }
-         })
+        });
             };
 
-                 </script>
+    </script>
 
     @*</div>*@
 </div>
@@ -818,12 +830,12 @@
                 //    console.log(output+"out")
                 //    return output;
                 //}
-                
+
             })
 
         }
 
-        
+
     </script>
 }
 

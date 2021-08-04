@@ -1121,7 +1121,7 @@
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Report\" />
     <Folder Include="Repositories\" />
-    <Folder Include="UploadedFiles\" />
+    <Folder Include="UploadedFiles\Photo\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
