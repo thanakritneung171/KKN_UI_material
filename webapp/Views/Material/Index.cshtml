@@ -233,8 +233,8 @@
                     $('#selcategory').load('_selectcategory');
                 }
                   });*@
-                  
-                    $("#selcategory").load('@Url.Action("_selectcategory", "Material")',  { id: sg }, function (result) {
+
+                    $("#selcategory").load('@Url.Action("_selectcategory", "Material")',  { id: sg}, function (result) {
                         $('#content_ajaxloader').fadeOut();
                     });
 

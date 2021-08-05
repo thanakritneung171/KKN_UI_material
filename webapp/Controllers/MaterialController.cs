@@ -109,9 +109,9 @@ namespace KKN_UI.Controllers
             return View(listindex);
         }
 
-        public ActionResult _selectcategory(int id)
+        public ActionResult _selectcategory(int id, string page)
         {
-        
+
             CategorySQLlist Cdata = new CategoryDao().GetdataCategoryGourpByid(id);
 
             return PartialView(Cdata);
@@ -287,6 +287,12 @@ namespace KKN_UI.Controllers
         {
             var pathus = Path.Combine(path, newnamesave);
             file.SaveAs(pathus);
+
+        }
+        public static void Deletefile(string path, string newnamedel)
+        {
+            var pathus = Path.Combine(path, newnamedel);
+            System.IO.File.Delete(pathus);
 
         }
 
@@ -545,13 +551,20 @@ namespace KKN_UI.Controllers
             //    }
             //}
             #endregion
+
+            var path = Server.MapPath("~/UploadedFiles/Photo/");
             if (file != null)
             {
                 genaratePathfile(material, file);
             }
-            var output = new item_masterDao().UpdateItem_master(material);
 
-            var path = Server.MapPath("~/UploadedFiles/Photo/");
+            var namepathdelete = searchdeletefile(material.item_id);
+
+            var output = new item_masterDao().UpdateItem_master(material);
+            if(output.msg==1)
+            {
+            Deletefile(path, namepathdelete.picture_path);
+            }
 
             if (file != null)
             {
@@ -559,6 +572,14 @@ namespace KKN_UI.Controllers
             }
 
             return Json(JsonRequestBehavior.AllowGet);
+        }
+
+
+        public static MaterialSQL searchdeletefile(int id)
+        {
+            MaterialSQL material = new MaterialSQL();
+            material = new item_masterDao().deletefilepath(id);
+            return material;
         }
 
         [HttpPost]

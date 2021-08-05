@@ -279,6 +279,45 @@ namespace KKN_UI.materialDao.item_master
             }
         }
 
+
+        public MaterialSQL deletefilepath(int id)
+        {
+            var query = "SELECT   picture_path, 1 as msg FROM   dbo.item_master WHERE item_id =" + "'" + id+"'" ;
+
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@item_id", id);
+                    MaterialSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result = mapideletefil(rdr);
+                        }
+                    }
+                    return (result);
+                }
+            }
+        }
+        public MaterialSQL mapideletefil (SqlDataReader rdr)
+        {
+            var result = new MaterialSQL();
+
+            result.picture_path = rdr["picture_path"].ToString();
+    
+            if (rdr["msg"] != null)
+            {
+                result.msg = Convert.ToInt32(rdr["msg"]);
+            }
+        
+
+            return result;
+        }
+
         public MaterialSQL mapinsert(SqlDataReader rdr)
         {
             var result = new MaterialSQL();
@@ -303,8 +342,9 @@ namespace KKN_UI.materialDao.item_master
             result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
 
-            if (rdr["msg"] != null) { 
-            result.msg = Convert.ToInt32(rdr["msg"]);
+            if (rdr["msg"] != null)
+            {
+                result.msg = Convert.ToInt32(rdr["msg"]);
             }
             //result.GroupSQLModel = new GroupDao().maplistgroupDao(rdr);
             //result.CategorySQLModel = new CategoryDao().maplistcategory(rdr);
