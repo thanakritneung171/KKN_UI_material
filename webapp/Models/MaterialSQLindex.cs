@@ -73,9 +73,10 @@ namespace KKN_UI.Models
         public List<Costing_methodSQL> Costing_methodSQL_list { get; set; }
         public List<Material_accSQL> Material_accSQLlist { get; set; }
         public List<GroupSQL> GroupSQLlist { get; set; }
-        public List<CategorySQL>  CategorySQLlist { get; set; }
+        public List<CategorySQL> CategorySQLlist { get; set; }
         public List<MaterialSQL> MaterialSQLlist { get; set; }
         public MaterialSQL MaterialSQLdataselect { get; set; }
         public CategorySQL CategorySQL { get; set; }
     }
+
 }

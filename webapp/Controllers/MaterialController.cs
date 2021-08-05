@@ -291,7 +291,7 @@ namespace KKN_UI.Controllers
 
         public static MaterialSQL genaratePathfile(MaterialSQL material, HttpPostedFileBase file)
         {
-            
+
             var originalFilename = Path.GetFileName(file.FileName);
             string fileId = Guid.NewGuid().ToString().Replace("-", "");
             //string userId = GetUserId(); // Function to get user id based on your schema
@@ -310,8 +310,9 @@ namespace KKN_UI.Controllers
 
             //}
 
-            if(file != null) { 
-            genaratePathfile(material, file);
+            if (file != null)
+            {
+                genaratePathfile(material, file);
             }
 
             var output = new item_masterDao().CheckItemNo(material);
@@ -510,6 +511,7 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Editmaterialdata(MaterialSQL material, HttpPostedFileBase file)
         {
+
             #region old
             //using (var conn = OpenDbConnection())
             //{

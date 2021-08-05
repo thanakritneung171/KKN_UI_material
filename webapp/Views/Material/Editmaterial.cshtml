@@ -2,6 +2,7 @@
     //materialModel result = Model;
     //materialmodalview result = Model;
     MaterialSQLindex result = Model;
+    string path = "/UploadedFiles/Photo/";
 }
 
 @{
@@ -476,10 +477,14 @@
 
 
                     @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                    <h3 class="margin-left-10" id="hrw">รูปภาพวัสดุ  @result.MaterialSQLdataselect.picture_path </h3>
+                    <h3 class="margin-left-10" id="hrw">รูปภาพวัสดุ  @*@result.MaterialSQLdataselect.picture_path*@ </h3>
 
                     <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
-                        <img id="blah" src="#" alt="@result.MaterialSQLdataselect.picture_path" style="display: none; max-width: 100%" />
+                        @*src="/UploadedFiles/Photo/@result.MaterialSQLdataselect.picture_path"*@
+                        <img id="blah"
+                             src="@path@result.MaterialSQLdataselect.picture_path"
+                             alt="@result.MaterialSQLdataselect.picture_path"
+                             style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />
                         <p id="pdisplay"><br /><br /></p>
                         <input class="hidden" type="file" id="input" name="file" value="" />
                     </div>
@@ -720,8 +725,14 @@
 
 
                 var file_data = $('#input').prop('files')[0];
+
                 var form_data = new FormData();
+            
                 form_data.append('file', file_data);
+                //if (file_data == null) {
+
+                //}
+               
                 console.log('form_data');
                 console.log(form_data);
                 alert(form_data);
@@ -745,9 +756,10 @@
                 form_data.append('material.uom_stock', material.uom_stock)
                 form_data.append('material.qty_in', material.qty_in)
                 form_data.append('material.qty_stock', material.qty_stock)
+                form_data.append('material.picture_path', material.picture_path)
 
                 console.log(material.picture_path + "path get ");
-                
+
 
 
                 console.log(material);
