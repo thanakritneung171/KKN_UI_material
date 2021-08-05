@@ -670,7 +670,7 @@
             type: "POST",
             url: '@Url.Action("Createtodata", "Material")',
             //data: JSON.stringify(material),
-            dataType: 'text',
+            //dataType: 'text',
             cache: false,
             processData: false,
             contentType: false,
@@ -688,9 +688,6 @@
                 //    return;
                 //}
 
-
-                //console.log(response.output.msg + "  respone out succes");
-                //alert(response.output.msg + "  respone out succes");
                 if (response.output.msg == 2) {
                     alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
 

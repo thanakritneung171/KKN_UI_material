@@ -304,14 +304,6 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Createtodata(MaterialSQL material, HttpPostedFileBase file)
         {
-
-            //////Createfile;
-            ////if (ModelState.IsValid)
-            ////{
-            ////    var originalFilename = Path.GetFileName(file.FileName);
-            ////    string fileid = Guid.NewGuid().ToString().Replace("-", "");
-            ////    string newnamesavefile = string.Format("{0}{1}{2}", fileid);
-            ////}
             genaratePathfile(material, file);
 
             var output = new item_masterDao().CheckItemNo(material);
@@ -361,7 +353,7 @@ namespace KKN_UI.Controllers
 
 
 
-            return Json(new { output = output, responseText = 2 }, JsonRequestBehavior.AllowGet);
+            return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Editmaterial(string id)
