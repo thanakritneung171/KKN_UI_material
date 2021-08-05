@@ -21,17 +21,17 @@ namespace KKN_UI.materialDao.item_master
             string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
             conn = new SqlConnection(connString);
             conn.Open();
-           
-            
+
+
             return conn;
         }
 
-        private const string READ       = "item_masterRead";
-        private const string CREATE     = "item_masterCreate";
-        private const string DELETE     = "item_masterDelete";
-        private const string UPDATE     = "item_masterUpdate";
-                                           
-        private const string READ_BYID  = "item_masterRead_Byid";
+        private const string READ = "item_masterRead";
+        private const string CREATE = "item_masterCreate";
+        private const string DELETE = "item_masterDelete";
+        private const string UPDATE = "item_masterUpdate";
+
+        private const string READ_BYID = "item_masterRead_Byid";
 
         private const string CHECKITEMNO = "CheckItemNo";
         private const string CHECKITEMNAME = "CheckItemName";
@@ -85,21 +85,22 @@ namespace KKN_UI.materialDao.item_master
         {
             using (var conn = OpenDbConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(CHECKITEMNO,conn))
+                using (SqlCommand cmd = new SqlCommand(CHECKITEMNO, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@item_no", materialobject.item_no);
 
                     MaterialSQL result = new MaterialSQL();
                     //MaterialSQL result = null;
-                    using (var  rdr = cmd.ExecuteReader())
+                    using (var rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            result.msg =2;
+                            result.msg = 2;
                             return result;
-                        }else
+                        }
+                        else
                         {
                             result = CheckItemName(materialobject);
                         }
@@ -210,11 +211,11 @@ namespace KKN_UI.materialDao.item_master
                             //var t = Convert.ToInt32(rdr["msg"]);
                             //if (Convert.ToInt32(rdr["msg"]) == 1)
                             //{
-                                result = mapinsert(rdr);
+                            result = mapinsert(rdr);
                             //}
                         }
                     }
-                        return result;
+                    return result;
                 }
             }
         }
@@ -226,26 +227,26 @@ namespace KKN_UI.materialDao.item_master
                 using (SqlCommand cmd = new SqlCommand(UPDATE, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@item_id           ", materialobject.item_id);
+                    cmd.Parameters.AddWithValue("@item_id", materialobject.item_id);
                     //cmd.Parameters.AddWithValue("@item_no           ", materialobject.item_no);
-                    cmd.Parameters.AddWithValue("@item_name         ", materialobject.item_name);
-                    cmd.Parameters.AddWithValue("@group_id          ", materialobject.group_id);
-                    cmd.Parameters.AddWithValue("@category_id       ", materialobject.category_id);
-                    cmd.Parameters.AddWithValue("@material_acc_id   ", materialobject.material_acc_id);
-                    cmd.Parameters.AddWithValue("@costing_method_id ", materialobject.costing_method_id);
-                    cmd.Parameters.AddWithValue("@description       ", materialobject.description);
-                    cmd.Parameters.AddWithValue("@status            ", materialobject.status);
-                    cmd.Parameters.AddWithValue("@stock_count       ", materialobject.stock_count);
-                    cmd.Parameters.AddWithValue("@overdraw_stock    ", materialobject.overdraw_stock);
-                    //cmd.Parameters.AddWithValue("@picture_path      ",materialobject.picture_path     );
-                    cmd.Parameters.AddWithValue("@brand             ", materialobject.brand);
-                    cmd.Parameters.AddWithValue("@version           ", materialobject.version);
-                    cmd.Parameters.AddWithValue("@color             ", materialobject.color);
-                    cmd.Parameters.AddWithValue("@size              ", materialobject.size);
-                    cmd.Parameters.AddWithValue("@uom_in            ", materialobject.uom_in);
-                    cmd.Parameters.AddWithValue("@uom_stock         ", materialobject.uom_stock);
-                    cmd.Parameters.AddWithValue("@qty_in            ", materialobject.qty_in);
-                    cmd.Parameters.AddWithValue("@qty_stock         ", materialobject.qty_stock);
+                    cmd.Parameters.AddWithValue("@item_name", materialobject.item_name);
+                    cmd.Parameters.AddWithValue("@group_id", materialobject.group_id);
+                    cmd.Parameters.AddWithValue("@category_id", materialobject.category_id);
+                    cmd.Parameters.AddWithValue("@material_acc_id", materialobject.material_acc_id);
+                    cmd.Parameters.AddWithValue("@costing_method_id", materialobject.costing_method_id);
+                    cmd.Parameters.AddWithValue("@description", materialobject.description);
+                    cmd.Parameters.AddWithValue("@status", materialobject.status);
+                    cmd.Parameters.AddWithValue("@stock_count", materialobject.stock_count);
+                    cmd.Parameters.AddWithValue("@overdraw_stock", materialobject.overdraw_stock);
+                    cmd.Parameters.AddWithValue("@picture_path", materialobject.picture_path);
+                    cmd.Parameters.AddWithValue("@brand", materialobject.brand);
+                    cmd.Parameters.AddWithValue("@version", materialobject.version);
+                    cmd.Parameters.AddWithValue("@color", materialobject.color);
+                    cmd.Parameters.AddWithValue("@size", materialobject.size);
+                    cmd.Parameters.AddWithValue("@uom_in", materialobject.uom_in);
+                    cmd.Parameters.AddWithValue("@uom_stock", materialobject.uom_stock);
+                    cmd.Parameters.AddWithValue("@qty_in", materialobject.qty_in);
+                    cmd.Parameters.AddWithValue("@qty_stock", materialobject.qty_stock);
 
                     MaterialSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
@@ -264,7 +265,7 @@ namespace KKN_UI.materialDao.item_master
         public int /*MaterialSQL*/ DeleteItem_master(MaterialSQL materialobject)
         {
             //MaterialSQL result = null;
-            int result =1;
+            int result = 1;
             using (var coon = OpenDbConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(DELETE, coon))
@@ -281,7 +282,7 @@ namespace KKN_UI.materialDao.item_master
         public MaterialSQL mapinsert(SqlDataReader rdr)
         {
             var result = new MaterialSQL();
-            //result.item_id = Convert.ToInt32(rdr["item_id"]);
+            result.item_id = Convert.ToInt32(rdr["item_id"]);
             result.item_no = rdr["item_no"].ToString();
             result.item_name = rdr["item_name"].ToString();
             result.group_id = Convert.ToInt32(rdr["group_id"]);
@@ -302,10 +303,9 @@ namespace KKN_UI.materialDao.item_master
             result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
 
-
+            if (rdr["msg"] != null) { 
             result.msg = Convert.ToInt32(rdr["msg"]);
-
-
+            }
             //result.GroupSQLModel = new GroupDao().maplistgroupDao(rdr);
             //result.CategorySQLModel = new CategoryDao().maplistcategory(rdr);
 

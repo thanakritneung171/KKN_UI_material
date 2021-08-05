@@ -291,6 +291,7 @@ namespace KKN_UI.Controllers
 
         public static MaterialSQL genaratePathfile(MaterialSQL material, HttpPostedFileBase file)
         {
+            
             var originalFilename = Path.GetFileName(file.FileName);
             string fileId = Guid.NewGuid().ToString().Replace("-", "");
             //string userId = GetUserId(); // Function to get user id based on your schema
@@ -304,13 +305,23 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Createtodata(MaterialSQL material, HttpPostedFileBase file)
         {
+            //if(ModelState.IsValid)
+            //{
+
+            //}
+
+            if(file != null) { 
             genaratePathfile(material, file);
+            }
 
             var output = new item_masterDao().CheckItemNo(material);
             if (output.msg == 1)
             {
                 var path = Server.MapPath("~/UploadedFiles/Photo/");
-                Createfile(path, material.picture_path, file);
+                if (file != null)
+                {
+                    Createfile(path, material.picture_path, file);
+                }
             }
 
 
@@ -497,7 +508,7 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Editmaterialdata(MaterialSQL materialdata)
+        public JsonResult Editmaterialdata(MaterialSQL material, HttpPostedFileBase file)
         {
             #region old
             //using (var conn = OpenDbConnection())
@@ -531,7 +542,18 @@ namespace KKN_UI.Controllers
             //    }
             //}
             #endregion
-            new item_masterDao().UpdateItem_master(materialdata);
+            if (file != null)
+            {
+                genaratePathfile(material, file);
+            }
+            var output = new item_masterDao().UpdateItem_master(material);
+
+            var path = Server.MapPath("~/UploadedFiles/Photo/");
+
+            if (file != null)
+            {
+                Createfile(path, material.picture_path, file);
+            }
 
             return Json(JsonRequestBehavior.AllowGet);
         }
@@ -558,30 +580,7 @@ namespace KKN_UI.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult UploadFiles(HttpPostedFileBase file)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
 
-                    //Method 2 Get file details from HttpPostedFileBase class    
-
-                    if (file != null)
-                    {
-                        string path = Path.Combine(Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName));
-                        file.SaveAs(path);
-                    }
-                    ViewBag.FileStatus = "File uploaded successfully.";
-                }
-                catch (Exception)
-                {
-                    ViewBag.FileStatus = "Error while file uploading."; ;
-                }
-            }
-            return View("Index");
-        }
 
 
         #region map older

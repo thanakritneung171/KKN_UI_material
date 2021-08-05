@@ -611,7 +611,7 @@
         form_data.append('file', file_data);
         console.log('form_data');
         alert(form_data);
-        //form_data.append('eventmodel', material)
+
         form_data.append('material.item_no', material.item_no)
         form_data.append('material.item_name', material.item_name)
         form_data.append('material.group_id', material.group_id)
@@ -632,36 +632,6 @@
         form_data.append('material.qty_stock', material.qty_stock)
         //form_data.append('material.picture_path', material.picture_path)
 
-        @*$.ajax({
-            url: '@Url.Action("Createfile", "Material")',
-            dataType: 'text',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: 'post',
-            success: function (data) {
-                if (data.success) {
-                    alert("success");
-                } else {
-                    alert("error");
-                }
-                alert(data);
-            }
-        });*@
-
-
-        //var myFormData = new FormData();
-        //myFormData.append('pictureFile', pictureInput.files[0]);
-
-        //$.ajax({
-        //    url: 'upload.php',
-        //    type: 'POST',
-        //    processData: false, // important
-        //    contentType: false, // important
-        //    dataType: 'json',
-        //    data: myFormData
-        //});
 
 
         //////////////////////////////////
@@ -669,12 +639,12 @@
         $.ajax({
             type: "POST",
             url: '@Url.Action("Createtodata", "Material")',
-            //data: JSON.stringify(material),
             //dataType: 'text',
             cache: false,
             processData: false,
             contentType: false,
             data: form_data,
+            //data: JSON.stringify(material),
             //contentType: "application/json; charset=utf-8",
             //dataType: "json",
 

@@ -11,104 +11,113 @@
 
 
 <style>
-        #Msg_ajaxloader {
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
-        }
-        #content_ajaxloader {
-            position: fixed;
-            z-index: 1 !important;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
-        }
+    #Msg_ajaxloader {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
+    }
 
-        body:not(.menu-on-top).desktop-detected {
-            min-height: 0px !important;
-        }
+    #content_ajaxloader {
+        position: fixed;
+        z-index: 1 !important;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
+    }
 
-        .desktop-detected .inbox-body .table-wrap {
-            min-height: 770px !important;
-        }
+    body:not(.menu-on-top).desktop-detected {
+        min-height: 0px !important;
+    }
 
-        .status .comments li {
-            border-bottom: 1px solid rgba(0,0,0,0);
-            display: block;
-            padding: 15px 0 15px 40px;
-            position: relative;
-        }
+    .desktop-detected .inbox-body .table-wrap {
+        min-height: 770px !important;
+    }
 
-        .classli:hover {
-            background: #ddd;
-            cursor: pointer;
-        }
+    .status .comments li {
+        border-bottom: 1px solid rgba(0,0,0,0);
+        display: block;
+        padding: 15px 0 15px 40px;
+        position: relative;
+    }
 
-        label:hover {
-            cursor: pointer;
-        }
+    .classli:hover {
+        background: #ddd;
+        cursor: pointer;
+    }
 
-        .carousel-indicators li {
-            border-color: #999;
-            background-color: #ccc;
-        }
+    label:hover {
+        cursor: pointer;
+    }
 
-        .carousel-indicators {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            z-index: 15;
-            /* width: 60%; */
-            margin-left: -30%;
-            padding-left: 0;
-            list-style: none;
-            text-align: center;
-        }
+    .carousel-indicators li {
+        border-color: #999;
+        background-color: #ccc;
+    }
 
-        .MessageCenter {
-            padding: 12px 10px 8px 10px !important;
-        }
+    .carousel-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        z-index: 15;
+        /* width: 60%; */
+        margin-left: -30%;
+        padding-left: 0;
+        list-style: none;
+        text-align: center;
+    }
+
+    .MessageCenter {
+        padding: 12px 10px 8px 10px !important;
+    }
 
 
-        @@media (min-width: 1332px) {
-            .col-lg-3 {
-                width: 33.33%;
-            }
-
-            .col-lg-6 {
-                width: 66.66%;
-            }
+    @@media (min-width: 1332px) {
+        .col-lg-3 {
+            width: 33.33%;
         }
 
-        @@media (min-width: 1500px) {
-            .col-lg-3 {
-                width: 25%;
-            }
+        .col-lg-6 {
+            width: 66.66%;
+        }
+    }
 
-            .col-lg-6 {
-                width: 50%;
-            }
+    @@media (min-width: 1500px) {
+        .col-lg-3 {
+            width: 25%;
         }
 
-        .label {
-            display: inline;
-            padding: .2em .6em .3em;
-            font-size: 75%;
-            font-weight: 700;
-            line-height: 1;
-            color: #fff;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: .25em;
+        .col-lg-6 {
+            width: 50%;
         }
+    }
 
+    .label {
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+
+    .fix-iconsize {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        padding-top: 10px;
+    }
+
+    @@media (max-width: 769px) {
         .fix-iconsize {
             font-size: 40px;
             width: 40px;
@@ -116,81 +125,75 @@
             padding-top: 10px;
         }
 
-        @@media (max-width: 769px) {
-            .fix-iconsize {
-                font-size: 40px;
-                width: 40px;
-                height: 40px;
-                padding-top: 10px;
-            }
-
-            .home-title {
-                display: none;
-            }
+        .home-title {
+            display: none;
         }
+    }
 
-        .form-group {
-            margin-top: 10px;
-        }
+    .form-group {
+        margin-top: 10px;
+    }
 
-        .fix-margintop {
-            margin-bottom: 40px;
-        }
+    .fix-margintop {
+        margin-bottom: 40px;
+    }
 
-        .form-horizontal .form-group {
-            margin-left: 20px !important;
-            margin-right: 0px !important;
-        }
+    .form-horizontal .form-group {
+        margin-left: 20px !important;
+        margin-right: 0px !important;
+    }
 
-        .fix-flaticon {
-            font-size: 10px;
-        }
+    .fix-flaticon {
+        font-size: 10px;
+    }
 
-        /*.validateclass {*/
-        /*border-style: 5px !solid;*/
-        /*border-color: red;
+    /*.validateclass {*/
+    /*border-style: 5px !solid;*/
+    /*border-color: red;
             border: 1px solid;
             border-radius: 5px;
         }*/
 
-        /*   input.invalid {
+    /*   input.invalid {
             border-color: red;
             border: 1px solid;
             border-radius: 5px;
         }
     */
-        input[type=text].invalid {
-            /*box-sizing: border-box;*/
-            border: 2px solid red;
-            border-radius: 4px;
-        }
+    input[type=text].invalid {
+        /*box-sizing: border-box;*/
+        border: 2px solid red;
+        border-radius: 4px;
+    }
 
-        select.invalid {
-            border: 2px solid red;
-            border-radius: 4px;
-        }
+    select.invalid {
+        border: 2px solid red;
+        border-radius: 4px;
+    }
 
-        input[type=text].valid {
-            /*box-sizing: border-box;*/
-            border: 2px solid #49C204;
-            border-radius: 4px;
-        }
+    input[type=text].valid {
+        /*box-sizing: border-box;*/
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
 
-        select.valid {
-            border: 2px solid #49C204;
-            border-radius: 4px;
-        }
+    select.valid {
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
 
     input[disabled]:disabled {
         /*border: 2px solid #49C204;*/
         /*border-radius: 4px;*/
         background-color: #CCCCCC;
     }
+
     select[disabled]:disabled {
         /*border: 2px solid #49C204;*/
         /*border-radius: 4px;*/
         background-color: #CCCCCC;
     }
+
     textarea[disabled]:disabled {
         /*border: 2px solid #49C204;*/
         /*border-radius: 4px;*/
@@ -275,7 +278,7 @@
                 </div>
 
                 <script>
-                    
+
                     document.addEventListener("DOMContentLoaded", function (event) {
                         var sc = document.getElementById("category");
                         var sg = document.getElementById("group").value;
@@ -478,22 +481,44 @@
                     <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
                         <img id="blah" src="#" alt="@result.MaterialSQLdataselect.picture_path" style="display: none; max-width: 100%" />
                         <p id="pdisplay"><br /><br /></p>
+                        <input class="hidden" type="file" id="input" name="file" value="" />
                     </div>
                     <br />
-                    <input id="file-input" type="file" name="name" style="display: none;" />
+                    @*<input id="file-input" type="file" name="name" style="display: none;" />*@
                     <script>
                         function importData() {
-                            let input = document.createElement('input');
-                            input.type = 'file';
+                            //let input = document.createElement('input');
+                            //input.type = 'file';
+                            //input.name = 'file';
+                            //input.id = 'file';
+
+                            let input = document.getElementById('input');
+                            var ffill = document.getElementById('input').value;
                             input.onchange = evt => {
                                 const [file] = input.files
                                 if (file) {
                                     blah.src = URL.createObjectURL(file)
+                                    blah.alt = (file.name)
                                 }
                                 let files = Array.from(input.files);
                                 console.log(files);
+                                console.log(input.files);
+
                                 console.log(file.name);
                                 console.log(file.size);
+                                console.log(file.type);
+
+
+                                const reader = new FileReader();
+                                reader.addEventListener("load", () => {
+                                    console.log("111111111");
+                                    console.log(reader.result);
+                                    localStorage.setItem("recent-image", reader.result);
+                                });
+
+                                //console.log("open");
+                                //reader.readAsDataURL(this.file);
+                                //console.log("off");
 
                                 document.getElementById("blah").style.display = "block";
                                 document.getElementById("pdisplay").style.display = "none";
@@ -501,12 +526,15 @@
                                 elementqqqq.style.removeProperty("border-style");
                                 elementqqqq.style.removeProperty("border-width");
                                 elementqqqq.style.removeProperty("margin-bottom");
-                                document.getElementById("btn-clear").style.display = "block";
+
+                                //var returnfilename = file.name
+                                //return returnfilename
                             };
+
                             input.click();
 
-                        }
 
+                        }
                     </script>
                 </div>
                 @*</form>*@
@@ -566,7 +594,7 @@
     </div> <br /><br />
 
 
-                 <script>
+    <script>
             function openedit() {
                 document.getElementById("btedit").style.display = "none";
                 document.getElementById("btcancel").style.display = "block";
@@ -667,15 +695,14 @@
                 console.log("in function")
                 //alert("in function")
                 ///get input to val
-                $("#content_ajaxloader").show();
                 var material = new Object();
                 material.item_id                    = document.getElementById("item_id").value;
                 material.item_no                    = document.getElementById("item_no").value;
                 material.item_name                  = document.getElementById("item_name").value;
-                material.group_id                      = document.getElementById("group").value;
-                material.category_id                   = document.getElementById("category").value;
-                material.material_acc_id           = document.getElementById("material_account").value;
-                material.costing_method_id    = document.getElementById("costing_method_material").value;
+                material.group_id                   = document.getElementById("group").value;
+                material.category_id                = document.getElementById("category").value;
+                material.material_acc_id            = document.getElementById("material_account").value;
+                material.costing_method_id          = document.getElementById("costing_method_material").value;
                 material.description                = document.getElementById("description").value;
                 material.status                     = document.getElementById("status").checked;
                 material.stock_count                = document.getElementById("stock_count").checked;
@@ -688,22 +715,57 @@
                 material.uom_stock                  = document.getElementById("uom_stock").value;
                 material.qty_in                     = document.getElementById("qty_in").value;
                 material.qty_stock                  = document.getElementById("qty_stock").value;
-                material.picture_path = document.getElementById("blah").alt;
-                //material.blah                       = document.getElementById("file-input").value;
+                material.picture_path               = document.getElementById("blah").alt;
+
+
+
+                var file_data = $('#input').prop('files')[0];
+                var form_data = new FormData();
+                form_data.append('file', file_data);
+                console.log('form_data');
+                console.log(form_data);
+                alert(form_data);
+
+                form_data.append('material.item_id', material.item_id)
+                form_data.append('material.item_no', material.item_no)
+                form_data.append('material.item_name', material.item_name)
+                form_data.append('material.group_id', material.group_id)
+                form_data.append('material.category_id', material.category_id)
+                form_data.append('material.material_acc_id', material.material_acc_id)
+                form_data.append('material.costing_method_id', material.costing_method_id)
+                form_data.append('material.description', material.description)
+                form_data.append('material.status', material.status)
+                form_data.append('material.stock_count', material.stock_count)
+                form_data.append('material.overdraw_stock', material.overdraw_stock)
+                form_data.append('material.brand', material.brand)
+                form_data.append('material.version', material.version)
+                form_data.append('material.color', material.color)
+                form_data.append('material.size', material.size)
+                form_data.append('material.uom_in', material.uom_in)
+                form_data.append('material.uom_stock', material.uom_stock)
+                form_data.append('material.qty_in', material.qty_in)
+                form_data.append('material.qty_stock', material.qty_stock)
+
+                console.log(material.picture_path + "path get ");
+                
+
 
                 console.log(material);
                 $("#content_ajaxloader").show();
                     $.ajax({
-                    // request POST
-                    type: "POST",
-                    // Controller/method
-                    url: '@Url.Action("Editmaterialdata", "Material")',
-                    //object/parameter with value
-                    data: JSON.stringify(material),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
 
-                    //response from respective action method
+                    type: "POST",
+                    url: '@Url.Action("Editmaterialdata", "Material")',
+                    data: form_data,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+
+                    //data: JSON.stringify(material),
+                    //contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+
+
                     success: function (response) {
                         console.log("edit complete");
                         //    alert(response + "suc");
@@ -719,7 +781,7 @@
                     }
                 })
             };
-                 </script>
+    </script>
 
     @*</div>*@
 </div>
