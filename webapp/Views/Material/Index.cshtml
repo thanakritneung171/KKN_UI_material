@@ -12,15 +12,16 @@
 }
 
 <style>
-        #Msg_ajaxloader {
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
-        }
+    #Msg_ajaxloader {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
+    }
+
     #content_ajaxloader {
         position: fixed;
         z-index: 1 !important;
@@ -32,85 +33,93 @@
     }
 
 
-        body:not(.menu-on-top).desktop-detected {
-            min-height: 0px !important;
+    body:not(.menu-on-top).desktop-detected {
+        min-height: 0px !important;
+    }
+
+    .desktop-detected .inbox-body .table-wrap {
+        min-height: 770px !important;
+    }
+
+    .status .comments li {
+        border-bottom: 1px solid rgba(0,0,0,0);
+        display: block;
+        padding: 15px 0 15px 40px;
+        position: relative;
+    }
+
+    .classli:hover {
+        background: #ddd;
+        cursor: pointer;
+    }
+
+    label:hover {
+        cursor: pointer;
+    }
+
+    .carousel-indicators li {
+        border-color: #999;
+        background-color: #ccc;
+    }
+
+    .carousel-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        z-index: 15;
+        /* width: 60%; */
+        margin-left: -30%;
+        padding-left: 0;
+        list-style: none;
+        text-align: center;
+    }
+
+    .MessageCenter {
+        padding: 12px 10px 8px 10px !important;
+    }
+
+
+    @@media (min-width: 1332px) {
+        .col-lg-3 {
+            width: 33.33%;
         }
 
-        .desktop-detected .inbox-body .table-wrap {
-            min-height: 770px !important;
+        .col-lg-6 {
+            width: 66.66%;
+        }
+    }
+
+    @@media (min-width: 1500px) {
+        .col-lg-3 {
+            width: 25%;
         }
 
-        .status .comments li {
-            border-bottom: 1px solid rgba(0,0,0,0);
-            display: block;
-            padding: 15px 0 15px 40px;
-            position: relative;
+        .col-lg-6 {
+            width: 50%;
         }
+    }
 
-        .classli:hover {
-            background: #ddd;
-            cursor: pointer;
-        }
+    .label {
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
 
-        label:hover {
-            cursor: pointer;
-        }
+    .fix-iconsize {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        padding-top: 10px;
+    }
 
-        .carousel-indicators li {
-            border-color: #999;
-            background-color: #ccc;
-        }
-
-        .carousel-indicators {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            z-index: 15;
-            /* width: 60%; */
-            margin-left: -30%;
-            padding-left: 0;
-            list-style: none;
-            text-align: center;
-        }
-
-        .MessageCenter {
-            padding: 12px 10px 8px 10px !important;
-        }
-
-
-        @@media (min-width: 1332px) {
-            .col-lg-3 {
-                width: 33.33%;
-            }
-
-            .col-lg-6 {
-                width: 66.66%;
-            }
-        }
-
-        @@media (min-width: 1500px) {
-            .col-lg-3 {
-                width: 25%;
-            }
-
-            .col-lg-6 {
-                width: 50%;
-            }
-        }
-
-        .label {
-            display: inline;
-            padding: .2em .6em .3em;
-            font-size: 75%;
-            font-weight: 700;
-            line-height: 1;
-            color: #fff;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: .25em;
-        }
-
+    @@media (max-width: 769px) {
         .fix-iconsize {
             font-size: 40px;
             width: 40px;
@@ -118,72 +127,62 @@
             padding-top: 10px;
         }
 
-        @@media (max-width: 769px) {
-            .fix-iconsize {
-                font-size: 40px;
-                width: 40px;
-                height: 40px;
-                padding-top: 10px;
-            }
-
-            .home-title {
-                display: none;
-            }
+        .home-title {
+            display: none;
         }
+    }
 
-        .form-group {
-            margin-top: 10px;
-        }
+    .form-group {
+        margin-top: 10px;
+    }
 
-        .fix-margintop {
-            margin-bottom: 40px;
-        }
+    .fix-margintop {
+        margin-bottom: 40px;
+    }
 
-        .form-horizontal .form-group {
-            margin-left: 20px !important;
-            margin-right: 0px !important;
-        }
+    .form-horizontal .form-group {
+        margin-left: 20px !important;
+        margin-right: 0px !important;
+    }
 
-        .fix-flaticon {
-            font-size: 10px;
-        }
+    .fix-flaticon {
+        font-size: 10px;
+    }
 
-        /*.validateclass {*/
-        /*border-style: 5px !solid;*/
-        /*border-color: red;
+    /*.validateclass {*/
+    /*border-style: 5px !solid;*/
+    /*border-color: red;
             border: 1px solid;
             border-radius: 5px;
         }*/
 
-        /*   input.invalid {
+    /*   input.invalid {
             border-color: red;
             border: 1px solid;
             border-radius: 5px;
         }
     */
-        input[type=text].invalid {
-            /*box-sizing: border-box;*/
-            border: 2px solid red;
-            border-radius: 4px;
-        }
+    input[type=text].invalid {
+        /*box-sizing: border-box;*/
+        border: 2px solid red;
+        border-radius: 4px;
+    }
 
-        select.invalid {
-            border: 2px solid red;
-            border-radius: 4px;
-        }
+    select.invalid {
+        border: 2px solid red;
+        border-radius: 4px;
+    }
 
-        input[type=text].valid {
-            /*box-sizing: border-box;*/
-            border: 2px solid #49C204;
-            border-radius: 4px;
-        }
+    input[type=text].valid {
+        /*box-sizing: border-box;*/
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
 
-        select.valid {
-            border: 2px solid #49C204;
-            border-radius: 4px;
-        }
-
-   
+    select.valid {
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
 </style>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
@@ -213,9 +212,9 @@
                     <option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>
                     <option style="display:none" id="selcatall" value="">ทั้งหมด</option>
                     @*@foreach (var itemcategory in result.CategorySQLlist)
-                    {
-                        <option value="@itemcategory.category_id" name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
-                    }*@
+                        {
+                            <option value="@itemcategory.category_id" name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
+                        }*@
                 </select>
             </div>
 
@@ -234,7 +233,8 @@
                     $('#selcategory').load('_selectcategory');
                 }
                   });*@
-                    $("#selcategory").load('@Url.Action("_selectcategory", "Material")', { id: sg }, function (result) {
+                  
+                    $("#selcategory").load('@Url.Action("_selectcategory", "Material")',  { id: sg }, function (result) {
                         $('#content_ajaxloader').fadeOut();
                     });
 
@@ -374,9 +374,9 @@
 
 
             @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
-            <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
-                <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
-            </div>*@
+                <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
+                    <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
+                </div>*@
             <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px;"><a @*href='@Url.Action("Editmaterial", "Material")'*@ class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
             <div class="hidden-lg hidden-md col-sm-8 col-xs-4 "></div>
             <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px; "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
@@ -473,68 +473,68 @@
 
 
     @*<div class="container margin-top-5">*@
-        <!-- widget grid -->
-        <section id="widget-grid" class="">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
 
-            <!-- row -->
-            <div class="row margin-top-5">
+        <!-- row -->
+        <div class="row margin-top-5">
 
-                <!-- NEW WIDGET START -->
-                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                    <style>
-                        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-                            background-color: #8adafe;
-                        }
-                    </style>
-                    <table id="dt_basic" class="table table-striped  table-bordered table-hover margin-top-10" width="100%">
+                <style>
+                    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+                        background-color: #8adafe;
+                    }
+                </style>
+                <table id="dt_basic" class="table table-striped  table-bordered table-hover margin-top-10" width="100%">
 
-                        <thead>
-                            <tr>
-                                <th data-hide="phone">#</th>
-                                <th data-class="expand">รหัส</th>
-                                <th data-hide="phone,tablet"><i class="fa fa-fw fa-reorder text-muted hidden-md hidden-sm hidden-xs"></i> กลุ่ม</th>
-                                <th data-hide="phone,tablet"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> ประเภท</th>
-                                <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i> รายการวัสดุ</th>
-                                <th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> สถานะ</th>
+                    <thead>
+                        <tr>
+                            <th data-hide="phone">#</th>
+                            <th data-class="expand">รหัส</th>
+                            <th data-hide="phone,tablet"><i class="fa fa-fw fa-reorder text-muted hidden-md hidden-sm hidden-xs"></i> กลุ่ม</th>
+                            <th data-hide="phone,tablet"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> ประเภท</th>
+                            <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i> รายการวัสดุ</th>
+                            <th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> สถานะ</th>
 
 
-                                @*<th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> Category</th>*@
-                                @*<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Stocks</th>*@
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Modal ---------------------------------------------------->
-                            <div class="modal fade" id="myModal" role="dialog">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content1">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Modal Header</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>This is a large modal.</p>
-                                            <input type="text" class="form-control" id="recipient-name" />
-                                            <div id="span1" class="span1"></div>
-                                            <div id="span12" class="span12"></div>
-                                            <div id="span13" class="span13"></div>
-                                            <div id="span14" class="span14"></div>
+                            @*<th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> Category</th>*@
+                            @*<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Stocks</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Modal ---------------------------------------------------->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content1">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Modal Header</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>This is a large modal.</p>
+                                        <input type="text" class="form-control" id="recipient-name" />
+                                        <div id="span1" class="span1"></div>
+                                        <div id="span12" class="span12"></div>
+                                        <div id="span13" class="span13"></div>
+                                        <div id="span14" class="span14"></div>
 
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Modal
-    --------------------------------------------------->
+                        <!-- Modal
+                        --------------------------------------------------->
 
-                            @{ int i = 1;
-                                foreach (var item in result.MaterialSQLlist)
-                                {
-                                    @*
+                        @{ int i = 1;
+                            foreach (var item in result.MaterialSQLlist)
+                            {
+                                @*
                                     <tr class="trid" id="@item.materialModeldata.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.materialModeldata.item_no })'">
                                         <td class="stu_numrec" width="5%"> @i </td>
                                         <td class="stu_no" width="10%"> @item.materialModeldata.item_no   </td>
@@ -544,43 +544,42 @@
                                         <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" > @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
                                     </tr>*@
 
-                                    <tr class="trid" id="@item.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.item_no })'">
-                                        <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
-                                        <td class="stu_no" width="10%"> @item.item_no   </td>
-                                        <td class="stu_group" width="10%" value="@item.GroupSQLModel.group_id">@item.GroupSQLModel.group_name</td>
-                                        <td class="stu_category" width="15%" value="@item.CategorySQLModel.category_id">@item.CategorySQLModel.category_name</td>
-                                        <td class="stu_des" width="50%">@item.item_name @item.size @item.brand @item.color @item.version</td>
-                                        <td class="stu_status " width="5%" style="color:@(item.status? "Green": "Red")">  @(item.status ? "ใช้งาน": "ไม่ใช้")  </td>
-                                    </tr>
+                                <tr class="trid" id="@item.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.item_no })'">
+                                    <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
+                                    <td class="stu_no" width="10%"> @item.item_no   </td>
+                                    <td class="stu_group" width="10%" value="@item.GroupSQLModel.group_id">@item.GroupSQLModel.group_name</td>
+                                    <td class="stu_category" width="15%" value="@item.CategorySQLModel.category_id">@item.CategorySQLModel.category_name</td>
+                                    <td class="stu_des" width="50%">@item.item_name @item.size @item.brand @item.color @item.version</td>
+                                    <td class="stu_status " width="5%" style="color:@(item.status? "Green": "Red")">  @(item.status ? "ใช้งาน": "ไม่ใช้")  </td>
+                                </tr>
 
-                                    i++;
-                                } }
-
-
-
-                        </tbody>
-                    </table>
+                                i++;
+                            } }
 
 
+
+                    </tbody>
+                </table>
 
 
 
 
-                    <!--------------------------------------------------------------------------------------------------------------------------------------------------------->
-                    <!-- end widget -->
 
-                </article>
-                <!-- WIDGET END -->
 
-            </div>
+                <!--------------------------------------------------------------------------------------------------------------------------------------------------------->
+                <!-- end widget -->
 
-            <!-- end row -->
-            <!-- end row -->
+            </article>
+            <!-- WIDGET END -->
 
-        </section>
-        <!-- end widget grid -->
-        <!-- END MAIN CONTENT -->
+        </div>
 
+        <!-- end row -->
+        <!-- end row -->
+
+    </section>
+    <!-- end widget grid -->
+    <!-- END MAIN CONTENT -->
     @*</div>*@
 </div>
 

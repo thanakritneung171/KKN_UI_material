@@ -111,6 +111,7 @@ namespace KKN_UI.Controllers
 
         public ActionResult _selectcategory(int id)
         {
+        
             CategorySQLlist Cdata = new CategoryDao().GetdataCategoryGourpByid(id);
 
             return PartialView(Cdata);
