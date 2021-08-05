@@ -323,6 +323,9 @@ namespace KKN_UI.Controllers
             }
 
             var output = new item_masterDao().CheckItemNo(material);
+            
+
+            //var output = new item_masterDao().CheckItemName(material);
             if (output.msg == 1)
             {
                 var path = Server.MapPath("~/UploadedFiles/Photo/");
@@ -561,7 +564,7 @@ namespace KKN_UI.Controllers
             var namepathdelete = searchdeletefile(material.item_id);
 
             var output = new item_masterDao().UpdateItem_master(material);
-            if(output.msg==1)
+            if(output.msg==1 && file !=null && namepathdelete.picture_path != "")
             {
             Deletefile(path, namepathdelete.picture_path);
             }
