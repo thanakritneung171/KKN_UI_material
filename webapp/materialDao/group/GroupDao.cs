@@ -28,7 +28,7 @@ namespace KKN_UI.material.group
         private const string UPDATE     = "group_itemUpdate";
                                            
         private const string READ_BYID  = "group_itemRead_Byid";
-
+        private const string CHECKGROUPNEW = "CheckGroupNew";
 
         public GroupSQLlist Getdata()
         {
@@ -71,6 +71,33 @@ namespace KKN_UI.material.group
                         }
                     }
                     return (result);
+                }
+            }
+        }
+        public /*MaterialSQL*/ Boolean CheckGroupNew(GroupSQL groupobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CHECKGROUPNEW, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
+
+                    GroupSQL result = new GroupSQL();
+                    //MaterialSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    //return result;
                 }
             }
         }

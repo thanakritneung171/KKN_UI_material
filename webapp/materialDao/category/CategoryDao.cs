@@ -31,7 +31,7 @@ namespace KKN_UI.material.category
 
         private const string READ_BYID  = "categoryRead_Byid";
         private const string READ_BYGROUPID  = "categoryRead_ByGroupid";
-
+        private const string CHECKCATEGORYNEW = "CheckCategoryNew";
 
         public CategorySQLlist Getdata()
         {
@@ -125,6 +125,35 @@ namespace KKN_UI.material.category
 
             }
 
+        }
+
+        public /*MaterialSQL*/ Boolean CheckCategoryNew(CategorySQL categoryobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CHECKCATEGORYNEW, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", categoryobject.group_id);
+                    cmd.Parameters.AddWithValue("@category_name", categoryobject.category_name);
+
+                    CategorySQL result = new CategorySQL();
+                    //MaterialSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    //return result;
+                }
+            }
         }
 
         public CategorySQL InsertCategory(CategorySQL categoryobject)

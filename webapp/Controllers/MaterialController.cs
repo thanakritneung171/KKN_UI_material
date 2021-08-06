@@ -634,7 +634,7 @@ namespace KKN_UI.Controllers
             }
 
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
-         }
+        }
 
 
         public static MaterialSQL searchdeletefile(int id)
@@ -780,7 +780,16 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult CreateGroup(GroupSQL groupdata)
         {
-            var output = new GroupDao().InsertGroup(groupdata);
+            GroupSQL output = new GroupSQL();
+            var check = new GroupDao().CheckGroupNew(groupdata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+                output = new GroupDao().InsertGroup(groupdata);
+            }
 
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
@@ -801,9 +810,20 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult UpdateGroup(GroupSQL groupdata)
         {
-            new GroupDao().UpdateGroup(groupdata);
 
-            return Json(JsonRequestBehavior.AllowGet);
+            GroupSQL output = new GroupSQL();
+            var check = new GroupDao().CheckGroupNew(groupdata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+                new GroupDao().UpdateGroup(groupdata);
+            }
+
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -833,7 +853,16 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult CreateCategory(CategorySQL categorydata)
         {
-            var output = new CategoryDao().InsertCategory(categorydata);
+            CategorySQL output = new CategorySQL();
+            var check = new CategoryDao().CheckCategoryNew(categorydata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+             output = new CategoryDao().InsertCategory(categorydata);
+            }
 
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
@@ -861,9 +890,18 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult UpdateCategory(CategorySQL categorydata)
         {
+            CategorySQL output = new CategorySQL();
+            var check = new CategoryDao().CheckCategoryNew(categorydata);
+            if(check==true)
+            {
+                output = null;
+            }
+            else
+            {
             new CategoryDao().UpdateCategory(categorydata);
+            }
 
-            return Json(JsonRequestBehavior.AllowGet);
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

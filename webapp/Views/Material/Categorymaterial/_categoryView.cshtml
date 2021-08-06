@@ -100,9 +100,9 @@
             dataType: "json",
 
             success: function (response) {
-                if (response.output == 0) {
-                    alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
-
+                if (response.output != 1) {
+                    alert('ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertC").focus();
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
@@ -141,6 +141,12 @@
 
             success: function (response) {
 
+                if (response.output != 1 ){
+                    alert('ชื่อประเภท มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertC").focus();
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
+                }
                 console.log("insert complete");
                 console.log(response.output1);
 

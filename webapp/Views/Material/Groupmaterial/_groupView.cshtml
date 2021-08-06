@@ -94,9 +94,9 @@
             dataType: "json",
 
             success: function (response) {
-                if (response.output == 0) {
+                if (response.output != 1) {
                     alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
-
+                    document.getElementById("insertG").focus();
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
@@ -133,6 +133,12 @@
             dataType: "json",
 
             success: function (response) {
+                if (response.output != 1) {
+                    alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertG").focus();
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
+                } 
               
                 console.log("insert complete");
                 console.log(response.output1);
