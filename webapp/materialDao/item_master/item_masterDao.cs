@@ -81,7 +81,7 @@ namespace KKN_UI.materialDao.item_master
         }
 
 
-        public MaterialSQL CheckItemNo(MaterialSQL materialobject)
+        public /*MaterialSQL*/ Boolean CheckItemNo(MaterialSQL materialobject)
         {
             using (var conn = OpenDbConnection())
             {
@@ -97,20 +97,22 @@ namespace KKN_UI.materialDao.item_master
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            result.msg = 2;
-                            return result;
+                            //result.msg = 2;
+                            //return result;
+                            return true;
                         }
                         else
                         {
-                            result = CheckItemName(materialobject);
+                            //result = CheckItemName(materialobject);
+                            return false;
                         }
                     }
-                    return result;
+                    //return result;
                 }
             }
         }
 
-        public MaterialSQL CheckItemName(MaterialSQL materialobject)
+        public /*MaterialSQL*/ Boolean CheckItemName(MaterialSQL materialobject)
         {
             using (var conn = OpenDbConnection())
             {
@@ -126,20 +128,22 @@ namespace KKN_UI.materialDao.item_master
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            result = CheckDetialItem(materialobject);
+                            return true;
+                            //result = CheckDetialItem(materialobject);
                         }
                         else
                         {
-                            result.msg = 1;
-                            result = InsertItem_master(materialobject);
+                            return false;
+                            //result.msg = 1;
+                            //result = InsertItem_master(materialobject);
                         }
                     }
-                    return result;
+                    //return result;
                 }
             }
         }
 
-        public MaterialSQL CheckDetialItem(MaterialSQL materialobject)
+        public /*MaterialSQL*/ Boolean CheckDetialItem(MaterialSQL materialobject)
         {
             using (var conn = OpenDbConnection())
             {
@@ -159,16 +163,18 @@ namespace KKN_UI.materialDao.item_master
                         rdr.Read();
                         if (rdr.HasRows)
                         {
-                            result.msg = 3;
-                            return result;
+                            //result.msg = 3;
+                            //return result;
+                            return true;
                         }
                         else
                         {
-                            result.msg = 1;
-                            result = InsertItem_master(materialobject);
+                            //result.msg = 1;
+                            //result = InsertItem_master(materialobject);
+                            return false;
                         }
                     }
-                    return result;
+                    //return result;
                 }
             }
         }
@@ -282,7 +288,7 @@ namespace KKN_UI.materialDao.item_master
 
         public MaterialSQL deletefilepath(int id)
         {
-            var query = "SELECT   picture_path, 1 as msg FROM   dbo.item_master WHERE item_id =" + "'" + id+"'" ;
+            var query = "SELECT   picture_path, 1 as msg FROM   dbo.item_master WHERE item_id =" + "'" + id + "'";
 
             using (var conn = OpenDbConnection())
             {
@@ -303,17 +309,17 @@ namespace KKN_UI.materialDao.item_master
                 }
             }
         }
-        public MaterialSQL mapideletefil (SqlDataReader rdr)
+        public MaterialSQL mapideletefil(SqlDataReader rdr)
         {
             var result = new MaterialSQL();
 
             result.picture_path = rdr["picture_path"].ToString();
-    
+
             if (rdr["msg"] != null)
             {
                 result.msg = Convert.ToInt32(rdr["msg"]);
             }
-        
+
 
             return result;
         }

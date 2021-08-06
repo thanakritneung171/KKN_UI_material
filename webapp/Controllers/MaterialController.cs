@@ -316,14 +316,41 @@ namespace KKN_UI.Controllers
             //{
 
             //}
-
+            MaterialSQL output = new MaterialSQL();
             if (file != null)
             {
                 genaratePathfile(material, file);
             }
 
-            var output = new item_masterDao().CheckItemNo(material);
-            
+
+            //var output = new item_masterDao().CheckItemNo(material);
+
+            var checkitemno = new item_masterDao().CheckItemNo(material);
+            if (checkitemno == true)
+            {
+                output.msg = 2;
+            }
+            else if (checkitemno == false)
+            {
+                var checkitemname = new item_masterDao().CheckItemName(material);
+                if (checkitemname == true)
+                {
+                    var checkdetailitem = new item_masterDao().CheckDetialItem(material);
+                    if (checkdetailitem == true)
+                    {
+                        output.msg = 3;
+                    }
+                    else if (checkdetailitem == false)
+                    {
+                        output = new item_masterDao().InsertItem_master(material);
+                    }
+
+                }
+                else if (checkitemname)
+                {
+                    output = new item_masterDao().InsertItem_master(material);
+                }
+            }
 
             //var output = new item_masterDao().CheckItemName(material);
             if (output.msg == 1)
@@ -564,9 +591,9 @@ namespace KKN_UI.Controllers
             var namepathdelete = searchdeletefile(material.item_id);
 
             var output = new item_masterDao().UpdateItem_master(material);
-            if(output.msg==1 && file !=null && namepathdelete.picture_path != "")
+            if (output.msg == 1 && file != null && namepathdelete.picture_path != "")
             {
-            Deletefile(path, namepathdelete.picture_path);
+                Deletefile(path, namepathdelete.picture_path);
             }
 
             if (file != null)
