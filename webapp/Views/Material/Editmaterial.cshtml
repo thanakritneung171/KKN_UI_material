@@ -778,12 +778,23 @@
                     //dataType: "json",
 
 
-                    success: function (response) {
-                        console.log("edit complete");
-                        //    alert(response + "suc");
-                        $("#content_ajaxloader").fadeOut("fast");
-                        alert("บันทึกเรียบร้อย")
-                        window.location.href = "/material/editmaterial" /*+"id="+*/+"/"+ material.item_no;
+                        success: function (response) {
+                            if (response.output.msg == 1) {
+                                console.log("edit complete");
+                                //    alert(response + "suc");
+                                $("#content_ajaxloader").fadeOut("fast");
+                                alert("บันทึกเรียบร้อย")
+                                window.location.href = "/material/editmaterial" /*+"id="+*/ + "/" + material.item_no;
+
+                            } else if (response.output.msg == 3) {
+                                alert('รายละเอียด มีบันทึกอยู่แล้ว');
+
+                                $("#content_ajaxloader").fadeOut("fast");
+                                return;
+                            }
+
+
+
                     },
                     failure: function (response) {
                         alert(response.responseText);

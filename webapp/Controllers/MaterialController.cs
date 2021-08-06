@@ -346,7 +346,7 @@ namespace KKN_UI.Controllers
                     }
 
                 }
-                else if (checkitemname)
+                else if (checkitemname == false)
                 {
                     output = new item_masterDao().InsertItem_master(material);
                 }
@@ -582,6 +582,8 @@ namespace KKN_UI.Controllers
             //}
             #endregion
 
+            MaterialSQL output = new MaterialSQL();
+
             var path = Server.MapPath("~/UploadedFiles/Photo/");
             if (file != null)
             {
@@ -590,19 +592,49 @@ namespace KKN_UI.Controllers
 
             var namepathdelete = searchdeletefile(material.item_id);
 
-            var output = new item_masterDao().UpdateItem_master(material);
+
+            //var checkitemname = new item_masterDao().CheckItemName(material);
+            //if (checkitemname == true)
+            //{
+            //    var checkdetailitem = new item_masterDao().CheckDetialItem(material);
+            //    if (checkdetailitem == true)
+            //    {
+            //        output.msg = 3;
+            //    }
+            //    else if (checkdetailitem == false)
+            //    {
+            //        output = new item_masterDao().UpdateItem_master(material);
+            //    }
+
+            //}
+            //else if (checkitemname == false)
+            //{
+            //    output = new item_masterDao().UpdateItem_master(material);
+            //}
+
+            var checkupdateitem = new item_masterDao().Checkupdateitem(material);
+            if (checkupdateitem == true)
+            {
+                output.msg = 3;
+            }
+            else
+            {
+                output = new item_masterDao().UpdateItem_master(material);
+            }
+
+
             if (output.msg == 1 && file != null && namepathdelete.picture_path != "")
             {
                 Deletefile(path, namepathdelete.picture_path);
             }
 
-            if (file != null)
+            if (output.msg == 1 && file != null)
             {
                 Createfile(path, material.picture_path, file);
             }
 
-            return Json(JsonRequestBehavior.AllowGet);
-        }
+            return Json(new { output = output }, JsonRequestBehavior.AllowGet);
+         }
 
 
         public static MaterialSQL searchdeletefile(int id)

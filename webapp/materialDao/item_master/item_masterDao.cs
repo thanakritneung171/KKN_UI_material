@@ -37,6 +37,8 @@ namespace KKN_UI.materialDao.item_master
         private const string CHECKITEMNAME = "CheckItemName";
         private const string CHECKDETAILITEM = "CheckDetailItem";
 
+        private const string CHECKUPDATEITEM = "Checkupdateitem";
+
         public MaterialSQLlist Getdata()
         {
             using (var conn = OpenDbConnection())
@@ -150,6 +152,43 @@ namespace KKN_UI.materialDao.item_master
                 using (SqlCommand cmd = new SqlCommand(CHECKDETAILITEM, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@item_name", materialobject.item_name);
+                    cmd.Parameters.AddWithValue("@brand", (object)materialobject.brand ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@version", (object)materialobject.version ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@color", (object)materialobject.color ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@size", (object)materialobject.size ?? DBNull.Value);
+
+                    MaterialSQL result = new MaterialSQL();
+                    //MaterialSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            //result.msg = 3;
+                            //return result;
+                            return true;
+                        }
+                        else
+                        {
+                            //result.msg = 1;
+                            //result = InsertItem_master(materialobject);
+                            return false;
+                        }
+                    }
+                    //return result;
+                }
+            }
+        }
+
+        public /*MaterialSQL*/ Boolean Checkupdateitem(MaterialSQL materialobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CHECKUPDATEITEM, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@item_no", materialobject.item_no);
                     cmd.Parameters.AddWithValue("@item_name", materialobject.item_name);
                     cmd.Parameters.AddWithValue("@brand", (object)materialobject.brand ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@version", (object)materialobject.version ?? DBNull.Value);
