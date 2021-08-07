@@ -395,7 +395,17 @@
 
 
 
+        <ul class="demo-btns">
+            <li>
+                <button type="button" id="eg7" class="btn btn-default">
+                    <i class="fa fa-thumbs-up"></i> Extra Small Alert
+                </button>
+            </li>
+        </ul>
 
+        <li>
+            <a href="#" id="smart-mod-eg1" class="btn btn-success"> Callback ()</a>
+        </li>
 
 
 
@@ -444,7 +454,7 @@
             function jaxloaderin() {
                 $('#content_ajaxloader').fadeIn();
             }
-             function AddPanelcate() {
+             function AddPanelcate(id) {
                  jaxloaderin();
             $.ajax({
                 type: "POST",
@@ -602,8 +612,78 @@
     <script type="text/javascript">
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
+        $('#eg7').click(function () {
+
+            $.smallBox({
+                title: "James Simmons liked your comment",
+                content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                color: "#296191",
+                iconSmall: "fa fa-thumbs-up bounce animated",
+                timeout: 4000
+            });
+
+        })
+
+        $("#smart-mod-eg1").click(function (e) {
+            $.SmartMessageBox({
+                title: "Smart Alert!",
+                content: "This is a confirmation box. Can be programmed for button callback",
+                buttons: '[No][Yes]'
+            }, function (ButtonPressed) {
+                if (ButtonPressed === "Yes") {
+
+                    $.smallBox({
+                        title: "Callback function",
+                        content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                        color: "#659265",
+                        iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                        timeout: 4000
+                    });
+                }
+                if (ButtonPressed === "No") {
+                    $.smallBox({
+                        title: "Callback function",
+                        content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 4000
+                    });
+                }
+
+            });
+            e.preventDefault();
+        })
 
 
+        function smartmessagebox(e) {
+            $.SmartMessageBox({
+                title: "Smart Alert!",
+                content: "This is a confirmation box. Can be programmed for button callback",
+                buttons: '[No][Yes]'
+            }, function (ButtonPressed) {
+                if (ButtonPressed === "Yes") {
+
+                    $.smallBox({
+                        title: "Callback function",
+                        content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                        color: "#659265",
+                        iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                        timeout: 4000
+                    });
+                }
+                if (ButtonPressed === "No") {
+                    $.smallBox({
+                        title: "Callback function",
+                        content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 4000
+                    });
+                }
+
+            });
+            e.preventDefault();
+        }
 
         $(document).ready(function () {
 

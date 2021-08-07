@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     GroupSQL result = Model;
 }
 
@@ -14,8 +14,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
                     <label id="labelGid" class="margin-top-10" hidden>รหัสกลุ่ม</label>
                 </div>
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left" >
-                    <input type="hidden" id="inputGid" class="form-control" name="name" value="@result.group_id" disabled  />
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
+                    <input type="hidden" id="inputGid" class="form-control" name="name" value="@result.group_id" disabled />
                 </div>
             </div>
             <div class="row margin-top-10">
@@ -23,18 +23,18 @@
                     <label class="margin-top-10">ชื่อกลุ่ม</label>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
-                    <input type="text" class="form-control" id="insertG" name="insertG" value="@result.group_name"  @(result.group_id != 0 ? "disabled" :"" ) />
+                    <input type="text" class="form-control" id="insertG" name="insertG" value="@result.group_name" @(result.group_id != 0 ? "disabled" : "" ) />
                 </div>
             </div>
         </form>
-        
+
     </div>
     <div class="modal-footer">
-        <button type="button" id="createbtn"    class="btn-lg btn-success margin-right-5 " style="display:@(result.group_id == 0 ? "inline" : "none");" onclick="conf()">สร้าง</button>
-        <button type="button" id="editbtn"      class="btn-lg btn-warning margin-right-5 " style="display:@(result.group_id != 0 ? "inline" : "none");" onclick="editopen()">แก้ไข</button>
-        <button type="button" id="delebtn"      class="btn-lg btn-danger margin-right-5 " style="display: @(result.group_id != 0 ? "inline" : "none");" onclick="deleteG()">ลบ</button>
-        <button type="button" id="savebtn"      class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="updateG()">บันทึก</button>
-        <button type="button" id="cacelbtn"     class="btn-lg btn-danger margin-right-5" style="display:none" onclick="caceledit()">ยกเลิก</button>
+        <button type="button" id="createbtn" class="btn-lg btn-success margin-right-5 " style="display:@(result.group_id == 0 ? "inline" : "none");" onclick="conf()">สร้าง</button>
+        <button type="button" id="editbtn" class="btn-lg btn-warning margin-right-5 " style="display:@(result.group_id != 0 ? "inline" : "none");" onclick="editopen()">แก้ไข</button>
+        <button type="button" id="delebtn" class="btn-lg btn-danger margin-right-5 " style="display: @(result.group_id != 0 ? "inline" : "none");" onclick="deleteG()">ลบ</button>
+        <button type="button" id="savebtn" class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="updateG()">บันทึก</button>
+        <button type="button" id="cacelbtn" class="btn-lg btn-danger margin-right-5" style="display:none" onclick="caceledit()">ยกเลิก</button>
         @*<button type="button" class="btn-lg btn-danger margin-right-5" data-dismiss="modal" style="display: @(result.group_id == 0 ? "inline" : "none");">กลับ</button>*@
     </div>
 </div>
@@ -67,13 +67,18 @@
 
     function conf() {
         var inGC = new Object();
+        //var confirm = smartconfirmmessagebox();
+        //if (confirm == false) {
+        //    console.log("11111111111111111111111111")
+        //    return;
+        //}
         inGC.group_name = document.getElementById("insertG").value;
         if (inGC.group_name == "") {
             alert("โปรดระบุข้อมูล");
             document.getElementById("insertG").focus();
             return;
         }
-         $('#content_ajaxloader').show();
+         @*$('#content_ajaxloader').show();
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("_comfirmgroup", "Material")',
@@ -87,6 +92,9 @@
                     $('#Modalconfirm').modal('show');
                     $('#content_ajaxloader').hide();
                 }
-            });
+            });*@
+        var output = smartconfirmmessagebox(document.getElementById("createbtn").id, createG())
+        console.log("333333333333333333333")
+        console.log(output);
     }
 </script>
