@@ -173,7 +173,6 @@
         inG.category_id = document.getElementById("inputCid").value;
         inG.group_id = document.getElementById("groupC").value;
         inG.category_name = document.getElementById("insertC").value;
-
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",
@@ -194,7 +193,7 @@
                 console.log(response.output1);
 
                 $("#content_ajaxloader").fadeOut("fast");
-                //alert("บันทึกเรียบร้อย");
+                alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
                 AddPanelcate();

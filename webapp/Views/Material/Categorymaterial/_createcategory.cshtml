@@ -47,7 +47,7 @@
     <div class="modal-footer">
         <button type="button" id="createbtn" class="btn-lg btn-success margin-right-5 " style="display:@(result.CategorySQL.category_id == 0 ? "inline" : "none");" onclick="confirmandsaveC()">สร้าง</button>
         <button type="button" id="editbtn" class="btn-lg btn-warning margin-right-5 " style="display:@(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="editopen()">แก้ไข</button>
-        <button type="button" id="delebtn" class="btn-lg btn-danger margin-right-5 " style="display: @(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="deleteC()">ลบ</button>
+        <button type="button" id="delebtn" class="btn-lg btn-danger margin-right-5 " style="display: @(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="confirmanddeleteC()">ลบ</button>
         <button type="button" id="savebtn" class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateC()">บันทึก</button>
         <button type="button" id="cacelbtn" class="btn-lg btn-danger margin-right-5" style="display:none" onclick="caceledit()">ยกเลิก</button>
         @*<button type="button" class="btn-lg btn-danger margin-right-5" data-dismiss="modal" style="display: @(result.group_id == 0 ? "inline" : "none");">กลับ</button>*@
@@ -84,7 +84,13 @@
 
     function confirmandsaveC() {
         var inGC = new Object();
+        inGC.group_id = document.getElementById("groupC").value;
         inGC.category_name = document.getElementById("insertC").value;
+        if (inGC.group_id == "0") {
+            alert("โปรดระบุข้อมูลกลุ่ม");
+            document.getElementById("groupC").focus();
+            return;
+        }
         if (inGC.category_name == "") {
             alert("โปรดระบุข้อมูลประเภท");
             document.getElementById("insertC").focus();

@@ -134,6 +134,7 @@ namespace KKN_UI.material.category
                 using (SqlCommand cmd = new SqlCommand(CHECKCATEGORYNEW, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
                     cmd.Parameters.AddWithValue("@group_id", categoryobject.group_id);
                     cmd.Parameters.AddWithValue("@category_name", categoryobject.category_name);
 
