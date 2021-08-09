@@ -6,7 +6,7 @@
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> @(result.group_id == 0 ? "สร้างกลุ่ม" : "แก้ไขกลุ่ม")</h4>
+        <h4 class="modal-title" id="headermanu">@(result.group_id == 0 ? "สร้างกลุ่ม" : "แก้ไขกลุ่ม")</h4>
     </div>
     <div class="modal-body">
         <form align="center">
@@ -30,10 +30,10 @@
 
     </div>
     <div class="modal-footer">
-        <button type="button" id="createbtn" class="btn-lg btn-success margin-right-5 " style="display:@(result.group_id == 0 ? "inline" : "none");" onclick="conf()">สร้าง</button>
+        <button type="button" id="createbtn" class="btn-lg btn-success margin-right-5 " style="display:@(result.group_id == 0 ? "inline" : "none");" onclick="confirmandsaveG()">สร้าง</button>
         <button type="button" id="editbtn" class="btn-lg btn-warning margin-right-5 " style="display:@(result.group_id != 0 ? "inline" : "none");" onclick="editopen()">แก้ไข</button>
-        <button type="button" id="delebtn" class="btn-lg btn-danger margin-right-5 " style="display: @(result.group_id != 0 ? "inline" : "none");" onclick="deleteG()">ลบ</button>
-        <button type="button" id="savebtn" class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="updateG()">บันทึก</button>
+        <button type="button" id="delebtn" class="btn-lg btn-danger margin-right-5 " style="display: @(result.group_id != 0 ? "inline" : "none");" onclick="confirmanddeleteG()">ลบ</button>
+        <button type="button" id="savebtn" class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateG()">บันทึก</button>
         <button type="button" id="cacelbtn" class="btn-lg btn-danger margin-right-5" style="display:none" onclick="caceledit()">ยกเลิก</button>
         @*<button type="button" class="btn-lg btn-danger margin-right-5" data-dismiss="modal" style="display: @(result.group_id == 0 ? "inline" : "none");">กลับ</button>*@
     </div>
@@ -65,19 +65,27 @@
         document.getElementById("labelGid").hidden = true;
     }
 
-    function conf() {
+    function confirmandsaveG() {
         var inGC = new Object();
-        //var confirm = smartconfirmmessagebox();
-        //if (confirm == false) {
-        //    console.log("11111111111111111111111111")
-        //    return;
-        //}
         inGC.group_name = document.getElementById("insertG").value;
         if (inGC.group_name == "") {
             alert("โปรดระบุข้อมูล");
             document.getElementById("insertG").focus();
             return;
         }
+        var headermanu = document.getElementById("headermanu")
+        console.log(headermanu.textContent);
+        smartconfirmmessagebox(headermanu.textContent, function () {
+            console.log("DO FUNCTION callback");
+            createG();
+        }
+        )
+        //var confirm = smartconfirmmessagebox();
+        //if (confirm == false) {
+        //    console.log("11111111111111111111111111")
+        //    return;
+        //}
+
          @*$('#content_ajaxloader').show();
             $.ajax({
                 type: "POST",
@@ -93,8 +101,35 @@
                     $('#content_ajaxloader').hide();
                 }
             });*@
-        var output = smartconfirmmessagebox(document.getElementById("createbtn").id, createG())
-        console.log("333333333333333333333")
-        console.log(output);
+        //var output = smartconfirmmessagebox(document.getElementById("createbtn").id, createG())
+        //console.log("333333333333333333333")
+        //console.log(output);
     }
+
+    function confirmandupdateG() {
+        var inGC = new Object();
+        inGC.group_name = document.getElementById("insertG").value;
+        if (inGC.group_name == "") {
+            alert("โปรกระบุข้อมูล");
+            document.getElementById("insertG").focus();
+            return;
+        }
+        var headermanu = document.getElementById("headermanu")
+        console.log(headermanu.textContent);
+        smartconfirmmessagebox(headermanu.textContent, function () {
+            console.log("DO FUNCTION callback");
+            updateG();
+        }
+        )
+    }
+
+    function confirmanddeleteG() {
+
+        smartconfirmmessagebox("ลบข้อมูลกลุ่ม", function () {
+            console.log("DO FUNCTION callback");
+            deleteG();
+        }
+        )
+    }
+
 </script>

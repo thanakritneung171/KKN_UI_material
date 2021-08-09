@@ -54,18 +54,16 @@
         });
 
     }
-    function smartconfirmmessageboxtext(tagid,callback) {
-
+    function smartconfirmmessagebox(string ='',callback) {
             $.SmartMessageBox({
                 title: "Confirm!",
-                content: "คุณต้องการบันทึกข้อมูลหรือไม่",
+                content: "คุณต้องการ" + string + "หรือไม่",
                 buttons: '[ไม่][ใช่]'
             }, function (ButtonPressed) {
-
                 if (ButtonPressed === "ใช่") {
 
                     $.smallBox({
-                        title: "กำลังบักทึกข้อมูล",
+                        title: "กำลัง" + string,
                         content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
                         color: "#659265",
                         iconSmall: "fa fa-check fa-2x fadeInRight animated",
@@ -82,16 +80,25 @@
                         iconSmall: "fa fa-times fa-2x fadeInRight animated",
                         timeout: 10000
                     });
-
                     //false;
                 }
-
-
             });
     }
 
 
-    function smartconfirmmessagebox(tagid) {
+    function MessageAlert(title, content, type = 1) {
+        //if ()
+            $.smallBox({
+                title: title,
+                content: content,
+                color: color,
+                iconSmall: iconSmall + "fa-2x fadeInRight animated",
+                timeout: 2000
+            });
+    }
+
+
+    function smartconfirmmessagebox111111111(tagid) {
         $(tagid).click(function (e) {
             var o = null;
             $.SmartMessageBox({
@@ -187,7 +194,6 @@
             data: JSON.stringify(inG),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-
             success: function (response) {
                 if (response.output != 1) {
                     alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
@@ -197,9 +203,8 @@
                 }
                 console.log("insert complete");
                 console.log(response.output1);
-
                 $("#content_ajaxloader").fadeOut("fast");
-                alert("บันทึกเรียบร้อย");
+                //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
                 AddPanel();
@@ -218,7 +223,6 @@
         var inG = new Object();
         inG.group_id = document.getElementById("inputGid").value;
         inG.group_name = document.getElementById("insertG").value;
-
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",
@@ -226,7 +230,6 @@
             data: JSON.stringify(inG),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-
             success: function (response) {
                 if (response.output != 1) {
                     alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
@@ -234,12 +237,10 @@
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
-
                 console.log("insert complete");
-                console.log(response.output1);
-
+                console.log(response.output);
                 $("#content_ajaxloader").fadeOut("fast");
-                alert("บันทึกเรียบร้อย");
+                //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
                 AddPanel();
@@ -267,9 +268,8 @@
                     success: function (response) {
                         console.log("delete complete");
                         $("#content_ajaxloader").fadeOut("fast");
-                        alert("ลบเรียบร้อย")
+                        //alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
-                        /*window.location.href = "/material";*/
                         AddPanel();
                     },
                     failure: function (response) {
