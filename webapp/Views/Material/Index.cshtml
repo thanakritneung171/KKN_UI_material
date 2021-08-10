@@ -212,10 +212,14 @@
                     <option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>
                     <option style="display:none" id="selcatall" value="">ทั้งหมด</option>
                     @*@foreach (var itemcategory in result.CategorySQLlist)
-                        {
-                            <option value="@itemcategory.category_id" name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
-                        }*@
+                {
+                    <option value="@itemcategory.category_id" name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
+                }*@
                 </select>
+            </div>
+
+            <div class="row col-lg-2 col-md-2 col-sm-12  COL-xs-2" style="padding: 2.5px; margin-right: 15px">
+                <button>ค้นหา</button>
             </div>
 
             <script>
@@ -369,28 +373,41 @@
 
 
             @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
-                <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
-                    <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
-                </div>*@
-            <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px;"><a @*href='@Url.Action("Editmaterial", "Material")'*@ class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
-            <div class="hidden-lg hidden-md col-sm-8 col-xs-4 "></div>
-            <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px; "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
+        <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
+            <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
+        </div>*@
+            <div class="hidden-lg hidden-md col-sm-8 col-xs-4 ">
+
+            </div>
 
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row col-xs-6 col-sm-4 col-md-2 col-lg-2  " style="padding: 2.5px;">
+                <div class="row col-xs-3 col-sm-3 col-md-2 col-lg-2  " style="padding: 2.5px;">
                     <button class="btn btn-primary" onclick="AddPanel('#panel-div')">จัดการกลุ่ม</button>
                 </div>
-                <div class="row col-xs-6 col-sm-4 col-md-2 col-lg-2  " style="padding: 2.5px;">
+
+                <div class="row col-xs-3 col-sm-3 col-md-2 col-lg-2  " style="padding: 2.5px;">
                     <button class="btn btn-primary" onclick="AddPanelcate()">จัดการประเภท</button>
                 </div>
+
+                <div class="row  col-xs-3 col-sm-3 col-md-2 col-lg-2 " style="padding: 2.5px;">
+                    <a @*href='@Url.Action("Editmaterial", "Material")'*@ class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a>
+                </div>
+
+                <div class="row   col-xs-3  col-sm-3   col-md-6 col-lg-6 float-right text-right" style="padding: 2.5px; ">
+                    <a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
             </div>
         </div>
 
 
 
-        @*<ul class="demo-btns">
+            @*<ul class="demo-btns">
             <li>
                 <button type="button" id="eg7" class="btn btn-default">
                     <i class="fa fa-thumbs-up"></i> Extra Small Alert
@@ -405,31 +422,31 @@
 
 
 
-        @* partial *@
-        <div class="cd-panel cd-panel--from-right js-cd-panel-main">
-            <div id="panel-div">
-            </div>
-        </div>
-        @* modal *@
-        <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
-
+            @* partial *@
+            <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+                <div id="panel-div">
                 </div>
             </div>
-        </div>
-        @* confirm *@
-        <div class="modal fade" id="Modalconfirm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8002 !important;">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content" style="overflow: hidden;" id="Modal_Content_confirm">
+            @* modal *@
+            <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
 
+                    </div>
                 </div>
             </div>
-        </div>
+            @* confirm *@
+            <div class="modal fade" id="Modalconfirm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8002 !important;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="overflow: hidden;" id="Modal_Content_confirm">
+
+                    </div>
+                </div>
+            </div>
 
 
 
-        <script>
+            <script>
              function AddPanel(id) {
                  $('#content_ajaxloader').fadeIn();
             $.ajax({
@@ -464,7 +481,7 @@
                 }
             });
         }
-        </script>
+            </script>
 
 
 
@@ -480,7 +497,7 @@
 
 
 
-    </div>
+        </div>
     @*</div>*@
 
 
