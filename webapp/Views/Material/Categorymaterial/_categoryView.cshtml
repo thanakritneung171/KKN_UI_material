@@ -85,6 +85,15 @@
             });
     }
 
+    function completesmartconfirmmessagebox(string = '', content) {
+        $.smallBox({
+            title: "กำลัง" + string,
+            content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+            color: "#659265",
+            iconSmall: "fa fa-check fa-2x fadeInRight animated",
+            timeout: 4000
+        });
+    }
 
     function smartconfirmmessagebox(string = '', callback) {
         $.SmartMessageBox({
@@ -94,13 +103,13 @@
         }, function (ButtonPressed) {
             if (ButtonPressed === "ใช่") {
 
-                $.smallBox({
-                    title: "กำลัง" + string,
-                    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
-                    color: "#659265",
-                    iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                    timeout: 4000
-                });
+                //$.smallBox({
+                //    title: "กำลัง" + string,
+                //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                //    color: "#659265",
+                //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                //    timeout: 4000
+                //});
                 callback();
                 //true;
             }
@@ -126,113 +135,6 @@
                 iconSmall: iconSmall + "fa-2x fadeInRight animated",
                 timeout: 2000
             });
-    }
-
-
-
-    function createC() {
-        var inG = new Object();
-        inG.group_id = document.getElementById("groupC").value;
-        inG.category_name = document.getElementById("insertC").value;
-        console.log(inG);
-         $("#content_ajaxloader").show();
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("CreateCategory", "Material")',
-            data: JSON.stringify(inG),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.output != 1) {
-                    alert('ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
-                    document.getElementById("insertC").focus();
-                    $("#content_ajaxloader").fadeOut("fast");
-                    return;
-                }
-                console.log("insert complete");
-                console.log(response.output1);
-
-                $("#content_ajaxloader").fadeOut("fast");
-                //alert("บันทึกเรียบร้อย");
-                $('#Modal').modal('hide');
-                //window.location.href = "/material/";
-                AddPanelcate();
-            },
-            failure: function (response) {
-                alert(response.responseText);
-            },
-            error: function (response) {
-                alert(response.responseText);
-            }
-         })
-
-    }
-
-    function updateC() {
-        var inG = new Object();
-        inG.category_id = document.getElementById("inputCid").value;
-        inG.group_id = document.getElementById("groupC").value;
-        inG.category_name = document.getElementById("insertC").value;
-         $("#content_ajaxloader").show();
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("UpdateCategory", "Material")',
-            data: JSON.stringify(inG),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-
-            success: function (response) {
-
-                if (response.output != 1 ){
-                    alert('ชื่อประเภท มีบันทึกอยู่แล้ว');
-                    document.getElementById("insertC").focus();
-                    $("#content_ajaxloader").fadeOut("fast");
-                    return;
-                }
-                console.log("insert complete");
-                console.log(response.output1);
-
-                $("#content_ajaxloader").fadeOut("fast");
-                alert("บันทึกเรียบร้อย");
-                $('#Modal').modal('hide');
-                //window.location.href = "/material/";
-                AddPanelcate();
-            },
-            failure: function (response) {
-                alert(response.responseText);
-            },
-            error: function (response) {
-                alert(response.responseText);
-            }
-         })
-
-    }
-
-      function deleteC() {
-                         var dg = new Object();
-          dg.category_id = document.getElementById("inputCid").value;
-                          $("#content_ajaxloader").show();
-                         $.ajax({
-                             type: "POST",
-                             url: '@Url.Action("DeleteCategory", "Material")',
-                             data: JSON.stringify(dg) ,
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        console.log("delete complete");
-                        $("#content_ajaxloader").fadeOut("fast");
-                        //alert("ลบเรียบร้อย")
-                        $('#Modal').modal('hide');
-                        /*window.location.href = "/material";*/
-                        AddPanelcate();
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                })
     }
 
 </script>

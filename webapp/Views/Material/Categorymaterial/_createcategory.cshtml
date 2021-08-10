@@ -118,9 +118,55 @@
             });*@
     }
 
+     function createC() {
+        var inG = new Object();
+        inG.group_id = document.getElementById("groupC").value;
+        inG.category_name = document.getElementById("insertC").value;
+        console.log(inG);
+         $("#content_ajaxloader").show();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CreateCategory", "Material")',
+            data: JSON.stringify(inG),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.output != 1) {
+                    alert('ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertC").focus();
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
+                }
+                console.log("insert complete");
+                console.log(response.output);
+                completesmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โหลดข้อมูล");
+                $("#content_ajaxloader").fadeOut("fast");
+                //alert("บันทึกเรียบร้อย");
+                $('#Modal').modal('hide');
+                //window.location.href = "/material/";
+                AddPanelcate();
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+         })
+
+    }
+
+
+
     function confirmandupdateC() {
         var inGC = new Object();
+        inGC.group_id = document.getElementById("groupC").value;
         inGC.category_name = document.getElementById("insertC").value;
+        if (inGC.group_id == "0") {
+            alert("โปรดระบุข้อมูลกลุ่ม");
+            document.getElementById("groupC").focus();
+            return;
+        }
         if (inGC.category_name == "") {
             alert("โปรดระบุข้อมูลประเภท");
             document.getElementById("insertC").focus();
@@ -134,6 +180,45 @@
         });
     }
 
+      function updateC() {
+        var inG = new Object();
+        inG.category_id = document.getElementById("inputCid").value;
+        inG.group_id = document.getElementById("groupC").value;
+        inG.category_name = document.getElementById("insertC").value;
+         $("#content_ajaxloader").show();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateCategory", "Material")',
+            data: JSON.stringify(inG),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success: function (response) {
+
+                if (response.output != 1 ){
+                    alert('ชื่อประเภท มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertC").focus();
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
+                }
+                console.log("insert complete");
+                console.log(response.output);
+                completesmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โหลดข้อมูล");
+                $("#content_ajaxloader").fadeOut("fast");
+                alert("บันทึกเรียบร้อย");
+                $('#Modal').modal('hide');
+                //window.location.href = "/material/";
+                AddPanelcate();
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+         })
+
+    }
 
     function confirmanddeleteC() {
         smartconfirmmessagebox("ลบข้อมูลประเภท", function () {
@@ -142,5 +227,33 @@
         });
     }
 
+
+      function deleteC() {
+                         var dg = new Object();
+          dg.category_id = document.getElementById("inputCid").value;
+                          $("#content_ajaxloader").show();
+                         $.ajax({
+                             type: "POST",
+                             url: '@Url.Action("DeleteCategory", "Material")',
+                             data: JSON.stringify(dg) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("delete complete");
+                        completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
+                        $("#content_ajaxloader").fadeOut("fast");
+                        //alert("ลบเรียบร้อย")
+                        $('#Modal').modal('hide');
+                        /*window.location.href = "/material";*/
+                        AddPanelcate();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+    }
 
 </script>

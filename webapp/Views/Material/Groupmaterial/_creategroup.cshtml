@@ -106,6 +106,46 @@
         //console.log(output);
     }
 
+    function createG() {
+        var inG = new Object();
+        inG.group_name = document.getElementById("insertG").value;
+        console.log(inG);
+         $("#content_ajaxloader").show();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CreateGroup", "Material")',
+            data: JSON.stringify(inG),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.output != 1) {
+                    alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertG").focus();
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
+                }
+                console.log("insert complete");
+                console.log(response.output);
+
+                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent,"โหลดข้อมูล");
+
+                $("#content_ajaxloader").fadeOut("fast");
+                //alert("บันทึกเรียบร้อย");
+                $('#Modal').modal('hide');
+                //window.location.href = "/material/";
+                AddPanel();
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+         })
+
+    }
+
+
     function confirmandupdateG() {
         var inGC = new Object();
         inGC.group_name = document.getElementById("insertG").value;
@@ -123,6 +163,43 @@
         )
     }
 
+    function updateG() {
+        var inG = new Object();
+        inG.group_id = document.getElementById("inputGid").value;
+        inG.group_name = document.getElementById("insertG").value;
+         $("#content_ajaxloader").show();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateGroup", "Material")',
+            data: JSON.stringify(inG),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.output != 1) {
+                    alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertG").focus();
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
+                }
+                console.log("insert complete");
+                console.log(response.output);
+                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
+                $("#content_ajaxloader").fadeOut("fast");
+                //alert("บันทึกเรียบร้อย");
+                $('#Modal').modal('hide');
+                //window.location.href = "/material/";
+                AddPanel();
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+         })
+
+    }
+
     function confirmanddeleteG() {
 
         smartconfirmmessagebox("ลบข้อมูลกลุ่ม", function () {
@@ -132,4 +209,30 @@
         )
     }
 
+    function deleteG() {
+                         var dg = new Object();
+                         dg.group_id = document.getElementById("inputGid").value;
+                          $("#content_ajaxloader").show();
+                         $.ajax({
+                             type: "POST",
+                             url: '@Url.Action("DeleteGroup", "Material")',
+                             data: JSON.stringify(dg) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("delete complete");
+                        completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
+                        $("#content_ajaxloader").fadeOut("fast");
+                        //alert("ลบเรียบร้อย")
+                        $('#Modal').modal('hide');
+                        AddPanel();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+    }
 </script>
