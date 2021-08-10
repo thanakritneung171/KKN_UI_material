@@ -191,7 +191,7 @@
     <div class="row margin-top-10 margin-left-10">
         <div class="row">
             <h3>
-                <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">เพิ่มวัสดุอุปกรณ์ใหม่</span>
+                <i class="fa fa-cube" ></i> &nbsp; <span style="color:forestgreen;" id="headermanu">เพิ่มวัสดุอุปกรณ์ใหม่</span>
                 @*<i class="fa fa-chevron-right"></i>
                     <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
                     <span>sdfsdfsdfsdfdsssdf </span>*@  &nbsp;&nbsp;
@@ -560,10 +560,13 @@
             //var va =  validatedata()
             //alert(va)
 
-
+            smartconfirmmessagebox(document.getElementById("headermanu").textContent, function () {
+                console.log("Do function call back ");
+                insertdata();
+            })
             //var va = validatedata()
             //if (va == '1') {
-                $('#myModal').modal('show')
+                //$('#myModal').modal('show')
             //}
 
 
@@ -573,10 +576,10 @@
             //var testtttt2t = document.getElementById("status").checked
             //alert(testttttt + " " + testttttt1 + " " + testtttt2t);
         }
-        function aabc() {
-           // alert("hello wolrd");
-            insertdata()
-        }
+        //function aabc() {
+        //   // alert("hello wolrd");
+        //    insertdata()
+        //}
 
 
 
@@ -610,7 +613,7 @@
         var form_data = new FormData();
         form_data.append('file', file_data);
         console.log('form_data');
-        alert(form_data);
+        //alert(form_data);
 
         form_data.append('material.item_no', material.item_no)
         form_data.append('material.item_name', material.item_name)
@@ -658,26 +661,33 @@
                 //}
 
                 if (response.output.msg == 2) {
-                    alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
-
+                    //alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
+                    warningsmartconfirmmessagebox("รหัสวัสดุ มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 } else if (response.output.msg == 3) {
 
-                    alert('รายละเอียด มีบันทึกอยู่แล้ว');
-
+                    //alert('รายละเอียด มีบันทึกอยู่แล้ว');
+                    warningsmartconfirmmessagebox("รายละเอียด มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
 
 
                 console.log("insert complete");
-                console.log(response.output1);
+                console.log(response.output);
 
+                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
+                
                 $("#content_ajaxloader").fadeOut("fast");
-                alert("บันทึกเรียบร้อย")
-                alert(response.item_no + "suc" + response.picture_path)
+                //alert("บันทึกเรียบร้อย")
+                //alert(response.item_no + "suc" + response.picture_path)
+
+
+                setTimeout(locatio, 2000);
+                function locatio() {
                 window.location.href = "/material/Creatematerial";
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -695,6 +705,56 @@
 
 @section pagespecific {
     <script type="text/javascript">
+
+
+        function completesmartconfirmmessagebox(string = '', content) {
+            $.smallBox({
+                title: "กำลัง" + string,
+                content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                color: "#659265",
+                iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                timeout: 4000
+            });
+        }
+
+        function warningsmartconfirmmessagebox(string = '', content) {
+            $.smallBox({
+                title: "กำลัง" + string,
+                content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                color: "#C79121",
+                iconSmall: "fa fa-shield fa-2x fadeInRight animated",
+
+
+                //content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                //color: "#296191",
+                //iconSmall: "fa fa-thumbs-up bounce animated",
+                timeout: 4000
+            });
+        }
+
+        function smartconfirmmessagebox(string = '', callback) {
+            $.SmartMessageBox({
+                title: "Confirm!",
+                content: "คุณต้องการ" + string + "หรือไม่",
+                buttons: '[ไม่][ใช่]'
+            }, function (ButtonPressed) {
+                if (ButtonPressed === "ใช่") {
+                    callback();
+                    //true;
+                }
+                if (ButtonPressed === "ไม่") {
+                    $.smallBox({
+                        title: "ยกเลิกบันทึกข้อมูล",
+                        content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 10000
+                    });
+                    //false;
+                }
+            });
+        }
+
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
