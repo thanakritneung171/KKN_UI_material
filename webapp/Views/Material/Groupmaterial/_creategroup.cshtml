@@ -42,7 +42,11 @@
 
 
 
-
+<style>
+    .validgroup {
+        border-color:red;
+    }
+</style>
 <script>
     function editopen() {
         document.getElementById("editbtn").style.display = "none";
@@ -70,9 +74,11 @@
         inGC.group_name = document.getElementById("insertG").value;
         if (inGC.group_name == "") {
             alert("โปรดระบุข้อมูล");
+            document.getElementById("insertG").className += " validgroup";
             document.getElementById("insertG").focus();
             return;
         }
+        document.getElementById("insertG").classList.remove("validgroup")
         var headermanu = document.getElementById("headermanu")
         console.log(headermanu.textContent);
         smartconfirmmessagebox(headermanu.textContent, function () {
