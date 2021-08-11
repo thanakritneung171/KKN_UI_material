@@ -48,7 +48,7 @@ namespace KKN_UI.Controllers
             //List<CategorySQL> ctlist = new List<CategorySQL>();
             using (var conn = OpenDbConnection())
             {
-                var query = "SELECT TOP 10 * FROM  MaterialView";
+                var query = "SELECT * FROM  MaterialView";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

@@ -192,9 +192,21 @@
 
         <div class="col-lg-12  col-md-12 col-sm-12">
             <div class="row col-lg-4 col-md-4  col-sm-12 col-xs-12" style="padding: 2.5px; margin-right: 15px">
-                <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)">
+                <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)" @*onkeyup="teststring()"*@>
             </div>
 
+            <script>
+
+                function teststring() {
+                    var string = document.getElementById("searchinpuit").value
+                    string = string.replace(/ /g, ","); //returns my_name
+                    inputsting = string.replace(/ /g, "_"); //returns my_name
+                    console.log(string)
+                    console.log("12312312312")
+                    console.log(string.replace(/ /g, "_"))
+                    console.log(inputsting + "222222222")
+                }
+            </script>
             <div class="row col-lg-2 col-md-2 col-sm-12 hidden-xs" style="padding: 2.5px; margin-right:15px">
                 <select class="form-control" id="selgroup" name="selgroup" @*onchange="selgr(this)"*@ onchange="myselect(this)">
                     <option disabled selected value="เลือกกลุ่มวัสดุ">เลือกกลุ่มวัสดุ</option>
@@ -219,8 +231,79 @@
             </div>
 
             <div class="row col-lg-2 col-md-2 col-sm-12  COL-xs-2" style="padding: 2.5px; margin-right: 15px">
-                <button>ค้นหา</button>
+                <button onclick="searchdata()">ค้นหา</button>
             </div>
+
+            <script>
+                function searchdata() {
+                    console.log("in function search")
+                    var stext = document.getElementById("selgroup").value
+                    var sgroup = document.getElementById("selcategory").value
+                    var scategory = document.getElementById("searchinpuit").value
+
+                    var search = new Object();
+                    search.text = stext;
+                    search.sgroup = sgroup;
+                    search.scategory = scategory;
+
+                     $("#content_ajaxloader").show();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Createtodata", "Material")',
+                        data: form_data,
+                        //data: JSON.stringify(material),
+                        //contentType: "application/json; charset=utf-8",
+                        //dataType: "json",
+
+                        success: function (response) {
+                            console.log("response");
+                            console.log(response);
+                            //if (response.output == 0) {
+                            //    alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
+
+                            //    $("#content_ajaxloader").fadeOut("fast");
+                            //    return;
+                            //}
+
+                            if (response.output.msg == 2) {
+                                //alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
+                                warningsmartconfirmmessagebox("รหัสวัสดุ มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
+                                $("#content_ajaxloader").fadeOut("fast");
+                                return;
+                            } else if (response.output.msg == 3) {
+
+                                //alert('รายละเอียด มีบันทึกอยู่แล้ว');
+                                warningsmartconfirmmessagebox("รายละเอียด มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
+                                $("#content_ajaxloader").fadeOut("fast");
+                                return;
+                            }
+
+
+                            console.log("insert complete");
+                            console.log(response.output);
+
+                            completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
+
+                            $("#content_ajaxloader").fadeOut("fast");
+                            //alert("บันทึกเรียบร้อย")
+                            //alert(response.item_no + "suc" + response.picture_path)
+
+
+                            setTimeout(locatio, 2000);
+                            function locatio() {
+                            window.location.href = "/material/Creatematerial";
+                            }
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+
+            </script>
 
             <script>
                 function AddoptionC() {
@@ -407,46 +490,46 @@
 
 
 
-            @*<ul class="demo-btns">
+        @*<ul class="demo-btns">
+                <li>
+                    <button type="button" id="eg7" class="btn btn-default">
+                        <i class="fa fa-thumbs-up"></i> Extra Small Alert
+                    </button>
+                </li>
+            </ul>
+
             <li>
-                <button type="button" id="eg7" class="btn btn-default">
-                    <i class="fa fa-thumbs-up"></i> Extra Small Alert
-                </button>
-            </li>
-        </ul>
-
-        <li>
-            <a href="#" id="smart-mod-eg1" class="btn btn-success"> Callback ()</a>
-        </li>*@
+                <a href="#" id="smart-mod-eg1" class="btn btn-success"> Callback ()</a>
+            </li>*@
 
 
 
 
-            @* partial *@
-            <div class="cd-panel cd-panel--from-right js-cd-panel-main">
-                <div id="panel-div">
+        @* partial *@
+        <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+            <div id="panel-div">
+            </div>
+        </div>
+        @* modal *@
+        <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
+
                 </div>
             </div>
-            @* modal *@
-            <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
+        </div>
+        @* confirm *@
+        <div class="modal fade" id="Modalconfirm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8002 !important;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="overflow: hidden;" id="Modal_Content_confirm">
 
-                    </div>
                 </div>
             </div>
-            @* confirm *@
-            <div class="modal fade" id="Modalconfirm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8002 !important;">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="overflow: hidden;" id="Modal_Content_confirm">
-
-                    </div>
-                </div>
-            </div>
+        </div>
 
 
 
-            <script>
+        <script>
              function AddPanel(id) {
                  $('#content_ajaxloader').fadeIn();
             $.ajax({
@@ -481,7 +564,7 @@
                 }
             });
         }
-            </script>
+        </script>
 
 
 
@@ -496,8 +579,7 @@
 
 
 
-
-        </div>
+    </div>
     @*</div>*@
 
 
@@ -618,11 +700,20 @@
 
 
 
+<script>
+
+
+  
+
+</script>
+
 
 
 @section pagespecific {
     <script type="text/javascript">
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+    
 
         $('#eg7').click(function () {
 
@@ -862,7 +953,18 @@
 
         })
 
+        //$(document).ready(function () {
+        //    var row = document.getElementById("dt_basic_length")
+        //    console.log(row.firstChild.value);
+        //    console.log(row.querySelector.select);
 
+        //});
+
+        //$('#dt_basic_length').click(function () {
+        //    var row11 = document.getElementByName("dt_basic_length")
+        //    console.log(row11+"ASDASDAS")
+            
+        //})
     </script>
 
 }
