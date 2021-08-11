@@ -48,7 +48,7 @@ namespace KKN_UI.Controllers
             //List<CategorySQL> ctlist = new List<CategorySQL>();
             using (var conn = OpenDbConnection())
             {
-                var query = "SELECT * FROM  MaterialView";
+                var query = "SELECT top 100 * FROM  MaterialView";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -107,6 +107,15 @@ namespace KKN_UI.Controllers
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
 
             return View(listindex);
+        }
+
+        public ActionResult IndexSearch(SearchItem search)
+        {
+            MaterialSQLindex listindex = new MaterialSQLindex();
+            List<MaterialSQL> mlist = new List<MaterialSQL>();
+            listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).materiallist.ToList();
+
+            return View();
         }
 
 

@@ -1,4 +1,5 @@
-﻿using KKN_UI.Models.Material;
+﻿using KKN_UI.Models;
+using KKN_UI.Models.Material;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,7 +22,7 @@ namespace KKN_UI.materialDao.item_master
             return conn;
         }
         private const string READ = "materialview_edit";
-
+        private const string READSEARCH = "Searchmaterial";
         public MaterialSQL GetdataByid(string id)
         {
             using (var conn = OpenDbConnection())
@@ -43,5 +44,30 @@ namespace KKN_UI.materialDao.item_master
                 }
             }
         }
+
+        public MaterialSQLlist GetdataSearch(SearchItem search)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(READSEARCH, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", search.group_id);
+                    cmd.Parameters.AddWithValue("@category_id", search.category_id);
+                    cmd.Parameters.AddWithValue("@text", search.text);
+                    MaterialSQLlist result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result.materiallist.Add(new item_masterDao().mapView(rdr));
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+
     }
 }

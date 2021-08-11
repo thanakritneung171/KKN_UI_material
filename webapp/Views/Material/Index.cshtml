@@ -250,10 +250,9 @@
                     $.ajax({
                         type: "POST",
                         url: '@Url.Action("Createtodata", "Material")',
-                        data: form_data,
-                        //data: JSON.stringify(material),
-                        //contentType: "application/json; charset=utf-8",
-                        //dataType: "json",
+                        data: JSON.stringify(material),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
 
                         success: function (response) {
                             console.log("response");
@@ -285,14 +284,7 @@
                             completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
 
                             $("#content_ajaxloader").fadeOut("fast");
-                            //alert("บันทึกเรียบร้อย")
-                            //alert(response.item_no + "suc" + response.picture_path)
 
-
-                            setTimeout(locatio, 2000);
-                            function locatio() {
-                            window.location.href = "/material/Creatematerial";
-                            }
                         },
                         failure: function (response) {
                             alert(response.responseText);
