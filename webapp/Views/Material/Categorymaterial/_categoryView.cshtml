@@ -1,7 +1,4 @@
-﻿@*@{
-    List<CategorySQL> categorySQL = Model;
-}*@
-@{ 
+﻿@{ 
     List<CategorySQL> categorySQL = Model;
 }
 
@@ -24,7 +21,6 @@
                         <th align="right">#</th>
                         <th align="center">กลุ่ม</th>
                         <th>ประเภท</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -34,17 +30,13 @@
                             <td class="stu_numrec" width="1%" align="right">@item.category_id</td>
                             <td class="stu_gid" width="2%" align="center" value="@item.group_id">@item.GroupModel.group_name</td>
                             <td class="stu_name" width="10%">@item.category_name</td>
-
                         </tr>
                     }
-
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-
 
 <script>
 
@@ -82,58 +74,6 @@
                     $('#Modal').modal('show');
                     $('#content_ajaxloader').hide();
                 }
-            });
-    }
-
-    function completesmartconfirmmessagebox(string = '', content) {
-        $.smallBox({
-            title: "กำลัง" + string,
-            content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
-            color: "#659265",
-            iconSmall: "fa fa-check fa-2x fadeInRight animated",
-            timeout: 4000
-        });
-    }
-
-    function smartconfirmmessagebox(string = '', callback) {
-        $.SmartMessageBox({
-            title: "Confirm!",
-            content: "คุณต้องการ" + string + "หรือไม่",
-            buttons: '[ไม่][ใช่]'
-        }, function (ButtonPressed) {
-            if (ButtonPressed === "ใช่") {
-
-                //$.smallBox({
-                //    title: "กำลัง" + string,
-                //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
-                //    color: "#659265",
-                //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                //    timeout: 4000
-                //});
-                callback();
-                //true;
-            }
-            if (ButtonPressed === "ไม่") {
-                $.smallBox({
-                    title: "ยกเลิกบันทึกข้อมูล",
-                    content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
-                    color: "#C46A69",
-                    iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                    timeout: 10000
-                });
-                //false;
-            }
-        });
-    }
-
-    function MessageAlert(title, content, type = 1) {
-        //if ()
-            $.smallBox({
-                title: title,
-                content: content,
-                color: color,
-                iconSmall: iconSmall + "fa-2x fadeInRight animated",
-                timeout: 2000
             });
     }
 

@@ -42,7 +42,6 @@
                 </div>
             </div>
         </form>
-
     </div>
     <div class="modal-footer">
         <button type="button" id="createbtn" class="btn-lg btn-success margin-right-5 " style="display:@(result.CategorySQL.category_id == 0 ? "inline" : "none");" onclick="confirmandsaveC()">สร้าง</button>
@@ -54,10 +53,6 @@
     </div>
 </div>
 
-
-
-
-
 <script>
     function editopen() {
         document.getElementById("editbtn").style.display = "none";
@@ -68,7 +63,6 @@
         document.getElementById("inputCid").setAttribute('type', 'text');
         document.getElementById("labelCid").hidden = false;
         document.getElementById("groupC").disabled = false;
-
     }
 
     function caceledit() {
@@ -101,21 +95,7 @@
         smartconfirmmessagebox(headermanu.textContent, function () {
             console.log("DO FUNCTION callback");
             createC();
-        }
-        )
-         @*$('#content_ajaxloader').show();
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("_comfirmcategory", "Material")',
-                dataType: 'html',
-                data: {},
-                success: function (result) {
-                    $('#Modal_Content_confirm').html('');
-                    $('#Modal_Content_confirm').html(result);
-                    $('#Modalconfirm').modal('show');
-                    $('#content_ajaxloader').hide();
-                }
-            });*@
+        })
     }
 
      function createC() {
@@ -153,9 +133,7 @@
                 alert(response.responseText);
             }
          })
-
     }
-
 
 
     function confirmandupdateC() {
@@ -192,9 +170,7 @@
             data: JSON.stringify(inG),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-
             success: function (response) {
-
                 if (response.output != 1 ){
                     alert('ชื่อประเภท มีบันทึกอยู่แล้ว');
                     document.getElementById("insertC").focus();
@@ -217,7 +193,6 @@
                 alert(response.responseText);
             }
          })
-
     }
 
     function confirmanddeleteC() {
@@ -227,10 +202,9 @@
         });
     }
 
-
       function deleteC() {
                          var dg = new Object();
-          dg.category_id = document.getElementById("inputCid").value;
+                         dg.category_id = document.getElementById("inputCid").value;
                           $("#content_ajaxloader").show();
                          $.ajax({
                              type: "POST",

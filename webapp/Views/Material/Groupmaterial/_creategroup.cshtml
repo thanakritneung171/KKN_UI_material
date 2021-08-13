@@ -40,13 +40,12 @@
 </div>
 
 
-
-
 <style>
     .validgroup {
         border-color:red;
     }
 </style>
+
 <script>
     function editopen() {
         document.getElementById("editbtn").style.display = "none";
@@ -56,7 +55,6 @@
         document.getElementById("insertG").disabled = false;
         document.getElementById("inputGid").setAttribute('type', 'text');
         document.getElementById("labelGid").hidden = false;
-
     }
 
     function caceledit() {
@@ -84,32 +82,7 @@
         smartconfirmmessagebox(headermanu.textContent, function () {
             console.log("DO FUNCTION callback");
             createG();
-        }
-        )
-        //var confirm = smartconfirmmessagebox();
-        //if (confirm == false) {
-        //    console.log("11111111111111111111111111")
-        //    return;
-        //}
-
-         @*$('#content_ajaxloader').show();
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("_comfirmgroup", "Material")',
-                dataType: 'html',
-                data: {},
-                success: function (result) {
-                    $('#Modal_Content_confirm').html('');
-                    $('#Modal_Content_confirm').html(result);
-                    ///load
-
-                    $('#Modalconfirm').modal('show');
-                    $('#content_ajaxloader').hide();
-                }
-            });*@
-        //var output = smartconfirmmessagebox(document.getElementById("createbtn").id, createG())
-        //console.log("333333333333333333333")
-        //console.log(output);
+        })
     }
 
     function createG() {
@@ -165,8 +138,7 @@
         smartconfirmmessagebox(headermanu.textContent, function () {
             console.log("DO FUNCTION callback");
             updateG();
-        }
-        )
+        })
     }
 
     function updateG() {
@@ -203,16 +175,13 @@
                 alert(response.responseText);
             }
          })
-
     }
 
     function confirmanddeleteG() {
-
         smartconfirmmessagebox("ลบข้อมูลกลุ่ม", function () {
             console.log("DO FUNCTION callback");
             deleteG();
-        }
-        )
+        })
     }
 
     function deleteG() {

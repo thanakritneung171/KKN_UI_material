@@ -3,8 +3,8 @@
 
 }
 <option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>
-<option @*style="display:none*@ id="selcatall" value="">ทั้งหมด</option>
+<option id="selcatall" value="">ทั้งหมด</option>
 @foreach (var itemcategory in result.Categorylist)
 {
-    <option value="@itemcategory.category_id" name="opcate" @*style="display:none"*@ id="@itemcategory.group_id">@itemcategory.category_name</option>
+    <option value="@itemcategory.category_id" name="opcate"  id="@itemcategory.group_id">@itemcategory.category_name</option>
 }
