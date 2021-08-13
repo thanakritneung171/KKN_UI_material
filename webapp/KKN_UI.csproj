@@ -1039,6 +1039,7 @@
     <Content Include="Views\Material\Categorymaterial\_createcategory.cshtml" />
     <Content Include="Views\Material\Categorymaterial\_comfirmcategory.cshtml" />
     <Content Include="Views\Material\_selectcategory.cshtml" />
+    <Content Include="Views\Material\_tabledatalist.cshtml" />
     <None Include="Web References\KKN_Demo_Service\KKN_Demo_Service.wsdl" />
     <None Include="Web References\KKN_Demo_Service\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

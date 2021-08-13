@@ -1,0 +1,49 @@
+﻿@{
+    MaterialSQLindex result = Model;
+}
+
+<thead>
+    <tr>
+        <th data-hide="phone">#</th>
+        <th data-class="expand">รหัส</th>
+        <th data-hide="phone,tablet"><i class="fa fa-fw fa-reorder text-muted hidden-md hidden-sm hidden-xs"></i> กลุ่ม</th>
+        <th data-hide="phone,tablet"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> ประเภท</th>
+        <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i> รายการวัสดุ</th>
+        <th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> สถานะ</th>
+
+
+        @*<th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> Category</th>*@
+        @*<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Stocks</th>*@
+    </tr>
+</thead>
+<tbody>
+
+
+    @{ int i = 1;
+        foreach (var item in result.MaterialSQLlist)
+        {
+            @*
+                <tr class="trid" id="@item.materialModeldata.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.materialModeldata.item_no })'">
+                    <td class="stu_numrec" width="5%"> @i </td>
+                    <td class="stu_no" width="10%"> @item.materialModeldata.item_no   </td>
+                    <td class="stu_group" width="10%" value="@item.groupmaterialdata.group_id">@item.groupmaterialdata.group_name</td>
+                    <td class="stu_category" width="15%" value="@item.categorymaterialdata.category_id">@item.categorymaterialdata.category_name</td>
+                    <td class="stu_des" width="50%">@item.materialModeldata.item_name @item.materialModeldata.size @item.materialModeldata.brand @item.materialModeldata.color @item.materialModeldata.version</td>
+                    <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" > @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
+                </tr>*@
+
+            <tr class="trid" id="@item.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.item_no })'">
+                <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
+                <td class="stu_no" width="10%"> @item.item_no   </td>
+                <td class="stu_group" width="10%" value="@item.GroupSQLModel.group_id">@item.GroupSQLModel.group_name</td>
+                <td class="stu_category" width="15%" value="@item.CategorySQLModel.category_id">@item.CategorySQLModel.category_name</td>
+                <td class="stu_des" width="50%">@item.item_name @item.size @item.brand @item.color @item.version</td>
+                <td class="stu_status " width="5%" style="color:@(item.status? "Green": "Red")">  @(item.status ? "ใช้งาน": "ไม่ใช้")  </td>
+            </tr>
+
+            i++;
+        } }
+
+
+
+</tbody>

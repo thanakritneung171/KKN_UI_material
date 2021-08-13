@@ -109,6 +109,40 @@ namespace KKN_UI.Controllers
             return View(listindex);
         }
 
+        public /*JsonResult*/ ActionResult _tabledatalist(SearchItem search)
+        {
+            MaterialSQLindex listindex = new MaterialSQLindex();
+            List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            using (var conn = OpenDbConnection())
+            {
+                var query = "SELECT top 100 * FROM  MaterialView";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            //mtlist.Add(mapView(rdr));
+                            mtlist.Add(new item_masterDao().mapView(rdr));
+                        }
+                    }
+                }
+            }
+            if (search.category_id == '0' && search.group_id == '0'  && search.text ==null)
+            {
+            listindex.MaterialSQLlist = mtlist.ToList();
+            }else
+            {
+                listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
+            }
+
+            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            return PartialView(listindex);
+            //return Json(new { listindex }, JsonRequestBehavior.AllowGet);
+        }
         public /*JsonResult*/ ActionResult IndexSearch(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
@@ -116,9 +150,9 @@ namespace KKN_UI.Controllers
             listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
-            return View(listindex);
+            return PartialView(listindex);
             //return  Json(new { listindex }, JsonRequestBehavior.AllowGet);
-        }
+        } 
 
 
 

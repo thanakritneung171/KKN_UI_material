@@ -224,9 +224,9 @@
                     <option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>
                     <option style="display:none" id="selcatall" value="">ทั้งหมด</option>
                     @*@foreach (var itemcategory in result.CategorySQLlist)
-                {
-                    <option value="@itemcategory.category_id" name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
-                }*@
+                        {
+                            <option value="@itemcategory.category_id" name="opcate" style="display:none" id="@itemcategory.group_id">@itemcategory.category_name</option>
+                        }*@
                 </select>
             </div>
 
@@ -234,12 +234,17 @@
                 <button onclick="searchdata()">ค้นหา</button>
             </div>
 
+
+
             <script>
+           
+
+
                 function searchdata() {
                     console.log("select    searchdata");
-                   
-                    
-                    
+
+
+
                     console.log("in function search")
 
                     var stext = document.getElementById("searchinpuit").value
@@ -254,8 +259,13 @@
                     search.group_id = sgroup;
                     search.category_id = scategory;
 
-                     $("#content_ajaxloader").show();
-                    $.ajax({
+                    $("#content_ajaxloader").show();
+
+                    $("#dt_basic").load('@Url.Action("_tabledatalist", "Material")', { SearchItem :search}, function (result) {
+                        $('#content_ajaxloader').fadeOut();
+                    });
+
+                    @*$.ajax({
                         type: "POST",
                         url: '@Url.Action("IndexSearch", "Material")',
                         data: JSON.stringify(search),
@@ -299,7 +309,7 @@
                         error: function (response) {
                             alert(response.responseText);
                         }
-                    });
+                    });*@
                 }
 
             </script>
@@ -456,9 +466,9 @@
 
 
             @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
-        <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
-            <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
-        </div>*@
+                <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
+                    <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
+                </div>*@
             <div class="hidden-lg hidden-md col-sm-8 col-xs-4 ">
 
             </div>
@@ -600,81 +610,8 @@
                 </style>
                 <table id="dt_basic" class="table table-striped  table-bordered table-hover margin-top-10" width="100%">
 
-                    <thead>
-                        <tr>
-                            <th data-hide="phone">#</th>
-                            <th data-class="expand">รหัส</th>
-                            <th data-hide="phone,tablet"><i class="fa fa-fw fa-reorder text-muted hidden-md hidden-sm hidden-xs"></i> กลุ่ม</th>
-                            <th data-hide="phone,tablet"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> ประเภท</th>
-                            <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i> รายการวัสดุ</th>
-                            <th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> สถานะ</th>
-
-
-                            @*<th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> Category</th>*@
-                            @*<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Stocks</th>*@
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Modal ---------------------------------------------------->
-                        <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content1">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Modal Header</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>This is a large modal.</p>
-                                        <input type="text" class="form-control" id="recipient-name" />
-                                        <div id="span1" class="span1"></div>
-                                        <div id="span12" class="span12"></div>
-                                        <div id="span13" class="span13"></div>
-                                        <div id="span14" class="span14"></div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal
-                        --------------------------------------------------->
-
-                        @{ int i = 1;
-                            foreach (var item in result.MaterialSQLlist)
-                            {
-                                @*
-                                    <tr class="trid" id="@item.materialModeldata.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.materialModeldata.item_no })'">
-                                        <td class="stu_numrec" width="5%"> @i </td>
-                                        <td class="stu_no" width="10%"> @item.materialModeldata.item_no   </td>
-                                        <td class="stu_group" width="10%" value="@item.groupmaterialdata.group_id">@item.groupmaterialdata.group_name</td>
-                                        <td class="stu_category" width="15%" value="@item.categorymaterialdata.category_id">@item.categorymaterialdata.category_name</td>
-                                        <td class="stu_des" width="50%">@item.materialModeldata.item_name @item.materialModeldata.size @item.materialModeldata.brand @item.materialModeldata.color @item.materialModeldata.version</td>
-                                        <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" > @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
-                                    </tr>*@
-
-                                <tr class="trid" id="@item.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.item_no })'">
-                                    <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
-                                    <td class="stu_no" width="10%"> @item.item_no   </td>
-                                    <td class="stu_group" width="10%" value="@item.GroupSQLModel.group_id">@item.GroupSQLModel.group_name</td>
-                                    <td class="stu_category" width="15%" value="@item.CategorySQLModel.category_id">@item.CategorySQLModel.category_name</td>
-                                    <td class="stu_des" width="50%">@item.item_name @item.size @item.brand @item.color @item.version</td>
-                                    <td class="stu_status " width="5%" style="color:@(item.status? "Green": "Red")">  @(item.status ? "ใช้งาน": "ไม่ใช้")  </td>
-                                </tr>
-
-                                i++;
-                            } }
-
-
-
-                    </tbody>
+                  
                 </table>
-
-
-
-
 
 
                 <!--------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -694,7 +631,32 @@
     @*</div>*@
 </div>
 
+<!-- Modal ---------------------------------------------------->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content1">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>This is a large modal.</p>
+                <input type="text" class="form-control" id="recipient-name" />
+                <div id="span1" class="span1"></div>
+                <div id="span12" class="span12"></div>
+                <div id="span13" class="span13"></div>
+                <div id="span14" class="span14"></div>
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal
+--------------------------------------------------->
 
 
 
@@ -703,7 +665,7 @@
 <script>
 
 
-  
+
 
 </script>
 
@@ -713,7 +675,15 @@
     <script type="text/javascript">
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
-    
+           function Addtabledatelist() {
+                 $('#content_ajaxloader').fadeIn();
+
+                    $("#dt_basic").load('@Url.Action("_tabledatalist", "Material")',  function (result) {
+                        $('#content_ajaxloader').fadeOut();
+                    });
+
+                }
+
 
         $('#eg7').click(function () {
 
@@ -806,7 +776,7 @@
             Also see: http://legacy.datatables.net/usage/features
             */
 
-
+            Addtabledatelist();
             /* BASIC ;*/
             var responsiveHelper_dt_basic = undefined;
             var responsiveHelper_datatable_fixed_column = undefined;
@@ -951,20 +921,26 @@
 
             /* END TABLETOOLS */
 
+
+
         })
 
-        //$(document).ready(function () {
-        //    var row = document.getElementById("dt_basic_length")
-        //    console.log(row.firstChild.value);
-        //    console.log(row.querySelector.select);
+            //$(document).ready(function () {
+            //    var row = document.getElementById("dt_basic_length")
+            //    console.log(row.firstChild.value);
+            //    console.log(row.querySelector.select);
 
-        //});
+            //});
 
-        //$('#dt_basic_length').click(function () {
-        //    var row11 = document.getElementByName("dt_basic_length")
-        //    console.log(row11+"ASDASDAS")
-            
-        //})
+            //$('#dt_basic_length').click(function () {
+            //    var row11 = document.getElementByName("dt_basic_length")
+            //    console.log(row11+"ASDASDAS")
+
+            //})
+
+
+
+
     </script>
 
 }
