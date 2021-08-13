@@ -171,21 +171,9 @@
 
         <div class="col-lg-12  col-md-12 col-sm-12">
             <div class="row col-lg-4 col-md-4  col-sm-12 col-xs-12" style="padding: 2.5px; margin-right: 15px">
-                <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)" @*onkeyup="teststring()"*@>
+                <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)" >
             </div>
 
-            <script>
-
-                function teststring() {
-                    var string = document.getElementById("searchinpuit").value
-                    string = string.replace(/ /g, ","); //returns my_name
-                    inputsting = string.replace(/ /g, "_"); //returns my_name
-                    console.log(string)
-                    console.log("12312312312")
-                    console.log(string.replace(/ /g, "_"))
-                    console.log(inputsting + "222222222")
-                }
-            </script>
             <div class="row col-lg-2 col-md-2 col-sm-12 hidden-xs" style="padding: 2.5px; margin-right:15px">
                 <select class="form-control" id="selgroup" name="selgroup" @*onchange="selgr(this)"*@ onchange="myselect(this)">
                     <option disabled selected value="เลือกกลุ่มวัสดุ">เลือกกลุ่มวัสดุ</option>
@@ -196,7 +184,6 @@
                     }
                 </select>
             </div>
-
 
             <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
                 <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)">
@@ -209,7 +196,6 @@
                 <button class="btn btn-primary" onclick="searchdata()"><i class="fa fa-search"></i> ค้นหา</button>
             </div>
 
-
             <script>
                 function searchdata() {
                     console.log("select    searchdata");
@@ -218,6 +204,7 @@
                     var stext = document.getElementById("searchinpuit").value
                     if (stext.length <= 3) {
                         MessageAlert("การค้นหา", "โปรดระบุ มากกว่า 3 ตัวอักษร", "rgb(199, 145, 33)", "fa fa-shield fadeInLeft animated");
+                        document.getElementById("searchinpuit").focus();
                         return;
                     }
                     var sgroup = document.getElementById("selgroup").value
@@ -262,15 +249,12 @@
                     if (sg != "") {
                         AddoptionC(sg)
                     } else {
-
                         $("#selcategory").html('<option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>');
                     }
                 }
 
                 function AddoptionC(sg) {
-                    //var sg = document.getElementById("selgroup").value;
                  $('#content_ajaxloader').fadeIn();
-
                     $("#selcategory").load('@Url.Action("_selectcategory", "Material")',  { id: sg}, function (result) {
                         $('#content_ajaxloader').fadeOut();
                     });
@@ -292,7 +276,6 @@
                         }
                     }
                 }
-
 
                 function keyupser(keyupser) {
                     console.log("ค้นหา " + keyupser.value)
@@ -340,9 +323,7 @@
                     //console.log("ค้นหากลุ่ม" + c.value + "out")
                 }
 
-
             </script>
-
 
             <style>
                 select option[disabled]:first-child {
@@ -350,15 +331,10 @@
                 }
             </style>
 
-
-            @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
-                <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
-                    <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
-                </div>*@
+         
             <div class="hidden-lg hidden-md col-sm-8 col-xs-4 ">
 
             </div>
-
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row col-xs-4 col-sm-3 col-md-3 col-lg-2  " style="padding: 2.5px;">
@@ -399,8 +375,6 @@
             </li>*@
 
 
-
-
         @* partial *@
         <div class="cd-panel cd-panel--from-right js-cd-panel-main">
             <div id="panel-div">
@@ -422,7 +396,6 @@
                 </div>
             </div>
         </div>
-
 
 
         <script>
@@ -462,7 +435,6 @@
         }
         </script>
     </div>
-    @*</div>*@
 
 
     @*<div class="container margin-top-5">*@
