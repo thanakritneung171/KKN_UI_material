@@ -430,6 +430,40 @@ namespace KKN_UI.materialDao.item_master
 
             return result;
         }
+
+        public MaterialSQL mapViewSearch(SqlDataReader rdr)
+        {
+            if (Convert.ToInt32(rdr["item_master_item_id"]) == null)
+            {
+                return new MaterialSQL();
+            }
+
+            var result = new MaterialSQL();
+            result.item_id = Convert.ToInt32(rdr["item_master_item_id"]);
+            result.item_no = rdr["item_master_item_no"].ToString();
+            result.item_name = rdr["item_master_item_name"].ToString();
+            result.group_id = Convert.ToInt32(rdr["item_master_group_id"]);
+            result.category_id = Convert.ToInt32(rdr["item_master_category_id"]);
+            result.description = rdr["item_master_description"].ToString();
+            result.status = (bool)rdr["item_master_status"];
+            result.material_acc_id = Convert.ToInt32(rdr["item_master_material_acc_id"]);
+            result.costing_method_id = Convert.ToInt32(rdr["item_master_costing_meterial"]);
+            result.stock_count = (bool)rdr["item_master_stock_count"];
+            result.overdraw_stock = (bool)rdr["item_master_overdraw_stock"];
+            result.picture_path = rdr["item_master_picture_path"].ToString();
+            result.brand = rdr["item_master_brand"].ToString();
+            result.version = rdr["item_master_version"].ToString();
+            result.color = rdr["item_master_color"].ToString();
+            result.size = rdr["item_master_size"].ToString();
+            result.uom_in = Convert.ToInt32(rdr["item_master_uom_in"]);
+            result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
+            result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
+            result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
+
+          
+
+            return result;
+        }
         //public MaterialSearch mapSearch(SqlDataReader rdr)
         //{
         //    var result = mapView(rdr);

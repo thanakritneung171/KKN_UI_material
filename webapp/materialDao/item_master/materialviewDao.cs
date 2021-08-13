@@ -55,14 +55,14 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@group_id", search.group_id);
                     cmd.Parameters.AddWithValue("@category_id", search.category_id);
                     cmd.Parameters.AddWithValue("@text", search.text);
-                    List<MaterialSQL> result = null;
+                    List<MaterialSQL> result = new List<MaterialSQL>();
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
                             if (rdr.HasRows)
                             {
-                            result.Add(new item_masterDao().mapView(rdr));
+                            result.Add(new item_masterDao().mapViewSearch(rdr));
                             }
 
                         }

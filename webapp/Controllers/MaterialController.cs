@@ -109,15 +109,15 @@ namespace KKN_UI.Controllers
             return View(listindex);
         }
 
-        public JsonResult IndexSearch(SearchItem search)
+        public /*JsonResult*/ ActionResult IndexSearch(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
             //List<MaterialSQL> mlist = new List<MaterialSQL>();
             listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
-            //return View(listindex);
-            return  Json(new { listindex }, JsonRequestBehavior.AllowGet);
+            return View(listindex);
+            //return  Json(new { listindex }, JsonRequestBehavior.AllowGet);
         }
 
 
