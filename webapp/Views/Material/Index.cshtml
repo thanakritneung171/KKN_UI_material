@@ -489,7 +489,14 @@
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
         $(document).ready(function () {
-              console.log("ready!");
+            console.log("ready!");
+
+            //$('#dt_basic_length')
+
+            $('select[name="dt_basic_length"]').on('click', function () {
+                alert($(this).val());
+            });
+
             $('#content_ajaxloader').fadeIn();
             $("#partialtabledata").load('@Url.Action("_tabledatalist", "Material")',  function (result) {
                         $('#content_ajaxloader').fadeOut();
