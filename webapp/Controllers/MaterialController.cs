@@ -109,13 +109,15 @@ namespace KKN_UI.Controllers
             return View(listindex);
         }
 
-        public ActionResult IndexSearch(SearchItem search)
+        public JsonResult IndexSearch(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
-            List<MaterialSQL> mlist = new List<MaterialSQL>();
-            listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).materiallist.ToList();
-
-            return View();
+            //List<MaterialSQL> mlist = new List<MaterialSQL>();
+            listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
+            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            //return View(listindex);
+            return  Json(new { listindex }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -872,7 +874,7 @@ namespace KKN_UI.Controllers
             }
             else
             {
-             output = new CategoryDao().InsertCategory(categorydata);
+                output = new CategoryDao().InsertCategory(categorydata);
             }
 
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
@@ -903,13 +905,13 @@ namespace KKN_UI.Controllers
         {
             CategorySQL output = new CategorySQL();
             var check = new CategoryDao().CheckCategoryNew(categorydata);
-            if(check==true)
+            if (check == true)
             {
                 output = null;
             }
             else
             {
-            new CategoryDao().UpdateCategory(categorydata);
+                new CategoryDao().UpdateCategory(categorydata);
             }
 
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);

@@ -236,52 +236,59 @@
 
             <script>
                 function searchdata() {
+                    console.log("select    searchdata");
+                   
+                    
+                    
                     console.log("in function search")
-                    var stext = document.getElementById("selgroup").value
-                    var sgroup = document.getElementById("selcategory").value
-                    var scategory = document.getElementById("searchinpuit").value
+
+                    var stext = document.getElementById("searchinpuit").value
+                    var sgroup = document.getElementById("selgroup").value
+                    var sc = document.getElementById("selcategory");
+                    var scategory = sc.options[sc.selectedIndex].value;
+                    console.log(stext + "     " + sgroup + "     " + scategory)
+
 
                     var search = new Object();
                     search.text = stext;
-                    search.sgroup = sgroup;
-                    search.scategory = scategory;
+                    search.group_id = sgroup;
+                    search.category_id = scategory;
 
                      $("#content_ajaxloader").show();
                     $.ajax({
                         type: "POST",
-                        url: '@Url.Action("Createtodata", "Material")',
-                        data: JSON.stringify(material),
+                        url: '@Url.Action("IndexSearch", "Material")',
+                        data: JSON.stringify(search),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
 
                         success: function (response) {
-                            console.log("response");
-                            console.log(response);
-                            //if (response.output == 0) {
-                            //    alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
+                            //console.log("response");
+                            //console.log(response);
+                            ////if (response.output == 0) {
+                            ////    alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
 
+                            ////    $("#content_ajaxloader").fadeOut("fast");
+                            ////    return;
+                            ////}
+
+                            //if (response.output.msg == 2) {
+                            //    //alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
+                            //    warningsmartconfirmmessagebox("รหัสวัสดุ มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
+                            //    $("#content_ajaxloader").fadeOut("fast");
+                            //    return;
+                            //} else if (response.output.msg == 3) {
+
+                            //    //alert('รายละเอียด มีบันทึกอยู่แล้ว');
+                            //    warningsmartconfirmmessagebox("รายละเอียด มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
                             //    $("#content_ajaxloader").fadeOut("fast");
                             //    return;
                             //}
 
-                            if (response.output.msg == 2) {
-                                //alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
-                                warningsmartconfirmmessagebox("รหัสวัสดุ มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
-                                $("#content_ajaxloader").fadeOut("fast");
-                                return;
-                            } else if (response.output.msg == 3) {
-
-                                //alert('รายละเอียด มีบันทึกอยู่แล้ว');
-                                warningsmartconfirmmessagebox("รายละเอียด มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
-                                $("#content_ajaxloader").fadeOut("fast");
-                                return;
-                            }
-
-
                             console.log("insert complete");
                             console.log(response.output);
 
-                            completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
+                            //completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
 
                             $("#content_ajaxloader").fadeOut("fast");
 
@@ -431,6 +438,7 @@
                         var table1ser = $('#dt_basic').DataTable();
                         table1ser.column(3).search(c.value).draw();
                     }
+                    console.log("1111111111111111111")
                     console.log("ค้นหาประเภท" + c.options[c.selectedIndex].text)
                     console.log("ค้นหากลุ่ม" + c.value + "out")
                 }

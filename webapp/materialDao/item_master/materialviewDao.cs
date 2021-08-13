@@ -45,7 +45,7 @@ namespace KKN_UI.materialDao.item_master
             }
         }
 
-        public MaterialSQLlist GetdataSearch(SearchItem search)
+        public List<MaterialSQL> GetdataSearch(SearchItem search)
         {
             using (var conn = OpenDbConnection())
             {
@@ -55,12 +55,16 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@group_id", search.group_id);
                     cmd.Parameters.AddWithValue("@category_id", search.category_id);
                     cmd.Parameters.AddWithValue("@text", search.text);
-                    MaterialSQLlist result = null;
+                    List<MaterialSQL> result = null;
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            result.materiallist.Add(new item_masterDao().mapView(rdr));
+                            if (rdr.HasRows)
+                            {
+                            result.Add(new item_masterDao().mapView(rdr));
+                            }
+
                         }
                     }
                     return result;
