@@ -460,7 +460,8 @@ namespace KKN_UI.materialDao.item_master
             result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
 
-          
+            result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
+            result.CategorySQLModel = new CategoryDao().mapviewlistcategory(rdr);
 
             return result;
         }

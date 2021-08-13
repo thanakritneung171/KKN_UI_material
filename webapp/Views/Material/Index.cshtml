@@ -220,7 +220,7 @@
 
 
             <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
-                <select class="form-control" id="selcategory" name="selcategory" @*onchange="selcat(this)"*@>
+                <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)">
                     <option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>
                     <option style="display:none" id="selcatall" value="">ทั้งหมด</option>
                     @*@foreach (var itemcategory in result.CategorySQLlist)
@@ -242,9 +242,6 @@
 
                 function searchdata() {
                     console.log("select    searchdata");
-
-
-
                     console.log("in function search")
 
                     var stext = document.getElementById("searchinpuit").value
@@ -261,55 +258,9 @@
 
                     $("#content_ajaxloader").show();
 
-                    $("#dt_basic").load('@Url.Action("_tabledatalist", "Material")', { SearchItem :search}, function (result) {
+                    $("#partialtabledata").load('@Url.Action("_tabledatalist", "Material")', {search}, function (result) {
                         $('#content_ajaxloader').fadeOut();
                     });
-
-                    @*$.ajax({
-                        type: "POST",
-                        url: '@Url.Action("IndexSearch", "Material")',
-                        data: JSON.stringify(search),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-
-                        success: function (response) {
-                            //console.log("response");
-                            //console.log(response);
-                            ////if (response.output == 0) {
-                            ////    alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
-
-                            ////    $("#content_ajaxloader").fadeOut("fast");
-                            ////    return;
-                            ////}
-
-                            //if (response.output.msg == 2) {
-                            //    //alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
-                            //    warningsmartconfirmmessagebox("รหัสวัสดุ มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
-                            //    $("#content_ajaxloader").fadeOut("fast");
-                            //    return;
-                            //} else if (response.output.msg == 3) {
-
-                            //    //alert('รายละเอียด มีบันทึกอยู่แล้ว');
-                            //    warningsmartconfirmmessagebox("รายละเอียด มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
-                            //    $("#content_ajaxloader").fadeOut("fast");
-                            //    return;
-                            //}
-
-                            console.log("insert complete");
-                            console.log(response.output);
-
-                            //completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
-
-                            $("#content_ajaxloader").fadeOut("fast");
-
-                        },
-                        failure: function (response) {
-                            alert(response.responseText);
-                        },
-                        error: function (response) {
-                            alert(response.responseText);
-                        }
-                    });*@
                 }
 
             </script>
@@ -344,7 +295,7 @@
                     selcat(document.getElementById("selcategory"))
                     var sc = document.getElementById("selcategory");
                     var sg = document.getElementById("selgroup").value;
-
+                    console.log(sg)
                     getSelectedOptions(sc, sg)
                     document.getElementById("dontcate").select = true;
                     //selgr(th)
@@ -441,16 +392,16 @@
                 }
 
                 function selcat(c) {
-                    if (c.value != "") {
-                        var table1ser = $('#dt_basic').DataTable();
-                        table1ser.column(3).search(c.options[c.selectedIndex].text).draw();
-                    } else {
-                        var table1ser = $('#dt_basic').DataTable();
-                        table1ser.column(3).search(c.value).draw();
-                    }
+                    //if (c.value != "") {
+                    //    var table1ser = $('#dt_basic').DataTable();
+                    //    table1ser.column(3).search(c.options[c.selectedIndex].text).draw();
+                    //} else {
+                    //    var table1ser = $('#dt_basic').DataTable();
+                    //    table1ser.column(3).search(c.value).draw();
+                    //}
                     console.log("1111111111111111111")
                     console.log("ค้นหาประเภท" + c.options[c.selectedIndex].text)
-                    console.log("ค้นหากลุ่ม" + c.value + "out")
+                    //console.log("ค้นหากลุ่ม" + c.value + "out")
                 }
 
 
@@ -608,10 +559,12 @@
                         background-color: #8adafe;
                     }
                 </style>
-                <table id="dt_basic" class="table table-striped  table-bordered table-hover margin-top-10" width="100%">
+                <div id="partialtabledata">
+
+                </div>
 
                   
-                </table>
+                
 
 
                 <!--------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -678,7 +631,7 @@
            function Addtabledatelist() {
                  $('#content_ajaxloader').fadeIn();
 
-                    $("#dt_basic").load('@Url.Action("_tabledatalist", "Material")',  function (result) {
+               $("#partialtabledata").load('@Url.Action("_tabledatalist", "Material")',  function (result) {
                         $('#content_ajaxloader').fadeOut();
                     });
 
@@ -759,7 +712,7 @@
         }
 
         $(document).ready(function () {
-
+            Addtabledatelist();
             /* // DOM Position key index //
 
             l - Length changing (dropdown)
@@ -776,7 +729,7 @@
             Also see: http://legacy.datatables.net/usage/features
             */
 
-            Addtabledatelist();
+            
             /* BASIC ;*/
             var responsiveHelper_dt_basic = undefined;
             var responsiveHelper_datatable_fixed_column = undefined;
@@ -851,7 +804,7 @@
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
-
+           
             //////////////////////////////////////////////////////////////////////////////////////////
 
             /* END COLUMN FILTER */

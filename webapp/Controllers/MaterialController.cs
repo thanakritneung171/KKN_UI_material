@@ -112,27 +112,29 @@ namespace KKN_UI.Controllers
         public /*JsonResult*/ ActionResult _tabledatalist(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
-            List<MaterialSQL> mtlist = new List<MaterialSQL>();
-            using (var conn = OpenDbConnection())
+           
+           
+            if (search.category_id == 0 && search.group_id == 0  && search.text == null)
             {
-                var query = "SELECT top 100 * FROM  MaterialView";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                List<MaterialSQL> mtlist = new List<MaterialSQL>();
+                using (var conn = OpenDbConnection())
                 {
-                    cmd.CommandType = CommandType.Text;
-                    using (var rdr = cmd.ExecuteReader())
+                    var query = "SELECT top 100 * FROM  MaterialView";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        while (rdr.Read())
+                        cmd.CommandType = CommandType.Text;
+                        using (var rdr = cmd.ExecuteReader())
                         {
-                            //mtlist.Add(mapView(rdr));
-                            mtlist.Add(new item_masterDao().mapView(rdr));
+                            while (rdr.Read())
+                            {
+                                //mtlist.Add(mapView(rdr));
+                                mtlist.Add(new item_masterDao().mapView(rdr));
+                            }
                         }
                     }
                 }
-            }
-            if (search.category_id == '0' && search.group_id == '0'  && search.text ==null)
-            {
-            listindex.MaterialSQLlist = mtlist.ToList();
+                listindex.MaterialSQLlist = mtlist.ToList();
             }else
             {
                 listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
