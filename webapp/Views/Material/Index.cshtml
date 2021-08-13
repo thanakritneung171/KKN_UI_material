@@ -269,17 +269,6 @@
                 function AddoptionC() {
                     var sg = document.getElementById("selgroup").value;
                  $('#content_ajaxloader').fadeIn();
-            @*$.ajax({
-                type: "POST",
-                url: '@Url.Action("_selectcategory", "Material")',
-                dataType: 'html',
-                data: {id:sg},
-                success: function (result) {
-                    //$('#selcategory').html('');
-                    //$('#selcategory').html(result);
-                    $('#selcategory').load('_selectcategory');
-                }
-                  });*@
 
                     $("#selcategory").load('@Url.Action("_selectcategory", "Material")',  { id: sg}, function (result) {
                         $('#content_ajaxloader').fadeOut();
@@ -296,7 +285,7 @@
                     var sc = document.getElementById("selcategory");
                     var sg = document.getElementById("selgroup").value;
                     console.log(sg)
-                    getSelectedOptions(sc, sg)
+                    //getSelectedOptions(sc, sg)
                     document.getElementById("dontcate").select = true;
                     //selgr(th)
                     AddoptionC()
@@ -318,40 +307,14 @@
                                 options[i].style.display = "block";
                             }
                         }
-                        /////////
-                        //if (option == "1" && options[i].id == "1") {
-                        //    console.log("optien 1")
-                        //    options[i].style.display = "block";
-                        //} else if (option == "2" && options[i].id == "2") {
-                        //    console.log("optien 2")
-                        //    options[i].style.display = "block";
-                        //} else if (option == "3" && options[i].id == "3") {
-                        //    console.log("optien 3")
-                        //    options[i].style.display = "block";
-                        //} else if (option == "4" && options[i].id == "4") {
-                        //    console.log("optien 4")
-                        //    options[i].style.display = "block";
-                        //} else if (option == "5" && options[i].id == "5") {
-                        //    console.log("optien 5")
-                        //    options[i].style.display = "block";
-                        //} else if (option == "6" && options[i].id == "6") {
-                        //    console.log("optien 6")
-                        //    options[i].style.display = "block";
-                        //} else if (option == "7" && options[i].id == "7") {
-                        //    console.log("optien 7")
-                        //    options[i].style.display = "block";
-                        //} else if (option == "8" && options[i].id == "8") {
-                        //    console.log("optien 8")
-                        //    options[i].style.display = "block";
-                        //}
                     }
                 }
 
 
                 function keyupser(keyupser) {
                     console.log("ค้นหา " + keyupser.value)
-                    var table1ser = $('#dt_basic').DataTable();
-                    table1ser.search(keyupser.value).draw();
+                    //var table1ser = $('#dt_basic').DataTable();
+                    //table1ser.search(keyupser.value).draw();
                 }
 
                 function selgr(b) {
