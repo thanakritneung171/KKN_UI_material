@@ -527,6 +527,15 @@
             });
         }
 
+        function warningmartconfirmmessagebox(string = '', content) {
+            $.smallBox({
+                title:  string,
+                content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                color: "rgb(199, 145, 33)",
+                iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                timeout: 4000
+            });
+        }
         function smartconfirmmessagebox(string = '', callback) {
             $.SmartMessageBox({
                 title: "Confirm!",
@@ -559,7 +568,7 @@
         }
 
         function MessageAlert(title, content, color, iconSmall, type) {
-            if (type = 1) {
+            if (type == true) {
                 $.smallBox({
                     title: title,
                     content: content,

@@ -81,12 +81,14 @@
         inGC.group_id = document.getElementById("groupC").value;
         inGC.category_name = document.getElementById("insertC").value;
         if (inGC.group_id == "0") {
-            alert("โปรดระบุข้อมูลกลุ่ม");
+            //alert("โปรดระบุข้อมูลกลุ่ม");
+            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรดระบุข้อมูลกลุ่ม");
             document.getElementById("groupC").focus();
             return;
         }
         if (inGC.category_name == "") {
-            alert("โปรดระบุข้อมูลประเภท");
+            //alert("โปรดระบุข้อมูลประเภท");
+            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรดระบุข้อมูลประเภท");
             document.getElementById("insertC").focus();
             return;
         }
@@ -112,15 +114,16 @@
             dataType: "json",
             success: function (response) {
                 if (response.output != 1) {
-                    alert('ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
+                    //alert('ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
+                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, 'ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
                     document.getElementById("insertC").focus();
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
                 console.log("insert complete");
                 console.log(response.output);
-                completesmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โหลดข้อมูล");
                 $("#content_ajaxloader").fadeOut("fast");
+                completesmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โหลดข้อมูล");
                 //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
@@ -141,12 +144,14 @@
         inGC.group_id = document.getElementById("groupC").value;
         inGC.category_name = document.getElementById("insertC").value;
         if (inGC.group_id == "0") {
-            alert("โปรดระบุข้อมูลกลุ่ม");
+            //alert("โปรดระบุข้อมูลกลุ่ม");
+            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรดระบุข้อมูลกลุ่ม");
             document.getElementById("groupC").focus();
             return;
         }
         if (inGC.category_name == "") {
-            alert("โปรดระบุข้อมูลประเภท");
+            //alert("โปรดระบุข้อมูลประเภท");
+            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรดระบุข้อมูลประเภท");
             document.getElementById("insertC").focus();
             return;
         }
@@ -172,16 +177,17 @@
             dataType: "json",
             success: function (response) {
                 if (response.output != 1 ){
-                    alert('ชื่อประเภท มีบันทึกอยู่แล้ว');
+                    //alert('ชื่อประเภท มีบันทึกอยู่แล้ว');
+                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, 'ชื่อประเภท มีบันทึกอยู่แล้ว');
                     document.getElementById("insertC").focus();
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
                 console.log("insert complete");
                 console.log(response.output);
-                completesmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โหลดข้อมูล");
+                completesmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "บันทึกเรียบร้อย");
                 $("#content_ajaxloader").fadeOut("fast");
-                alert("บันทึกเรียบร้อย");
+                //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
                 AddPanelcate();
@@ -214,8 +220,8 @@
                     dataType: "json",
                     success: function (response) {
                         console.log("delete complete");
-                        completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
                         $("#content_ajaxloader").fadeOut("fast");
+                        completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
                         //alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
                         /*window.location.href = "/material";*/

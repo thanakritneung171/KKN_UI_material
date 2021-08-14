@@ -98,8 +98,9 @@
             dataType: "json",
             success: function (response) {
                 if (response.output != 1) {
-                    alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
                     document.getElementById("insertG").focus();
+                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว");
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
@@ -129,7 +130,8 @@
         var inGC = new Object();
         inGC.group_name = document.getElementById("insertG").value;
         if (inGC.group_name == "") {
-            alert("โปรกระบุข้อมูล");
+            //alert("โปรกระบุข้อมูล");
+            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรกระบุข้อมูล");
             document.getElementById("insertG").focus();
             return;
         }
@@ -154,14 +156,15 @@
             dataType: "json",
             success: function (response) {
                 if (response.output != 1) {
-                    alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, 'ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
                     document.getElementById("insertG").focus();
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
                 console.log("insert complete");
                 console.log(response.output);
-                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
+                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "บันทึกเรียบร้อย");
                 $("#content_ajaxloader").fadeOut("fast");
                 //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
@@ -196,8 +199,8 @@
                     dataType: "json",
                     success: function (response) {
                         console.log("delete complete");
-                        completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
                         $("#content_ajaxloader").fadeOut("fast");
+                        completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
                         //alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
                         AddPanel();
