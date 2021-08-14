@@ -167,6 +167,9 @@
 </style>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
+    <div class="row margin-top-10">
+        <h2 class="margin-top-10"> <i class="glyphicon glyphicon-inbox" ></i> ข้อมูลวัสดุ</h2>
+    </div>
     <div class="row margin-top-10  ">
 
         <div class="col-lg-12  col-md-12 col-sm-12">
@@ -202,11 +205,11 @@
                     console.log("in function search")
 
                     var stext = document.getElementById("searchinpuit").value
-                    if (stext.length <= 3) {
-                        MessageAlert("การค้นหา", "โปรดระบุ มากกว่า 3 ตัวอักษร", "rgb(199, 145, 33)", "fa fa-shield fadeInLeft animated");
-                        document.getElementById("searchinpuit").focus();
-                        return;
-                    }
+                    //if (stext.length < 3) {
+                    //    MessageAlert("การค้นหา", "โปรดระบุ มากกว่า 3 ตัวอักษร", "rgb(199, 145, 33)", "fa fa-shield fadeInLeft animated");
+                    //    document.getElementById("searchinpuit").focus();
+                    //    return;
+                    //}
                     var sgroup = document.getElementById("selgroup").value
                     var sc = document.getElementById("selcategory");
                     var scategory = sc.options[sc.selectedIndex].value;

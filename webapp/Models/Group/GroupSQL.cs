@@ -10,6 +10,7 @@ namespace KKN_UI.Models
     {
         public int group_id { get; set; }
         public string group_name { get; set; }
+        public bool active { get; set; }
     }
 
     public class GroupSQLlist

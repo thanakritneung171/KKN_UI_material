@@ -191,7 +191,7 @@
     <div class="row margin-top-10 margin-left-10">
         <div class="row">
             <h3>
-                <i class="fa fa-cube" ></i> &nbsp; <span style="color:forestgreen;" id="headermanu">เพิ่มวัสดุอุปกรณ์ใหม่</span>
+                <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;" id="headermanu">เพิ่มวัสดุอุปกรณ์ใหม่</span>
                 @*<i class="fa fa-chevron-right"></i>
                     <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
                     <span>sdfsdfsdfsdfdsssdf </span>*@  &nbsp;&nbsp;
@@ -550,7 +550,7 @@
         <button class="btn-lg btn-success " style="margin:5px;" onclick="comfirmsave()">บันทึก</button>
 
     </div> <br /><br />
-
+    <button onclick="checkactive()"> f</button>
     <script>
 
         function comfirmsave() {
@@ -678,7 +678,7 @@
                 console.log(response.output);
 
                 completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โหลดข้อมูล");
-                
+
                 $("#content_ajaxloader").fadeOut("fast");
                 //alert("บันทึกเรียบร้อย")
                 //alert(response.item_no + "suc" + response.picture_path)

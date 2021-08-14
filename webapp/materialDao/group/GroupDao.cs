@@ -26,6 +26,7 @@ namespace KKN_UI.material.group
         private const string CREATE = "group_itemCreate";
         private const string DELETE = "group_itemDelete";
         private const string UPDATE = "group_itemUpdate";
+        private const string UPDATEACTIVE = "[group_itemUpdateActive]";
 
         private const string READ_BYID = "group_itemRead_Byid";
         private const string CHECKGROUPNEW = "CheckGroupNew";
@@ -155,6 +156,31 @@ namespace KKN_UI.material.group
             }
         }
 
+        public GroupSQL UpdateGroupActive(GroupSQL groupobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(UPDATEACTIVE,conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
+                    cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
+                    cmd.Parameters.AddWithValue("@active", groupobject.active);
+                    GroupSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if(rdr.HasRows)
+                        {
+                            result = maplistgroupActive(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+
         public GroupSQL DeleteGroup(GroupSQL groupobject)
         {
             using (var conn = OpenDbConnection())
@@ -185,10 +211,19 @@ namespace KKN_UI.material.group
             var resultgroup = new GroupSQL();
             resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
             resultgroup.group_name = rdr["group_name"].ToString();
+            resultgroup.active = (bool)rdr["active"];
 
             return resultgroup;
         }
 
+        public GroupSQL maplistgroupActive(SqlDataReader rdr)
+        {
+            var resultgroup = new GroupSQL();
+            resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
+            resultgroup.group_name = rdr["group_name"].ToString();
+            resultgroup.active = (bool)rdr["status"];
+            return resultgroup;
+        }
         internal static GroupSQL mapviewlistgroupDao(SqlDataReader rdr)
         {
             var resultgroup = new GroupSQL();

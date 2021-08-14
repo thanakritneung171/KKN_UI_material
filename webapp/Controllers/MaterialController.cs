@@ -876,6 +876,14 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
+        public JsonResult UpdateGorupActive(GroupSQL groupSQL)
+        {
+            GroupSQL output = new GroupSQL();
+            new GroupDao().UpdateGroupActive(groupSQL);
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult DeleteGroup(GroupSQL groupdata)
         {
             var output = new GroupDao().DeleteGroup(groupdata);
