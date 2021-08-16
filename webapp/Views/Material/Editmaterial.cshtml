@@ -576,7 +576,7 @@
     </div>
 
     <div class="row margin-top-10 margin-bottom-10 ">
-        <button id="btcancel" class="btn btn-danger pull-right" style="margin:5px; display:none;" onclick="canceledit()">Cancel</button>
+        <button id="btcancel" class="btn btn-danger pull-right" style="margin:5px; display:none;" @*onclick="canceledit()*@" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = @result.MaterialSQLdataselect.item_no })'">Cancel</button>
         <button id="btsave" class="btn btn-success pull-right" style="margin: 5px; display: none;" onclick="comfirmsave()">Save</button>
         <button id="btdelte" class="btn btn-danger pull-right" style="margin:5px;" onclick="deleteedit()">Delete</button>
         <button id="btedit" class="btn btn-warning pull-right" style="margin:5px;" onclick="openedit()">Edit</button>
@@ -584,7 +584,24 @@
     </div> <br /><br />
 
 
-    <script>
+                 <script>
+        function canceleditcallback() {
+            var id = document.getElementById("item_id").value;
+            console.log(id);
+            $('#content_ajaxloader').show();
+            $.ajax({
+                //type: "POST",
+                url: '@Url.Action("Editmaterial", "Material")',
+                dataType: 'html',
+                data: { id: id},
+                success: function (result) {
+                    $('#content_ajaxloader').hide();
+                    
+                }
+            });
+        }
+
+
             function openedit() {
                 document.getElementById("btedit").style.display = "none";
                 document.getElementById("btcancel").style.display = "block";
@@ -712,12 +729,12 @@
                 var file_data = $('#input').prop('files')[0];
 
                 var form_data = new FormData();
-            
+
                 form_data.append('file', file_data);
                 //if (file_data == null) {
 
                 //}
-               
+
                 console.log('form_data');
                 console.log(form_data);
                 alert(form_data);
@@ -789,7 +806,7 @@
                     }
                 })
             };
-    </script>
+                 </script>
 
     @*</div>*@
 </div>

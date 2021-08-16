@@ -2,7 +2,7 @@
     GroupSQL result = Model;
 }
 
-<div class="modal-content">
+<div class="modal-content" id="madalwindow">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -26,19 +26,26 @@
                     <input type="text" class="form-control" id="insertG" name="insertG" value="@result.group_name" @(result.group_id != 0 ? "disabled" : "" ) />
                 </div>
             </div>
+            <div class="row margin-top-10">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
+                    
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
+                    <label class="checkbox-inline pull-left">
+                        <input type="checkbox" id="status" class="checkbox style-0" value="@result.active" @(result.active ? "checked" : "") onclick="checkactive()">
+                        <span>สถานะการใช้งาน</span>
+                    </label>
+                </div>
+            </div>
         </form>
 
     </div>
     <div class="modal-footer">
 
-        <label class="checkbox-inline pull-left">
-            <input type="checkbox" id="status" class="checkbox style-0" value="@result.active" @(result.active ? "checked" : "") onclick="checkactive()">
-            <span>สถานะการใช้งาน</span>
-        </label>
+       
 
-        @*@(result.MaterialSQLdataselect.status ? "checked" : "")*@
 
-    <script>
+        <script>
 
             function checkactive() {
                 var material = new Object();
@@ -85,7 +92,7 @@
                     }
                  })
             }
-    </script>
+        </script>
         <button id="createbtn" class="btn btn-lg btn-labeled btn-success " style="display:@(result.group_id == 0 ? "inline" : "none");" onclick="confirmandsaveG()">
             <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>สร้าง
         </button>
@@ -93,13 +100,34 @@
         @*<button class="btn btn-labeled btn-success"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>สร้าง </button>*@
 
         <button id="editbtn" class="btn btn-lg btn-labeled btn-warning margin-right-5 " style="display:@(result.group_id != 0 ? "inline" : "none");" onclick="editopen()"><span class="btn-label"><i class="glyphicon glyphicon-pencil"></i></span>แก้ไข</button>
-        <button id="delebtn" class="btn btn-lg btn-labeled btn-danger margin-right-5 " style="display: @(result.group_id != 0 ? "inline" : "none");" onclick="confirmanddeleteG()"><span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>ลบ</button>
+        <button id="delebtn" class="btn btn-lg btn-labeled btn-danger margin-right-5 " style="display: @(result.group_id != 0 ? "inline" : "none");" onclick="confirmanddeleteG()"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>ลบ</button>
         <button id="savebtn" class="btn btn-lg btn-labeled btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateG()"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>บันทึก</button>
-        <button id="cacelbtn" class="btn btn-lg btn-labeled btn-danger margin-right-5" style="display:none" onclick="caceledit()"><span class="btn-label"><i class="glyphicon glyphicon-repeat"></i></span>ยกเลิก</button>
-        @*<button type="button" class="btn-lg btn-danger margin-right-5" data-dismiss="modal" style="display: @(result.group_id == 0 ? "inline" : "none");">กลับ</button>*@
+        <button id="cacelbtn" class="btn btn-lg btn-labeled btn-danger margin-right-5" style="display:none" @*onclick="caceledit()"*@ onclick="canceleditcallback()"><span class="btn-label"><i class="glyphicon glyphicon-repeat"></i></span>ยกเลิก</button>
+
+        <button id="backbtn" class="btn btn-lg btn-labeled btn-info margin-right-5" data-dismiss="modal"><span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>กลับ</button>
+        
     </div>
 </div>
 
+<script>
+    function canceleditcallback() {
+        var id = document.getElementById("inputGid").value;
+        console.log(id);
+        $('#content_ajaxloader').show();
+        $.ajax({
+            type: "POST",
+            url:'@Url.Action("_editgroup", "Material")',
+                dataType: 'html',
+            data: { id: id},
+                success: function (result) {
+                    $('#Modal_Content').html('');
+                    $('#Modal_Content').html(result);
+                    $('#Modal').modal('show');
+                    $('#content_ajaxloader').hide();
+                }
+        })
+    }
+</script>
 
 <style>
     .validgroup {
@@ -109,6 +137,7 @@
 
 <script>
     function editopen() {
+        document.getElementById("backbtn").style.display = "none";
         document.getElementById("editbtn").style.display = "none";
         document.getElementById("delebtn").style.display = "none";
         document.getElementById("savebtn").style.display = "inline";
@@ -119,6 +148,7 @@
     }
 
     function caceledit() {
+        document.getElementById("backbtn").style.display = "inline";
         document.getElementById("cacelbtn").style.display = "none"
         document.getElementById("savebtn").style.display = "none";
         document.getElementById("editbtn").style.display = "inline";
