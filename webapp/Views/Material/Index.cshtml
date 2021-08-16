@@ -167,7 +167,7 @@
 </style>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
-    <div class="row margin-top-10 ">
+    <div class="row margin-top-10  margin-left-10">
         <h2 class="row col-lg-6 col-md-4 col-sm-4 "> <i class="glyphicon glyphicon-inbox"></i> ข้อมูลวัสดุ</h2>
 
         <div class="row   pull-right margin-right-10" style="padding: 2.5px;">
@@ -185,7 +185,7 @@
 
     <div class="row margin-top-10  ">
 
-        <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 margin-left-5">
             <div class="row col-lg-4 col-md-4  col-sm-12 col-xs-12" style="padding: 2.5px; margin-right: 15px">
                 <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)">
             </div>
@@ -221,11 +221,6 @@
                     console.log("in function search")
 
                     var stext = document.getElementById("searchinpuit").value
-                    //if (stext.length < 3) {
-                    //    MessageAlert("การค้นหา", "โปรดระบุ มากกว่า 3 ตัวอักษร", "rgb(199, 145, 33)", "fa fa-shield fadeInLeft animated");
-                    //    document.getElementById("searchinpuit").focus();
-                    //    return;
-                    //}
                     var sgroup = document.getElementById("selgroup").value
                     var sc = document.getElementById("selcategory");
                     var scategory = sc.options[sc.selectedIndex].value;
@@ -235,6 +230,25 @@
                     search.text = stext;
                     search.group_id = sgroup;
                     search.category_id = scategory;
+
+                    if (stext.length < 3 && scategory == "" && sgroup == "เลือกกลุ่มวัสดุ") {
+                        MessageAlert("การค้นหา", "โปรดระบุ มากกว่า 3 ตัวอักษร หรือเลือกกลุ่มวัสดุ", "rgb(199, 145, 33)", "fa fa-shield fadeInLeft animated");
+                        document.getElementById("searchinpuit").focus();
+                        return;
+                    } else if (sgroup == "") {
+                        smartconfirmmessageboxbycase("ต้องการค้นหาข้อมูลจากกลุ่มทั้งหมด", "กรุณาระบุข้อมูล หรือ เลือกกลุ่ม", function () {
+                            console.log("in function call back ")
+                            searchdatafunction(search);
+                        });
+                    } else {
+                        searchdatafunction(search);
+                    }
+
+                }
+
+                function searchdatafunction(search) {
+                     console.log("22222222222222222222222222")
+                 
                     console.log(search)
                     $("#content_ajaxloader").show();
 
@@ -555,6 +569,9 @@
                 timeout: 4000
             });
         }
+
+      
+
         function smartconfirmmessagebox(string = '', callback) {
             $.SmartMessageBox({
                 title: "Confirm!",
@@ -576,6 +593,37 @@
                 if (ButtonPressed === "ไม่") {
                     $.smallBox({
                         title: "ยกเลิกบันทึกข้อมูล",
+                        content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 10000
+                    });
+                    //false;
+                }
+            });
+        }
+
+        function smartconfirmmessageboxbycase(stringY = '', stringN = '', callback) {
+            $.SmartMessageBox({
+                title: "Confirm!",
+                content: "คุณต้องการ" + stringY + "หรือไม่",
+                buttons: '[ไม่][ใช่]'
+            }, function (ButtonPressed) {
+                if (ButtonPressed === "ใช่") {
+
+                    //$.smallBox({
+                    //    title: "กำลัง" + string,
+                    //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                    //    color: "#659265",
+                    //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                    //    timeout: 4000
+                    //});
+                    callback();
+                    //true;
+                }
+                if (ButtonPressed === "ไม่") {
+                    $.smallBox({
+                        title: stringN,
                         content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
                         color: "#C46A69",
                         iconSmall: "fa fa-times fa-2x fadeInRight animated",
