@@ -534,11 +534,11 @@
                 @{
                     if (result.MaterialSQLdataselect.status == true)
                     {
-                        <a  class="btn btn-default btn-circle btn-lg" id="activeupdate" value="false" onclick="checkactiveitem()"><i class="glyphicon glyphicon-ok"></i></a> <label>สถานะ ใช้งาน</label>
+                        <a  class="btn btn-default btn-circle btn-lg" id="activeupdate" value="false" onclick="checkactiveitem()"><i class="glyphicon glyphicon-ok"></i></a> <label id="activeupdatlabele">สถานะ ใช้งาน</label>
                     }
                     else
                     {
-                        <a  class="btn btn-default btn-circle btn-lg" id="activeupdate" value="true"  onclick="checkactiveitem()"><i class="glyphicon glyphicon-remove"></i></a> <label>สถานะ ไม่ใช้งาน</label>
+                        <a  class="btn btn-default btn-circle btn-lg" id="activeupdate" value="true"  onclick="checkactiveitem()"><i class="glyphicon glyphicon-remove"></i></a> <label id="activeupdatlabele">สถานะ ไม่ใช้งาน</label>
                     }
                 }
 
@@ -745,6 +745,8 @@
                 document.getElementById("uom_stock").disabled = false;
                 document.getElementById("qty_in").disabled = false;
                 document.getElementById("qty_stock").disabled = false;
+                document.getElementById("activeupdate").style.display = "none";
+                document.getElementById("activeupdatlabele").style.display = "none";
 
             }
             function canceledit() {

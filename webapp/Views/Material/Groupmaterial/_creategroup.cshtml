@@ -28,11 +28,11 @@
             </div>
             <div class="row margin-top-10">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
-                    
+
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
-                    <label class="checkbox-inline pull-left"  style="display:@(result.group_id != 0 ? "inline" : "none");">
-                        <input type="checkbox" id="status" class="checkbox style-0" value="@result.active"  @(result.active ? "checked" : "") onclick="checkactive()">
+                    <label class="checkbox-inline pull-left" style="display:@(result.group_id != 0 ? "inline" : "none");">
+                        <input type="checkbox" id="status" class="checkbox style-0" value="@result.active" @(result.active ? "checked" : "") onclick="checkactive()">
                         <span>สถานะการใช้งาน</span>
                     </label>
                 </div>
@@ -42,7 +42,7 @@
     </div>
     <div class="modal-footer">
 
-       
+
 
 
         <script>
@@ -143,7 +143,7 @@
         <button id="cacelbtn" class="btn btn-lg btn-labeled btn-danger margin-right-5" style="display:none" @*onclick="caceledit()"*@ onclick="canceleditcallback()"><span class="btn-label"><i class="glyphicon glyphicon-repeat"></i></span>ยกเลิก</button>
 
         <button id="backbtn" class="btn btn-lg btn-labeled btn-info margin-right-5" data-dismiss="modal"><span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>กลับ</button>
-        
+
     </div>
 </div>
 
@@ -169,7 +169,7 @@
 
 <style>
     .validgroup {
-        border-color:red;
+        border-color: red;
     }
 </style>
 
@@ -183,7 +183,9 @@
         document.getElementById("insertG").disabled = false;
         document.getElementById("inputGid").setAttribute('type', 'text');
         document.getElementById("labelGid").hidden = false;
-        document.getElementById("status").disabled = true;
+        //document.getElementById("status").disabled = true;
+        //document.getElementById("btnConfirm").removeEventListener("click", function (e) { e.preventDefault(); }, false);
+        document.getElementById('status').removeAttribute("onclick");
     }
 
     function caceledit() {
@@ -270,6 +272,11 @@
         var headermanu = document.getElementById("headermanu")
         console.log(headermanu.textContent);
         smartconfirmmessagebox(headermanu.textContent, function () {
+            ////////
+            //smartconfirmmessagebox("แก้ไขสถานะการใช้งาน", function () {
+            //    console.log("DO FUNCTION callback");
+            //    updateG();
+            //})
             console.log("DO FUNCTION callback");
             updateG();
         })
@@ -279,6 +286,7 @@
         var inG = new Object();
         inG.group_id = document.getElementById("inputGid").value;
         inG.group_name = document.getElementById("insertG").value;
+        inG.active = document.getElementById("status").checked;
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",
