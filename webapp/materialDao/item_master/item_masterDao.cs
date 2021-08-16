@@ -30,6 +30,7 @@ namespace KKN_UI.materialDao.item_master
         private const string CREATE = "item_masterCreate";
         private const string DELETE = "item_masterDelete";
         private const string UPDATE = "item_masterUpdate";
+        private const string UPDATEACTIVE = "item_masterUpdateActive";
 
         private const string READ_BYID = "item_masterRead_Byid";
 
@@ -306,6 +307,31 @@ namespace KKN_UI.materialDao.item_master
                 }
             }
         }
+
+        public MaterialSQL UpdateActiveItem_master(MaterialSQL materialobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(UPDATEACTIVE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@item_id", materialobject.item_id);
+                    cmd.Parameters.AddWithValue("@status", materialobject.status);
+
+                    MaterialSQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = mapinsert(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
 
         public int /*MaterialSQL*/ DeleteItem_master(MaterialSQL materialobject)
         {

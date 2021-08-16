@@ -529,6 +529,125 @@
                 </div>
                 @*</form>*@
 
+            <div class="margin-top-10">
+
+                @{
+                    if (result.MaterialSQLdataselect.status == true)
+                    {
+                        <a  class="btn btn-default btn-circle btn-lg" id="activeupdate" value="false" onclick="checkactiveitem()"><i class="glyphicon glyphicon-ok"></i></a> <label>สถานะ ใช้งาน</label>
+                    }
+                    else
+                    {
+                        <a  class="btn btn-default btn-circle btn-lg" id="activeupdate" value="true"  onclick="checkactiveitem()"><i class="glyphicon glyphicon-remove"></i></a> <label>สถานะ ไม่ใช้งาน</label>
+                    }
+                }
+
+            <script>
+                    function checkactiveitem() {
+                        var material = new Object();
+                        material.item_id = document.getElementById("item_id").value;
+                        material.status = document.getElementById("activeupdate").getAttribute("value");
+                        console.log(material);
+                        smartconfirmmessageboxedit1("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
+                            function callbackY() {
+                                console.log("to do update status");
+                                updateactivestatusitem(material);
+                            },
+                            function callbackN() {
+                                canceleditcallback();
+                            });
+                    }
+                    function updateactivestatusitem(material) {
+                         $("#content_ajaxloader").show();
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("UpdateItemActive", "Material")',
+                            data: JSON.stringify(material),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.output != 1) {
+                                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                                    //warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว");
+                                    //$("#content_ajaxloader").fadeOut("fast");
+                                    //return;
+                                }
+                                console.log("insert complete");
+                                console.log(response.output);
+
+                                completesmartconfirmmessagebox1("เปลี่ยนสถานะการใช้งาน", "เปลี่ยนสถานะสำเร็จ");
+
+                                $("#content_ajaxloader").fadeOut("fast");
+                                //alert("บันทึกเรียบร้อย");
+                                $('#Modal').modal('hide');
+
+                                window.location.href = "/material/editmaterial/" + "@result.MaterialSQLdataselect.item_no";
+
+
+                                           $.ajax({
+                                        type: "POST",
+                                        url: '@Url.Action("Editmaterial", "Material")',
+                                        data: JSON.stringify(material.item_no),
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        success: function (response) {                                     
+                                        }
+                                     })
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            }
+                         })
+                }
+
+                    function completesmartconfirmmessagebox1(string = '', content) {
+                        $.smallBox({
+                            title: "กำลัง" + string,
+                            content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                            color: "#659265",
+                            iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                            timeout: 4000
+                        });
+                    }
+
+                function smartconfirmmessageboxedit1(stringY = '', stringN = '', callbackY, callbackN) {
+                    $.SmartMessageBox({
+                        title: "Confirm!",
+                        content: "คุณต้องการ" + stringY + "หรือไม่",
+                        buttons: '[ไม่][ใช่]'
+                    }, function (ButtonPressed) {
+                        if (ButtonPressed === "ใช่") {
+
+                            //$.smallBox({
+                            //    title: "กำลัง" + stringY,
+                            //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                            //    color: "#659265",
+                            //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                            //    timeout: 4000
+                            //});
+                            callbackY();
+                            //true;
+                        }
+                        if (ButtonPressed === "ไม่") {
+                            $.smallBox({
+                                title: stringN,
+                                content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 10000
+                            });
+                            callbackN();
+                            //false;
+                        }
+                    });
+                }
+            </script>
+
+            </div>
+
             </div>
         </form>
     </div>

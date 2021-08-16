@@ -8,7 +8,27 @@
 </header>
 <div class="cd-panel__container">
     <div class="cd-panel__content">
-        <div class="row" style="padding: 2.5px; "><a class="btn btn-success glyphicon glyphicon-plus" onclick="openmodalcreate();">เพิ่มวัสดุใหม่</a></div>
+        <div class="row margin-left-10">
+            <div class="row col-lg-8 col-md-8 col-sm-8 col-xs-8" >
+                <a class="btn btn-success glyphicon glyphicon-plus" onclick="openmodalcreate();">เพิ่มวัสดุใหม่</a>
+            </div>
+
+            <div class="row col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-left-15 margin-right-0 pull-right" >
+                <label class="checkbox-inline ">
+                    <input type="checkbox" id="statustable" class="checkbox style-0" onclick="showunactive()">
+                    <span>สถานะการใช้งาน</span>
+                </label>
+            </div>
+        </div>
+       
+
+        <script>
+            function showunactive() {
+                var statustable = document.getElementById("statustable").checked;
+                console.log(statustable)
+            }
+        </script>
+
         <div class="table-responsive margin-top-10">
             <style>
                 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {

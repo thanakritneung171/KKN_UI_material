@@ -686,6 +686,15 @@ namespace KKN_UI.Controllers
         }
 
 
+        [HttpPost]
+        public JsonResult UpdateItemActive(MaterialSQL itemSQL)
+        {
+            MaterialSQL output = new MaterialSQL();
+            new item_masterDao().UpdateActiveItem_master(itemSQL);
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+
         public static MaterialSQL searchdeletefile(int id)
         {
             MaterialSQL material = new MaterialSQL();
