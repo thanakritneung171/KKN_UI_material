@@ -1,15 +1,10 @@
-﻿@*@model KKN_UI.Models.materialModel
-    @model KKN_UI.Models.FileUploadModel*@
-
-
-@{
-    //materialModel result = Model;
-    //List<groupmaterial> result = Model;
+﻿@{
     MaterialSQLindex result = Model;
-    //FileUploadModel fileresult = Model;
+    string path = "/UploadedFiles/Photo/";
 }
 @{
     ViewBag.Title = "Creatematerial";
+    ViewBag.Title2 = "Editmaterial";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -150,19 +145,6 @@
         font-size: 10px;
     }
 
-    /*.validateclass {*/
-    /*border-style: 5px !solid;*/
-    /*border-color: red;
-            border: 1px solid;
-            border-radius: 5px;
-        }*/
-
-    /*   input.invalid {
-            border-color: red;
-            border: 1px solid;
-            border-radius: 5px;
-        }
-    */
     input[type=text].invalid {
         /*box-sizing: border-box;*/
         border: 2px solid red;
@@ -186,17 +168,34 @@
     }
 </style>
 
+<input hidden id="item_id" value="@result.MaterialSQLdataselect.item_id"/>
+
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
-    @*  <div class="container">*@
     <div class="row margin-top-10 margin-left-10">
         <div class="row">
-            <h3>
-                <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;" id="headermanu">เพิ่มวัสดุอุปกรณ์ใหม่</span>
-                @*<i class="fa fa-chevron-right"></i>
-                    <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
-                    <span>sdfsdfsdfsdfdsssdf </span>*@  &nbsp;&nbsp;
-                <a href="@Url.Action("Index", "Material")">Back</a>
-            </h3>
+
+            @{
+                if (result.MaterialSQLdataselect.item_id == 0)
+                {
+                    <h3>
+                        <i class="fa fa-cube"></i> &nbsp;    <span style="color:forestgreen;" id="headermanu">เพิ่มวัสดุอุปกรณ์ใหม่</span>
+                        &nbsp;&nbsp;
+                        <a href="@Url.Action("Index", "Material")">Back</a>
+                    </h3>
+                }
+                else
+                {
+                    <h3>
+                        <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">วัสดุอุปกรณ์</span>
+                        <i class="fa fa-chevron-right"></i>
+                        <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
+                        <span>@result.MaterialSQLdataselect.item_name - @result.MaterialSQLdataselect.item_name </span>&nbsp;&nbsp;
+                        <a href="@Url.Action("Index", "Material")">Back</a>
+                    </h3>
+                }
+            }
+
+
         </div>
     </div>
 
@@ -220,47 +219,104 @@
                     }
                 </style>
 
-                @*<form class="form-horizontal">*@
                 <h3 id="hrw">วัสดุ</h3>
-                @*<input type="text" class="form-control hidden" id="id" name="id" maxlength="5">*@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control " id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <input type="text" class="form-control " id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control " id="item_no" value="@result.MaterialSQLdataselect.item_no" name="item_no" disabled>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <input type="text" class="form-control" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control" id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="group" name="group" onchange="myselect(this)">
-                            <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
-                            @foreach (var item in result.GroupSQLlist)
+
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <option value="@item.group_id ">@item.group_name</option>
+                                <select class="form-control" id="group" name="group" onchange="myselect(this)">
+                                    <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+                                    @foreach (var item in result.GroupSQLlist)
+                                    {
+                                        <option value="@item.group_id ">@item.group_name</option>
+                                    }
+                                </select>
                             }
-                        </select>
+                            else
+                            {
+                                <select class="form-control" id="group" name="group" disabled onchange="myselect(this)">
+                                    @foreach (var item in result.GroupSQLlist)
+                                    {
+                                        <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
+                                    }
+                                </select>
+                            }
+                        }
+
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="category" name="category" onchange="console.log(document.getElementById('category').value + 'select category')">
-                            <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
-                            @foreach (var item in result.CategorySQLlist)
+
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <option value="@item.category_id" style="display:none" id="@item.group_id">@item.category_name</option>
+                                <select class="form-control" id="category" name="category" onchange="console.log(document.getElementById('category').value + 'select category')">
+                                    <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
+                                    @foreach (var item in result.CategorySQLlist)
+                                    {
+                                        <option value="@item.category_id" style="display:none" id="@item.group_id">@item.category_name</option>
+                                    }
+                                </select>
                             }
-                        </select>
+                            else
+                            {
+                                <select class="form-control" id="category" name="category" disabled>
+                                    <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
+                                    @foreach (var item in result.CategorySQLlist)
+                                    {
+                                        <option value="@item.category_id" style="display:none" id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
+                                    }
+                                </select>
+                            }
+                        }
                     </div>
                 </div>
 
                 <script>
+                    //document.addEventListener("DOMContentLoaded", function (event) {
+                    //    var sc = document.getElementById("category");
+                    //    var sg = document.getElementById("group").value;
+
+                    //    getSelectedOptions(sc, sg)
+
+                    //});
+
                     function myselect(th) {
                         console.log("select");
                         document.getElementById("category").options.selectedIndex = 0;
@@ -289,25 +345,54 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="material_account" name="material_account">
-                            <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
-                            @foreach (var item in result.Material_accSQLlist)
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <option value="@item.material_acc_id ">@item.material_acc_name</option>
+                                <select class="form-control" id="material_account" name="material_account">
+                                    <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
+                                    @foreach (var item in result.Material_accSQLlist)
+                                    {
+                                        <option value="@item.material_acc_id ">@item.material_acc_name</option>
+                                    }
+                                </select>
                             }
-                        </select>
+                            else
+                            {
+                                <select class="form-control" id="material_account" name="material_account" disabled>
+                                    @foreach (var item in result.Material_accSQLlist)
+                                    {
+                                        <option value="@item.material_acc_id" @(item.material_acc_id == result.MaterialSQLdataselect.material_acc_id ? "selected" : "")>@item.material_acc_name</option>
+                                    }
+                                </select>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="costing_method_material" name="costing_method_material">
-                            <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
-                            @foreach (var item in result.Costing_methodSQL_list)
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <option value="@item.costing_method_id ">@item.costing_method_name</option>
+                                <select class="form-control" id="costing_method_material" name="costing_method_material">
+                                    <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
+                                    @foreach (var item in result.Costing_methodSQL_list)
+                                    {
+                                        <option value="@item.costing_method_id ">@item.costing_method_name</option>
+                                    }
+                                </select>
                             }
-                        </select>
+                            else
+                            {
+                                <select class="form-control" id="costing_method_material" name="costing_method_material" disabled>
+                                    @foreach (var item in result.Costing_methodSQL_list)
+                                    {
+                                        <option value="@item.costing_method_id" @(item.costing_method_id == result.MaterialSQLdataselect.costing_method_id ? "selected" : "")>@item.costing_method_name</option>
+                                    }
+                                </select>
+                            }
+                        }
+
                     </div>
                 </div>
                 <style>
@@ -318,21 +403,48 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="stock_count" name="stock_count"> วัสดุนับสต๊อก</label>
+                            @{
+                                if (result.MaterialSQLdataselect.item_id == 0)
+                                {
+                                    <label><input type="checkbox" id="stock_count" name="stock_count"> วัสดุนับสต๊อก</label>
+                                }
+                                else
+                                {
+                                    <label><input type="checkbox" id="stock_count" name="stock_count" value="@result.MaterialSQLdataselect.stock_count" @(result.MaterialSQLdataselect.stock_count ? "checked" : "") disabled> วัสดุนับสต๊อก</label>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="overdraw_stock" name="overdraw_stock"> ให้เบิกเกินสต๊อกได้</label>
+                            @{
+                                if (result.MaterialSQLdataselect.item_id == 0)
+                                {
+                                    <label><input type="checkbox" id="overdraw_stock" name="overdraw_stock"> ให้เบิกเกินสต๊อกได้</label>
+                                }
+                                else
+                                {
+                                    <label><input type="checkbox" id="overdraw_stock" name="overdraw_stock" value="@result.MaterialSQLdataselect.overdraw_stock" @(result.MaterialSQLdataselect.overdraw_stock ? "checked" : "") disabled> ให้เบิกเกินสต๊อกได้</label>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="status" name="status"> ใช้งานวัสดุ</label>
+                            @{
+                                if (result.MaterialSQLdataselect.item_id == 0)
+                                {
+                                    <label><input type="checkbox" id="status" name="status"> ใช้งานวัสดุ</label>
+                                }
+                                else
+                                {
+                                    <label><input type="checkbox" id="status" name="status" value="@result.MaterialSQLdataselect.status" @(result.MaterialSQLdataselect.status ? "checked" : "") disabled> ใช้งานวัสดุ</label>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
@@ -342,47 +454,110 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="brand" placeholder="ระบุ ยี่ห้อ" name="brand">
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <input type="text" class="form-control" id="brand" placeholder="ระบุ ยี่ห้อ" name="brand">
+                            }
+                            else
+                            {
+                                <input type="email" class="form-control" id="brand" value="@result.MaterialSQLdataselect.brand" name="brand" disabled>
+                            }
+                        }
                     </div>
 
                     <label class="control-label col-sm-2" for="version">รุ่น:</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="version" placeholder="ระบุ รุ่น" name="version">
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <input type="text" class="form-control" id="version" placeholder="ระบุ รุ่น" name="version">
+                            }
+                            else
+                            {
+                                <input type="email" class="form-control" id="version" value="@result.MaterialSQLdataselect.version" name="version" disabled>
+                            }
+                        }
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="color">สี:</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="color" placeholder="ระบุ สี" name="color">
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <input type="text" class="form-control" id="color" placeholder="ระบุ สี" name="color">
+                            }
+                            else
+                            {
+                                <input type="email" class="form-control" id="color" value="@result.MaterialSQLdataselect.color" name="color" disabled>
+                            }
+                        }
+
                     </div>
                     <label class="control-label col-sm-2" for="size">ขนาด:</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="size" placeholder="ระบุ ขนาด" name="size">
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <input type="text" class="form-control" id="size" placeholder="ระบุ ขนาด" name="size">
+                            }
+                            else
+                            {
+                                <input type="email" class="form-control" id="size" value="@result.MaterialSQLdataselect.size" name="size" disabled>
+                            }
+                        }
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="3" id="description" placeholder="ระบุข้อมูลจำเพาะ"></textarea>
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <textarea class="form-control" rows="3" id="description" placeholder="ระบุข้อมูลจำเพาะ"></textarea>
+                            }
+                            else
+                            {
+                                <textarea class="form-control" rows="3" id="description" disabled>@result.MaterialSQLdataselect.description</textarea>
+                            }
+                        }
+
                     </div>
                 </div>
-                @*</form>*@
 
             </div>
             <div class="col-lg-4">
                 <div id="horizonform2">
-                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
                     <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="uom_in" name="uom_in" onchange="uom_inchange()">
-                                <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
-                                @foreach (var item in result.UomSQL_list)
+                            @{
+                                if (result.MaterialSQLdataselect.item_id == 0)
                                 {
-                                    <option value="@item.uom_id ">@item.uom_name</option>
+                                    <select class="form-control" id="uom_in" name="uom_in" onchange="uom_inchange()">
+                                        <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
+                                        @foreach (var item in result.UomSQL_list)
+                                        {
+                                            <option value="@item.uom_id ">@item.uom_name</option>
+                                        }
+                                    </select>
                                 }
-                            </select>
+                                else
+                                {
+                                    <select class="form-control" id="uom_in" name="uom_in" disabled onchange="uom_inchange()">
+                                        <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
+                                        @foreach (var item in result.UomSQL_list)
+                                        {
+                                            <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_in ? "selected" : "")>@item.uom_name</option>
+                                        }
+                                    </select>
+                                }
+                            }
+
                         </div>
                     </div>
                     <script>
@@ -407,46 +582,118 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
-                                <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
-                                @foreach (var item in result.UomSQL_list)
+                            @{
+                                if (result.MaterialSQLdataselect.item_id == 0)
                                 {
-                                    <option value="@item.uom_id ">@item.uom_name</option>
+                                    <select class="form-control" id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
+                                        <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
+                                        @foreach (var item in result.UomSQL_list)
+                                        {
+                                            <option value="@item.uom_id ">@item.uom_name</option>
+                                        }
+                                    </select>
                                 }
-                            </select>
+                                else
+                                {
+                                    <select class="form-control" id="uom_stock" name="uom_stock" disabled onchange="uom_stockchange()">
+                                        <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
+                                        @foreach (var item in result.UomSQL_list)
+                                        {
+                                            <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_stock ? "selected" : "")>@item.uom_name</option>
+                                        }
+                                    </select>
+                                }
+                            }
+
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-4 col-xs-4">
-                            <input type="text" class="form-control" id="qty_in" value="1.0" name="qty_in">
+                            @{
+                                if (result.MaterialSQLdataselect.item_id == 0)
+                                {
+                                    <input type="text" class="form-control" id="qty_in" value="1.0" name="qty_in">
+                                }
+                                else
+                                {
+                                    <input type="email" class="form-control" id="qty_in" value="@result.MaterialSQLdataselect.qty_in" name="qty_in" disabled>
+                                }
+                            }
                         </div>
-                        @*<label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">หน่วย</label>*@
-                        <label class="control-label col-sm-1 col-xs-1" style="text-align:left" id="qty_inshow" for="qty_in">หน่วย</label>
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <label class="control-label col-sm-1 col-xs-1" style="text-align:left" id="qty_inshow" for="qty_in">หน่วย</label>
+
+                            }
+                            else
+                            {
+                                <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">
+                                    @foreach (var item in result.UomSQL_list)
+                                    {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}
+                                </label>
+                            }
+                        }
 
                         <div class="col-sm-1 col-xs-1">
                             <p style="color: blue; margin-top: 7px; margin-left:5px">&#9868;</p>
                         </div>
 
                         <div class="col-sm-4 col-xs-4">
-                            <input type="text" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
+                            @{
+                                if (result.MaterialSQLdataselect.item_id == 0)
+                                {
+                                    <input type="text" class="form-control" id="qty_stock" value="1.0" name="qty_stock">
+                                }
+                                else
+                                {
+                                    <input type="email" class="form-control" id="qty_stock" value="@result.MaterialSQLdataselect.qty_stock" name="qty_stock" disabled>
+                                }
+                            }
+
                         </div>
 
-                        <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <label class="control-label col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">หน่วย</label>
+                            }
+                            else
+                            {
+                                <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">
+                                    @foreach (var item in result.UomSQL_list)
+                                    {@(item.uom_id == result.MaterialSQLdataselect.uom_stock ?item.uom_name: "")}
+                                </label>
+                            }
+                        }
+
                     </div>
-                    @*</form>*@
 
 
-                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+
                     <h3 class="margin-left-10" id="hrw">รูปภาพวัสดุ</h3>
 
                     <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
-                        <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
+                        @{
+                            if (result.MaterialSQLdataselect.item_id == 0)
+                            {
+                                <img id="blah" src="#" alt="" style="display: none; max-width: 100%" />
+                            }
+                            else
+                            {
+                                <img id="blah"
+                                     src="@path@result.MaterialSQLdataselect.picture_path"
+                                     alt="@result.MaterialSQLdataselect.picture_path"
+                                     style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />
+                            }
+                        }
+
                         <p id="pdisplay"><br /><br /></p>
                         <input class="hidden" type="file" id="input" name="file" value="" />
                     </div>
                     <br />
-                    @*<input id="fileinput" type="file" name="name" class="hidden"/>*@
+
 
 
                     <script>
@@ -480,12 +727,6 @@
                                     localStorage.setItem("recent-image", reader.result);
                                 });
 
-                                //console.log("open");
-                                //reader.readAsDataURL(this.file);
-                                //console.log("off");
-
-
-
                                 document.getElementById("blah").style.display = "block";
                                 document.getElementById("pdisplay").style.display = "none";
                                 var elementqqqq = document.getElementById('qqqq');
@@ -493,20 +734,144 @@
                                 elementqqqq.style.removeProperty("border-width");
                                 elementqqqq.style.removeProperty("margin-bottom");
 
-                                //var returnfilename = file.name
-                                //return returnfilename
                             };
 
                             input.click();
-
-
                         }
 
                     </script>
-
-
                 </div>
-                @*</form>*@
+
+
+                @{
+                    if (result.MaterialSQLdataselect.item_id == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        <div class="margin-top-10">
+
+                            @{
+                                if (result.MaterialSQLdataselect.status == true)
+                                {
+                                    <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="false" onclick="checkactiveitem()"><i class="glyphicon glyphicon-ok"></i></a> <label id="activeupdatlabele">สถานะ ใช้งาน</label>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="true" onclick="checkactiveitem()"><i class="glyphicon glyphicon-remove"></i></a> <label id="activeupdatlabele">สถานะ ไม่ใช้งาน</label>
+                                }
+                            }
+
+                            <script>
+                    function checkactiveitem() {
+                        var material = new Object();
+                        material.item_id = document.getElementById("item_id").value;
+                        material.status = document.getElementById("activeupdate").getAttribute("value");
+                        console.log(material);
+                        smartconfirmmessageboxedit1("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
+                            function callbackY() {
+                                console.log("to do update status");
+                                updateactivestatusitem(material);
+                            },
+                            function callbackN() {
+                                canceleditcallback();
+                            });
+                    }
+                    function updateactivestatusitem(material) {
+                         $("#content_ajaxloader").show();
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("UpdateItemActive", "Material")',
+                            data: JSON.stringify(material),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.output != 1) {
+                                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                                    //warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว");
+                                    //$("#content_ajaxloader").fadeOut("fast");
+                                    //return;
+                                }
+                                console.log("insert complete");
+                                console.log(response.output);
+
+                                completesmartconfirmmessagebox1("เปลี่ยนสถานะการใช้งาน", "เปลี่ยนสถานะสำเร็จ");
+
+                                $("#content_ajaxloader").fadeOut("fast");
+                                //alert("บันทึกเรียบร้อย");
+                                $('#Modal').modal('hide');
+
+                                window.location.href = "/material/editmaterial/" + "@result.MaterialSQLdataselect.item_no";
+
+
+                                           $.ajax({
+                                        type: "POST",
+                                        url: '@Url.Action("Editmaterial", "Material")',
+                                        data: JSON.stringify(material.item_no),
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        success: function (response) {
+                                        }
+                                     })
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            }
+                         })
+                }
+
+                    function completesmartconfirmmessagebox1(string = '', content) {
+                        $.smallBox({
+                            title: "กำลัง" + string,
+                            content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                            color: "#659265",
+                            iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                            timeout: 4000
+                        });
+                    }
+
+                function smartconfirmmessageboxedit1(stringY = '', stringN = '', callbackY, callbackN) {
+                    $.SmartMessageBox({
+                        title: "Confirm!",
+                        content: "คุณต้องการ" + stringY + "หรือไม่",
+                        buttons: '[ไม่][ใช่]'
+                    }, function (ButtonPressed) {
+                        if (ButtonPressed === "ใช่") {
+
+                            //$.smallBox({
+                            //    title: "กำลัง" + stringY,
+                            //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                            //    color: "#659265",
+                            //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                            //    timeout: 4000
+                            //});
+                            callbackY();
+                            //true;
+                        }
+                        if (ButtonPressed === "ไม่") {
+                            $.smallBox({
+                                title: stringN,
+                                content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 10000
+                            });
+                            callbackN();
+                            //false;
+                        }
+                    });
+                }
+                            </script>
+
+                        </div>
+                    }
+                }
+
+
 
                 <div class="row">
                     <div class="col-xs-6"></div>
@@ -543,6 +908,274 @@
             </div>
         </div>
     </div>
+
+
+
+    @{
+        if (result.MaterialSQLdataselect.item_id == 0)
+        {
+
+        }
+        else
+        {
+            <div class="modal fade" id="myModaldelete" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>คุณต้องการลบข้อมูลใช่หรือไม่</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-lg btn-success margin-right-15" data-dismiss="modal" onclick="aadelete()">ใช่</button>
+                            <button type="button" class="btn-lg btn-danger" data-dismiss="modal">ไม่</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-top-10 margin-bottom-10 ">
+                <button id="btcancel" class="btn btn-danger pull-right" style="margin:5px; display:none;" @*onclick="canceledit()*@ onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = @result.MaterialSQLdataselect.item_no })'">Cancel</button>
+                <button id="btsave" class="btn btn-success pull-right" style="margin: 5px; display: none;" onclick="comfirmsave()">Save</button>
+                <button id="btdelte" class="btn btn-danger pull-right" style="margin:5px;" onclick="deleteedit()">Delete</button>
+                <button id="btedit" class="btn btn-warning pull-right" style="margin:5px;" onclick="openedit()">Edit</button>
+
+            </div> <br /><br />
+
+            <script>
+        function canceleditcallback() {
+            var id = document.getElementById("item_id").value;
+            console.log(id);
+            $('#content_ajaxloader').show();
+            $.ajax({
+                //type: "POST",
+                url: '@Url.Action("Editmaterial", "Material")',
+                dataType: 'html',
+                data: { id: id},
+                success: function (result) {
+                    $('#content_ajaxloader').hide();
+
+                }
+            });
+        }
+
+
+            function openedit() {
+                document.getElementById("btedit").style.display = "none";
+                document.getElementById("btcancel").style.display = "block";
+                document.getElementById("btsave").style.display = "block";
+                document.getElementById("btdelte").style.display = "none";
+                ////////////// disable
+                //document.getElementById("item_no").disabled = false;
+                document.getElementById("item_name").disabled = false;
+                document.getElementById("group").disabled = false;
+                document.getElementById("category").disabled = false;
+                document.getElementById("material_account").disabled = false;
+                document.getElementById("costing_method_material").disabled = false;
+                document.getElementById("stock_count").disabled = false;
+                document.getElementById("overdraw_stock").disabled = false;
+                document.getElementById("status").disabled = false;
+                document.getElementById("brand").disabled = false;
+                document.getElementById("version").disabled = false;
+                document.getElementById("color").disabled = false;
+                document.getElementById("size").disabled = false;
+                document.getElementById("description").disabled = false;
+                document.getElementById("uom_in").disabled = false;
+                document.getElementById("uom_stock").disabled = false;
+                document.getElementById("qty_in").disabled = false;
+                document.getElementById("qty_stock").disabled = false;
+                document.getElementById("activeupdate").style.display = "none";
+                document.getElementById("activeupdatlabele").style.display = "none";
+
+            }
+            function canceledit() {
+                document.getElementById("btedit").style.display = "block";
+                document.getElementById("btcancel").style.display = "none";
+                document.getElementById("btsave").style.display = "none";
+                document.getElementById("btdelte").style.display = "block";
+                /////////
+                ////////////// disable
+                document.getElementById("item_no").disabled = true;
+                document.getElementById("item_name").disabled = true;
+                document.getElementById("group").disabled = true;
+                document.getElementById("category").disabled = true;
+                document.getElementById("material_account").disabled = true;
+                document.getElementById("costing_method_material").disabled = true;
+                document.getElementById("stock_count").disabled = true;
+                document.getElementById("overdraw_stock").disabled = true;
+                document.getElementById("status").disabled = true;
+                document.getElementById("brand").disabled = true;
+                document.getElementById("version").disabled = true;
+                document.getElementById("color").disabled = true;
+                document.getElementById("size").disabled = true;
+                document.getElementById("description").disabled = true;
+                document.getElementById("uom_in").disabled = true;
+                document.getElementById("uom_stock").disabled = true;
+                document.getElementById("qty_in").disabled = true;
+                document.getElementById("qty_stock").disabled = true;
+            }
+
+            function deleteedit()
+            {
+                $('#myModaldelete').modal('show')
+            }
+
+                     function aadelete() {
+                         var mateid = new Object();
+                         mateid.item_id = document.getElementById("item_id").value;
+                          $("#content_ajaxloader").show();
+                         $.ajax({
+                             type: "POST",
+                             url: '@Url.Action("DeleteMaterial", "Material")',
+                             data: JSON.stringify(mateid) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("delete complete");
+                        $("#content_ajaxloader").fadeOut("fast");
+                        alert("ลบเรียบร้อย")
+                        window.location.href = "/material";
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+                     }
+
+            function comfirmsave() {
+                $('#myModal').modal('show')
+                var testttttt = document.getElementById("stock_count").checked
+                var testttttt1 = document.getElementById("overdraw_stock").checked
+                var testtttt2t = document.getElementById("status").checked
+               // alert(testttttt + " " + testttttt1 + " " + testtttt2t);
+            }
+            function aabc() {
+              //  alert("hello wolrd");
+
+                saveedit()
+            }
+
+            function saveedit() {
+                console.log("in function")
+                //alert("in function")
+                ///get input to val
+                var material = new Object();
+                material.item_id                    = document.getElementById("item_id").value;
+                material.item_no                    = document.getElementById("item_no").value;
+                material.item_name                  = document.getElementById("item_name").value;
+                material.group_id                   = document.getElementById("group").value;
+                material.category_id                = document.getElementById("category").value;
+                material.material_acc_id            = document.getElementById("material_account").value;
+                material.costing_method_id          = document.getElementById("costing_method_material").value;
+                material.description                = document.getElementById("description").value;
+                material.status                     = document.getElementById("status").checked;
+                material.stock_count                = document.getElementById("stock_count").checked;
+                material.overdraw_stock             = document.getElementById("overdraw_stock").checked;
+                material.brand                      = document.getElementById("brand").value;
+                material.version                    = document.getElementById("version").value;
+                material.color                      = document.getElementById("color").value;
+                material.size                       = document.getElementById("size").value;
+                material.uom_in                     = document.getElementById("uom_in").value;
+                material.uom_stock                  = document.getElementById("uom_stock").value;
+                material.qty_in                     = document.getElementById("qty_in").value;
+                material.qty_stock                  = document.getElementById("qty_stock").value;
+                material.picture_path               = document.getElementById("blah").alt;
+
+
+
+                var file_data = $('#input').prop('files')[0];
+
+                var form_data = new FormData();
+
+                form_data.append('file', file_data);
+                //if (file_data == null) {
+
+                //}
+
+                console.log('form_data');
+                console.log(form_data);
+                alert(form_data);
+
+                form_data.append('material.item_id', material.item_id)
+                form_data.append('material.item_no', material.item_no)
+                form_data.append('material.item_name', material.item_name)
+                form_data.append('material.group_id', material.group_id)
+                form_data.append('material.category_id', material.category_id)
+                form_data.append('material.material_acc_id', material.material_acc_id)
+                form_data.append('material.costing_method_id', material.costing_method_id)
+                form_data.append('material.description', material.description)
+                form_data.append('material.status', material.status)
+                form_data.append('material.stock_count', material.stock_count)
+                form_data.append('material.overdraw_stock', material.overdraw_stock)
+                form_data.append('material.brand', material.brand)
+                form_data.append('material.version', material.version)
+                form_data.append('material.color', material.color)
+                form_data.append('material.size', material.size)
+                form_data.append('material.uom_in', material.uom_in)
+                form_data.append('material.uom_stock', material.uom_stock)
+                form_data.append('material.qty_in', material.qty_in)
+                form_data.append('material.qty_stock', material.qty_stock)
+                form_data.append('material.picture_path', material.picture_path)
+
+                console.log(material.picture_path + "path get ");
+
+
+
+                console.log(material);
+                $("#content_ajaxloader").show();
+                    $.ajax({
+
+                    type: "POST",
+                    url: '@Url.Action("Editmaterialdata", "Material")',
+                    data: form_data,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+
+                    //data: JSON.stringify(material),
+                    //contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+
+
+                        success: function (response) {
+                            if (response.output.msg == 1) {
+                                console.log("edit complete");
+                                //    alert(response + "suc");
+                                $("#content_ajaxloader").fadeOut("fast");
+                                alert("บันทึกเรียบร้อย")
+                                window.location.href = "/material/editmaterial" /*+"id="+*/ + "/" + material.item_no;
+
+                            } else if (response.output.msg == 3) {
+                                alert('รายละเอียด มีบันทึกอยู่แล้ว');
+
+                                $("#content_ajaxloader").fadeOut("fast");
+                                return;
+                            }
+
+
+
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+            };
+            </script>
+
+        }
+    }
+
 
 
     <div class="row margin-top-10 margin-bottom-10 ">

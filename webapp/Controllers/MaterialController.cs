@@ -294,6 +294,7 @@ namespace KKN_UI.Controllers
             #endregion
 
             //MaterialSQLlistindex.MaterialSQLlist = mtlist.ToList();
+            MaterialSQLlistindex.MaterialSQLdataselect = new MaterialSQL();
             MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
@@ -303,7 +304,42 @@ namespace KKN_UI.Controllers
 
             return View(MaterialSQLlistindex);
         }
+        public ActionResult Editmaterial(string id)
+        {
 
+            MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
+            MaterialSQL mtlist = new MaterialSQL();
+            List<GroupSQL> gtlist = new List<GroupSQL>();
+            List<CategorySQL> ctlist = new List<CategorySQL>();
+            List<Material_accSQL> macclist = new List<Material_accSQL>();
+            List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
+            List<UomSQL> uomlist = new List<UomSQL>();
+            using (var conn = OpenDbConnection())
+            {
+                var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'" + id + "'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            mtlist = new item_masterDao().mapView(rdr);
+                        }
+                    }
+                }
+            }
+            MaterialSQLlistindex.MaterialSQLdataselect = new materialviewDao().GetdataByid(id);
+            MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
+            MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
+            MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
+
+            return View("Creatematerial", MaterialSQLlistindex);
+        }
 
         private static string FILE_PATH111 = @"C:\UploadedFiles";
         [HttpPost]
@@ -454,145 +490,7 @@ namespace KKN_UI.Controllers
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Editmaterial(string id)
-        {
-
-            MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
-            MaterialSQL mtlist = new MaterialSQL();
-            List<GroupSQL> gtlist = new List<GroupSQL>();
-            List<CategorySQL> ctlist = new List<CategorySQL>();
-            List<Material_accSQL> macclist = new List<Material_accSQL>();
-            List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
-            List<UomSQL> uomlist = new List<UomSQL>();
-            using (var conn = OpenDbConnection())
-            {
-                var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'" + id + "'";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
-
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            mtlist = new item_masterDao().mapView(rdr);
-                        }
-                    }
-                }
-
-                #region old
-                //var query2 = "SELECT * FROM  group_item";
-
-                //// Build a command to execute this
-                //using (SqlCommand cmd = new SqlCommand(query2, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    //var result = new MaterialSQL();
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            //result=mapView(rdr);
-                //            gtlist.Add(maplistgroup(rdr));
-                //        }
-                //    }
-                //}
-
-                //var query3 = "SELECT * FROM  category";
-
-                //// Build a command to execute this
-                //using (SqlCommand cmd = new SqlCommand(query3, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    //var result = new MaterialSQL();
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            //result=mapView(rdr);
-                //            ctlist.Add(maplistcategory(rdr));
-                //        }
-                //    }
-                //}
-
-                //var query4 = "SELECT * FROM  material_acc";
-
-                //// Build a command to execute this
-                //using (SqlCommand cmd = new SqlCommand(query4, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    //var result = new MaterialSQL();
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            //result=mapView(rdr);
-                //            macclist.Add(maplistmaterialacc(rdr));
-                //        }
-                //    }
-
-
-                //}
-
-                //var query5 = "SELECT * FROM  costing_method";
-
-                //// Build a command to execute this
-                //using (SqlCommand cmd = new SqlCommand(query5, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    //var result = new MaterialSQL();
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            //result=mapView(rdr);
-                //            costinglist.Add(maplistcosting(rdr));
-                //        }
-                //    }
-                //}
-
-                //var query6 = "SELECT * FROM  uom";
-
-                //// Build a command to execute this
-                //using (SqlCommand cmd = new SqlCommand(query6, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    //var result = new MaterialSQL();
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            //result=mapView(rdr);
-                //            uomlist.Add(maplistuom(rdr));
-                //        }
-                //    }
-                //}
-                #endregion
-            }
-
-            //MaterialSQLlistindex.MaterialSQLdataselect = mtlist;
-            //MaterialSQLlistindex.GroupSQLlist = gtlist.ToList();
-            //MaterialSQLlistindex.CategorySQLlist = ctlist.ToList();
-            //MaterialSQLlistindex.Material_accSQLlist = macclist.ToList();
-            //MaterialSQLlistindex.Costing_methodSQL_list = costinglist.ToList();
-            //MaterialSQLlistindex.UomSQL_list = uomlist.ToList(); 
-
-
-            MaterialSQLlistindex.MaterialSQLdataselect = new materialviewDao().GetdataByid(id);
-            MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
-            MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
-            MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
-            MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
-            MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
-
-            return View(MaterialSQLlistindex);
-        }
+     
 
         [HttpPost]
         public JsonResult Editmaterialdata(MaterialSQL material, HttpPostedFileBase file)
