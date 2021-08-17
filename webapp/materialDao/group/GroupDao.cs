@@ -25,6 +25,10 @@ namespace KKN_UI.material.group
         private const string READ = "group_itemRead";
         private const string CREATE = "group_itemCreate";
         private const string DELETE = "group_itemDelete";
+        private const string DELETECHECKITEM = "group_itemDeleteCheckItem";
+        private const string DELETECHECKCATEGORY = "group_itemDeleteCheckCategory";
+
+
         private const string UPDATE = "group_itemUpdate";
         private const string UPDATEACTIVE = "[group_itemUpdateActive]";
 
@@ -185,7 +189,7 @@ namespace KKN_UI.material.group
         {
             using (var conn = OpenDbConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(UPDATEACTIVE,conn))
+                using (SqlCommand cmd = new SqlCommand(UPDATEACTIVE, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
@@ -195,7 +199,7 @@ namespace KKN_UI.material.group
                     using (var rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
-                        if(rdr.HasRows)
+                        if (rdr.HasRows)
                         {
                             result = maplistgroupActive(rdr);
                         }
@@ -214,7 +218,6 @@ namespace KKN_UI.material.group
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
-                    //cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
 
                     GroupSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
@@ -231,6 +234,59 @@ namespace KKN_UI.material.group
         }
 
 
+        public Rowgroup DeleteCheckItem(GroupSQL groupobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETECHECKITEM, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
+
+                    Rowgroup result = new Rowgroup();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = mapcheckdelete(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public Rowgroup DeleteCheckCategory(GroupSQL groupobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETECHECKCATEGORY, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
+
+                    Rowgroup result = new Rowgroup();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = mapcheckdelete(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public Rowgroup mapcheckdelete(SqlDataReader rdr)
+        {
+            var rowgroup = new Rowgroup();
+            rowgroup.row = Convert.ToInt32(rdr["row"]);
+
+            return rowgroup;
+        }
         public GroupSQL maplistgroupDao(SqlDataReader rdr)
         {
             var resultgroup = new GroupSQL();

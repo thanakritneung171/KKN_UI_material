@@ -112,9 +112,9 @@ namespace KKN_UI.Controllers
         public /*JsonResult*/ ActionResult _tabledatalist(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
-           
-           
-            if (search.category_id == 0 && search.group_id == 0  && search.text == null)
+
+
+            if (search.category_id == 0 && search.group_id == 0 && search.text == null)
             {
                 List<MaterialSQL> mtlist = new List<MaterialSQL>();
                 using (var conn = OpenDbConnection())
@@ -135,7 +135,8 @@ namespace KKN_UI.Controllers
                     }
                 }
                 listindex.MaterialSQLlist = mtlist.ToList();
-            }else
+            }
+            else
             {
                 listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
             }
@@ -151,11 +152,11 @@ namespace KKN_UI.Controllers
             List<GroupSQL> Grouplistdata = new List<GroupSQL>();
             if (active == true)
             {
-               Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
+                Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
             }
             else
             {
-                 Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
+                Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
             }
 
             return PartialView("Groupmaterial/_grouptable", Grouplistdata);
@@ -186,7 +187,7 @@ namespace KKN_UI.Controllers
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             return PartialView(listindex);
             //return  Json(new { listindex }, JsonRequestBehavior.AllowGet);
-        } 
+        }
 
         public ActionResult _selectcategory(int id, string page)
         {
@@ -517,7 +518,7 @@ namespace KKN_UI.Controllers
 
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
-             
+
         [HttpPost]
         public JsonResult Editmaterialdata(MaterialSQL material, HttpPostedFileBase file)
         {
@@ -723,7 +724,12 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult DeleteGroup(GroupSQL groupdata)
         {
-            var output = new GroupDao().DeleteGroup(groupdata);
+            var checkdeleteitem = new GroupDao().DeleteCheckItem(groupdata);
+
+
+            var checkdeletecategory = new GroupDao().DeleteCheckCategory(groupdata);
+
+            //var output = new GroupDao().DeleteGroup(groupdata);
 
             return Json(/*new { output = output is null ? 0 : 1 },*/ JsonRequestBehavior.AllowGet);
         }
