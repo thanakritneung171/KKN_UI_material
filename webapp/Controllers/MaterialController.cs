@@ -145,6 +145,24 @@ namespace KKN_UI.Controllers
             return PartialView(listindex);
             //return Json(new { listindex }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult _grouptable(bool active)
+        {
+            List<GroupSQL> Grouplistdata = new            List<GroupSQL>();
+            if (active == true)
+            {
+               Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
+            }
+            else
+            {
+                 Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
+            }
+
+            return PartialView("Groupmaterial/_grouptable", Grouplistdata);
+        }
+
+
+
         public /*JsonResult*/ ActionResult IndexSearch(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();

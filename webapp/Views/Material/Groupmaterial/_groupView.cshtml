@@ -9,11 +9,11 @@
 <div class="cd-panel__container">
     <div class="cd-panel__content">
         <div class="row margin-left-10">
-            <div class="row col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <div class="row col-lg-7 col-md-7 col-sm-7 col-xs-7">
                 <a class="btn btn-success glyphicon glyphicon-plus" onclick="openmodalcreate();">เพิ่มวัสดุใหม่</a>
             </div>
 
-            <div class="row col-lg-3 col-md-3 col-sm-3 col-xs-3 margin-left-15 margin-right-0 pull-right">
+            <div class="row col-lg-4 col-md-4 col-sm-4 col-xs-4 margin-left-15 margin-right-0 pull-right">
                 <label class="checkbox-inline ">
                     <input type="checkbox" id="statustable" class="checkbox style-0" onclick="showunactive()">
                     <span>แสดงรายการยกเลิกใช้งาน</span>
@@ -22,37 +22,7 @@
         </div>
 
 
-        <script>
-            function showunactive() {
-                var statustable = document.getElementById("statustable").checked;
-                console.log(statustable)
-                $("#content_ajaxloader").show();
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("_groupViewActive", "Material")',
-                    data: JSON.stringify(statustable),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        if (response.output != 1) {
-                            //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
-                            //warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว");
-                        }
-                        console.log("insert complete");
-                        console.log(response.output);
-                        $("#content_ajaxloader").fadeOut("fast");
-                        //window.location.href = "/material/";
-                        AddPanel();
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                 })
-            }
-        </script>
+
 
         <div class="table-responsive margin-top-10">
             <style>
@@ -61,32 +31,55 @@
                 }
             </style>
 
-            @*<div id="partialtablegroup"></div>*@
+            <div id="partialtablegroup"></div>
 
-           
-            <table id="dt_basic" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th align="right">#</th>
-                        <th>ชื่อกลุ่ม</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in groupSQL)
-                    {
-                        <tr class="trid" id="@item.group_id" value="@item.group_id" onclick="openmodaledit(this.id)">
-                            <td class="stu_numrec" width="1%" align="right">@item.group_id</td>
-                            <td class="stu_name" width="10%">@item.group_name</td>
+            @*<table id="dt_basic" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th align="right">#</th>
+                            <th>ชื่อกลุ่ม</th>
 
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in groupSQL)
+                        {
+                            <tr class="trid" id="@item.group_id" value="@item.group_id" onclick="openmodaledit(this.id)">
+                                <td class="stu_numrec" width="1%" align="right">@item.group_id</td>
+                                <td class="stu_name" width="10%">@item.group_name</td>
 
-                </tbody>
-            </table>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>*@
         </div>
     </div>
 </div>
+
+<script>
+            function showunactive() {
+                var statustable = document.getElementById("statustable").checked;
+                console.log(statustable)
+                if (statustable == false) {
+                    statustable = true;
+                } else if (statustable == true) {
+                    statustable = false;
+                }
+                $("#content_ajaxloader").show();
+                console.log(statustable+"111111111111")
+                $("#partialtablegroup").load('@Url.Action("_grouptable", "Material")', { active: statustable }, function (result) {
+                    MessageAlert("การค้นหา", "กำลังโหลดข้อมูล", "rgb(115, 158, 115)", "fa fa-check fadeInLeft animated");
+                $('#content_ajaxloader').fadeOut();
+            });
+
+                @*$("#partialtablegroup").load('@Url.Action("_grouptable", "Material")', { active: statustable }, function (result) {
+                        MessageAlert("การค้นหา", "กำลังโหลดข้อมูล", "rgb(115, 158, 115)", "fa fa-check fadeInLeft animated");
+                        $('#content_ajaxloader').fadeOut();
+                    });*@
+            }
+</script>
 
 <script>
 
@@ -108,7 +101,7 @@
                         content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
                         color: "#659265",
                         iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                        timeout: 4000
+                        timeout: 10000
                     });
                     o = true;
                     console.log(o + "o true")
@@ -177,190 +170,32 @@
 </script>
 
 
-@section pagespecific {
     <script type="text/javascript">
 
 
-        @* $(document).ready(function () {
-            console.log("ready!");
+         //$(document).ready(function () {
+          //  console.log("ready!");
 
-            //$('#dt_basic_length')
-
-            $('select[name="dt_basic_length"]').on('click', function () {
-                alert($(this).val());
-            });
-
-            $('#content_ajaxloader').fadeIn();
-            $("#partialtablegroup").load('@Url.Action("_groupView", "Material")', function (result) {
+             /*  $('#content_ajaxloader').fadeIn();*/
+           //  $("#partialtablegroup").html("sdfsgfdsdfgdfgdfgfd");
+            @*$("#partialtablegroup").load('@Url.Action("_groupView", "Material")', function (result) {
                 $('#content_ajaxloader').fadeOut();
-            });
-        }) *@
+            });*@
+        //})
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
         $(document).ready(function () {
 
-            /* // DOM Position key index //
+            console.log("ready1!");
 
-            l - Length changing (dropdown)
-            f - Filtering input (search)
-            t - The Table! (datatable)
-            i - Information (records)
-            p - Pagination (paging)
-            r - pRocessing
-            < and > - div elements
-            <"#id" and > - div with an id
-            <"class" and > - div with a class
-            <"#id.class" and > - div with an id and class
-
-            Also see: http://legacy.datatables.net/usage/features
-            */
-
-            /* BASIC ;*/
-            var responsiveHelper_dt_basic = undefined;
-            var responsiveHelper_datatable_fixed_column = undefined;
-            var responsiveHelper_datatable_col_reorder = undefined;
-            var responsiveHelper_datatable_tabletools = undefined;
-
-            var breakpointDefinition = {
-                tablet: 1024,
-                phone: 480
-            };
-
-            $('#dt_basic').dataTable({
-                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'>r>" +
-                    "t" +
-                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
-                "autoWidth": true,
-                ////////////////////////
-                "bLengthChange": false,
-                "bPaginate": false,
-                "bInfo": false,
-                ////////////////////////
-                "preDrawCallback": function () {
-                    // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper_dt_basic) {
-                        responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
-                    }
-                },
-                "rowCallback": function (nRow) {
-                    responsiveHelper_dt_basic.createExpandIcon(nRow);
-                },
-                "drawCallback": function (oSettings) {
-                    responsiveHelper_dt_basic.respond();
-                }
-            });
-
-            /* END BASIC */
-
-            /* COLUMN FILTER  */
-            var otable = $('#datatable_fixed_column').DataTable({
-                //"bFilter": false,
-                //"bInfo": false,
-                //"bLengthChange": false
-                //"bAutoWidth": false,
-                //"bPaginate": false,
-                //"bStateSave": true // saves sort state using localStorage
-                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'f><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>" +
-                    "t" +
-                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
-                "autoWidth": true,
-                "preDrawCallback": function () {
-                    // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper_datatable_fixed_column) {
-                        responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
-                    }
-                },
-                "rowCallback": function (nRow) {
-                    responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
-                },
-                "drawCallback": function (oSettings) {
-                    responsiveHelper_datatable_fixed_column.respond();
-                }
-
-            });
-
-            // custom toolbar
-            $("div.toolbar").html('<div class="text-right"><img src="/Content/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
-
-            // Apply the filter
-            $("#datatable_fixed_column thead th input[type=text]").on('keyup change', function () {
-
-                otable
-                    .column($(this).parent().index() + ':visible')
-                    .search(this.value)
-                    .draw();
-
-            });
-            /* END COLUMN FILTER */
-
-            /* COLUMN SHOW - HIDE */
-            $('#datatable_col_reorder').dataTable({
-                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'C>r>" +
-                    "t" +
-                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
-                "autoWidth": true,
-                "preDrawCallback": function () {
-                    // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper_datatable_col_reorder) {
-                        responsiveHelper_datatable_col_reorder = new ResponsiveDatatablesHelper($('#datatable_col_reorder'), breakpointDefinition);
-                    }
-                },
-                "rowCallback": function (nRow) {
-                    responsiveHelper_datatable_col_reorder.createExpandIcon(nRow);
-                },
-                "drawCallback": function (oSettings) {
-                    responsiveHelper_datatable_col_reorder.respond();
-                }
-            });
-
-            /* END COLUMN SHOW - HIDE */
-
-            /* TABLETOOLS */
-            $('#datatable_tabletools').dataTable({
-
-                // Tabletools options:
-                //   https://datatables.net/extensions/tabletools/button_options
-                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" +
-                    "t" +
-                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
-                "oTableTools": {
-                    "aButtons": [
-                        "copy",
-                        "csv",
-                        "xls",
-                        {
-                            "sExtends": "pdf",
-                            "sTitle": "SmartAdmin_PDF",
-                            "sPdfMessage": "SmartAdmin PDF Export",
-                            "sPdfSize": "letter"
-                        },
-                        {
-                            "sExtends": "print",
-                            "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
-                        }
-                    ],
-                    "sSwfPath": "/Scripts/plugin/datatables/swf/copy_csv_xls_pdf.swf"
-                },
-                "autoWidth": true,
-                "preDrawCallback": function () {
-                    // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper_datatable_tabletools) {
-                        responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#datatable_tabletools'), breakpointDefinition);
-                    }
-                },
-                "rowCallback": function (nRow) {
-                    responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
-                },
-                "drawCallback": function (oSettings) {
-                    responsiveHelper_datatable_tabletools.respond();
-                }
-            });
-
-            /* END TABLETOOLS */
+            //$('#content_ajaxloader').fadeIn();
+            showunactive();
+            @*$("#partialtablegroup").load('@Url.Action("_grouptable", "Material")', {active:true}, function (result) {
+                $('#content_ajaxloader').fadeOut();
+            });*@
 
         })
 
     </script>
 
-}

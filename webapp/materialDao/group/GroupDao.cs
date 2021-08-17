@@ -86,7 +86,7 @@ namespace KKN_UI.material.group
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@active", active);
-                    GroupSQLlist result = null;
+                    GroupSQLlist result = new GroupSQLlist();
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())

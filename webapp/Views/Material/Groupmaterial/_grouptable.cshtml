@@ -10,15 +10,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in groupSQL)
-        {
-            <tr class="trid" id="@item.group_id" value="@item.group_id" onclick="openmodaledit(this.id)">
-                <td class="stu_numrec" width="1%" align="right">@item.group_id</td>
-                <td class="stu_name" width="10%">@item.group_name</td>
-
-            </tr>
-        }
-
+        @{
+            int i = 1;
+            foreach (var item in groupSQL)
+            {
+                <tr class="trid" id="@item.group_id" value="@item.group_id" onclick="openmodaledit(this.id)">
+                    <td class="stu_numrec" width="1%" align="right" value="@item.group_id">@i</td>
+                    @*<td class="stu_numrec" width="1%" align="right">@item.group_id</td>*@
+                    <td class="stu_name" width="10%">@item.group_name</td>
+                </tr>
+                i++;
+            }}
     </tbody>
 </table>
 
