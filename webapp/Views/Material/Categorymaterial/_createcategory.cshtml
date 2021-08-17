@@ -41,17 +41,143 @@
                     <input type="text" class="form-control" id="insertC" name="insertC" value="@result.CategorySQL.category_name" @(result.CategorySQL.category_id != 0 ? "disabled" : "" ) />
                 </div>
             </div>
+
+            <div class="row margin-top-10">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
+                    
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
+                    <label class="checkbox-inline pull-left" style="display:@(result.CategorySQL.category_id  != 0 ? "inline" : "none");">
+                        <input type="checkbox" id="status" class="checkbox style-0" value="@result.CategorySQL.active" @(result.CategorySQL.active ? "checked" : "") onclick="checkactive()">
+                        <span>สถานะการใช้งาน</span>
+                    </label>
+                </div>
+            </div>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" id="createbtn" class="btn-lg btn-success margin-right-5 " style="display:@(result.CategorySQL.category_id == 0 ? "inline" : "none");" onclick="confirmandsaveC()">สร้าง</button>
-        <button type="button" id="editbtn" class="btn-lg btn-warning margin-right-5 " style="display:@(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="editopen()">แก้ไข</button>
-        <button type="button" id="delebtn" class="btn-lg btn-danger margin-right-5 " style="display: @(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="confirmanddeleteC()">ลบ</button>
-        <button type="button" id="savebtn" class="btn-lg btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateC()">บันทึก</button>
-        <button type="button" id="cacelbtn" class="btn-lg btn-danger margin-right-5" style="display:none" onclick="caceledit()">ยกเลิก</button>
+
+        <script>
+            function smartconfirmmessageboxedit(stringY = '', stringN = '', callbackY, callbackN) {
+                $.SmartMessageBox({
+                    title: "Confirm!",
+                    content: "คุณต้องการ" + stringY + "หรือไม่",
+                    buttons: '[ไม่][ใช่]'
+                }, function (ButtonPressed) {
+                    if (ButtonPressed === "ใช่") {
+
+                        //$.smallBox({
+                        //    title: "กำลัง" + stringY,
+                        //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                        //    color: "#659265",
+                        //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                        //    timeout: 4000
+                        //});
+                        callbackY();
+                        //true;
+                    }
+                    if (ButtonPressed === "ไม่") {
+                        $.smallBox({
+                            title: stringN,
+                            content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                            color: "#C46A69",
+                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                            timeout: 5000
+                        });
+                        callbackN();
+                        //false;
+                    }
+                });
+            }
+
+            function checkactive() {
+                var material = new Object();
+                material.active = document.getElementById("status").checked;
+                material.group_id = document.getElementById("inputGid").value;
+                console.log(material.active)
+                smartconfirmmessageboxedit("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
+                    function callbackY() {
+                        console.log("to do update active");
+                        updategroupactive(material);
+                    },
+                    function callbackN() {
+                        canceleditcallback();
+                    });
+                //smartconfirmmessagebox("เปลี่ยนสถานะการใช้งาน", function () {
+                //    console.log("to do update active");
+                //    updategroupactive(material);
+                //});
+            }
+        function updategroupactive(material) {
+                 $("#content_ajaxloader").show();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UpdateGorupActive", "Material")',
+                    data: JSON.stringify(material),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.output != 1) {
+                            //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                            //warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว");
+                            //$("#content_ajaxloader").fadeOut("fast");
+                            //return;
+                        }
+                        console.log("insert complete");
+                        console.log(response.output);
+
+                        completesmartconfirmmessagebox("เปลี่ยนสถานะการใช้งาน","เปลี่ยนสถานะสำเร็จ")
+
+                        $("#content_ajaxloader").fadeOut("fast");
+                        //alert("บันทึกเรียบร้อย");
+                        $('#Modal').modal('hide');
+                        //window.location.href = "/material/";
+                        AddPanel();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                 })
+            }
+        </script>
+
+        <button id="createbtn" class="btn btn-lg btn-labeled btn-success " style="display:@(result.CategorySQL.category_id == 0 ? "inline" : "none");" onclick="confirmandsaveC()">
+            <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>สร้าง
+        </button>
+        <button id="editbtn" class="btn btn-lg btn-labeled btn-warning margin-right-5 " style="display:@(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="editopen()"><span class="btn-label"><i class="glyphicon glyphicon-pencil"></i></span>แก้ไข</button>
+        <button id="delebtn" class="btn btn-lg btn-labeled btn-danger margin-right-5 " style="display: @(result.CategorySQL.category_id != 0 ? "inline" : "none");" onclick="confirmanddeleteC()"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>ลบ</button>
+        <button id="savebtn" class="btn btn-lg btn-labeled btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateC()"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>บันทึก</button>
+        <button id="cacelbtn" class="btn btn-lg btn-labeled btn-danger margin-right-5" style="display:none" @*onclick="caceledit()"*@ onclick="canceleditcallback()"><span class="btn-label"><i class="glyphicon glyphicon-repeat"></i></span>ยกเลิก</button>
+
+        <button id="backbtn" class="btn btn-lg btn-labeled btn-info margin-right-5" data-dismiss="modal"><span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>กลับ</button>
+    @* sssssssssssssssssssssssssssssssssssssssssssssssssss *@
+
         @*<button type="button" class="btn-lg btn-danger margin-right-5" data-dismiss="modal" style="display: @(result.group_id == 0 ? "inline" : "none");">กลับ</button>*@
     </div>
 </div>
+
+<script>
+    function canceleditcallback() {
+        var id = document.getElementById("inputCid").value;
+        console.log(id);
+        $('#content_ajaxloader').show();
+        $.ajax({
+            type: "POST",
+            url:'@Url.Action("_editcategory", "Material")',
+                dataType: 'html',
+            data: { id: id},
+                success: function (result) {
+                    $('#Modal_Content').html('');
+                    $('#Modal_Content').html(result);
+                    $('#Modal').modal('show');
+                    $('#content_ajaxloader').hide();
+                }
+        })
+    }
+</script>
 
 <script>
     function editopen() {
@@ -63,6 +189,7 @@
         document.getElementById("inputCid").setAttribute('type', 'text');
         document.getElementById("labelCid").hidden = false;
         document.getElementById("groupC").disabled = false;
+        document.getElementById('status').removeAttribute("onclick");
     }
 
     function caceledit() {
@@ -74,6 +201,7 @@
         document.getElementById("inputCid").setAttribute('type', 'hidden');
         document.getElementById("labelCid").hidden = true;
         document.getElementById("groupC").disabled = true;
+        document.getElementById("status").disabled = false;
     }
 
     function confirmandsaveC() {
@@ -167,7 +295,8 @@
         var inG = new Object();
         inG.category_id = document.getElementById("inputCid").value;
         inG.group_id = document.getElementById("groupC").value;
-        inG.category_name = document.getElementById("insertC").value;
+          inG.category_name = document.getElementById("insertC").value;
+          inG.active = document.getElementById("status").checked;
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",

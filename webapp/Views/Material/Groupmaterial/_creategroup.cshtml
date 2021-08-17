@@ -131,12 +131,12 @@
                  })
             }
         </script>
+
+
+        @*<button class="btn btn-labeled btn-success"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>สร้าง </button>*@
         <button id="createbtn" class="btn btn-lg btn-labeled btn-success " style="display:@(result.group_id == 0 ? "inline" : "none");" onclick="confirmandsaveG()">
             <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>สร้าง
         </button>
-
-        @*<button class="btn btn-labeled btn-success"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>สร้าง </button>*@
-
         <button id="editbtn" class="btn btn-lg btn-labeled btn-warning margin-right-5 " style="display:@(result.group_id != 0 ? "inline" : "none");" onclick="editopen()"><span class="btn-label"><i class="glyphicon glyphicon-pencil"></i></span>แก้ไข</button>
         <button id="delebtn" class="btn btn-lg btn-labeled btn-danger margin-right-5 " style="display: @(result.group_id != 0 ? "inline" : "none");" onclick="confirmanddeleteG()"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>ลบ</button>
         <button id="savebtn" class="btn btn-lg btn-labeled btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateG()"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>บันทึก</button>

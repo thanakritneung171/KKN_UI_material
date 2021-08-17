@@ -28,8 +28,10 @@ namespace KKN_UI.material.category
         private const string CREATE     = "categoryCreate";
         private const string DELETE     = "categoryDelete";
         private const string UPDATE     = "categoryUpdate";
+        private const string UPDATEACTIVE = "categoryUpdateActive";
 
         private const string READ_BYID  = "categoryRead_Byid";
+        private const string READ_BYACTIVE = "categoryReadAllactive";
         private const string READ_BYGROUPID  = "categoryRead_ByGroupid";
         private const string CHECKCATEGORYNEW = "CheckCategoryNew";
 
@@ -101,6 +103,28 @@ namespace KKN_UI.material.category
 
             }
 
+        }
+
+        public CategorySQLlist GetdataByActive(bool active)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(READ_BYACTIVE, conn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@active", active);
+                    CategorySQLlist result = new CategorySQLlist();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result.Categorylist.Add(mapviewcategory(rdr));
+                        }
+                    }
+                    return (result);
+                }
+            }
         }
 
         public CategorySQLlist GetdataCategoryGourpByid(int id)
@@ -192,6 +216,7 @@ namespace KKN_UI.material.category
                     cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
                     cmd.Parameters.AddWithValue("@group_id", categoryobject.group_id);
                     cmd.Parameters.AddWithValue("@category_name", categoryobject.category_name);
+                    cmd.Parameters.AddWithValue("@active", categoryobject.active);
 
                     CategorySQL result = null;
                     using (var rdr = cmd.ExecuteReader())
@@ -207,6 +232,31 @@ namespace KKN_UI.material.category
             }
         }
 
+        public CategorySQL UpdateCategoryActive(CategorySQL categoryobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(UPDATEACTIVE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
+                    cmd.Parameters.AddWithValue("@group_id", categoryobject.group_id);
+                    cmd.Parameters.AddWithValue("@category_name", categoryobject.category_name);
+                    cmd.Parameters.AddWithValue("@active", categoryobject.active);
+
+                    CategorySQL result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = maplistcategoryActive(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
         public CategorySQL DeleteCategory(CategorySQL categoryobject)
         {
             using (var conn = OpenDbConnection())
@@ -237,6 +287,19 @@ namespace KKN_UI.material.category
             resultcategory.category_id = Convert.ToInt32(rdr["category_id"]);
             resultcategory.group_id = Convert.ToInt32(rdr["group_id"]);
             resultcategory.category_name = rdr["category_name"].ToString();
+            resultcategory.active = (bool)rdr["active"];
+
+            //resultcategory.GroupModel = new GroupDao().maplistgroupDao(rdr);
+            return resultcategory;
+        }
+
+        public CategorySQL maplistcategoryActive(SqlDataReader rdr)
+        {
+            var resultcategory = new CategorySQL();
+            resultcategory.category_id = Convert.ToInt32(rdr["category_id"]);
+            resultcategory.group_id = Convert.ToInt32(rdr["group_id"]);
+            resultcategory.category_name = rdr["category_name"].ToString();
+            resultcategory.active = (bool)rdr["active"];
 
             //resultcategory.GroupModel = new GroupDao().maplistgroupDao(rdr);
             return resultcategory;
@@ -258,6 +321,7 @@ namespace KKN_UI.material.category
             resultcategory.category_id = Convert.ToInt32(rdr["category_category_id"]);
             resultcategory.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
             resultcategory.category_name = rdr["category_category_name"].ToString();
+            resultcategory.active =  (bool)rdr["category_active"];
 
             resultcategory.GroupModel =  GroupDao.mapviewlistgroupDao(rdr);
             return resultcategory;
