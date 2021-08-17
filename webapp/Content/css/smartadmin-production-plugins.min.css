@@ -6202,11 +6202,11 @@ a.editable-click.editable-disabled:hover {
 }
 .MessageBoxMiddle .MsgTitle {
   letter-spacing: -1px;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 300;
 }
 .MessageBoxMiddle .pText {
-  font-size: 13px;
+  font-size: 25px;
 }
 .MessageBoxContainer input,
 .MessageBoxContainer select {
@@ -6381,14 +6381,14 @@ a.editable-click.editable-disabled:hover {
   font-size: 20px;
 }
 .SmallBox span {
-  font-size: 17px;
+  font-size: 25px;
   font-weight: 300;
   letter-spacing: -1px;
   display: block;
   margin: 4px 0;
 }
 .SmallBox p {
-  font-size: 13px;
+  font-size: 22px;
   margin-top: 2px;
 }
 #pageslide {
@@ -6425,10 +6425,10 @@ a.editable-click.editable-disabled:hover {
     cursor: pointer;
   }
   .SmallBox span {
-    font-size: 16px;
+    font-size: 25px;
   }
   .SmallBox p {
-    font-size: 12px;
+    font-size: 22px;
     margin-top: 2px;
   }
   .SmallBox .textoFull {
@@ -6478,10 +6478,10 @@ a.editable-click.editable-disabled:hover {
     padding: 3px;
   }
   .MessageBoxMiddle .MsgTitle {
-    font-size: 22px;
+    font-size: 30px;
   }
   .MessageBoxMiddle .pText {
-    font-size: 13px;
+    font-size: 25px;
   }
   .MessageBoxContainer input,
   .MessageBoxContainer select {
