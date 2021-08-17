@@ -29,6 +29,7 @@ namespace KKN_UI.material.group
         private const string UPDATEACTIVE = "[group_itemUpdateActive]";
 
         private const string READ_BYID = "group_itemRead_Byid";
+        private const string READ_BYACTIVE = "group_itemReadAllactive";
         private const string CHECKGROUPNEW = "CheckGroupNew";
 
         public GroupSQLlist Getdata()
@@ -75,6 +76,29 @@ namespace KKN_UI.material.group
                 }
             }
         }
+
+        public GroupSQLlist GetdataByActive(bool active)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(READ_BYACTIVE, conn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@active", active);
+                    GroupSQLlist result = null;
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result.Grouplist.Add(maplistgroupDao(rdr));
+                        }
+                    }
+                    return (result);
+                }
+            }
+        }
+
         public /*MaterialSQL*/ Boolean CheckGroupNew(GroupSQL groupobject)
         {
             using (var conn = OpenDbConnection())

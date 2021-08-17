@@ -834,6 +834,15 @@ namespace KKN_UI.Controllers
             return PartialView("Groupmaterial/_groupView", Grouplistdata);
         }
 
+        public ActionResult _groupViewActive(bool active)
+        {
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+            List<GroupSQL> Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
+
+            return PartialView("Groupmaterial/_groupView", Grouplistdata);
+        }
+
 
         [HttpPost]
         public JsonResult CreateGroup(GroupSQL groupdata)
