@@ -25,6 +25,7 @@ namespace KKN_UI.Models
     public class Rowgroup
     {
         public int row { get; set; }
+        public string check { get; set; }
     }
 
 }

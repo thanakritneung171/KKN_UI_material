@@ -724,14 +724,30 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult DeleteGroup(GroupSQL groupdata)
         {
+            Rowgroup rowgroup = new Rowgroup();
             var checkdeleteitem = new GroupDao().DeleteCheckItem(groupdata);
-
-
+            if (checkdeleteitem.row ==0)
+            {
             var checkdeletecategory = new GroupDao().DeleteCheckCategory(groupdata);
+                if (checkdeletecategory.row == 0)
+                {
+                    new GroupDao().DeleteGroup(groupdata);
+                }
+                else
+                {
+                rowgroup = checkdeletecategory;
+                rowgroup.check = "checkcategory";
+                }
+            }
+            else
+            {
+                rowgroup = checkdeleteitem;
+                rowgroup.check = "checkitem";
+            }
 
-            //var output = new GroupDao().DeleteGroup(groupdata);
 
-            return Json(/*new { output = output is null ? 0 : 1 },*/ JsonRequestBehavior.AllowGet);
+
+            return Json(new { output = rowgroup }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _comfirmgroup()

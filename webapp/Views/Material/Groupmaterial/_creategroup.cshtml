@@ -337,7 +337,19 @@
                              data: JSON.stringify(dg) ,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (response) {
+                             success: function (response) {
+                                 console.log(response)
+                                 if (response.output.check == "checkitem") {
+                                     console.log(response.output.check)
+                                     console.log(response.output.row)
+                                     return;
+                                 } else if (response.output.check == "checkcategory")
+                                 {
+                                     console.log(response.output.check)
+                                     console.log(response.output.row)
+                                     return;
+                                 }
+                                
                         console.log("delete complete");
                         $("#content_ajaxloader").fadeOut("fast");
                         completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
