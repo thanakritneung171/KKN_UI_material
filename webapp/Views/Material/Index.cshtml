@@ -20,11 +20,12 @@
 
     #content_ajaxloader {
         position: fixed;
-        z-index: 1 !important;
+        z-index: 8003 !important;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
+        /*background: rgba( 255, 255, 255,0.5 ) url('/content/img/unnamed.gif') 50% 50% no-repeat;*/
         background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
     }
 
@@ -248,6 +249,7 @@
                     } else if (sgroup == "") {
                         smartconfirmmessageboxbycase("ต้องการค้นหาข้อมูลจากกลุ่มทั้งหมด", "กรุณาระบุข้อมูล หรือ เลือกกลุ่ม", function () {
                             console.log("in function call back ")
+                            search.group_id = null;
                             searchdatafunction(search);
                         });
                     } else {
@@ -258,7 +260,7 @@
 
                 function searchdatafunction(search) {
                      console.log("22222222222222222222222222")
-                 
+
                     console.log(search)
                     $("#content_ajaxloader").show();
 
@@ -377,7 +379,7 @@
 
             @*<div class="hidden-lg hidden-md col-sm-8 col-xs-4 ">
 
-            </div>*@
+                </div>*@
 
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row col-xs-4 col-sm-3 col-md-3 col-lg-2  " style="padding: 2.5px;">
@@ -389,7 +391,9 @@
                 </div>
 
                 <div class="row  col-xs-4 col-sm-3 col-md-3 col-lg-2 " style="padding: 2.5px;">
-                    <a--> @*href='@Url.Action("Editmaterial", "Material")'*@ <!--class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a>
+                    <a-->
+            @*href='@Url.Action("Editmaterial", "Material")'*@
+            <!--class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a>
                 </div>
 
                 <div class="row   col-xs-12  col-sm-3   col-md-3 col-lg-6 float-right text-right" style="padding: 2.5px; ">
@@ -397,10 +401,9 @@
                 </div>
 
             </div>-->
-
             @*<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-            </div>*@
+                </div>*@
         </div>
 
 
@@ -542,7 +545,7 @@
             });
 
             $('#content_ajaxloader').fadeIn();
-            $("#partialtabledata").load('@Url.Action("_tabledatalist", "Material")',  function (result) {
+            $("#partialtabledata").load('@Url.Action("_tabledatalistIndex", "Material")',  function (result) {
                         $('#content_ajaxloader').fadeOut();
                     });
         })
@@ -581,7 +584,7 @@
             });
         }
 
-      
+
 
         function smartconfirmmessagebox(string = '', callback) {
             $.SmartMessageBox({
@@ -665,6 +668,6 @@
             }
         }
 
-</script>
+    </script>
 }
 

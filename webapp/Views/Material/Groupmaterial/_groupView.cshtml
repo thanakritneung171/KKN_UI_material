@@ -2,6 +2,8 @@
     List<GroupSQL> groupSQL = Model;
 }
 
+
+
 <header class="cd-panel__header">
     <h1 style="color:#3276b1;">จัดการกลุ่มวัสดุ</h1>
     <a onclick="ClosePanel()" class="cd-panel__close js-cd-close">Close</a>
@@ -65,7 +67,7 @@
                 $("#content_ajaxloader").show();
                 console.log(statustable+"111111111111")
                 $("#partialtablegroup").load('@Url.Action("_grouptable", "Material")', { active: statustable }, function (result) {
-                    MessageAlert("การค้นหา", "กำลังโหลดข้อมูล", "rgb(115, 158, 115)", "fa fa-check fadeInLeft animated");
+                    //MessageAlert("การค้นหา", "กำลังโหลดข้อมูล", "rgb(115, 158, 115)", "fa fa-check fadeInLeft animated");
                 $('#content_ajaxloader').fadeOut();
             });
 

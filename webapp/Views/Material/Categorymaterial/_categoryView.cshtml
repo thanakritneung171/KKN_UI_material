@@ -64,7 +64,7 @@
                 $("#content_ajaxloader").show();
                 console.log(statustable+"111111111111")
                 $("#partialtablecategory").load('@Url.Action("_categorytable", "Material")', { active: statustable }, function (result) {
-                    MessageAlert("การค้นหา", "กำลังโหลดข้อมูล", "rgb(115, 158, 115)", "fa fa-check fadeInLeft animated");
+                    //MessageAlert("การค้นหา", "กำลังโหลดข้อมูล", "rgb(115, 158, 115)", "fa fa-check fadeInLeft animated");
                 $('#content_ajaxloader').fadeOut();
             });
 

@@ -93,7 +93,7 @@
             function checkactive() {
                 var material = new Object();
                 material.active = document.getElementById("status").checked;
-                material.group_id = document.getElementById("inputGid").value;
+                material.group_id = document.getElementById("inputCid").value;
                 console.log(material.active)
                 smartconfirmmessageboxedit("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
                     function callbackY() {

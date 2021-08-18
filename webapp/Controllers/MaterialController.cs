@@ -119,7 +119,7 @@ namespace KKN_UI.Controllers
                 List<MaterialSQL> mtlist = new List<MaterialSQL>();
                 using (var conn = OpenDbConnection())
                 {
-                    var query = "SELECT top 0 * FROM  MaterialView";
+                    var query = "SELECT * FROM  MaterialView";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -145,6 +145,43 @@ namespace KKN_UI.Controllers
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             return PartialView(listindex);
             //return Json(new { listindex }, JsonRequestBehavior.AllowGet);
+        }
+
+        public /*JsonResult*/ ActionResult _tabledatalistIndex(SearchItem search)
+        {
+            MaterialSQLindex listindex = new MaterialSQLindex();
+
+
+            //if (search.category_id == 0 && search.group_id == 0 && search.text == null)
+            //{
+                List<MaterialSQL> mtlist = new List<MaterialSQL>();
+                using (var conn = OpenDbConnection())
+                {
+                    var query = "SELECT top 0 * FROM  MaterialView";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                //mtlist.Add(mapView(rdr));
+                                mtlist.Add(new item_masterDao().mapView(rdr));
+                            }
+                        }
+                    }
+                }
+                listindex.MaterialSQLlist = mtlist.ToList();
+            //}
+            //else
+            //{
+            //    listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
+            //}
+
+            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            return PartialView("_tabledatalist", listindex);
         }
 
         public ActionResult _grouptable(bool active)
@@ -774,7 +811,6 @@ namespace KKN_UI.Controllers
             return PartialView("Groupmaterial/_groupView", Categorylistdata);
         }
 
-
         [HttpPost]
         public JsonResult CreateCategory(CategorySQL categorydata)
         {
@@ -791,7 +827,6 @@ namespace KKN_UI.Controllers
 
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult _createcategory()
         {
@@ -830,6 +865,14 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
+        public JsonResult UpdateCategoryActive(CategorySQL categorydata)
+        {
+            CategorySQL output = new CategorySQL();
+            new CategoryDao().UpdateCategoryActive(categorydata);
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult DeleteCategory(CategorySQL categorydata)
         {
             var output = new CategoryDao().DeleteCategory(categorydata);
@@ -843,7 +886,6 @@ namespace KKN_UI.Controllers
         {
             return PartialView("Categorymaterial/_comfirmcategory");
         }
-
 
 
         //public ActionResult DeleteService(int id)
