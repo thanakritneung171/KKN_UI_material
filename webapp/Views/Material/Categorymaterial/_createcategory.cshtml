@@ -24,11 +24,11 @@
                     <label class="margin-top-10">ชื่อกลุ่ม</label>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
-                    <select class="form-control" id="groupC" name="group" @(result.CategorySQL.category_id == 0 ? "" : "disabled") >
+                    <select class="form-control" id="groupC" name="group" @(result.CategorySQL.category_id == 0 ? "" : "disabled")>
                         <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
                         @foreach (var item in result.GroupSQLlist)
                         {
-                            <option value="@item.group_id"  @(result.CategorySQL.group_id==item.group_id? "selected":"") >@item.group_name</option>
+                            <option value="@item.group_id" @(result.CategorySQL.group_id == item.group_id ? "selected" : "")>@item.group_name</option>
                         }
                     </select>
                 </div>
@@ -44,11 +44,11 @@
 
             <div class="row margin-top-10">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
-                    
+
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
                     <label class="checkbox-inline pull-left" style="display:@(result.CategorySQL.category_id  != 0 ? "inline" : "none");">
-                        <input type="checkbox" id="status" class="checkbox style-0" value="@result.CategorySQL.active" @(result.CategorySQL.active ? "checked" : "") onclick="checkactive()">
+                        <input type="checkbox" id="status" class="checkbox style-0" value="@result.CategorySQL.active" @(result.CategorySQL.active ? "checked" : "") onclick="checkactiveC()">
                         <span>สถานะการใช้งาน</span>
                     </label>
                 </div>
@@ -90,15 +90,15 @@
                 });
             }
 
-            function checkactive() {
+            function checkactiveC() {
                 var material = new Object();
                 material.active = document.getElementById("status").checked;
-                material.group_id = document.getElementById("inputCid").value;
+                material.category_id = document.getElementById("inputCid").value;
                 console.log(material.active)
                 smartconfirmmessageboxedit("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
                     function callbackY() {
                         console.log("to do update active");
-                        updategroupactive(material);
+                        updatecategoryactive(material);
                     },
                     function callbackN() {
                         canceleditcallback();
@@ -108,11 +108,11 @@
                 //    updategroupactive(material);
                 //});
             }
-        function updategroupactive(material) {
+            function updatecategoryactive(material) {
                  $("#content_ajaxloader").show();
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("UpdateGorupActive", "Material")',
+                    url: '@Url.Action("UpdateCategoryActive", "Material")',
                     data: JSON.stringify(material),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -132,7 +132,7 @@
                         //alert("บันทึกเรียบร้อย");
                         $('#Modal').modal('hide');
                         //window.location.href = "/material/";
-                        AddPanel();
+                        AddPanelcate();
                     },
                     failure: function (response) {
                         alert(response.responseText);
@@ -153,7 +153,7 @@
         <button id="cacelbtn" class="btn btn-lg btn-labeled btn-danger margin-right-5" style="display:none" @*onclick="caceledit()"*@ onclick="canceleditcallback()"><span class="btn-label"><i class="glyphicon glyphicon-repeat"></i></span>ยกเลิก</button>
 
         <button id="backbtn" class="btn btn-lg btn-labeled btn-info margin-right-5" data-dismiss="modal"><span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>กลับ</button>
-    @* sssssssssssssssssssssssssssssssssssssssssssssssssss *@
+        @* sssssssssssssssssssssssssssssssssssssssssssssssssss *@
 
         @*<button type="button" class="btn-lg btn-danger margin-right-5" data-dismiss="modal" style="display: @(result.group_id == 0 ? "inline" : "none");">กลับ</button>*@
     </div>
@@ -210,13 +210,13 @@
         inGC.category_name = document.getElementById("insertC").value;
         if (inGC.group_id == "0") {
             //alert("โปรดระบุข้อมูลกลุ่ม");
-            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรดระบุข้อมูลกลุ่ม");
+            warningmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โปรดระบุข้อมูลกลุ่ม");
             document.getElementById("groupC").focus();
             return;
         }
         if (inGC.category_name == "") {
             //alert("โปรดระบุข้อมูลประเภท");
-            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรดระบุข้อมูลประเภท");
+            warningmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โปรดระบุข้อมูลประเภท");
             document.getElementById("insertC").focus();
             return;
         }
@@ -243,7 +243,7 @@
             success: function (response) {
                 if (response.output != 1) {
                     //alert('ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
-                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, 'ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
+                    warningmartconfirmmessagebox(document.getElementById("headermanuC").textContent, 'ชื่อประเภทวัสดุ มีบันทึกอยู่แล้ว');
                     document.getElementById("insertC").focus();
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
@@ -251,7 +251,7 @@
                 console.log("insert complete");
                 console.log(response.output);
                 $("#content_ajaxloader").fadeOut("fast");
-                completesmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โหลดข้อมูล");
+                completesmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "สร้างประเภทสำเร็จ");
                 //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
@@ -273,13 +273,13 @@
         inGC.category_name = document.getElementById("insertC").value;
         if (inGC.group_id == "0") {
             //alert("โปรดระบุข้อมูลกลุ่ม");
-            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรดระบุข้อมูลกลุ่ม");
+            warningmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โปรดระบุข้อมูลกลุ่ม");
             document.getElementById("groupC").focus();
             return;
         }
         if (inGC.category_name == "") {
             //alert("โปรดระบุข้อมูลประเภท");
-            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรดระบุข้อมูลประเภท");
+            warningmartconfirmmessagebox(document.getElementById("headermanuC").textContent, "โปรดระบุข้อมูลประเภท");
             document.getElementById("insertC").focus();
             return;
         }
@@ -358,7 +358,7 @@
                                  }
                         console.log("delete complete");
                         $("#content_ajaxloader").fadeOut("fast");
-                        completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
+                        completesmartconfirmmessagebox("ลบข้อมูล", "ลบประเภทสำเร็จ");
                         //alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
                         /*window.location.href = "/material";*/

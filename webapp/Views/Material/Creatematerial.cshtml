@@ -226,7 +226,7 @@
                         @{
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <input type="text" class="form-control " id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
+                                <input type="text" class="form-control required" id="item_no" placeholder="ระบุ รหัสวัสดุ" name="item_no" maxlength="5">
                             }
                             else
                             {
@@ -241,7 +241,7 @@
                         @{
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <input type="text" class="form-control" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
+                                <input type="text" class="form-control required" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
                             }
                             else
                             {
@@ -257,7 +257,7 @@
                         @{
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <select class="form-control" id="group" name="group" onchange="myselect(this)">
+                                <select class="form-control required" id="group" name="group" onchange="myselect(this)">
                                     <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
                                     @foreach (var item in result.GroupSQLlist)
                                     {
@@ -286,7 +286,7 @@
                         @{
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <select class="form-control" id="category" name="category" onchange="console.log(document.getElementById('category').value + 'select category')">
+                                <select class="form-control required" id="category" name="category" onchange="console.log(document.getElementById('category').value + 'select category')">
                                     <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
                                     @foreach (var item in result.CategorySQLlist)
                                     {
@@ -348,7 +348,7 @@
                         @{
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <select class="form-control" id="material_account" name="material_account">
+                                <select class="form-control required" id="material_account" name="material_account">
                                     <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
                                     @foreach (var item in result.Material_accSQLlist)
                                     {
@@ -358,7 +358,7 @@
                             }
                             else
                             {
-                                <select class="form-control" id="material_account" name="material_account" disabled>
+                                <select class="form-control required" id="material_account" name="material_account" disabled>
                                     @foreach (var item in result.Material_accSQLlist)
                                     {
                                         <option value="@item.material_acc_id" @(item.material_acc_id == result.MaterialSQLdataselect.material_acc_id ? "selected" : "")>@item.material_acc_name</option>
@@ -374,7 +374,7 @@
                         @{
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <select class="form-control" id="costing_method_material" name="costing_method_material">
+                                <select class="form-control required" id="costing_method_material" name="costing_method_material">
                                     <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
                                     @foreach (var item in result.Costing_methodSQL_list)
                                     {
@@ -940,6 +940,25 @@
                     //validatedata()
                     //var va =  validatedata()
                     //alert(va)
+
+                    var counter = 0;
+                    $(".required").each(function () {
+
+                        if ($(this).val() == "") {
+                            $(this).addClass("invalid");
+                            counter++;
+                        }
+                        else {
+                            $(this).removeClass("invalid");
+                            $(this).addClass("valid");
+                        }
+
+                    });
+
+                    if (counter > 0) {
+                        console.log("validate")
+                        return false;
+                    }
 
                     smartconfirmmessagebox(document.getElementById("headermanu").textContent, function () {
                         console.log("Do function call back ");
