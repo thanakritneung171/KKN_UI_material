@@ -342,11 +342,15 @@
                                  if (response.output.check == "checkitem") {
                                      console.log(response.output.check)
                                      console.log(response.output.row)
+                                     warningmartconfirmmessagebox("ไม่สามารถลบได้", "มี " +response.output.row+"วัสดุ ที่ใช้กลุ่มนี้อยู่" );
+                                     $("#content_ajaxloader").fadeOut("fast");
                                      return;
                                  } else if (response.output.check == "checkcategory")
                                  {
                                      console.log(response.output.check)
                                      console.log(response.output.row)
+                                     warningmartconfirmmessagebox("ไม่สามารถลบได้", "มี " + response.output.row + "ประเภท ที่ใช้กลุ่มนี้อยู่");
+                                     $("#content_ajaxloader").fadeOut("fast");
                                      return;
                                  }
                                 
