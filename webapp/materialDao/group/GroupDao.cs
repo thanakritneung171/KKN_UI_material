@@ -193,7 +193,7 @@ namespace KKN_UI.material.group
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@group_id", groupobject.group_id);
-                    cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
+                    //cmd.Parameters.AddWithValue("@group_name", groupobject.group_name);
                     cmd.Parameters.AddWithValue("@active", groupobject.active);
                     GroupSQL result = null;
                     using (var rdr = cmd.ExecuteReader())

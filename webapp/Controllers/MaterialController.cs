@@ -119,7 +119,7 @@ namespace KKN_UI.Controllers
                 List<MaterialSQL> mtlist = new List<MaterialSQL>();
                 using (var conn = OpenDbConnection())
                 {
-                    var query = "SELECT top 100 * FROM  MaterialView";
+                    var query = "SELECT top 0 * FROM  MaterialView";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
