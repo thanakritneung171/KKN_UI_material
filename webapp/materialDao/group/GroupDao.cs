@@ -30,7 +30,7 @@ namespace KKN_UI.material.group
 
 
         private const string UPDATE = "group_itemUpdate";
-        private const string UPDATEACTIVE = "[group_itemUpdateActive]";
+        private const string UPDATEACTIVE = "group_itemUpdateActive";
 
         private const string READ_BYID = "group_itemRead_Byid";
         private const string READ_BYACTIVE = "group_itemReadAllactive";

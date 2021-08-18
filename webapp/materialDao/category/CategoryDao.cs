@@ -27,6 +27,8 @@ namespace KKN_UI.material.category
         private const string READVIEW       = "categoryReadView";
         private const string CREATE     = "categoryCreate";
         private const string DELETE     = "categoryDelete";
+        private const string DELETECHECKITEM     = "categoryDeleteCheckItem";
+
         private const string UPDATE     = "categoryUpdate";
         private const string UPDATEACTIVE = "categoryUpdateActive";
 
@@ -280,6 +282,36 @@ namespace KKN_UI.material.category
             }
         }
 
+        public Rowcategory DeleteCheckItem(CategorySQL categoryobject)
+        {
+            using (var conn=OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETECHECKITEM,conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
+
+                    Rowcategory result = new Rowcategory();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = mapcheckdelete(rdr);
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public Rowcategory mapcheckdelete(SqlDataReader rdr)
+        {
+            var rowcategory = new Rowcategory();
+            rowcategory.row = Convert.ToInt32(rdr["row"]);
+
+            return rowcategory;
+        }
 
         public CategorySQL maplistcategory(SqlDataReader rdr)
         {

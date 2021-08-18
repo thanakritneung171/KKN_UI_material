@@ -28,4 +28,9 @@ namespace KKN_UI.Models
             this.Categorylist = new List<CategorySQL>();
         }
     }
+    public class Rowcategory
+    {
+        public int row { get; set; }
+        public string check { get; set; }
+    }
 }

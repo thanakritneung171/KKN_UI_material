@@ -875,11 +875,21 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult DeleteCategory(CategorySQL categorydata)
         {
-            var output = new CategoryDao().DeleteCategory(categorydata);
+            Rowcategory rowcategory = new Rowcategory();
+            var checkdeleteitem = new CategoryDao().DeleteCheckItem(categorydata);
+            if(checkdeleteitem.row == 0)
+            {
+            new CategoryDao().DeleteCategory(categorydata);
+            }
+            else
+            {
+                rowcategory = checkdeleteitem;
+                rowcategory.check = "checkitem";
+            }
 
-            return Json(/*new { output = output is null ? 0 : 1 },*/ JsonRequestBehavior.AllowGet);
+
             //var output = DeleteService(12);
-            return Json(/*new { output = output is null ? 0 : 1 },*/ JsonRequestBehavior.AllowGet);
+            return Json(new { output = rowcategory}, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _comfirmcategory()

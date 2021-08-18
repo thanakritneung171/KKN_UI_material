@@ -347,7 +347,15 @@
                              data: JSON.stringify(dg) ,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (response) {
+                             success: function (response) {
+                                 console.log(response);
+                                 if (response.output.check == "checkitem") {
+                                     console.log(response.output.check)
+                                     console.log(response.output.row)
+                                     warningmartconfirmmessagebox("ไม่สามารถลบได้", "มี " + response.output.row + "วัสดุ ที่ใช้งานประเภทนี้อยู่")
+                                     $("#content_ajaxloader").fadeOut("fast");
+                                     return;
+                                 }
                         console.log("delete complete");
                         $("#content_ajaxloader").fadeOut("fast");
                         completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "โหลดข้อมูล");
