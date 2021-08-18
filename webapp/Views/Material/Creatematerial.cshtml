@@ -755,11 +755,11 @@
                             @{
                                 if (result.MaterialSQLdataselect.status == true)
                                 {
-                                    <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="false" onclick="checkactiveitem()"><i class="glyphicon glyphicon-ok"></i></a> <label id="activeupdatlabele">สถานะ ใช้งาน</label>
+                                    <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="false" onclick="checkactiveitem()"><i class="glyphicon glyphicon-ok"></i></a> <label id="activeupdatlabele" onclick="checkactiveitem()">เปลี่ยนสถานะ ใช้งาน</label>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="true" onclick="checkactiveitem()"><i class="glyphicon glyphicon-remove"></i></a> <label id="activeupdatlabele">สถานะ ไม่ใช้งาน</label>
+                                    <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="true" onclick="checkactiveitem()"><i class="glyphicon glyphicon-remove"></i></a> <label id="activeupdatlabele" onclick="checkactiveitem()">เปลี่ยนสถานะ ไม่ใช้งาน</label>
                                 }
                             }
 
@@ -928,13 +928,13 @@
 
             <div class="row margin-top-10 margin-bottom-10 ">
 
-                <button class="btn-lg btn-success " style="margin:5px;" onclick="comfirmsave()">บันทึก</button>
+                <button class="btn-lg btn-success " style="margin:5px;" onclick="comfirmsaveinsert()">บันทึก</button>
 
             </div> <br /><br />
 
             <script>
 
-                function comfirmsave() {
+                function comfirmsaveinsert() {
                     //var va = validate();
 
                     //validatedata()
@@ -1028,6 +1028,7 @@
                         if (response.output.msg == 2) {
                             //alert('รหัสวัสดุ มีบันทึกอยู่แล้ว');
                             warningsmartconfirmmessagebox("รหัสวัสดุ มีบันทึกอยู่แล้ว", "โปรดแก้ไขข้อมูล");
+                            document.getElementById("item_no").focus();
                             $("#content_ajaxloader").fadeOut("fast");
                             return;
                         } else if (response.output.msg == 3) {
@@ -1252,7 +1253,7 @@
 
                 console.log('form_data');
                 console.log(form_data);
-                alert(form_data);
+                //alert(form_data);
 
                 form_data.append('material.item_id', material.item_id)
                 form_data.append('material.item_no', material.item_no)
