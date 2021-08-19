@@ -548,16 +548,19 @@
             $("#partialtabledata").load('@Url.Action("_tabledatalistIndex", "Material")',  function (result) {
                 $('#content_ajaxloader').fadeOut();
 
-
                 var pag = document.getElementById("materialheader").textContent
                 console.log(pag)
-                if (pag == "  ข้อมูลวัสดุ") {
-                    console.log("in ข้อมูลวัสดุ")
-                    
-                    $('.dataTables_empty').html('กรุณาค้นหาข้อมูล');
-                    //document.getElementById("tablebodydata").innerHTML = '<tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">กรุณาค้นหาข้อมูล</td></tr>'
-                        //< tr class="odd" > <td valign="top" colspan="6" class="dataTables_empty">ไม่พบข้อมูล</td></tr >
+
+                var m = document.querySelectorAll("td")
+                for (var index in m) {
+                    if (m[index].textContent === "ไม่พบข้อมูล") {
+                        m[index].textContent = "กรุณาค้นหาข้อมูล";
+                    }
                 }
+                //if (pag == "  ข้อมูลวัสดุ") {
+                //    console.log("in ข้อมูลวัสดุ")
+                //    //$('.dataTables_empty').html('กรุณาค้นหาข้อมูล');
+                //}
 
             });
 

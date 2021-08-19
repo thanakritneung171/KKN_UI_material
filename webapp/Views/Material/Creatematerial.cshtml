@@ -258,7 +258,7 @@
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
                                 <select class="form-control required" id="group" name="group" onchange="myselect(this)">
-                                    <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+                                    <option disabled value="0" @*value="0"*@ selected>เลือกกลุ่มวัสดุ</option>
                                     @foreach (var item in result.GroupSQLlist)
                                     {
                                         <option value="@item.group_id ">@item.group_name</option>
@@ -287,7 +287,7 @@
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
                                 <select class="form-control required" id="category" name="category" onchange="console.log(document.getElementById('category').value + 'select category')">
-                                    <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
+                                    <option disabled value="" @*value="0"*@ id="dontcate" selected>เลือกประเภทวัสดุ</option>
                                     @foreach (var item in result.CategorySQLlist)
                                     {
                                         <option value="@item.category_id" style="display:none" id="@item.group_id">@item.category_name</option>
@@ -941,16 +941,30 @@
                     //var va =  validatedata()
                     //alert(va)
 
+                    var ddl = document.getElementById("group");
+
+                    if (ddl.selectedIndex == 0) {
+                        alert('Please select an item');
+                        return false;
+                    }
+                    console.log("123")
+                    return true;
+
+
+
                     var counter = 0;
                     $(".required").each(function () {
+              
 
                         if ($(this).val() == "") {
                             $(this).addClass("invalid");
+                            console.log($(this))
                             counter++;
                         }
                         else {
                             $(this).removeClass("invalid");
                             $(this).addClass("valid");
+                            console.log($(this))
                         }
 
                     });
