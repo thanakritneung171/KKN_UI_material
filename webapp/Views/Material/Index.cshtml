@@ -1,115 +1,122 @@
 ﻿@{
-    //List<materialModel> result = Model;
-
-    //List<mateview> result = Model;
-    //List<groupmaterial> result2 = Model;
+    MaterialSQLindex result = Model;
 }
-@model IEnumerable<KKN_UI.Models.mateview>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
-        #Msg_ajaxloader {
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
-        }
-    #content_ajaxloader {
+    #Msg_ajaxloader {
         position: fixed;
-        z-index: 1 !important;
+        z-index: 1000;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
+        background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
+    }
+
+    #content_ajaxloader {
+        position: fixed;
+        z-index: 8003 !important;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        /*background: rgba( 255, 255, 255,0.5 ) url('/content/img/unnamed.gif') 50% 50% no-repeat;*/
         background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
     }
 
 
-        body:not(.menu-on-top).desktop-detected {
-            min-height: 0px !important;
+    body:not(.menu-on-top).desktop-detected {
+        min-height: 0px !important;
+    }
+
+    .desktop-detected .inbox-body .table-wrap {
+        min-height: 770px !important;
+    }
+
+    .status .comments li {
+        border-bottom: 1px solid rgba(0,0,0,0);
+        display: block;
+        padding: 15px 0 15px 40px;
+        position: relative;
+    }
+
+    .classli:hover {
+        background: #ddd;
+        cursor: pointer;
+    }
+
+    label:hover {
+        cursor: pointer;
+    }
+
+    .carousel-indicators li {
+        border-color: #999;
+        background-color: #ccc;
+    }
+
+    .carousel-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        z-index: 15;
+        /* width: 60%; */
+        margin-left: -30%;
+        padding-left: 0;
+        list-style: none;
+        text-align: center;
+    }
+
+    .MessageCenter {
+        padding: 12px 10px 8px 10px !important;
+    }
+
+
+    @@media (min-width: 1332px) {
+        .col-lg-3 {
+            width: 33.33%;
         }
 
-        .desktop-detected .inbox-body .table-wrap {
-            min-height: 770px !important;
+        .col-lg-6 {
+            width: 66.66%;
+        }
+    }
+
+    @@media (min-width: 1500px) {
+        .col-lg-3 {
+            width: 25%;
         }
 
-        .status .comments li {
-            border-bottom: 1px solid rgba(0,0,0,0);
-            display: block;
-            padding: 15px 0 15px 40px;
-            position: relative;
+        .col-lg-6 {
+            width: 50%;
         }
+    }
 
-        .classli:hover {
-            background: #ddd;
-            cursor: pointer;
-        }
+    .label {
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
 
-        label:hover {
-            cursor: pointer;
-        }
+    .fix-iconsize {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        padding-top: 10px;
+    }
 
-        .carousel-indicators li {
-            border-color: #999;
-            background-color: #ccc;
-        }
-
-        .carousel-indicators {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            z-index: 15;
-            /* width: 60%; */
-            margin-left: -30%;
-            padding-left: 0;
-            list-style: none;
-            text-align: center;
-        }
-
-        .MessageCenter {
-            padding: 12px 10px 8px 10px !important;
-        }
-
-
-        @@media (min-width: 1332px) {
-            .col-lg-3 {
-                width: 33.33%;
-            }
-
-            .col-lg-6 {
-                width: 66.66%;
-            }
-        }
-
-        @@media (min-width: 1500px) {
-            .col-lg-3 {
-                width: 25%;
-            }
-
-            .col-lg-6 {
-                width: 50%;
-            }
-        }
-
-        .label {
-            display: inline;
-            padding: .2em .6em .3em;
-            font-size: 75%;
-            font-weight: 700;
-            line-height: 1;
-            color: #fff;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: .25em;
-        }
-
+    @@media (max-width: 769px) {
         .fix-iconsize {
             font-size: 40px;
             width: 40px;
@@ -117,456 +124,568 @@
             padding-top: 10px;
         }
 
-        @@media (max-width: 769px) {
-            .fix-iconsize {
-                font-size: 40px;
-                width: 40px;
-                height: 40px;
-                padding-top: 10px;
-            }
-
-            .home-title {
-                display: none;
-            }
+        .home-title {
+            display: none;
         }
+    }
 
-        .form-group {
-            margin-top: 10px;
-        }
+    .form-group {
+        margin-top: 10px;
+    }
 
-        .fix-margintop {
-            margin-bottom: 40px;
-        }
+    .fix-margintop {
+        margin-bottom: 40px;
+    }
 
-        .form-horizontal .form-group {
-            margin-left: 20px !important;
-            margin-right: 0px !important;
-        }
+    .form-horizontal .form-group {
+        margin-left: 20px !important;
+        margin-right: 0px !important;
+    }
 
-        .fix-flaticon {
-            font-size: 10px;
-        }
+    .fix-flaticon {
+        font-size: 10px;
+    }
 
-        /*.validateclass {*/
-        /*border-style: 5px !solid;*/
-        /*border-color: red;
-            border: 1px solid;
-            border-radius: 5px;
-        }*/
+    input[type=text].invalid {
+        border: 2px solid red;
+        border-radius: 4px;
+    }
 
-        /*   input.invalid {
-            border-color: red;
-            border: 1px solid;
-            border-radius: 5px;
-        }
-    */
-        input[type=text].invalid {
-            /*box-sizing: border-box;*/
-            border: 2px solid red;
-            border-radius: 4px;
-        }
+    select.invalid {
+        border: 2px solid red;
+        border-radius: 4px;
+    }
 
-        select.invalid {
-            border: 2px solid red;
-            border-radius: 4px;
-        }
+    input[type=text].valid {
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
 
-        input[type=text].valid {
-            /*box-sizing: border-box;*/
-            border: 2px solid #49C204;
-            border-radius: 4px;
-        }
-
-        select.valid {
-            border: 2px solid #49C204;
-            border-radius: 4px;
-        }
+    select.valid {
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
 </style>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
-    @*<div class="container">*@
-        <div class="row margin-top-10  ">
-            @*<div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>*@
+    <div class="row margin-top-10  margin-left-10">
+        <h2 class="row col-lg-6 col-md-4 col-sm-4 " id="materialheader"> <i class="glyphicon glyphicon-inbox"></i> ข้อมูลวัสดุ</h2>
 
-            <div class="col-lg-12  col-md-12 col-sm-12">
-                <div class="row col-lg-4 col-md-4  col-sm-12 col-xs-12" style="padding: 2.5px; margin-right: 15px">
-                    <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)">
-                </div>
+        <div class="row   pull-right margin-right-10" style="padding: 2.5px;">
+            <button class="btn btn-primary" @*onclick="href='@Url.Action("Editmaterial", "Material")'"*@>จัดการบัญชีวัสดุ</button>
+        </div>
+        <div class="row pull-right margin-right-10" style="padding: 2.5px;">
+            <button class="btn btn-primary" onclick="AddPanelcate()">จัดการประเภท</button>
+        </div>
+        <div class="row   pull-right margin-right-10" style="padding: 2.5px;">
+            <button class="btn btn-primary" onclick="AddPanel('#panel-div')">จัดการกลุ่ม</button>
+        </div>
+    </div>
 
-                <div class="row col-lg-2 col-md-2 col-sm-12 hidden-xs" style="padding: 2.5px; margin-right:15px">
-                    <select class="form-control" id="selgroup" name="selgroup" onchange="selgr(this)">
-                        <option disabled selected value="เลือกกลุ่มวัสดุ">เลือกกลุ่มวัสดุ</option>
+    @*col-xs-12 col-sm-3 col-md-3 col-lg-2*@
 
-                        <option value="">ทั้งหมด</option>
-                        <option value="1">Concrete</option>
-                        <option value="2">Steel</option>
-                        <option value="3">Wood</option>
-                        <option value="4">Electrical</option>
-                        <option value="5">Sanitary</option>
-                        <option value="6">Colour/Paint</option>
+    <div class="row margin-top-10  ">
 
-                    </select>
-                </div>
+        <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 margin-left-5">
+            <div class="row col-lg-4 col-md-4  col-sm-12 col-xs-12" style="padding: 2.5px; margin-right: 15px">
+                <input type="search" id="searchinpuit" class="form-control" placeholder="ค้นหา" aria-controls="dt_basic" onkeyup="keyupser(this)">
+
                 <script>
-                    function keyupser(keyupser) {
-                        console.log("ค้นหา " + keyupser.value)
-                        var table1ser = $('#dt_basic').DataTable();
-                        table1ser.search(keyupser.value).draw();
-                    }
-
-                    function selgr(b) {
-                        if (b.value != "") {
-
-                            var table2ser = $('#dt_basic').DataTable();
-                            table2ser.column(2).search(b.options[b.selectedIndex].text).draw();
-
-                        } else {
-                            var table2ser = $('#dt_basic').DataTable();
-                            table2ser.column(2).search(b.value).draw();
-
+                    var searchinpuit = document.getElementById("searchinpuit");
+                    searchinpuit.addEventListener("keyup", function (event) {
+                        if (event.keyCode === 13) {
+                            event.preventDefault();
+                            document.getElementById("btnsearch").click();
                         }
-                        console.log("ค้นหากลุ่ม" + b.options[b.selectedIndex].text)
-                        console.log("ค้นหากลุ่ม" + b.value + "out")
-
-
-
-
-
-                    }
-
-                    function selcat(c) {
-                        if (c.value != "") {
-                            var table1ser = $('#dt_basic').DataTable();
-                            table1ser.column(3).search(c.options[c.selectedIndex].text).draw();
-                        } else {
-                            var table1ser = $('#dt_basic').DataTable();
-                            table1ser.column(3).search(c.value).draw();
-                        }
-                        console.log("ค้นหาประเภท" + c.options[c.selectedIndex].text)
-                        console.log("ค้นหากลุ่ม" + c.value + "out")
-                    }
-
-
+                    })
                 </script>
-                @*<button onclick="insertoption()"> 111111</button>*@
-
-                <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
-                    <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)">
-                        <option disabled selected>ไม่พบประเภทวัสดุ</option>
-                        <option @*style="display:none"*@ value="">ทั้งหมด</option>
-                        <option @*style="display:none"*@ value="1">ปูนมิกซ์</option>
-                        <option @*style="display:none"*@ value="2">ปูนถง</option>
-                        <option @*style="display:none"*@ value="3">เคมีภัณฑ์</option>
-                        <option @*style="display:none"*@ value="4">เหล็กเส้น</option>
-                        <option @*style="display:none"*@ value="5">เหล็กรูปพรรณ</option>
-                        <option @*style="display:none"*@ value="6">ไม้ห้องซาวน่า</option>
-
-                    </select>
-                </div>
-                <style>
-                    select option[disabled]:first-child {
-                        display: none;
-                    }
-                </style>
-
-
-                @*<div class="hidden-lg hidden-md col-sm-10 hidden-xs "></div>
-                    <div class="row col-lg-1 col-md-1 col-sm-2 col-xs-1 " style="padding: 2.5px;">
-                        <button class="btn btn-primary  float-right"><i class="fa-fw fa fix-icon-aside-size fa  fa-search"></i> ค้นหา</button>
-                    </div>*@
-                <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px;"><a @*href='@Url.Action("Editmaterial", "Material")'*@ class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a></div>
-                <div class="hidden-lg hidden-md col-sm-8 col-xs-4 "></div>
-                <div class="row  col-lg-2 col-md-2 col-sm-2 col-xs-2 float-right text-right" style="padding: 2.5px; "><a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a></div>
-
-
             </div>
 
+            <div class="row col-lg-2 col-md-2 col-sm-12 hidden-xs" style="padding: 2.5px; margin-right:15px">
+                <select class="form-control" id="selgroup" name="selgroup" @*onchange="selgr(this)"*@ onchange="myselect(this)">
+                    <option disabled selected value="เลือกกลุ่มวัสดุ">เลือกกลุ่มวัสดุ</option>
+                    <option value="">ทั้งหมด</option>
+                    @foreach (var itemgroup in result.GroupSQLlist)
+                    {
+                        <option value="@itemgroup.group_id">@itemgroup.group_name </option>
+                    }
+                </select>
+            </div>
 
+            <div class="row col-lg-2 col-md-2 col-sm-12  hidden-xs" style="padding: 2.5px; margin-right: 15px">
+                <select class="form-control" id="selcategory" name="selcategory" onchange="selcat(this)">
+                    <option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>
+                    <option style="display:none" id="selcatall" value="">ทั้งหมด</option>
+                </select>
+            </div>
+
+            <div class="row col-lg-2 col-md-2 col-sm-6  col-xs-6" style="padding: 2.5px; margin-right: 15px">
+                <button id="btnsearch" class="btn btn-primary" onclick="searchdata()"><i class="fa fa-search"></i> ค้นหา</button>
+            </div>
+
+            <div class="row col-lg-2 col-md-2 col-sm-6   col-xs-12    float-right text-right" style="padding: 2.5px; ">
+                <a href='@Url.Action("Creatematerial", "Material")' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a>
+            </div>
+            <script>
+                function searchdata() {
+                    console.log("select    searchdata");
+                    console.log("in function search")
+
+                    var stext = document.getElementById("searchinpuit").value
+                    var sgroup = document.getElementById("selgroup").value
+                    var sc = document.getElementById("selcategory");
+                    var scategory = sc.options[sc.selectedIndex].value;
+                    console.log(stext + "     " + sgroup + "     " + scategory)
+
+                    var search = new Object();
+                    search.text = stext;
+                    search.group_id = sgroup;
+                    search.category_id = scategory;
+
+                    if (stext.length < 3 && scategory == "" && sgroup == "เลือกกลุ่มวัสดุ") {
+                        MessageAlert("การค้นหา", "โปรดระบุ มากกว่า 3 ตัวอักษร หรือเลือกกลุ่มวัสดุ", "rgb(199, 145, 33)", "fa fa-shield fadeInLeft animated");
+                        document.getElementById("searchinpuit").focus();
+                        return;
+                    } else if (sgroup == "") {
+                        smartconfirmmessageboxbycase("ต้องการค้นหาข้อมูลจากกลุ่มทั้งหมด", "กรุณาระบุข้อมูล หรือ เลือกกลุ่ม", function () {
+                            console.log("in function call back ")
+                            search.group_id = null;
+                            searchdatafunction(search);
+                        });
+                    } else {
+                        searchdatafunction(search);
+                    }
+
+                }
+
+                function searchdatafunction(search) {
+                     console.log("22222222222222222222222222")
+
+                    console.log(search)
+                    $("#content_ajaxloader").show();
+
+                    $("#partialtabledata").load('@Url.Action("_tabledatalist", "Material")', { search }, function (result) {
+                        MessageAlert("การค้นหา", "กำลังโหลดข้อมูล", "rgb(115, 158, 115)", "fa fa-check fadeInLeft animated");
+                        $('#content_ajaxloader').fadeOut();
+                    });
+                }
+
+                function MessageAlert(title, content, color, iconSmall, type = 1) {
+                    //if ()
+                    $.smallBox({
+                        title: title,
+                        content: content,
+                        color: color,
+                        iconSmall: iconSmall ,
+                        timeout: 5000
+                    });
+                }
+
+                function myselect(th) {
+                    console.log("select");
+                    document.getElementById("selcategory").options.selectedIndex = 0;
+                    //selcat(document.getElementById("selcategory"))
+                    //var sc = document.getElementById("selcategory");
+                    var sg = document.getElementById("selgroup").value;
+                    console.log(sg)
+                    //getSelectedOptions(sc, sg)
+                    document.getElementById("dontcate").select = true;
+                    //selgr(th)
+                    if (sg != "") {
+                        AddoptionC(sg)
+                    } else {
+                        $("#selcategory").html('<option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>');
+                    }
+                }
+
+                function AddoptionC(sg) {
+                 $('#content_ajaxloader').fadeIn();
+                    $("#selcategory").load('@Url.Action("_selectcategory", "Material")',  { id: sg}, function (result) {
+                        $('#content_ajaxloader').fadeOut();
+                    });
+                }
+
+                function getSelectedOptions(select, option) {
+                    var result = [];
+                    var options = select.getElementsByTagName('option');
+                    for (var i = 0; i < options.length; i++) {
+                        options[i].style.display = "none";
+                        if (document.getElementById("selgroup").value != "") {
+                            document.getElementById("selcatall").style.display = "block"
+                        }
+                        for (var k = 0; k < select.length; k++) {
+                            if (option == k && options[i].id == k) {
+                                console.log("option" + k)
+                                options[i].style.display = "block";
+                            }
+                        }
+                    }
+                }
+
+                function keyupser(keyupser) {
+                    console.log("ค้นหา " + keyupser.value)
+                    //var table1ser = $('#dt_basic').DataTable();
+                    //table1ser.search(keyupser.value).draw();
+                }
+
+                function selgr(b) {
+                    //var categoryselect = document.getElementById("selcategory")
+                    //var groupselect = b.value
+                    //$(categoryselect).each(function () {
+                    //    if ($(this).valuegroup == vehicleValue) {
+                    //        $(brandsSelect).append($(this));
+                    //    }
+                    //}
+                    console.log(b.value);
+                    //document.getElementById("selcategory").value = b.value
+                    if (b.value != "") {
+                        var table2ser = $('#dt_basic').DataTable();
+                        table2ser.column(2).search(b.options[b.selectedIndex].text).draw();
+                    } else {
+                        var table2ser = $('#dt_basic').DataTable();
+                        table2ser.column(2).search(b.value).draw();
+                    }
+                    ////////////
+                    //if (b.valuegroup = document.getElementById("opcate").valuegroup)
+                    //{
+                    //    document.getElementById("opcate").disabled = false;
+                    //}
+                    ////////////
+                    console.log("ค้นหากลุ่ม" + b.options[b.selectedIndex].text)
+                    console.log("ค้นหากลุ่ม" + b.value + "out")
+                }
+
+                function selcat(c) {
+                    //if (c.value != "") {
+                    //    var table1ser = $('#dt_basic').DataTable();
+                    //    table1ser.column(3).search(c.options[c.selectedIndex].text).draw();
+                    //} else {
+                    //    var table1ser = $('#dt_basic').DataTable();
+                    //    table1ser.column(3).search(c.value).draw();
+                    //}
+                    console.log("1111111111111111111")
+                    console.log("ค้นหาประเภท" + c.options[c.selectedIndex].text)
+                    //console.log("ค้นหากลุ่ม" + c.value + "out")
+                }
+
+            </script>
+
+            <style>
+                select option[disabled]:first-child {
+                    display: none;
+                }
+            </style>
+
+
+            @*<div class="hidden-lg hidden-md col-sm-8 col-xs-4 ">
+
+                </div>*@
+
+            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row col-xs-4 col-sm-3 col-md-3 col-lg-2  " style="padding: 2.5px;">
+                    <button class="btn btn-primary" onclick="AddPanel('#panel-div')">จัดการกลุ่ม</button>
+                </div>
+
+                <div class="row col-xs-4 col-sm-3 col-md-3 col-lg-2  " style="padding: 2.5px;">
+                    <button class="btn btn-primary" onclick="AddPanelcate()">จัดการประเภท</button>
+                </div>
+
+                <div class="row  col-xs-4 col-sm-3 col-md-3 col-lg-2 " style="padding: 2.5px;">
+                    <a-->
+            @*href='@Url.Action("Editmaterial", "Material")'*@
+            <!--class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a>
+                </div>
+
+                <div class="row   col-xs-12  col-sm-3   col-md-3 col-lg-6 float-right text-right" style="padding: 2.5px; ">
+                    <a href=' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a>
+                </div>
+
+            </div>-->
+            @*<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                </div>*@
         </div>
-    @*</div>*@
+
+
+        @* partial *@
+        <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+            <div id="panel-div">
+            </div>
+        </div>
+        @* modal *@
+        <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
+
+                </div>
+            </div>
+        </div>
+        @* confirm *@
+        <div class="modal fade" id="Modalconfirm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8002 !important;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="overflow: hidden;" id="Modal_Content_confirm">
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+             function AddPanel(id) {
+                 $('#content_ajaxloader').fadeIn();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_groupView", "Material")',
+                dataType: 'html',
+                data: {},
+                success: function (result) {
+                    $(id).html('');
+                    $('#panel-div').html(result);
+                    $('.cd-panel').addClass("cd-panel--is-visible"); //แสดงแถบ right Panel$('#Modal').modal('show');
+                    $('#content_ajaxloader').fadeOut();
+                }
+            });
+            }
+
+            function jaxloaderin() {
+                $('#content_ajaxloader').fadeIn();
+            }
+             function AddPanelcate(id) {
+                 jaxloaderin();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_categoryView", "Material")',
+                dataType: 'html',
+                data: {},
+                success: function (result) {
+                    $('#panel-div').html('');
+                    $('#panel-div').html(result);
+                    $('.cd-panel').addClass("cd-panel--is-visible"); //แสดงแถบ right Panel$('#Modal').modal('show');
+                    $('#content_ajaxloader').fadeOut();
+                }
+            });
+        }
+        </script>
+    </div>
 
 
     @*<div class="container margin-top-5">*@
-        <!-- widget grid -->
-        <section id="widget-grid" class="">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
 
-            <!-- row -->
-            <div class="row margin-top-5">
+        <!-- row -->
+        <div class="row margin-top-5">
 
-                <!-- NEW WIDGET START -->
-                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                    <style>
-                        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-                            background-color: #8adafe;
-                        }
-                    </style>
-                    <table id="dt_basic" class="table table-striped  table-bordered table-hover margin-top-10" width="100%">
+                <style>
+                    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+                        background-color: #8adafe;
+                    }
+                </style>
+                <div id="partialtabledata">           </div>
 
-                        <thead>
-                            <tr>
-                                <th data-hide="phone">#</th>
-                                <th data-class="expand">รหัส</th>
-                                <th data-hide="phone,tablet"><i class="fa fa-fw fa-reorder text-muted hidden-md hidden-sm hidden-xs"></i> กลุ่ม</th>
-                                <th data-hide="phone,tablet"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> ประเภท</th>
-                                <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i> รายการวัสดุ</th>
-                                <th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> สถานะ</th>
+                <!--------------------------------------------------------------------------------------------------------------------------------------------------------->
+                <!-- end widget -->
 
+            </article>
+            <!-- WIDGET END -->
 
-                                @*<th data-hide="phone"><i class="fa fa-fw fa-bicycle text-muted hidden-md hidden-sm hidden-xs"></i> Category</th>*@
-                                @*<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Stocks</th>*@
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Modal ---------------------------------------------------->
-                            <div class="modal fade" id="myModal" role="dialog">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Modal Header</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>This is a large modal.</p>
-                                            <input type="text" class="form-control" id="recipient-name" />
-                                            <div id="span1" class="span1"></div>
-                                            <div id="span12" class="span12"></div>
-                                            <div id="span13" class="span13"></div>
-                                            <div id="span14" class="span14"></div>
+        </div>
 
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- end row -->
+        <!-- end row -->
 
-                            <!-- Modal
-                            --------------------------------------------------->
-
-                            @{ int i = 1;
-                                foreach (var item in Model)
-                                {
-
-                                    @*<tr class="trid" id="@item.item_no" onclick="@Url.Action("Editmaterial", "Material", new { id = item.item_no })"> *@
-                                    <tr class="trid" id="@item.materialModeldata.item_name" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = item.materialModeldata.item_no })'">
-                                        <td class="stu_numrec" width="5%">@*@Url.Content(string.Format("{0}", i++))*@ @i </td>
-                                        <td class="stu_no" width="10%"> @item.materialModeldata.item_no   </td>
-                                        <td class="stu_group" width="10%" value="@item.groupmaterialdata.group_id">@item.groupmaterialdata.group_name</td>
-                                        <td class="stu_category" width="15%" value="@item.categorymaterialdata.category_id">@item.categorymaterialdata.category_name</td>
-                                        <td class="stu_des" width="50%">@item.materialModeldata.item_name @item.materialModeldata.size @item.materialModeldata.brand @item.materialModeldata.color @item.materialModeldata.version</td>
-                                        <td class="stu_status @(item.materialModeldata.status? "btn-success": "btn-danger")" width="5%" @*style="color:@(item.status? "Green": "Red")"*@> @(item.materialModeldata.status ? "ใช้งาน": "ไม่ใช้")  </td>
-                                    </tr>
-                                    i++;
-                                } }
-
-
-
-                        </tbody>
-                    </table>
-
-
-
-
-
-
-                    <!--------------------------------------------------------------------------------------------------------------------------------------------------------->
-                    <!-- end widget -->
-
-                </article>
-                <!-- WIDGET END -->
-
-            </div>
-
-            <!-- end row -->
-            <!-- end row -->
-
-        </section>
-        <!-- end widget grid -->
-        <!-- END MAIN CONTENT -->
-
+    </section>
+    <!-- end widget grid -->
+    <!-- END MAIN CONTENT -->
     @*</div>*@
 </div>
 
+<!-- Modal ---------------------------------------------------->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content1">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>This is a large modal.</p>
+                <input type="text" class="form-control" id="recipient-name" />
+                <div id="span1" class="span1"></div>
+                <div id="span12" class="span12"></div>
+                <div id="span13" class="span13"></div>
+                <div id="span14" class="span14"></div>
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-
+<!-- Modal
+--------------------------------------------------->
 
 @section pagespecific {
     <script type="text/javascript">
-        // DO NOT REMOVE : GLOBAL FUNCTIONS!
-
-
-
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
         $(document).ready(function () {
+            console.log("ready!");
 
-            /* // DOM Position key index //
+            document.getElementById("searchinpuit").focus();
+            //$('#dt_basic_length')
 
-            l - Length changing (dropdown)
-            f - Filtering input (search)
-            t - The Table! (datatable)
-            i - Information (records)
-            p - Pagination (paging)
-            r - pRocessing
-            < and > - div elements
-            <"#id" and > - div with an id
-            <"class" and > - div with a class
-            <"#id.class" and > - div with an id and class
+            $('select[name="dt_basic_length"]').on('click', function () {
+                alert($(this).val());
+            });
 
-            Also see: http://legacy.datatables.net/usage/features
-            */
+            $('#content_ajaxloader').fadeIn();
+            $("#partialtabledata").load('@Url.Action("_tabledatalistIndex", "Material")',  function (result) {
+                $('#content_ajaxloader').fadeOut();
 
+                var pag = document.getElementById("materialheader").textContent
+                console.log(pag)
 
-            /* BASIC ;*/
-            var responsiveHelper_dt_basic = undefined;
-            var responsiveHelper_datatable_fixed_column = undefined;
-            var responsiveHelper_datatable_col_reorder = undefined;
-            var responsiveHelper_datatable_tabletools = undefined;
-
-            var breakpointDefinition = {
-                tablet: 1024,
-                phone: 480
-            };
-
-            $('#dt_basic').dataTable({
-                //"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>" +
-                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'><'col-sm-6 col-xs-12 hidden-xs'l>r>" +
-                    "t" +
-                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
-                "autoWidth": true,
-                "preDrawCallback": function () {
-                    // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper_dt_basic) {
-                        responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
+                var m = document.querySelectorAll("td")
+                for (var index in m) {
+                    if (m[index].textContent === "ไม่พบข้อมูล") {
+                        m[index].textContent = "กรุณาค้นหาข้อมูล";
                     }
-                },
-                "rowCallback": function (nRow) {
-                    responsiveHelper_dt_basic.createExpandIcon(nRow);
-                },
-                "drawCallback": function (oSettings) {
-                    responsiveHelper_dt_basic.respond();
                 }
-            });
-
-            /* END BASIC */
-
-            /* COLUMN FILTER  */
-            var otable = $('#datatable_fixed_column').DataTable({
-                //"bFilter": false,
-                //"bInfo": false,
-                //"bLengthChange": false
-                //"bAutoWidth": false,
-                //"bPaginate": false,
-                //"bStateSave": true // saves sort state using localStorage
-                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'f><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>" +
-                    "t" +
-                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
-                "autoWidth": true,
-                "preDrawCallback": function () {
-                    // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper_datatable_fixed_column) {
-                        responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
-                    }
-                },
-                "rowCallback": function (nRow) {
-                    responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
-                },
-                "drawCallback": function (oSettings) {
-                    responsiveHelper_datatable_fixed_column.respond();
-                }
+                //if (pag == "  ข้อมูลวัสดุ") {
+                //    console.log("in ข้อมูลวัสดุ")
+                //    //$('.dataTables_empty').html('กรุณาค้นหาข้อมูล');
+                //}
 
             });
 
-            // custom toolbar
-            $("div.toolbar").html('<div class="text-right"><img src="/Content/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
-            // Apply the filter
-            $("#datatable_fixed_column thead th input[type=text]").on('keyup change', function () {
-
-                otable
-                    .column($(this).parent().index() + ':visible')
-                    .search(this.value)
-                    .draw();
-
-            });
-
-            //////////////////////////////////////////////////////////////////////////////////////////
-
-            //////////////////////////////////////////////////////////////////////////////////////////
-
-            /* END COLUMN FILTER */
-
-            /* COLUMN SHOW - HIDE */
-            $('#datatable_col_reorder').dataTable({
-                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'C>r>" +
-                    "t" +
-                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
-                "autoWidth": true,
-                "preDrawCallback": function () {
-                    // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper_datatable_col_reorder) {
-                        responsiveHelper_datatable_col_reorder = new ResponsiveDatatablesHelper($('#datatable_col_reorder'), breakpointDefinition);
-                    }
-                },
-                "rowCallback": function (nRow) {
-                    responsiveHelper_datatable_col_reorder.createExpandIcon(nRow);
-                },
-                "drawCallback": function (oSettings) {
-                    responsiveHelper_datatable_col_reorder.respond();
-                }
-            });
-
-            /* END COLUMN SHOW - HIDE */
-
-            /* TABLETOOLS */
-            $('#datatable_tabletools').dataTable({
-
-                // Tabletools options:
-                //   https://datatables.net/extensions/tabletools/button_options
-                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" +
-                    "t" +
-                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
-                "oTableTools": {
-                    "aButtons": [
-                        "copy",
-                        "csv",
-                        "xls",
-                        {
-                            "sExtends": "pdf",
-                            "sTitle": "SmartAdmin_PDF",
-                            "sPdfMessage": "SmartAdmin PDF Export",
-                            "sPdfSize": "letter"
-                        },
-                        {
-                            "sExtends": "print",
-                            "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
-                        }
-                    ],
-                    "sSwfPath": "/Scripts/plugin/datatables/swf/copy_csv_xls_pdf.swf"
-                },
-                "autoWidth": true,
-                "preDrawCallback": function () {
-                    // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper_datatable_tabletools) {
-                        responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#datatable_tabletools'), breakpointDefinition);
-                    }
-                },
-                "rowCallback": function (nRow) {
-                    responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
-                },
-                "drawCallback": function (oSettings) {
-                    responsiveHelper_datatable_tabletools.respond();
-                }
-            });
-
-            /* END TABLETOOLS */
-
+          
         })
 
+        ////////////  smart alert messga///////////////////////////
+
+        function completesmallbox() {
+
+            $.smallBox({
+                title: "บันทึกสำเร็จ",
+                content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                color: "#296191",
+                iconSmall: "fa fa-thumbs-up bounce animated",
+                timeout: 5000
+            });
+
+        }
+
+        function completesmartconfirmmessagebox(string = '', content) {
+            $.smallBox({
+                title: "กำลัง" + string,
+                content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                color: "#659265",
+                iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                timeout: 5000
+            });
+        }
+
+        function warningmartconfirmmessagebox(string = '', content) {
+            $.smallBox({
+                title:  string,
+                content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                color: "rgb(199, 145, 33)",
+                iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                timeout: 5000
+            });
+        }
+
+
+
+        function smartconfirmmessagebox(string = '', callback) {
+            $.SmartMessageBox({
+                title: "Confirm!",
+                content: "คุณต้องการ" + string + "หรือไม่",
+                buttons: '[ไม่][ใช่]'
+            }, function (ButtonPressed) {
+                if (ButtonPressed === "ใช่") {
+
+                    //$.smallBox({
+                    //    title: "กำลัง" + string,
+                    //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                    //    color: "#659265",
+                    //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                    //    timeout: 4000
+                    //});
+                    callback();
+                    //true;
+                }
+                if (ButtonPressed === "ไม่") {
+                    $.smallBox({
+                        title: "ยกเลิกบันทึกข้อมูล",
+                        content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 5000
+                    });
+                    //false;
+                }
+            });
+        }
+
+        function smartconfirmmessageboxbycase(stringY = '', stringN = '', callback) {
+            $.SmartMessageBox({
+                title: "Confirm!",
+                content: "คุณต้องการ" + stringY + "หรือไม่",
+                buttons: '[ไม่][ใช่]'
+            }, function (ButtonPressed) {
+                if (ButtonPressed === "ใช่") {
+
+                    //$.smallBox({
+                    //    title: "กำลัง" + string,
+                    //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                    //    color: "#659265",
+                    //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                    //    timeout: 4000
+                    //});
+                    callback();
+                    //true;
+                }
+                if (ButtonPressed === "ไม่") {
+                    $.smallBox({
+                        title: stringN,
+                        content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                        color: "#C46A69",
+                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                        timeout: 5000
+                    });
+                    //false;
+                }
+            });
+        }
+
+        function MessageAlert(title, content, color, iconSmall, type) {
+            if (type == true) {
+                $.smallBox({
+                    title: title,
+                    content: content,
+                    color: color,
+                    iconSmall: iconSmall + "fa-2x fadeInRight animated",
+                    timeout: 5000
+                });
+            } else {
+                $.smallBox({
+                    title: title,
+                    content: content,
+                    color: color,
+                    iconSmall: iconSmall + "fa-2x fadeInRight animated",
+                    timeout: 5000
+                });
+            }
+        }
 
     </script>
-
 }
+

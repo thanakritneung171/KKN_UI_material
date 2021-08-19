@@ -1,6 +1,7 @@
 ﻿@{
-    //materialModel result = Model;
-    materialmodalview result = Model;
+
+    MaterialSQLindex result = Model;
+    string path = "/UploadedFiles/Photo/";
 }
 
 @{
@@ -10,104 +11,113 @@
 
 
 <style>
-        #Msg_ajaxloader {
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
-        }
-        #content_ajaxloader {
-            position: fixed;
-            z-index: 1 !important;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
-        }
+    #Msg_ajaxloader {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
+    }
 
-        body:not(.menu-on-top).desktop-detected {
-            min-height: 0px !important;
-        }
+    #content_ajaxloader {
+        position: fixed;
+        z-index: 1 !important;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
+    }
 
-        .desktop-detected .inbox-body .table-wrap {
-            min-height: 770px !important;
-        }
+    body:not(.menu-on-top).desktop-detected {
+        min-height: 0px !important;
+    }
 
-        .status .comments li {
-            border-bottom: 1px solid rgba(0,0,0,0);
-            display: block;
-            padding: 15px 0 15px 40px;
-            position: relative;
-        }
+    .desktop-detected .inbox-body .table-wrap {
+        min-height: 770px !important;
+    }
 
-        .classli:hover {
-            background: #ddd;
-            cursor: pointer;
-        }
+    .status .comments li {
+        border-bottom: 1px solid rgba(0,0,0,0);
+        display: block;
+        padding: 15px 0 15px 40px;
+        position: relative;
+    }
 
-        label:hover {
-            cursor: pointer;
-        }
+    .classli:hover {
+        background: #ddd;
+        cursor: pointer;
+    }
 
-        .carousel-indicators li {
-            border-color: #999;
-            background-color: #ccc;
-        }
+    label:hover {
+        cursor: pointer;
+    }
 
-        .carousel-indicators {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            z-index: 15;
-            /* width: 60%; */
-            margin-left: -30%;
-            padding-left: 0;
-            list-style: none;
-            text-align: center;
-        }
+    .carousel-indicators li {
+        border-color: #999;
+        background-color: #ccc;
+    }
 
-        .MessageCenter {
-            padding: 12px 10px 8px 10px !important;
-        }
+    .carousel-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        z-index: 15;
+        /* width: 60%; */
+        margin-left: -30%;
+        padding-left: 0;
+        list-style: none;
+        text-align: center;
+    }
+
+    .MessageCenter {
+        padding: 12px 10px 8px 10px !important;
+    }
 
 
-        @@media (min-width: 1332px) {
-            .col-lg-3 {
-                width: 33.33%;
-            }
-
-            .col-lg-6 {
-                width: 66.66%;
-            }
+    @@media (min-width: 1332px) {
+        .col-lg-3 {
+            width: 33.33%;
         }
 
-        @@media (min-width: 1500px) {
-            .col-lg-3 {
-                width: 25%;
-            }
+        .col-lg-6 {
+            width: 66.66%;
+        }
+    }
 
-            .col-lg-6 {
-                width: 50%;
-            }
+    @@media (min-width: 1500px) {
+        .col-lg-3 {
+            width: 25%;
         }
 
-        .label {
-            display: inline;
-            padding: .2em .6em .3em;
-            font-size: 75%;
-            font-weight: 700;
-            line-height: 1;
-            color: #fff;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: .25em;
+        .col-lg-6 {
+            width: 50%;
         }
+    }
 
+    .label {
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+
+    .fix-iconsize {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        padding-top: 10px;
+    }
+
+    @@media (max-width: 769px) {
         .fix-iconsize {
             font-size: 40px;
             width: 40px;
@@ -115,87 +125,70 @@
             padding-top: 10px;
         }
 
-        @@media (max-width: 769px) {
-            .fix-iconsize {
-                font-size: 40px;
-                width: 40px;
-                height: 40px;
-                padding-top: 10px;
-            }
-
-            .home-title {
-                display: none;
-            }
+        .home-title {
+            display: none;
         }
+    }
 
-        .form-group {
-            margin-top: 10px;
-        }
+    .form-group {
+        margin-top: 10px;
+    }
 
-        .fix-margintop {
-            margin-bottom: 40px;
-        }
+    .fix-margintop {
+        margin-bottom: 40px;
+    }
 
-        .form-horizontal .form-group {
-            margin-left: 20px !important;
-            margin-right: 0px !important;
-        }
+    .form-horizontal .form-group {
+        margin-left: 20px !important;
+        margin-right: 0px !important;
+    }
 
-        .fix-flaticon {
-            font-size: 10px;
-        }
+    .fix-flaticon {
+        font-size: 10px;
+    }
 
-        /*.validateclass {*/
-        /*border-style: 5px !solid;*/
-        /*border-color: red;
-            border: 1px solid;
-            border-radius: 5px;
-        }*/
+    input[type=text].invalid {
+        /*box-sizing: border-box;*/
+        border: 2px solid red;
+        border-radius: 4px;
+    }
 
-        /*   input.invalid {
-            border-color: red;
-            border: 1px solid;
-            border-radius: 5px;
-        }
-    */
-        input[type=text].invalid {
-            /*box-sizing: border-box;*/
-            border: 2px solid red;
-            border-radius: 4px;
-        }
+    select.invalid {
+        border: 2px solid red;
+        border-radius: 4px;
+    }
 
-        select.invalid {
-            border: 2px solid red;
-            border-radius: 4px;
-        }
+    input[type=text].valid {
+        /*box-sizing: border-box;*/
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
 
-        input[type=text].valid {
-            /*box-sizing: border-box;*/
-            border: 2px solid #49C204;
-            border-radius: 4px;
-        }
-
-        select.valid {
-            border: 2px solid #49C204;
-            border-radius: 4px;
-        }
+    select.valid {
+        border: 2px solid #49C204;
+        border-radius: 4px;
+    }
 
     input[disabled]:disabled {
         /*border: 2px solid #49C204;*/
         /*border-radius: 4px;*/
         background-color: #CCCCCC;
     }
+
     select[disabled]:disabled {
         /*border: 2px solid #49C204;*/
         /*border-radius: 4px;*/
         background-color: #CCCCCC;
     }
+
     textarea[disabled]:disabled {
         /*border: 2px solid #49C204;*/
         /*border-radius: 4px;*/
         background-color: #CCCCCC;
     }
 </style>
+
+<input hidden id="item_id" value="@result.MaterialSQLdataselect.item_id"/>
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
     @*<div class="container">*@
@@ -205,7 +198,7 @@
                 <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">วัสดุอุปกรณ์</span>
                 <i class="fa fa-chevron-right"></i>
                 <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
-                <span>@result.materialdata.item_no - @result.materialdata.item_name </span>&nbsp;&nbsp;
+                <span>@result.MaterialSQLdataselect.item_name - @result.MaterialSQLdataselect.item_name </span>&nbsp;&nbsp;
                 <a href="@Url.Action("Index", "Material")">Back</a>
             </h3>
         </div>
@@ -235,61 +228,96 @@
                 <h3 id="hrw">วัสดุ</h3>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control " id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.materialdata.item_no" name="item_no" disabled>
+                        <input type="text" class="form-control " id="item_no" @*placeholder="ระบุ รหัสวัสดุ"*@ value="@result.MaterialSQLdataselect.item_no" name="item_no" disabled>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="item_name" @*placeholder="ระบุ ชื่อวัสดุ"*@ value="@result.materialdata.item_name" name="item_name" disabled>
+                        <input type="text" class="form-control" id="item_name" @*placeholder="ระบุ ชื่อวัสดุ"*@ value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="group" name="group" disabled>
-                            @*<option disabled selected>@result.materialdata.groupmaterial.group_id</option>*@
-                            @foreach (var item in result.grouplist)
+                        <select class="form-control" id="group" name="group" disabled onchange="myselect(this)">
+                            @foreach (var item in result.GroupSQLlist)
                             {
-                                <option value="@item.group_id" @(item.group_id == result.materialdata.group_id ? "selected" : "")>@item.group_name</option>
+                                <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
                             }
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="category">ประเภทวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
                         <select class="form-control" id="category" name="category" disabled>
-                            @*<option disabled selected>@result.materialdata.category</option>*@
-                            @foreach (var item in result.categorylist)
+                            <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
+                            @foreach (var item in result.CategorySQLlist)
                             {
-                                <option value="@item.category_id" @(item.category_id == result.materialdata.category_id ? "selected" : "")>@item.category_name</option>
+                                <option value="@item.category_id" style="display:none" id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
                             }
                         </select>
                     </div>
                 </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function (event) {
+                        var sc = document.getElementById("category");
+                        var sg = document.getElementById("group").value;
+
+                        getSelectedOptions(sc, sg)
+
+                    });
+
+                    function myselect(th) {
+                        console.log("select");
+                        document.getElementById("category").options.selectedIndex = 0;
+                        var sc = document.getElementById("category");
+                        var sg = document.getElementById("group").value;
+
+                        getSelectedOptions(sc, sg)
+                        document.getElementById("dontcate").select = true;
+                    }
+
+                    function getSelectedOptions(select, option) {
+                        var result = [];
+                        var options = select.getElementsByTagName('option');
+                        for (var i = 0; i < options.length; i++) {
+                            options[i].style.display = "none";
+                            for (var k = 0; k < select.length; k++) {
+                                if (option == k && options[i].id == k) {
+                                    console.log("option" + k)
+                                    options[i].style.display = "block";
+                                }
+                            }
+                        }
+                    }
+                </script>
+
+
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
                         <select class="form-control" id="material_account" name="material_account" disabled>
                             @*<option disabled selected>@result.materialdata.material_account</option>*@
-                            @foreach (var item in result.material_account_list)
+                            @foreach (var item in result.Material_accSQLlist)
                             {
-                                <option value="@item.material_account_id" @(item.material_account_id == result.materialdata.material_account ? "selected" : "")>@item.material_account_name</option>
+                                <option value="@item.material_acc_id" @(item.material_acc_id == result.MaterialSQLdataselect.material_acc_id ? "selected" : "")>@item.material_acc_name</option>
                             }
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ:</label>
+                    <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
                         <select class="form-control" id="costing_method_material" name="costing_method_material" disabled>
                             @*<option disabled selected>@result.materialdata.costing_method_material</option>*@
-                            @foreach (var item in result.costing_method_material_list)
+                            @foreach (var item in result.Costing_methodSQL_list)
                             {
-                                <option value="@item.costing_method_material_id" @(item.costing_method_material_id == result.materialdata.costing_method_material ? "selected" : "")>@item.costing_method_material_name</option>
+                                <option value="@item.costing_method_id" @(item.costing_method_id == result.MaterialSQLdataselect.costing_method_id ? "selected" : "")>@item.costing_method_name</option>
                             }
                         </select>
                     </div>
@@ -302,7 +330,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="stock_count" name="stock_count" value="@result.materialdata.stock_count" @(result.materialdata.stock_count ? "checked" : "") disabled> วัสดุนับสต๊อก</label>
+                            <label><input type="checkbox" id="stock_count" name="stock_count" value="@result.MaterialSQLdataselect.stock_count" @(result.MaterialSQLdataselect.stock_count ? "checked" : "") disabled> วัสดุนับสต๊อก</label>
                         </div>
                     </div>
                 </div>
@@ -311,7 +339,7 @@
                         <div class="checkbox">
                             <label>
 
-                                <input type="checkbox" id="overdraw_stock" name="overdraw_stock" value="@result.materialdata.overdraw_stock" @(result.materialdata.overdraw_stock ? "checked" : "") disabled> ให้เบิกเกินสต๊อกได้
+                                <input type="checkbox" id="overdraw_stock" name="overdraw_stock" value="@result.MaterialSQLdataselect.overdraw_stock" @(result.MaterialSQLdataselect.overdraw_stock ? "checked" : "") disabled> ให้เบิกเกินสต๊อกได้
                             </label>
                         </div>
                     </div>
@@ -319,7 +347,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" id="status" name="status" value="@result.materialdata.status" @(result.materialdata.status ? "checked" : "") disabled> ใช้งานวัสดุ</label>
+                            <label><input type="checkbox" id="status" name="status" value="@result.MaterialSQLdataselect.status" @(result.MaterialSQLdataselect.status ? "checked" : "") disabled> ใช้งานวัสดุ</label>
                         </div>
                     </div>
                 </div>
@@ -329,144 +357,295 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="brand" @*placeholder="ระบุ ยี่ห้อ"*@ value="@result.materialdata.brand" name="brand" disabled>
+                        <input type="email" class="form-control" id="brand" @*placeholder="ระบุ ยี่ห้อ"*@ value="@result.MaterialSQLdataselect.brand" name="brand" disabled>
                     </div>
 
                     <label class="control-label col-sm-2" for="version">รุ่น:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.materialdata.version" name="version" disabled>
+                        <input type="email" class="form-control" id="version" @*placeholder="ระบุ รุ่น"*@ value="@result.MaterialSQLdataselect.version" name="version" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="color">สี:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="color" @*placeholder="ระบุ สี่"*@ value="@result.materialdata.color" name="color" disabled>
+                        <input type="email" class="form-control" id="color" @*placeholder="ระบุ สี่"*@ value="@result.MaterialSQLdataselect.color" name="color" disabled>
                     </div>
                     <label class="control-label col-sm-2" for="size">ขนาด:</label>
                     <div class="col-sm-4">
-                        <input type="email" class="form-control" id="size" @*placeholder="ระบุ ขนาด"*@ value="@result.materialdata.size" name="size" disabled>
+                        <input type="email" class="form-control" id="size" @*placeholder="ระบุ ขนาด"*@ value="@result.MaterialSQLdataselect.size" name="size" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="3" id="description" @*placeholder="ระบุข้อมูลจำเพาะ"*@ disabled>@result.materialdata.description</textarea>
+                        <textarea class="form-control" rows="3" id="description" @*placeholder="ระบุข้อมูลจำเพาะ"*@ disabled>@result.MaterialSQLdataselect.description</textarea>
                     </div>
                 </div>
                 @*</form>*@
 
             </div>
-            <div class="col-lg-4" id="horizonform2">
-
-                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                <h3 id="hrw">หน่วยวัสดุ</h3>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ:</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="uom_in" name="uom_in" disabled onchange="uom_inchange()">
-                            <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
-                            @foreach (var item in result.uomlist)
-                            {
-                                <option value="@item.uom_id" @(item.uom_id == result.materialdata.uom_in ? "selected" : "")>@item.uom_name</option>
-                            }
-                        </select>
-
-
+            <div class="col-lg-4">
+                <div id="horizonform2">
+                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+                    <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="uom_in" name="uom_in" disabled onchange="uom_inchange()">
+                                <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
+                                @foreach (var item in result.UomSQL_list)
+                                {
+                                    <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_in ? "selected" : "")>@item.uom_name</option>
+                                }
+                            </select>
+                        </div>
                     </div>
+                    <script>
+                        /////functionchangeuom
+                        function uom_inchange() {
+                            var uom_inchange = document.getElementById("uom_in");
+                            var uon_in_select = uom_inchange.selectedIndex;
+                            document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
+                            console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
+                            document.getElementById("uom_stock").selectedIndex = uon_in_select;
+                            document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
+
+                        }
+                        function uom_stockchange() {
+                            var uom_stockchange = document.getElementById("uom_stock");
+                            var uon_stock_select = uom_stockchange.selectedIndex;
+                            document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
+                            console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
+
+                        }
+                    </script>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="uom_stock" name="uom_stock" disabled onchange="uom_stockchange()">
+                                <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
+                                @foreach (var item in result.UomSQL_list)
+                                {
+                                    <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_stock ? "selected" : "")>@item.uom_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <input type="email" class="form-control" id="qty_in" value="@result.MaterialSQLdataselect.qty_in" name="qty_in" disabled>
+                        </div>
+                        <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">
+                            @foreach (var item in result.UomSQL_list)
+                            {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}
+                        </label>
+                        @*@(result.materialdata.uom_in )*@
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-center">
+                            <p style="color:blue; margin-top:7px;">&#9868;</p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <input type="email" class="form-control" id="qty_stock" value="@result.MaterialSQLdataselect.qty_stock" name="qty_stock" disabled>
+                        </div>
+                        @*@(result.uomlist.uom_id == result.materialdata.uom_stock ? true : false)*@
+
+                        <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">
+                            @foreach (var item in result.UomSQL_list)
+                            {@(item.uom_id == result.MaterialSQLdataselect.uom_stock ?item.uom_name: "")}
+                        </label>
+                    </div>
+
+
+                    @*</form>*@
+
+
+                    @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
+                    <h3 class="margin-left-10" id="hrw">รูปภาพวัสดุ  @*@result.MaterialSQLdataselect.picture_path*@ </h3>
+
+                    <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
+                        @*src="/UploadedFiles/Photo/@result.MaterialSQLdataselect.picture_path"*@
+                        <img id="blah"
+                             src="@path@result.MaterialSQLdataselect.picture_path"
+                             alt="@result.MaterialSQLdataselect.picture_path"
+                             style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />
+                        <p id="pdisplay"><br /><br /></p>
+                        <input class="hidden" type="file" id="input" name="file" value="" />
+                    </div>
+                    <br />
+                    @*<input id="file-input" type="file" name="name" style="display: none;" />*@
+                    <script>
+                        function importData() {
+                            //let input = document.createElement('input');
+                            //input.type = 'file';
+                            //input.name = 'file';
+                            //input.id = 'file';
+
+                            let input = document.getElementById('input');
+                            var ffill = document.getElementById('input').value;
+                            input.onchange = evt => {
+                                const [file] = input.files
+                                if (file) {
+                                    blah.src = URL.createObjectURL(file)
+                                    blah.alt = (file.name)
+                                }
+                                let files = Array.from(input.files);
+                                console.log(files);
+                                console.log(input.files);
+
+                                console.log(file.name);
+                                console.log(file.size);
+                                console.log(file.type);
+
+
+                                const reader = new FileReader();
+                                reader.addEventListener("load", () => {
+                                    console.log("111111111");
+                                    console.log(reader.result);
+                                    localStorage.setItem("recent-image", reader.result);
+                                });
+
+                                //console.log("open");
+                                //reader.readAsDataURL(this.file);
+                                //console.log("off");
+
+                                document.getElementById("blah").style.display = "block";
+                                document.getElementById("pdisplay").style.display = "none";
+                                var elementqqqq = document.getElementById('qqqq');
+                                elementqqqq.style.removeProperty("border-style");
+                                elementqqqq.style.removeProperty("border-width");
+                                elementqqqq.style.removeProperty("margin-bottom");
+
+                                //var returnfilename = file.name
+                                //return returnfilename
+                            };
+
+                            input.click();
+
+
+                        }
+                    </script>
                 </div>
-                <script>
-                    /////functionchangeuom
-                    function uom_inchange() {
-                        var uom_inchange = document.getElementById("uom_in");
-                        var uon_in_select = uom_inchange.selectedIndex;
-                        document.getElementById("qty_inshow").innerHTML = uom_inchange.options[uon_in_select].text;
-                        console.log("หน่วยซื้อ " + uom_inchange.options[uon_in_select].text);
-                        document.getElementById("uom_stock").selectedIndex = uon_in_select;
-                        document.getElementById("qty_stockshow").innerHTML = uom_inchange.options[uon_in_select].text;
-
-                    }
-                    function uom_stockchange() {
-                        var uom_stockchange = document.getElementById("uom_stock");
-                        var uon_stock_select = uom_stockchange.selectedIndex;
-                        document.getElementById("qty_stockshow").innerHTML = uom_stockchange.options[uon_stock_select].text;
-                        console.log("หน่วยเก็บ " + uom_stockchange.options[uon_stock_select].text);
-
-                    }
-                </script>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ:</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="uom_stock" name="uom_stock" disabled onchange="uom_stockchange()">
-                            <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
-                            @foreach (var item in result.uomlist)
-                            {
-                                <option value="@item.uom_id" @(item.uom_id == result.materialdata.uom_stock ? "selected" : "")>@item.uom_name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <input type="email" class="form-control" id="qty_in" value="@result.materialdata.qty_in" name="qty_in" disabled>
-                    </div>
-                    <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_inshow" for="qty_in">@foreach (var item in result.uomlist)
-                    {@(item.uom_id == result.materialdata.uom_in ?item.uom_name: "")}</label>
-                    @*@(result.materialdata.uom_in )*@
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-center">
-                        <p style="color:blue; margin-top:7px;">&#9868;</p>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <input type="email" class="form-control" id="qty_stock" value="@result.materialdata.qty_stock" name="qty_stock" disabled>
-                    </div>
-                    @*@(result.uomlist.uom_id == result.materialdata.uom_stock ? true : false)*@
-
-                    <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">@foreach (var item in result.uomlist)
-                    {@(item.uom_id == result.materialdata.uom_stock ?item.uom_name: "")}</label>
-                </div>
-
-
                 @*</form>*@
 
+            <div class="margin-top-10">
 
-                @*<form class="form-horizontal margin-top-10 padding-5" id="horizonform">*@
-                <h3 id="hrw">รูปภาพวัสดุ  @result.materialdata.picture_path </h3>
+                @{
+                    if (result.MaterialSQLdataselect.status == true)
+                    {
+                        <a  class="btn btn-default btn-circle btn-lg" id="activeupdate" value="false" onclick="checkactiveitem()"><i class="glyphicon glyphicon-ok"></i></a> <label id="activeupdatlabele">สถานะ ใช้งาน</label>
+                    }
+                    else
+                    {
+                        <a  class="btn btn-default btn-circle btn-lg" id="activeupdate" value="true"  onclick="checkactiveitem()"><i class="glyphicon glyphicon-remove"></i></a> <label id="activeupdatlabele">สถานะ ไม่ใช้งาน</label>
+                    }
+                }
 
-                <div id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
-                    <img id="blah" src="#" alt="@result.materialdata.picture_path" style="display: none; max-width: 100%" />
-                    <p id="pdisplay"><br /><br /></p>
-                </div>
-                <br />
-                <input id="file-input" type="file" name="name" style="display: none;" />
-                <script>
-                    function importData() {
-                        let input = document.createElement('input');
-                        input.type = 'file';
-                        input.onchange = evt => {
-                            const [file] = input.files
-                            if (file) {
-                                blah.src = URL.createObjectURL(file)
+            <script>
+                    function checkactiveitem() {
+                        var material = new Object();
+                        material.item_id = document.getElementById("item_id").value;
+                        material.status = document.getElementById("activeupdate").getAttribute("value");
+                        console.log(material);
+                        smartconfirmmessageboxedit1("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
+                            function callbackY() {
+                                console.log("to do update status");
+                                updateactivestatusitem(material);
+                            },
+                            function callbackN() {
+                                canceleditcallback();
+                            });
+                    }
+                    function updateactivestatusitem(material) {
+                         $("#content_ajaxloader").show();
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("UpdateItemActive", "Material")',
+                            data: JSON.stringify(material),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.output != 1) {
+                                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                                    //warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว");
+                                    //$("#content_ajaxloader").fadeOut("fast");
+                                    //return;
+                                }
+                                console.log("insert complete");
+                                console.log(response.output);
+
+                                completesmartconfirmmessagebox1("เปลี่ยนสถานะการใช้งาน", "เปลี่ยนสถานะสำเร็จ");
+
+                                $("#content_ajaxloader").fadeOut("fast");
+                                //alert("บันทึกเรียบร้อย");
+                                $('#Modal').modal('hide');
+
+                                window.location.href = "/material/editmaterial/" + "@result.MaterialSQLdataselect.item_no";
+
+
+                                           $.ajax({
+                                        type: "POST",
+                                        url: '@Url.Action("Editmaterial", "Material")',
+                                        data: JSON.stringify(material.item_no),
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        success: function (response) {                                     
+                                        }
+                                     })
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
                             }
-                            let files = Array.from(input.files);
-                            console.log(files);
-                            console.log(file.name);
-                            console.log(file.size);
+                         })
+                }
 
-                            document.getElementById("blah").style.display = "block";
-                            document.getElementById("pdisplay").style.display = "none";
-                            var elementqqqq = document.getElementById('qqqq');
-                            elementqqqq.style.removeProperty("border-style");
-                            elementqqqq.style.removeProperty("border-width");
-                            elementqqqq.style.removeProperty("margin-bottom");
-                            document.getElementById("btn-clear").style.display = "block";
-                        };
-                        input.click();
-
+                    function completesmartconfirmmessagebox1(string = '', content) {
+                        $.smallBox({
+                            title: "กำลัง" + string,
+                            content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                            color: "#659265",
+                            iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                            timeout: 4000
+                        });
                     }
 
-                </script>
-                @*</form>*@
+                function smartconfirmmessageboxedit1(stringY = '', stringN = '', callbackY, callbackN) {
+                    $.SmartMessageBox({
+                        title: "Confirm!",
+                        content: "คุณต้องการ" + stringY + "หรือไม่",
+                        buttons: '[ไม่][ใช่]'
+                    }, function (ButtonPressed) {
+                        if (ButtonPressed === "ใช่") {
+
+                            //$.smallBox({
+                            //    title: "กำลัง" + stringY,
+                            //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                            //    color: "#659265",
+                            //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                            //    timeout: 4000
+                            //});
+                            callbackY();
+                            //true;
+                        }
+                        if (ButtonPressed === "ไม่") {
+                            $.smallBox({
+                                title: stringN,
+                                content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                                color: "#C46A69",
+                                iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                timeout: 10000
+                            });
+                            callbackN();
+                            //false;
+                        }
+                    });
+                }
+            </script>
+
+            </div>
 
             </div>
         </form>
@@ -490,21 +669,62 @@
 
                 </div>
             </div>
+        </div>
+    </div>
 
+    <div class="modal fade" id="myModaldelete" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>คุณต้องการลบข้อมูลใช่หรือไม่</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-lg btn-success margin-right-15" data-dismiss="modal" onclick="aadelete()">ใช่</button>
+                    <button type="button" class="btn-lg btn-danger" data-dismiss="modal">ไม่</button>
+
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row margin-top-10 margin-bottom-10 ">
-        <button id="btcancel" class="btn btn-danger pull-right" style="margin:5px; display:none;" onclick="canceledit()">Cancel</button>
+        <button id="btcancel" class="btn btn-danger pull-right" style="margin:5px; display:none;" @*onclick="canceledit()*@" onclick="location.href='@Url.Action("Editmaterial", "Material", new { id = @result.MaterialSQLdataselect.item_no })'">Cancel</button>
         <button id="btsave" class="btn btn-success pull-right" style="margin: 5px; display: none;" onclick="comfirmsave()">Save</button>
+        <button id="btdelte" class="btn btn-danger pull-right" style="margin:5px;" onclick="deleteedit()">Delete</button>
         <button id="btedit" class="btn btn-warning pull-right" style="margin:5px;" onclick="openedit()">Edit</button>
 
     </div> <br /><br />
-    <script>
+
+
+                 <script>
+        function canceleditcallback() {
+            var id = document.getElementById("item_id").value;
+            console.log(id);
+            $('#content_ajaxloader').show();
+            $.ajax({
+                //type: "POST",
+                url: '@Url.Action("Editmaterial", "Material")',
+                dataType: 'html',
+                data: { id: id},
+                success: function (result) {
+                    $('#content_ajaxloader').hide();
+                    
+                }
+            });
+        }
+
+
             function openedit() {
                 document.getElementById("btedit").style.display = "none";
                 document.getElementById("btcancel").style.display = "block";
                 document.getElementById("btsave").style.display = "block";
+                document.getElementById("btdelte").style.display = "none";
                 ////////////// disable
                 //document.getElementById("item_no").disabled = false;
                 document.getElementById("item_name").disabled = false;
@@ -524,12 +744,15 @@
                 document.getElementById("uom_stock").disabled = false;
                 document.getElementById("qty_in").disabled = false;
                 document.getElementById("qty_stock").disabled = false;
+                document.getElementById("activeupdate").style.display = "none";
+                document.getElementById("activeupdatlabele").style.display = "none";
 
             }
             function canceledit() {
                 document.getElementById("btedit").style.display = "block";
                 document.getElementById("btcancel").style.display = "none";
                 document.getElementById("btsave").style.display = "none";
+                document.getElementById("btdelte").style.display = "block";
                 /////////
                 ////////////// disable
                 document.getElementById("item_no").disabled = true;
@@ -552,6 +775,36 @@
                 document.getElementById("qty_stock").disabled = true;
             }
 
+            function deleteedit()
+            {
+                $('#myModaldelete').modal('show')
+            }
+
+                     function aadelete() {
+                         var mateid = new Object();
+                         mateid.item_id = document.getElementById("item_id").value;
+                          $("#content_ajaxloader").show();
+                         $.ajax({
+                             type: "POST",
+                             url: '@Url.Action("DeleteMaterial", "Material")',
+                             data: JSON.stringify(mateid) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("delete complete");
+                        $("#content_ajaxloader").fadeOut("fast");
+                        alert("ลบเรียบร้อย")
+                        window.location.href = "/material";
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+                     }
+
             function comfirmsave() {
                 $('#myModal').modal('show')
                 var testttttt = document.getElementById("stock_count").checked
@@ -569,47 +822,101 @@
                 console.log("in function")
                 //alert("in function")
                 ///get input to val
-                $("#content_ajaxloader").show();
                 var material = new Object();
+                material.item_id                    = document.getElementById("item_id").value;
                 material.item_no                    = document.getElementById("item_no").value;
                 material.item_name                  = document.getElementById("item_name").value;
-                material.group_id                      = document.getElementById("group").value;
-                material.category_id                   = document.getElementById("category").value;
-                material.material_account           = document.getElementById("material_account").value;
-                material.costing_method_material    = document.getElementById("costing_method_material").value;
+                material.group_id                   = document.getElementById("group").value;
+                material.category_id                = document.getElementById("category").value;
+                material.material_acc_id            = document.getElementById("material_account").value;
+                material.costing_method_id          = document.getElementById("costing_method_material").value;
+                material.description                = document.getElementById("description").value;
+                material.status                     = document.getElementById("status").checked;
                 material.stock_count                = document.getElementById("stock_count").checked;
                 material.overdraw_stock             = document.getElementById("overdraw_stock").checked;
-                material.status                     = document.getElementById("status").checked;
                 material.brand                      = document.getElementById("brand").value;
                 material.version                    = document.getElementById("version").value;
                 material.color                      = document.getElementById("color").value;
                 material.size                       = document.getElementById("size").value;
-                material.description                = document.getElementById("description").value;
                 material.uom_in                     = document.getElementById("uom_in").value;
                 material.uom_stock                  = document.getElementById("uom_stock").value;
                 material.qty_in                     = document.getElementById("qty_in").value;
                 material.qty_stock                  = document.getElementById("qty_stock").value;
-                //material.blah                       = document.getElementById("file-input").value;
+                material.picture_path               = document.getElementById("blah").alt;
+
+
+
+                var file_data = $('#input').prop('files')[0];
+
+                var form_data = new FormData();
+
+                form_data.append('file', file_data);
+                //if (file_data == null) {
+
+                //}
+
+                console.log('form_data');
+                console.log(form_data);
+                alert(form_data);
+
+                form_data.append('material.item_id', material.item_id)
+                form_data.append('material.item_no', material.item_no)
+                form_data.append('material.item_name', material.item_name)
+                form_data.append('material.group_id', material.group_id)
+                form_data.append('material.category_id', material.category_id)
+                form_data.append('material.material_acc_id', material.material_acc_id)
+                form_data.append('material.costing_method_id', material.costing_method_id)
+                form_data.append('material.description', material.description)
+                form_data.append('material.status', material.status)
+                form_data.append('material.stock_count', material.stock_count)
+                form_data.append('material.overdraw_stock', material.overdraw_stock)
+                form_data.append('material.brand', material.brand)
+                form_data.append('material.version', material.version)
+                form_data.append('material.color', material.color)
+                form_data.append('material.size', material.size)
+                form_data.append('material.uom_in', material.uom_in)
+                form_data.append('material.uom_stock', material.uom_stock)
+                form_data.append('material.qty_in', material.qty_in)
+                form_data.append('material.qty_stock', material.qty_stock)
+                form_data.append('material.picture_path', material.picture_path)
+
+                console.log(material.picture_path + "path get ");
+
+
 
                 console.log(material);
                 $("#content_ajaxloader").show();
                     $.ajax({
-                    // request POST
-                    type: "POST",
-                    // Controller/method
-                    url: '@Url.Action("Editmaterialdata", "Material")',
-                    //object/parameter with value
-                    data: JSON.stringify(material),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
 
-                    //response from respective action method
-                    success: function (response) {
-                        console.log("edit complete");
-                        //    alert(response + "suc");
-                        $("#content_ajaxloader").fadeOut("fast");
-                        alert("บันทึกเรียบร้อย")
-                        window.location.href = "/material/editmaterial" /*+"id="+*/+"/"+ material.item_no;
+                    type: "POST",
+                    url: '@Url.Action("Editmaterialdata", "Material")',
+                    data: form_data,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+
+                    //data: JSON.stringify(material),
+                    //contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+
+
+                        success: function (response) {
+                            if (response.output.msg == 1) {
+                                console.log("edit complete");
+                                //    alert(response + "suc");
+                                $("#content_ajaxloader").fadeOut("fast");
+                                alert("บันทึกเรียบร้อย")
+                                window.location.href = "/material/editmaterial" /*+"id="+*/ + "/" + material.item_no;
+
+                            } else if (response.output.msg == 3) {
+                                alert('รายละเอียด มีบันทึกอยู่แล้ว');
+
+                                $("#content_ajaxloader").fadeOut("fast");
+                                return;
+                            }
+
+
+
                     },
                     failure: function (response) {
                         alert(response.responseText);
@@ -618,10 +925,8 @@
                         alert(response.responseText);
                     }
                 })
-
-
             };
-    </script>
+                 </script>
 
     @*</div>*@
 </div>

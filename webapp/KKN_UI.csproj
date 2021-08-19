@@ -1032,6 +1032,16 @@
     <Content Include="Views\Material\Index.cshtml" />
     <Content Include="Views\Material\Creatematerial.cshtml" />
     <Content Include="Views\Material\Editmaterial.cshtml" />
+    <Content Include="Views\Material\Groupmaterial\_groupView.cshtml" />
+    <Content Include="Views\Material\Groupmaterial\_creategroup.cshtml" />
+    <Content Include="Views\Material\Groupmaterial\_comfirmgroup.cshtml" />
+    <Content Include="Views\Material\Categorymaterial\_categoryView.cshtml" />
+    <Content Include="Views\Material\Categorymaterial\_createcategory.cshtml" />
+    <Content Include="Views\Material\Categorymaterial\_comfirmcategory.cshtml" />
+    <Content Include="Views\Material\_selectcategory.cshtml" />
+    <Content Include="Views\Material\_tabledatalist.cshtml" />
+    <Content Include="Views\Material\Groupmaterial\_grouptable.cshtml" />
+    <Content Include="Views\Material\Categorymaterial\_categorytable.cshtml" />
     <None Include="Web References\KKN_Demo_Service\KKN_Demo_Service.wsdl" />
     <None Include="Web References\KKN_Demo_Service\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -1075,12 +1085,26 @@
     <Compile Include="Helper\DecimalModelBinder.cs" />
     <Compile Include="Helper\FileManager.cs" />
     <Compile Include="Helper\UtilityHelper.cs" />
+    <Compile Include="materialDao\category\CategoryDao.cs" />
+    <Compile Include="materialDao\Costing_method\Costing_methodDao.cs" />
+    <Compile Include="materialDao\group\GroupDao.cs" />
+    <Compile Include="materialDao\item_master\item_masterDao.cs" />
+    <Compile Include="materialDao\item_master\materialviewDao.cs" />
+    <Compile Include="materialDao\Material_acc\Material_accDao.cs" />
+    <Compile Include="materialDao\stock\stock.cs" />
+    <Compile Include="materialDao\uom\uomDao.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category\CategorySQL.cs" />
     <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\Costing_method\Costing_methodSQL.cs" />
     <Compile Include="Models\Enum\UtilEnum.cs" />
     <Compile Include="Models\FileUploadModel.cs" />
-    <Compile Include="Models\materialModel.cs" />
-    <Compile Include="Models\mateview.cs" />
+    <Compile Include="Models\Group\GroupSQL.cs" />
+    <Compile Include="Models\MaterialSQLindex.cs" />
+    <Compile Include="Models\Material\MaterialSQL.cs" />
+    <Compile Include="Models\Material_acc\Material_accSQL.cs" />
+    <Compile Include="Models\SearchItem.cs" />
+    <Compile Include="Models\Uom\UomSQL.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -1101,7 +1125,8 @@
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Report\" />
     <Folder Include="Repositories\" />
-    <Folder Include="UploadedFiles\" />
+    <Folder Include="UploadedFiles\Photo\" />
+    <Folder Include="Views\Material\Item\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

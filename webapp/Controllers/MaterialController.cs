@@ -9,6 +9,19 @@ using System.Data;
 using KKN_UI.data;
 using System.IO;
 using System.Data.SqlClient;
+using System.Configuration;
+using KKN_UI.material.uom;
+using KKN_UI.Models.Material;
+//using KKN_UI.Models.Group;
+//using KKN_UI.Models.Category;
+using KKN_UI.Models.Uom;
+using KKN_UI.Models.Material_acc;
+using KKN_UI.Models.Costing_method;
+using KKN_UI.material.group;
+using KKN_UI.material.category;
+using KKN_UI.material.Costing_method;
+using KKN_UI.material.Material_acc;
+using KKN_UI.materialDao.item_master;
 
 namespace KKN_UI.Controllers
 {
@@ -27,453 +40,875 @@ namespace KKN_UI.Controllers
         }
 
 
-
-
-        static IList<groupmaterial> groupmaterial = new List<groupmaterial>
-            {
-                 new groupmaterial {
-                    group_id                       = 1,
-                    group_name                     = "Concrete"
-
-                 },
-                new groupmaterial {
-                    group_id                       = 2,
-                    group_name                     = "Steel"
-                 },
-                new groupmaterial {
-                    group_id                       = 3,
-                    group_name                     = "Wood"
-                 },
-                new groupmaterial {
-                    group_id                       = 4,
-                    group_name                     = "Electrical"
-                 },
-                new groupmaterial {
-                    group_id                       = 5,
-                    group_name                     = "Sanitary"
-                 },
-                new groupmaterial {
-                    group_id                       = 6,
-                    group_name                     = "Colour/Paint"
-                 }
-            };
-
-        static IList<categorymaterial> categorymaterial = new List<categorymaterial>
-            {
-                 new categorymaterial {
-                    category_id                       = 1,
-                    group_id                       = 1,
-                    category_name                     = "ปูนมิกซ์"
-
-                 },
-                new categorymaterial {
-                    category_id                       = 2,
-                    group_id                       = 1,
-                    category_name                     = "ปูนถง"
-                 },
-                new categorymaterial {
-                    category_id                       = 3,
-                    group_id                       = 1,
-                    category_name                     = "เคมีภัณฑ์"
-                 },
-                new categorymaterial {
-                    category_id                       = 4,
-                    group_id                       = 2,
-                    category_name                     = "เหล็กเส้น"
-                 },
-                new categorymaterial {
-                    category_id                       = 5,
-                    group_id                       = 2,
-                    category_name                     = "เหล็กรูปพรรณ"
-                 },
-                new categorymaterial {
-                       category_id                       = 6,
-                       group_id                       = 3,
-                       category_name                     = "ไม้ห้องซาวน่า"
-                 }
-            };
-
-        static IList<material_account> material_accountdata = new List<material_account>
-            {
-                 new material_account {
-                    material_account_id                       = 1,
-                    material_account_name                     = "1000-00 สินทรัพย์"
-
-                 },
-                new material_account {
-                    material_account_id                       = 2,
-                    material_account_name                     = "1100-00 สินทรัพย์หมุนเวียน"
-                 },
-                new material_account {
-                    material_account_id                       = 3,
-                    material_account_name                     = "1110-00 เงินสดและเงินฝากธนาคาร"
-                 },
-                new material_account {
-                    material_account_id                       = 4,
-                    material_account_name                     = "1111-00 เงินสด"
-                 },
-                new material_account {
-                    material_account_id                       = 5,
-                    material_account_name                     = "1111-01 เงินสดระหว่างทาง"
-                 },
-                new material_account {
-                    material_account_id                       = 6,
-                    material_account_name                     = "1111-02 เงินสดย่อย"
-                 },
-                new material_account {
-                    material_account_id                       = 7,
-                    material_account_name                     = "1112-00 เงินฝากกระแสรายวัน"
-                 }
-            };
-
-        static IList<costing_method_material> costing_method_material_data = new List<costing_method_material>
-            {
-                 new costing_method_material {
-                    costing_method_material_id                       = 1,
-                    costing_method_material_name                     = "FIFO"
-
-                 },
-                new costing_method_material {
-                    costing_method_material_id                       = 2,
-                    costing_method_material_name                     = "Average"
-                 }
-            };
-        
-        static IList<uom> uomdata = new List<uom>
-            {
-                 new uom {
-                    uom_id                       = 1,
-                    uom_name                     = "ลัง"
-
-                 },
-                new uom {
-                    uom_id                       = 2,
-                    uom_name                     = "กล่อง"
-                 },
-                new uom {
-                    uom_id                       = 3,
-                    uom_name                     = "ชิ้น"
-                 }
-            };
-
-        static IList<materialModel> materialModeldata = new List<materialModel>
-            {
-                new materialModel {
-                    item_no                       = "bm003",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 1,
-                    category_id                      = 1,
-                    description                   = "ฟหกดเ้่าสว222",
-                    status                        = true,
-                    material_account              = 1,
-                    costing_method_material       = 2,
-                    stock_count                   = false,
-                    overdraw_stock                = true,
-                    picture_path                  = "30-windows-xp-bliss-windows-10 (1).jpg",
-                    brand                         = "กุซซี่",
-                    version                       = "เวอร์ชั่นปรับปรุง5",
-                    color                         = "แดง",
-                    size                          = "20 cm, หนา 2.5 cm , ยาว 2.2m ",
-                    uom_in                        = 1,
-                    qty_in                        = 1,
-                    uom_stock                     = 3,
-                    qty_stock                     = 100,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 },
-                 new materialModel {
-                    item_no                       = "bm004",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 1,
-                    category_id                      = 2,
-                    description                   = "ฟหกดเ้่าสว33",
-                    status                        = false,
-                    material_account              = 2,
-                    costing_method_material       = 1,
-                    stock_count                   = false,
-                    overdraw_stock                = true,
-                    picture_path                  = "windows-xp-7680x4320-day-microsoft-8k-23307.jpg",
-                    brand                         = "กุซซี่4",
-                    version                       = "เวอร์ชั่นปรับปรุง4",
-                    color                         = "ส้ม",
-                    size                          = "30 cm, หนา 3 cm , ยาว 2.2m ",
-                    uom_in                        = 1,
-                    qty_in                        = 1,
-                    uom_stock                     = 1,
-                    qty_stock                     = 1,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 },
-                 new materialModel {
-                    item_no                       = "bm005",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 2,
-                    category_id                      = 4,
-                    description                   = "ฟหกดเ้่าสว",
-                    status                        = true,
-                    material_account              = 3,
-                    costing_method_material       = 1,
-                    stock_count                   = true,
-                    overdraw_stock                = true,
-                    picture_path                  = "windows-xp-7680x4320-abstract-microsoft-8k-23308.jpg",
-                    brand                         = "กุซซี่5",
-                    version                       = "เวอร์ชั่นปรับปรุง3",
-                    color                         = "เขียว",
-                    size                          = "20 cm, หนา 2.5 cm , ยาว 2.2m ",
-                    uom_in                        = 2,
-                    qty_in                        = 1,
-                    uom_stock                     = 3,
-                    qty_stock                     = 10,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 },
-                  new materialModel {
-                    item_no                       = "bm006",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 2,
-                    category_id                      = 5,
-                    description                   = "ฟหกดเ้่าสว111",
-                    status                        = false,
-                    material_account              = 5,
-                    costing_method_material       = 2,
-                    stock_count                   = false,
-                    overdraw_stock                = true,
-                    picture_path                  = "Digital-Art-HD-4K-Wallpapers-41715.jpg",
-                    brand                         = "กุซซี่",
-                    version                       = "เวอร์ชั่นปรับปรุง2",
-                    color                         = "เหลือง",
-                    size                          = "40 cm, หนา 4.5 cm , ยาว 2.2m ",
-                    uom_in                        = 2,
-                    qty_in                        = 1,
-                    uom_stock                     = 2,
-                    qty_stock                     = 1,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 },
-                  new materialModel {
-                    item_no                       = "bm007",
-                    item_name                     = "บัวปูนปั่น",
-                    group_id                      = 3,
-                    category_id                      = 6,
-                    description                   = "ฟหกดเ้่าสว55",
-                    status                        = true,
-                    material_account              = 6,
-                    costing_method_material       = 1,
-                    stock_count                   = false,
-                    overdraw_stock                = false,
-                    picture_path                  = "Abstract-Digital-Art-Artistic-Desktop-Wallpaper-099941.jpg",
-                    brand                         = "กุซซี่6",
-                    version                       = "เวอร์ชั่นปรับปรุง1",
-                    color                         = "ม่วง",
-                    size                          = "20 cm, หนา 2.5 cm , ยาว 5m ",
-                    uom_in                        = 3,
-                    qty_in                        = 100,
-                    uom_stock                     = 3,
-                    qty_stock                     = 100,
-                    //groupmaterial = groupmaterial.Where(data => data.group_id == 3).FirstOrDefault(),
-                    
-                 }
-            };
-
-        //private materialModel data = new materialModel();
-        // GET: Material
         public ActionResult Index()
         {
-            List<materialModel> materialModeldatauser = materialModeldata.ToList();
-            List<groupmaterial> groupmaterialdata = groupmaterial.ToList();
-            List<categorymaterial> categorymaterialdata = categorymaterial.ToList();
-
-
-            var employeeData = from m in materialModeldatauser
-                            join g in groupmaterialdata on m.group_id equals g.group_id into table1
-                            from g in table1.ToList()
-                            join c in categorymaterialdata on m.category_id equals c.category_id into table2
-                            from c in table2.ToList()
-                            select new mateview
-                            {
-                                materialModeldata = m,
-                                groupmaterialdata = g,
-                                categorymaterialdata = c
-
-                            };
-
-
-
-
-
+            MaterialSQLindex listindex = new MaterialSQLindex();
+            List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            //List<GroupSQL> gtlist = new List<GroupSQL>();
+            //List<CategorySQL> ctlist = new List<CategorySQL>();
             using (var conn = OpenDbConnection())
             {
-                var query = "select * from item_master";
+                var query = "SELECT top 100 * FROM  MaterialView";
 
-                // Build a command to execute this
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    // Open your connection
-
-                    // Add your parameters
-                    cmd.CommandType = System.Data.CommandType.Text;
-
-
-                    var result = new materialModel();
+                    cmd.CommandType = CommandType.Text;
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            result=mapView(rdr);
+                            //mtlist.Add(mapView(rdr));
+                            mtlist.Add(new item_masterDao().mapView(rdr));
                         }
                     }
-
-
                 }
+
+                #region old
+                //var query2 = "SELECT * FROM  group_item";
+
+                //using (SqlCommand cmd = new SqlCommand(query2, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
+
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            gtlist.Add(maplistgroup(rdr));
+                //        }
+                //    }
+                //}
+
+                //var query3 = "SELECT * FROM  category";
+
+                //using (SqlCommand cmd = new SqlCommand(query3, conn))
+                //{
+                //    cmd.CommandType = CommandType.Text;
+
+                //    using (var rdr = cmd.ExecuteReader())
+                //    {
+                //        while (rdr.Read())
+                //        {
+                //            ctlist.Add(maplistcategory(rdr));
+                //        }
+                //    }
+                //}
+                #endregion
+            }
+            //listindex.GroupSQLlist = gtlist.ToList();
+            //listindex.CategorySQLlist = ctlist.ToList();
+
+
+            //uomDao uomd = new uomDao();
+            //List<UomSQL> uud = new uomDao().uomlistdata.ToList();
+
+            listindex.MaterialSQLlist = mtlist.ToList();
+            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+
+            return View(listindex);
+        }
+
+        public /*JsonResult*/ ActionResult _tabledatalist(SearchItem search)
+        {
+            MaterialSQLindex listindex = new MaterialSQLindex();
+
+
+            if (search.category_id == 0 && search.group_id == 0 && search.text == null)
+            {
+                List<MaterialSQL> mtlist = new List<MaterialSQL>();
+                using (var conn = OpenDbConnection())
+                {
+                    var query = "SELECT * FROM  MaterialView";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                //mtlist.Add(mapView(rdr));
+                                mtlist.Add(new item_masterDao().mapView(rdr));
+                            }
+                        }
+                    }
+                }
+                listindex.MaterialSQLlist = mtlist.ToList();
+            }
+            else
+            {
+                listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
             }
 
+            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            return PartialView(listindex);
+            //return Json(new { listindex }, JsonRequestBehavior.AllowGet);
+        }
+
+        public /*JsonResult*/ ActionResult _tabledatalistIndex(SearchItem search)
+        {
+            MaterialSQLindex listindex = new MaterialSQLindex();
 
 
+            //if (search.category_id == 0 && search.group_id == 0 && search.text == null)
+            //{
+                List<MaterialSQL> mtlist = new List<MaterialSQL>();
+                using (var conn = OpenDbConnection())
+                {
+                    var query = "SELECT top 0 * FROM  MaterialView";
 
-            
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                //mtlist.Add(mapView(rdr));
+                                mtlist.Add(new item_masterDao().mapView(rdr));
+                            }
+                        }
+                    }
+                }
+                listindex.MaterialSQLlist = mtlist.ToList();
+            //}
+            //else
+            //{
+            //    listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
+            //}
 
-            return View(employeeData);
+            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            return PartialView("_tabledatalist", listindex);
+        }
+
+        public ActionResult _grouptable(bool active)
+        {
+            List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+            //if (active == true)
+            //{
+            //    Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
+            //}
+            //else
+            //{
+            Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
+            //}
+
+            return PartialView("Groupmaterial/_grouptable", Grouplistdata);
+        }
+
+        public ActionResult _categorytable(bool active)
+        {
+            List<CategorySQL> categorylistdata = new List<CategorySQL>();
+            //if (active == true)
+            //{
+            //    categorylistdata = new CategoryDao().GetdataView().Categorylist.ToList();
+            //}
+            //else
+            //{
+                categorylistdata = new CategoryDao().GetdataByActive(active).Categorylist.ToList();
+            //}
+
+            return PartialView("Categorymaterial/_categorytable", categorylistdata);
+        }
+
+
+        public /*JsonResult*/ ActionResult IndexSearch(SearchItem search)
+        {
+            MaterialSQLindex listindex = new MaterialSQLindex();
+            //List<MaterialSQL> mlist = new List<MaterialSQL>();
+            listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
+            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            return PartialView(listindex);
+            //return  Json(new { listindex }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _selectcategory(int id, string page)
+        {
+
+            CategorySQLlist Cdata = new CategoryDao().GetdataCategoryGourpByid(id);
+
+            return PartialView(Cdata);
         }
 
         public ActionResult Creatematerial()
         {
-            materialmodalview materialmodalviewname = new materialmodalview();
-            materialmodalviewname.grouplist = groupmaterial.ToList();
-            materialmodalviewname.categorylist = categorymaterial.ToList();
-            materialmodalviewname.material_account_list = material_accountdata.ToList();
-            materialmodalviewname.costing_method_material_list = costing_method_material_data.ToList();
-            materialmodalviewname.uomlist = uomdata.ToList();
+            MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
 
-            return View(materialmodalviewname);
+            #region older
+            ////List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            //List<GroupSQL> gtlist = new List<GroupSQL>();
+            //List<CategorySQL> ctlist = new List<CategorySQL>();
+            //List<Material_accSQL> macclist = new List<Material_accSQL>();
+            //List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
+            //List<UomSQL> uomlist = new List<UomSQL>();
+
+
+            //using (var conn = OpenDbConnection())
+            //{
+            //    //var query = "SELECT * FROM  MaterialView";
+            //    //using (SqlCommand cmd = new SqlCommand(query, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            mtlist.Add(mapView(rdr));
+            //    //        }
+            //    //    }
+            //    //} 
+
+            //    //var query2 = "SELECT * FROM  group_item";
+
+            //    //// Build a command to execute this
+            //    //using (SqlCommand cmd = new SqlCommand(query2, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    //var result = new MaterialSQL();
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            //result=mapView(rdr);
+            //    //            gtlist.Add(maplistgroup(rdr));
+            //    //        }
+            //    //    }
+            //    //}
+
+            //    //var query3 = "SELECT * FROM  category";
+
+            //    //// Build a command to execute this
+            //    //using (SqlCommand cmd = new SqlCommand(query3, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    //var result = new MaterialSQL();
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            //result=mapView(rdr);
+            //    //            ctlist.Add(maplistcategory(rdr));
+            //    //        }
+            //    //    }
+            //    //}
+
+            //    //var query4 = "SELECT * FROM  material_acc";
+
+            //    //// Build a command to execute this
+            //    //using (SqlCommand cmd = new SqlCommand(query4, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    //var result = new MaterialSQL();
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            //result=mapView(rdr);
+            //    //            macclist.Add(maplistmaterialacc(rdr));
+            //    //        }
+            //    //    }
+
+
+            //    //}
+
+            //    //var query5 = "SELECT * FROM  costing_method";
+
+            //    //// Build a command to execute this
+            //    //using (SqlCommand cmd = new SqlCommand(query5, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            costinglist.Add(maplistcosting(rdr));
+            //    //        }
+            //    //    }
+            //    //}
+
+            //    //var query6 = "SELECT * FROM  uom";
+
+            //    //using (SqlCommand cmd = new SqlCommand(query6, conn))
+            //    //{
+            //    //    cmd.CommandType = CommandType.Text;
+
+            //    //    //var result = new MaterialSQL();
+            //    //    using (var rdr = cmd.ExecuteReader())
+            //    //    {
+            //    //        while (rdr.Read())
+            //    //        {
+            //    //            uomlist.Add(maplistuom(rdr));
+            //    //        }
+            //    //    }
+            //    //}
+            //}
+
+
+            ////MaterialSQLlistindex.MaterialSQLlist = mtlist.ToList();
+            //MaterialSQLlistindex.GroupSQLlist = gtlist.ToList();
+            //MaterialSQLlistindex.CategorySQLlist = ctlist.ToList();
+            //MaterialSQLlistindex.Material_accSQLlist = macclist.ToList();
+            //MaterialSQLlistindex.Costing_methodSQL_list = costinglist.ToList();
+            //MaterialSQLlistindex.UomSQL_list = uomlist.ToList();       
+            #endregion
+
+            //MaterialSQLlistindex.MaterialSQLlist = mtlist.ToList();
+            MaterialSQLlistindex.MaterialSQLdataselect = new MaterialSQL();
+            MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
+            MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
+            MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
+
+
+            return View(MaterialSQLlistindex);
         }
-
         public ActionResult Editmaterial(string id)
         {
-            materialmodalview materialmodalviewname = new materialmodalview
+
+            MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
+            MaterialSQL mtlist = new MaterialSQL();
+            List<GroupSQL> gtlist = new List<GroupSQL>();
+            List<CategorySQL> ctlist = new List<CategorySQL>();
+            List<Material_accSQL> macclist = new List<Material_accSQL>();
+            List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
+            List<UomSQL> uomlist = new List<UomSQL>();
+            using (var conn = OpenDbConnection())
             {
-                categorylist= categorymaterial.ToList(),
-                grouplist = groupmaterial.ToList(),
-                material_account_list = material_accountdata.ToList(),
-                costing_method_material_list = costing_method_material_data.ToList(),
-                uomlist = uomdata.ToList(),
-                materialdata = materialModeldata.Where(data => data.item_no == id).FirstOrDefault()
-        };
+                var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'" + id + "'";
 
-            //List<materialModel> materialModel = new data.data().Materials().ToList();
-            //materialModel material = new data.data().Materials().Where(data => data.item_no == item_no).FirstOrDefault();
-            //var material = materialModeldata.Where(data =>data.item_no == id).FirstOrDefault();
-            
-            return View(materialmodalviewname);
-        }
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
 
-        [HttpPost]
-        public JsonResult Editmaterialdata(materialModel material)
-        {
-
-            //List<materialModel> materialModel = new data.data().Materials().ToList();
-            //materialModel material = new data.data().Materials().Where(data => data.item_no == item_no).FirstOrDefault();
-            var student = materialModeldata.Where(s => s.item_no == material.item_no).FirstOrDefault();
-       
-            //student.size = material.size;
-            materialModeldata.Remove(student);
-            materialModeldata.Add(material);
-
-            string output = "1";
-
-            return Json(output, JsonRequestBehavior.AllowGet);
-        }
-
-        
-
-        [HttpPost]
-        public JsonResult Createtodata(materialModel materialdata)
-        {
-            var i = materialModeldata.Where(s => s.item_no == materialdata.item_no).FirstOrDefault();
-            string output;
-            if (i != null)
-            {
-                 output = "0";
-                return Json(new {  output=output }, JsonRequestBehavior.AllowGet);
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            mtlist = new item_masterDao().mapView(rdr);
+                        }
+                    }
+                }
             }
+            MaterialSQLlistindex.MaterialSQLdataselect = new materialviewDao().GetdataByid(id);
+            MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
+            MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
+            MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
 
-            materialModel materialListpush = new materialModel
-            {
-                item_no                        =  materialdata.item_no,      
-                item_name                      =  materialdata.item_name,
-                group_id                        =  materialdata.group_id,                  
-                category_id                       =  materialdata.category_id,               
-                material_account               =  materialdata.material_account,       
-                costing_method_material        =  materialdata.costing_method_material,
-                stock_count                    =  materialdata.stock_count,            
-                overdraw_stock                 =  materialdata.overdraw_stock,         
-                status                         =  materialdata.status,                 
-                brand                          =  materialdata.brand,                  
-                version                        =  materialdata.version,                
-                color                          =  materialdata.color,                  
-                size                           =  materialdata.size,                   
-                description                    =  materialdata.description,            
-                uom_in                         =  materialdata.uom_in,                 
-                uom_stock                      =  materialdata.uom_stock,              
-                qty_in                         =  materialdata.qty_in,                 
-                qty_stock                      =  materialdata.qty_stock,
-                picture_path                   =  materialdata.picture_path,
-                //picture_file                   = materialdata.picture_file
-                
-            };
-
-          //  UploadFiles(materialListpush.picture_file);
-            materialModeldata.Add(materialListpush);
-            
-             output = "1";
-
-
-            return Json(materialListpush, output, JsonRequestBehavior.AllowGet);
+            return View("Creatematerial", MaterialSQLlistindex);
         }
 
-
-       
-
-
+        private static string FILE_PATH111 = @"C:\UploadedFiles";
         [HttpPost]
-        public ActionResult UploadFiles(HttpPostedFileBase file)
+        public ActionResult Createfile111111(MaterialSQL material, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                try
+                var originalFilename = Path.GetFileName(file.FileName);
+                string fileId = Guid.NewGuid().ToString().Replace("-", "");
+                //string userId = GetUserId(); // Function to get user id based on your schema
+                string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
+
+                var path = Path.Combine(Server.MapPath("~/UploadedFiles/Photo/") + newnamesave);
+                file.SaveAs(path);
+
+                //eventmodel.picture_path = fileId;
+                material.picture_path = newnamesave;
+
+                //_db.EventModels.AddObject(eventmodel);
+                //_db.SaveChanges();
+                //return Json(new {success = true, Error = "" },JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = material.picture_path, Error = "error cant save" }, JsonRequestBehavior.AllowGet);
+        }
+
+        private static string FILE_PATH = @"C:\UploadedFiles";
+        public static void Createfile(string path, string newnamesave, HttpPostedFileBase file)
+        {
+            var pathus = Path.Combine(path, newnamesave);
+            file.SaveAs(pathus);
+
+        }
+        public static void Deletefile(string path, string newnamedel)
+        {
+            var pathus = Path.Combine(path, newnamedel);
+            System.IO.File.Delete(pathus);
+
+        }
+
+        public static MaterialSQL genaratePathfile(MaterialSQL material, HttpPostedFileBase file)
+        {
+
+            var originalFilename = Path.GetFileName(file.FileName);
+            string fileId = Guid.NewGuid().ToString().Replace("-", "");
+            //string userId = GetUserId(); // Function to get user id based on your schema
+            string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
+
+            material.picture_path = newnamesave;
+
+            return material;
+        }
+
+        [HttpPost]
+        public JsonResult Createtodata(MaterialSQL material, HttpPostedFileBase file)
+        {
+            //if(ModelState.IsValid)
+            //{
+
+            //}
+            MaterialSQL output = new MaterialSQL();
+            if (file != null)
+            {
+                genaratePathfile(material, file);
+            }
+
+
+            //var output = new item_masterDao().CheckItemNo(material);
+
+            var checkitemno = new item_masterDao().CheckItemNo(material);
+            if (checkitemno == true)
+            {
+                output.msg = 2;
+            }
+            else if (checkitemno == false)
+            {
+                var checkitemname = new item_masterDao().CheckItemName(material);
+                if (checkitemname == true)
                 {
-
-                    //Method 2 Get file details from HttpPostedFileBase class    
-
-                    if (file != null)
+                    var checkdetailitem = new item_masterDao().CheckDetialItem(material);
+                    if (checkdetailitem == true)
                     {
-                        string path = Path.Combine(Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName));
-                        file.SaveAs(path);
+                        output.msg = 3;
                     }
-                    ViewBag.FileStatus = "File uploaded successfully.";
+                    else if (checkdetailitem == false)
+                    {
+                        output = new item_masterDao().InsertItem_master(material);
+                    }
+
                 }
-                catch (Exception)
+                else if (checkitemname == false)
                 {
-                    ViewBag.FileStatus = "Error while file uploading."; ;
+                    output = new item_masterDao().InsertItem_master(material);
                 }
             }
-            return View("Index");
+
+            //var output = new item_masterDao().CheckItemName(material);
+            if (output.msg == 1)
+            {
+                var path = Server.MapPath("~/UploadedFiles/Photo/");
+                if (file != null)
+                {
+                    Createfile(path, material.picture_path, file);
+                }
+            }
+
+
+            //new  MaterialController().Createfile(material, file);
+
+            //var output =   new item_masterDao().InsertItem_master(materialdata);
+
+            #region hidden
+            //using (var conn = OpenDbConnection())
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterCreate", conn))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+
+            //        //cmd.Parameters.AddWithValue("@item_id           ",materialdata.item_id);
+            //        cmd.Parameters.AddWithValue("@item_no           ",materialdata.item_no);
+            //        cmd.Parameters.AddWithValue("@item_name         ",materialdata.item_name        );
+            //        cmd.Parameters.AddWithValue("@group_id          ",materialdata.group_id         );
+            //        cmd.Parameters.AddWithValue("@category_id       ",materialdata.category_id      );
+            //        cmd.Parameters.AddWithValue("@material_acc_id   ",materialdata.material_acc_id  );
+            //        cmd.Parameters.AddWithValue("@costing_method_id ",materialdata.costing_method_id);
+            //        cmd.Parameters.AddWithValue("@description       ", materialdata.description);
+            //        cmd.Parameters.AddWithValue("@status            ",materialdata.status           );
+            //        cmd.Parameters.AddWithValue("@stock_count       ",materialdata.stock_count      );
+            //        cmd.Parameters.AddWithValue("@overdraw_stock    ",materialdata.overdraw_stock   );
+            //        //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
+            //        cmd.Parameters.AddWithValue("@brand             ",materialdata.brand            );
+            //        cmd.Parameters.AddWithValue("@version           ",materialdata.version          );
+            //        cmd.Parameters.AddWithValue("@color             ",materialdata.color            );
+            //        cmd.Parameters.AddWithValue("@size              ",materialdata.size             );
+            //        cmd.Parameters.AddWithValue("@uom_in            ",materialdata.uom_in           );
+            //        cmd.Parameters.AddWithValue("@uom_stock         ",materialdata.uom_stock        );
+            //        cmd.Parameters.AddWithValue("@qty_in            ",materialdata.qty_in           );
+            //        cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
+
+            //        cmd.ExecuteReader();
+            //    }
+            //}
+            #endregion
+
+
+
+            return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
 
-
-        public materialModel mapView(SqlDataReader rdr)
+        [HttpPost]
+        public JsonResult Editmaterialdata(MaterialSQL material, HttpPostedFileBase file)
         {
-            var model = new materialModel();
 
-            model.item_no = rdr.GetString(0);
+            #region old
+            //using (var conn = OpenDbConnection())
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterUpdate", conn))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-            return model;
+            //        cmd.Parameters.AddWithValue("@item_id           ", materialdata.item_id);
+            //        cmd.Parameters.AddWithValue("@item_no           ", materialdata.item_no);
+            //        cmd.Parameters.AddWithValue("@item_name         ", materialdata.item_name);
+            //        cmd.Parameters.AddWithValue("@group_id          ", materialdata.group_id);
+            //        cmd.Parameters.AddWithValue("@category_id       ", materialdata.category_id);
+            //        cmd.Parameters.AddWithValue("@material_acc_id   ", materialdata.material_acc_id);
+            //        cmd.Parameters.AddWithValue("@costing_method_id ", materialdata.costing_method_id);
+            //        cmd.Parameters.AddWithValue("@description       ", materialdata.description);
+            //        cmd.Parameters.AddWithValue("@status            ", materialdata.status);
+            //        cmd.Parameters.AddWithValue("@stock_count       ", materialdata.stock_count);
+            //        cmd.Parameters.AddWithValue("@overdraw_stock    ", materialdata.overdraw_stock);
+            //        //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
+            //        cmd.Parameters.AddWithValue("@brand             ", materialdata.brand);
+            //        cmd.Parameters.AddWithValue("@version           ", materialdata.version);
+            //        cmd.Parameters.AddWithValue("@color             ", materialdata.color);
+            //        cmd.Parameters.AddWithValue("@size              ", materialdata.size);
+            //        cmd.Parameters.AddWithValue("@uom_in            ", materialdata.uom_in);
+            //        cmd.Parameters.AddWithValue("@uom_stock         ", materialdata.uom_stock);
+            //        cmd.Parameters.AddWithValue("@qty_in            ", materialdata.qty_in);
+            //        cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
+
+            //        cmd.ExecuteReader();
+            //    }
+            //}
+            #endregion
+
+            MaterialSQL output = new MaterialSQL();
+
+            var path = Server.MapPath("~/UploadedFiles/Photo/");
+            if (file != null)
+            {
+                genaratePathfile(material, file);
+            }
+
+            var namepathdelete = searchdeletefile(material.item_id);
+
+
+            //var checkitemname = new item_masterDao().CheckItemName(material);
+            //if (checkitemname == true)
+            //{
+            //    var checkdetailitem = new item_masterDao().CheckDetialItem(material);
+            //    if (checkdetailitem == true)
+            //    {
+            //        output.msg = 3;
+            //    }
+            //    else if (checkdetailitem == false)
+            //    {
+            //        output = new item_masterDao().UpdateItem_master(material);
+            //    }
+
+            //}
+            //else if (checkitemname == false)
+            //{
+            //    output = new item_masterDao().UpdateItem_master(material);
+            //}
+
+            var checkupdateitem = new item_masterDao().Checkupdateitem(material);
+            if (checkupdateitem == true)
+            {
+                output.msg = 3;
+            }
+            else
+            {
+                output = new item_masterDao().UpdateItem_master(material);
+            }
+
+
+            if (output.msg == 1 && file != null && namepathdelete.picture_path != "")
+            {
+                Deletefile(path, namepathdelete.picture_path);
+            }
+
+            if (output.msg == 1 && file != null)
+            {
+                Createfile(path, material.picture_path, file);
+            }
+
+            return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult UpdateItemActive(MaterialSQL itemSQL)
+        {
+            MaterialSQL output = new MaterialSQL();
+            new item_masterDao().UpdateActiveItem_master(itemSQL);
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        public static MaterialSQL searchdeletefile(int id)
+        {
+            MaterialSQL material = new MaterialSQL();
+            material = new item_masterDao().deletefilepath(id);
+            return material;
+        }
+
+        [HttpPost]
+        public JsonResult DeleteMaterial(MaterialSQL mateid)
+        {
+            #region old
+            //using (var coon = OpenDbConnection())
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterDelete",coon))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+
+            //        cmd.Parameters.AddWithValue("@item_id", mateid.item_id);
+            //        cmd.ExecuteReader();
+            //    }
+            //}
+            #endregion
+
+            new item_masterDao().DeleteItem_master(mateid);
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _groupView()
+        {
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+            List<GroupSQL> Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
+
+            return PartialView("Groupmaterial/_groupView", Grouplistdata);
+        }
+
+        public ActionResult _groupViewActive(bool active)
+        {
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+            List<GroupSQL> Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
+
+            return PartialView("Groupmaterial/_groupView", Grouplistdata);
+        }
+
+
+        [HttpPost]
+        public JsonResult CreateGroup(GroupSQL groupdata)
+        {
+            GroupSQL output = new GroupSQL();
+            var check = new GroupDao().CheckGroupNew(groupdata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+                output = new GroupDao().InsertGroup(groupdata);
+            }
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult _creategroup()
+        {
+            GroupSQL gdata = new GroupSQL();
+            return PartialView("Groupmaterial/_creategroup", gdata);
+        }
+
+        public ActionResult _editgroup(int id)
+        {
+            GroupSQL gdata = new GroupDao().GetdataByid(id);
+            return PartialView("Groupmaterial/_creategroup", gdata);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateGroup(GroupSQL groupdata)
+        {
+
+            GroupSQL output = new GroupSQL();
+            var check = new GroupDao().CheckGroupNew(groupdata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+                new GroupDao().UpdateGroup(groupdata);
+            }
+
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateGorupActive(GroupSQL groupSQL)
+        {
+            GroupSQL output = new GroupSQL();
+            new GroupDao().UpdateGroupActive(groupSQL);
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteGroup(GroupSQL groupdata)
+        {
+            Rowgroup rowgroup = new Rowgroup();
+            var checkdeleteitem = new GroupDao().DeleteCheckItem(groupdata);
+            if (checkdeleteitem.row ==0)
+            {
+            var checkdeletecategory = new GroupDao().DeleteCheckCategory(groupdata);
+                if (checkdeletecategory.row == 0)
+                {
+                    new GroupDao().DeleteGroup(groupdata);
+                }
+                else
+                {
+                rowgroup = checkdeletecategory;
+                rowgroup.check = "checkcategory";
+                }
+            }
+            else
+            {
+                rowgroup = checkdeleteitem;
+                rowgroup.check = "checkitem";
+            }
+
+
+
+            return Json(new { output = rowgroup }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _comfirmgroup()
+        {
+            return PartialView("Groupmaterial/_comfirmgroup");
+        }
+
+        ///////////////////////////////////////////////////
+        public ActionResult _categoryView()
+        {
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+            //CategorySQL CGlist = new CategorySQL();
+            List<CategorySQL> Categorylistdata = new CategoryDao().GetdataView().Categorylist.ToList();
+            return PartialView("Categorymaterial/_categoryView", Categorylistdata);
+        }
+
+        public ActionResult _categoryViewActive(bool active)
+        {
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+            List<CategorySQL> Categorylistdata = new CategoryDao().GetdataByActive(active).Categorylist.ToList();
+
+            return PartialView("Groupmaterial/_groupView", Categorylistdata);
+        }
+
+        [HttpPost]
+        public JsonResult CreateCategory(CategorySQL categorydata)
+        {
+            CategorySQL output = new CategorySQL();
+            var check = new CategoryDao().CheckCategoryNew(categorydata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+                output = new CategoryDao().InsertCategory(categorydata);
+            }
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _createcategory()
+        {
+            MaterialSQLindex materiallist = new MaterialSQLindex();
+            CategorySQL gdata = new CategorySQL();
+            materiallist.CategorySQL = gdata;
+            materiallist.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+
+            return PartialView("Categorymaterial/_createcategory", materiallist);
+        }
+
+        public ActionResult _editcategory(int id)
+        {
+            MaterialSQLindex materiallist = new MaterialSQLindex();
+            CategorySQL gdata = new CategoryDao().GetdataByid(id);
+            materiallist.CategorySQL = gdata;
+            materiallist.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            return PartialView("Categorymaterial/_createcategory", materiallist);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCategory(CategorySQL categorydata)
+        {
+            CategorySQL output = new CategorySQL();
+            var check = new CategoryDao().CheckCategoryNew(categorydata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+                new CategoryDao().UpdateCategory(categorydata);
+            }
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCategoryActive(CategorySQL categorydata)
+        {
+            CategorySQL output = new CategorySQL();
+            new CategoryDao().UpdateCategoryActive(categorydata);
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCategory(CategorySQL categorydata)
+        {
+            Rowcategory rowcategory = new Rowcategory();
+            var checkdeleteitem = new CategoryDao().DeleteCheckItem(categorydata);
+            if(checkdeleteitem.row == 0)
+            {
+            new CategoryDao().DeleteCategory(categorydata);
+            }
+            else
+            {
+                rowcategory = checkdeleteitem;
+                rowcategory.check = "checkitem";
+            }
+
+
+            //var output = DeleteService(12);
+            return Json(new { output = rowcategory}, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _comfirmcategory()
+        {
+            return PartialView("Categorymaterial/_comfirmcategory");
+        }
+
+
+        //public ActionResult DeleteService(int id)
+        //{
+        //    var code = CategoryDao().Code(string);
+        //    if (code != null)
+        //    {
+        //        return "duplicate";
+        //    }
+
+        //    var output = new CategoryDao().DeleteCategory(id);
+        //    return output;
+        //}
 
     }
 }
-
-
-
-
-
