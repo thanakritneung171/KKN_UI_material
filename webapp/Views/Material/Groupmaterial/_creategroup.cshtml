@@ -119,8 +119,9 @@
                         $("#content_ajaxloader").fadeOut("fast");
                         //alert("บันทึกเรียบร้อย");
                         $('#Modal').modal('hide');
-                        //window.location.href = "/material/";
-                        AddPanel();
+
+                        showunactive();
+                        //AddPanel();
                     },
                     failure: function (response) {
                         alert(response.responseText);
@@ -308,8 +309,9 @@
                 $("#content_ajaxloader").fadeOut("fast");
                 //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
-                //window.location.href = "/material/";
-                AddPanel();
+                
+                showunactive();
+                //AddPanel();
             },
             failure: function (response) {
                 alert(response.responseText);

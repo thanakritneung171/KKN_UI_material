@@ -131,8 +131,9 @@
                         $("#content_ajaxloader").fadeOut("fast");
                         //alert("บันทึกเรียบร้อย");
                         $('#Modal').modal('hide');
-                        //window.location.href = "/material/";
-                        AddPanelcate();
+
+                        showunactiveC();
+                        //AddPanelcate();
                     },
                     failure: function (response) {
                         alert(response.responseText);
@@ -190,6 +191,7 @@
         document.getElementById("labelCid").hidden = false;
         document.getElementById("groupC").disabled = false;
         document.getElementById('status').removeAttribute("onclick");
+        document.getElementById("backbtn").style.display = "none";
     }
 
     function caceledit() {
@@ -318,8 +320,9 @@
                 $("#content_ajaxloader").fadeOut("fast");
                 //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
-                //window.location.href = "/material/";
-                AddPanelcate();
+
+                showunactiveC();
+                //AddPanelcate();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -361,8 +364,9 @@
                         completesmartconfirmmessagebox("ลบข้อมูล", "ลบประเภทสำเร็จ");
                         //alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
-                        /*window.location.href = "/material";*/
-                        AddPanelcate();
+
+                        showunactiveC();
+                        //AddPanelcate();
                     },
                     failure: function (response) {
                         alert(response.responseText);

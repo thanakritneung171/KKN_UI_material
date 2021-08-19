@@ -187,14 +187,14 @@ namespace KKN_UI.Controllers
         public ActionResult _grouptable(bool active)
         {
             List<GroupSQL> Grouplistdata = new List<GroupSQL>();
-            if (active == true)
-            {
-                Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
-            }
-            else
-            {
-                Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
-            }
+            //if (active == true)
+            //{
+            //    Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
+            //}
+            //else
+            //{
+            Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
+            //}
 
             return PartialView("Groupmaterial/_grouptable", Grouplistdata);
         }
@@ -202,14 +202,14 @@ namespace KKN_UI.Controllers
         public ActionResult _categorytable(bool active)
         {
             List<CategorySQL> categorylistdata = new List<CategorySQL>();
-            if (active == true)
-            {
-                categorylistdata = new CategoryDao().GetdataView().Categorylist.ToList();
-            }
-            else
-            {
+            //if (active == true)
+            //{
+            //    categorylistdata = new CategoryDao().GetdataView().Categorylist.ToList();
+            //}
+            //else
+            //{
                 categorylistdata = new CategoryDao().GetdataByActive(active).Categorylist.ToList();
-            }
+            //}
 
             return PartialView("Categorymaterial/_categorytable", categorylistdata);
         }

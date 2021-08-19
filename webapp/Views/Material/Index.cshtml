@@ -169,7 +169,7 @@
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
     <div class="row margin-top-10  margin-left-10">
-        <h2 class="row col-lg-6 col-md-4 col-sm-4 "> <i class="glyphicon glyphicon-inbox"></i> ข้อมูลวัสดุ</h2>
+        <h2 class="row col-lg-6 col-md-4 col-sm-4 " id="materialheader"> <i class="glyphicon glyphicon-inbox"></i> ข้อมูลวัสดุ</h2>
 
         <div class="row   pull-right margin-right-10" style="padding: 2.5px;">
             <button class="btn btn-primary" @*onclick="href='@Url.Action("Editmaterial", "Material")'"*@>จัดการบัญชีวัสดุ</button>
@@ -532,7 +532,7 @@
 
 @section pagespecific {
     <script type="text/javascript">
-        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
         $(document).ready(function () {
             console.log("ready!");
@@ -546,8 +546,23 @@
 
             $('#content_ajaxloader').fadeIn();
             $("#partialtabledata").load('@Url.Action("_tabledatalistIndex", "Material")',  function (result) {
-                        $('#content_ajaxloader').fadeOut();
-                    });
+                $('#content_ajaxloader').fadeOut();
+
+
+                var pag = document.getElementById("materialheader").textContent
+                console.log(pag)
+                if (pag == "  ข้อมูลวัสดุ") {
+                    console.log("in ข้อมูลวัสดุ")
+                    
+                    $('.dataTables_empty').html('กรุณาค้นหาข้อมูล');
+                    //document.getElementById("tablebodydata").innerHTML = '<tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">กรุณาค้นหาข้อมูล</td></tr>'
+                        //< tr class="odd" > <td valign="top" colspan="6" class="dataTables_empty">ไม่พบข้อมูล</td></tr >
+                }
+
+            });
+
+
+          
         })
 
         ////////////  smart alert messga///////////////////////////
