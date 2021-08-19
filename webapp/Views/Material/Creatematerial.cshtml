@@ -168,7 +168,7 @@
     }
 </style>
 
-<input hidden id="item_id" value="@result.MaterialSQLdataselect.item_id"/>
+<input hidden id="item_id" value="@result.MaterialSQLdataselect.item_id" />
 
 <div id="content" style="opacity: 1;background-color:white;min-height:82vh;">
     <div class="row margin-top-10 margin-left-10">
@@ -943,12 +943,32 @@
                     //alert(va)
                     var counter = 0;
 
+                    var itemnodate = document.getElementById("item_no");
+                    var itemnamedate = document.getElementById("item_name");
                     var gvalidate = document.getElementById("group");
                     var cvalidate = document.getElementById("category");
+                    var maccdata = document.getElementById("material_account");
+                    var costingdata = document.getElementById("costing_method_material");
+
+                    if (itemnodate.value == "") {
+                        itemnodate.classList.add("invalid");
+                        counter++
+                    } else {
+                        itemnodate.classList.remove("invalid");
+                        itemnodate.classList.add("valid");
+                    }
+
+                    if (itemnamedate.value == "") {
+                        itemnamedate.classList.add("invalid");
+                        counter++
+                    } else {
+                        itemnamedate.classList.remove("invalid");
+                        itemnamedate.classList.add("valid");
+                    }
 
                     if (gvalidate.selectedIndex == 0) {
                         gvalidate.classList.add("invalid");
-                        alert('Please select an item');
+                        //alert('Please select an item');
                         counter++;
                     } else {
                         gvalidate.classList.remove("invalid");
@@ -957,7 +977,28 @@
 
                     if (cvalidate.selectedIndex == 0) {
                         cvalidate.classList.add("invalid");
+                        counter++
+                    } else {
+                        cvalidate.classList.remove("invalid");
+                        cvalidate.classList.add("valid");
                     }
+
+                    if (maccdata.selectedIndex == 0) {
+                        maccdata.classList.add("invalid");
+                        counter++
+                    } else {
+                        maccdata.classList.remove("invalid");
+                        maccdata.classList.add("valid");
+                    }
+
+                    if (costingdata.selectedIndex == 0) {
+                        costingdata.classList.add("invalid");
+                        counter++
+                    } else {
+                        costingdata.classList.remove("invalid");
+                        costingdata.classList.add("valid");
+                    }
+
 
                     console.log(counter)
                     if (counter > 0) {
