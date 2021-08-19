@@ -325,6 +325,7 @@
 
                         getSelectedOptions(sc, sg)
                         document.getElementById("dontcate").select = true;
+                        document.getElementById("group").classList.add("valid");
                     }
 
                     function getSelectedOptions(select, option) {
@@ -940,39 +941,47 @@
                     //validatedata()
                     //var va =  validatedata()
                     //alert(va)
-
-                    var ddl = document.getElementById("group");
-
-                    if (ddl.selectedIndex == 0) {
-                        alert('Please select an item');
-                        return false;
-                    }
-                    console.log("123")
-                    return true;
-
-
-
                     var counter = 0;
-                    $(".required").each(function () {
-              
 
-                        if ($(this).val() == "") {
-                            $(this).addClass("invalid");
-                            console.log($(this))
-                            counter++;
-                        }
-                        else {
-                            $(this).removeClass("invalid");
-                            $(this).addClass("valid");
-                            console.log($(this))
-                        }
+                    var gvalidate = document.getElementById("group");
+                    var cvalidate = document.getElementById("category");
 
-                    });
+                    if (gvalidate.selectedIndex == 0) {
+                        gvalidate.classList.add("invalid");
+                        alert('Please select an item');
+                        counter++;
+                    } else {
+                        gvalidate.classList.remove("invalid");
+                        gvalidate.classList.add("valid");
+                    }
 
+                    if (cvalidate.selectedIndex == 0) {
+                        cvalidate.classList.add("invalid");
+                    }
+
+                    console.log(counter)
                     if (counter > 0) {
                         console.log("validate")
                         return false;
                     }
+                    return true;
+
+
+
+
+
+                    //$(".required").each(function () {
+                    //    if ($(this).val() == "") {
+                    //        $(this).addClass("invalid");
+                    //        console.log($(this))
+                    //        counter++;
+                    //    }
+                    //    else {
+                    //        $(this).removeClass("invalid");
+                    //        $(this).addClass("valid");
+                    //        console.log($(this))
+                    //    }
+                    //});
 
                     smartconfirmmessagebox(document.getElementById("headermanu").textContent, function () {
                         console.log("Do function call back ");
