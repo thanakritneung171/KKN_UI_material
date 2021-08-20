@@ -266,18 +266,18 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-4">
-
+                    <div class="col-sm-4" >
                         @{
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {
-                                <select class="form-control required" id="group" name="group" onchange="myselect(this)">
+                                <select class="form-control required " id="group" name="group" onchange="myselect(this)">
                                     <option disabled value="0" @*value="0"*@ selected>เลือกกลุ่มวัสดุ</option>
                                     @foreach (var item in result.GroupSQLlist)
                                     {
                                         <option value="@item.group_id ">@item.group_name</option>
                                     }
                                 </select>
+
                             }
                             else
                             {
@@ -289,9 +289,8 @@
                                 </select>
                             }
                         }
-
-
                     </div>
+                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0"><i class="glyphicon glyphicon-plus "></i></a>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
@@ -320,6 +319,7 @@
                             }
                         }
                     </div>
+                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0"><i class=" glyphicon glyphicon-plus "></i></a>
                 </div>
 
                 <script>

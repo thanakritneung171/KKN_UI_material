@@ -39,6 +39,21 @@ namespace KKN_UI.Controllers
             return conn;
         }
 
+        public static string isActive(this HtmlHelper html,string controllrt = null,string action = null)
+        {
+            string active = "active";
+            string activeClass = "active";
+            string actualAction = (string)html.ViewContext.RouteData.Values["action"];
+            string actualController = (string)html.ViewContext.RouteData.Values["controller"];
+
+            if (string.IsNullOrEmpty(controller))
+                Controller = actualController;
+
+            if (string.IsNullOrEmpty(action))
+                action = actualAction;
+
+            return (Controller == actualController && action == actualAction) ? activeClass : String.Empty;
+        }
 
         public ActionResult Index()
         {
