@@ -10,17 +10,17 @@
 
 
 @*@{ if( result.MaterialSQLdataselect.item_id != 0)
-            {
-                <style>
-                    .form-control 
-                    {
-                        background-color:red;
+                {
+                    <style>
+                        .form-control
+                        {
+                            background-color:red;
 
-                    }
-                </style>
-            }
- 
-}*@
+                        }
+                    </style>
+                }
+
+    }*@
 
 <style>
     #Msg_ajaxloader {
@@ -188,26 +188,27 @@
     <div class="row margin-top-10 margin-left-10">
         <div class="row">
 
-            @{
-                if (result.MaterialSQLdataselect.item_id == 0)
-                {
-                    <h3>
-                        <i class="fa fa-cube"></i> &nbsp;    <span style="color:forestgreen;" id="headermanu">เพิ่มวัสดุอุปกรณ์ใหม่</span>
-                        &nbsp;&nbsp;
-                        <a href="@Url.Action("Index", "Material")">Back</a>
-                    </h3>
-                }
-                else
-                {
-                    <h3>
-                        <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">วัสดุอุปกรณ์</span>
-                        <i class="fa fa-chevron-right"></i>
-                        <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
-                        <span>@result.MaterialSQLdataselect.item_name - @result.MaterialSQLdataselect.item_name </span>&nbsp;&nbsp;
-                        <a href="@Url.Action("Index", "Material")">Back</a>
-                    </h3>
-                }
-            }
+
+            @*@{
+                    if (result.MaterialSQLdataselect.item_id == 0)
+                    {
+                        <h3>
+                            <i class="fa fa-cube"></i> &nbsp;    <span style="color:forestgreen;" id="headermanu">เพิ่มวัสดุอุปกรณ์ใหม่</span>
+                            &nbsp;&nbsp;
+                            <a href="@Url.Action("Index", "Material")">Back</a>
+                        </h3>
+                    }
+                    else
+                    {
+                        <h3>
+                            <i class="fa fa-cube"></i> &nbsp; <span style="color:forestgreen;">วัสดุอุปกรณ์</span>
+                            <i class="fa fa-chevron-right"></i>
+                            <span style="color:blue;">รายละเอียดวัสดุ </span> &nbsp;
+                            <span>@result.MaterialSQLdataselect.item_name - @result.MaterialSQLdataselect.item_name </span>&nbsp;&nbsp;
+                            <a href="@Url.Action("Index", "Material")">Back</a>
+                        </h3>
+                    }
+                }*@
 
 
         </div>
@@ -252,21 +253,26 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4">
-                        @{
-                            if (result.MaterialSQLdataselect.item_id == 0)
-                            {
-                                <input type="text" class="form-control required" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
-                            }
-                            else
-                            {
-                                <input type="text" class="form-control" id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>
-                            }
-                        }
+                        @*@{
+                                if (result.MaterialSQLdataselect.item_id == 0)
+                                {
+                                    <input type="text" class="form-control required" id="item_name" placeholder="ระบุ ชื่อวัสดุ" name="item_name" maxlength="100">
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>
+                                }
+                            }*@
+                        <input type="text" class="form-control " id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name"  @ViewBag.dis >
+
+                        @*<input type="text" class="form-control @HtmlHelperExtensions.ConditionalDisable(true, new { @class="form-control", autocomplete = "off" })   " id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>*@
+                        @* <input type="text" class="form-control @Html.isActive( action : "Editmaterial")  " id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>*@
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
-                    <div class="col-sm-4" >
+                    <div class="col-sm-4">
                         @{
                             if (result.MaterialSQLdataselect.item_id == 0)
                             {

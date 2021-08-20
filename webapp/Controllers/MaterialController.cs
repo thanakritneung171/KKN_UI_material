@@ -39,21 +39,6 @@ namespace KKN_UI.Controllers
             return conn;
         }
 
-        public static string isActive(this HtmlHelper html,string controllrt = null,string action = null)
-        {
-            string active = "active";
-            string activeClass = "active";
-            string actualAction = (string)html.ViewContext.RouteData.Values["action"];
-            string actualController = (string)html.ViewContext.RouteData.Values["controller"];
-
-            if (string.IsNullOrEmpty(controller))
-                Controller = actualController;
-
-            if (string.IsNullOrEmpty(action))
-                action = actualAction;
-
-            return (Controller == actualController && action == actualAction) ? activeClass : String.Empty;
-        }
 
         public ActionResult Index()
         {
@@ -169,25 +154,25 @@ namespace KKN_UI.Controllers
 
             //if (search.category_id == 0 && search.group_id == 0 && search.text == null)
             //{
-                List<MaterialSQL> mtlist = new List<MaterialSQL>();
-                using (var conn = OpenDbConnection())
-                {
-                    var query = "SELECT top 0 * FROM  MaterialView";
+            List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            using (var conn = OpenDbConnection())
+            {
+                var query = "SELECT top 0 * FROM  MaterialView";
 
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    using (var rdr = cmd.ExecuteReader())
                     {
-                        cmd.CommandType = CommandType.Text;
-                        using (var rdr = cmd.ExecuteReader())
+                        while (rdr.Read())
                         {
-                            while (rdr.Read())
-                            {
-                                //mtlist.Add(mapView(rdr));
-                                mtlist.Add(new item_masterDao().mapView(rdr));
-                            }
+                            //mtlist.Add(mapView(rdr));
+                            mtlist.Add(new item_masterDao().mapView(rdr));
                         }
                     }
                 }
-                listindex.MaterialSQLlist = mtlist.ToList();
+            }
+            listindex.MaterialSQLlist = mtlist.ToList();
             //}
             //else
             //{
@@ -223,7 +208,7 @@ namespace KKN_UI.Controllers
             //}
             //else
             //{
-                categorylistdata = new CategoryDao().GetdataByActive(active).Categorylist.ToList();
+            categorylistdata = new CategoryDao().GetdataByActive(active).Categorylist.ToList();
             //}
 
             return PartialView("Categorymaterial/_categorytable", categorylistdata);
@@ -420,6 +405,7 @@ namespace KKN_UI.Controllers
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
             MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
             MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
+            ViewBag.dis = "disabled";
 
             return View("Creatematerial", MaterialSQLlistindex);
         }
@@ -778,17 +764,17 @@ namespace KKN_UI.Controllers
         {
             Rowgroup rowgroup = new Rowgroup();
             var checkdeleteitem = new GroupDao().DeleteCheckItem(groupdata);
-            if (checkdeleteitem.row ==0)
+            if (checkdeleteitem.row == 0)
             {
-            var checkdeletecategory = new GroupDao().DeleteCheckCategory(groupdata);
+                var checkdeletecategory = new GroupDao().DeleteCheckCategory(groupdata);
                 if (checkdeletecategory.row == 0)
                 {
                     new GroupDao().DeleteGroup(groupdata);
                 }
                 else
                 {
-                rowgroup = checkdeletecategory;
-                rowgroup.check = "checkcategory";
+                    rowgroup = checkdeletecategory;
+                    rowgroup.check = "checkcategory";
                 }
             }
             else
@@ -892,9 +878,9 @@ namespace KKN_UI.Controllers
         {
             Rowcategory rowcategory = new Rowcategory();
             var checkdeleteitem = new CategoryDao().DeleteCheckItem(categorydata);
-            if(checkdeleteitem.row == 0)
+            if (checkdeleteitem.row == 0)
             {
-            new CategoryDao().DeleteCategory(categorydata);
+                new CategoryDao().DeleteCategory(categorydata);
             }
             else
             {
@@ -904,7 +890,7 @@ namespace KKN_UI.Controllers
 
 
             //var output = DeleteService(12);
-            return Json(new { output = rowcategory}, JsonRequestBehavior.AllowGet);
+            return Json(new { output = rowcategory }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _comfirmcategory()

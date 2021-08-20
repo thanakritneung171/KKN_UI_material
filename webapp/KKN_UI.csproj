@@ -1084,6 +1084,7 @@
     <Compile Include="Helper\CustomJsonValueProviderFactory.cs" />
     <Compile Include="Helper\DecimalModelBinder.cs" />
     <Compile Include="Helper\FileManager.cs" />
+    <Compile Include="Helper\HtmlHelperExtensions.cs" />
     <Compile Include="Helper\UtilityHelper.cs" />
     <Compile Include="materialDao\category\CategoryDao.cs" />
     <Compile Include="materialDao\Costing_method\Costing_methodDao.cs" />
