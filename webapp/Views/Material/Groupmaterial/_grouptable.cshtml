@@ -6,6 +6,7 @@
         <tr>
             <th align="right">#</th>
             <th>ชื่อกลุ่ม</th>
+            <th>สถานะ</th>
 
         </tr>
     </thead>
@@ -16,8 +17,8 @@
             {
                 <tr class="trid" id="@item.group_id" value="@item.group_id" onclick="openmodaledit(this.id)">
                     <td class="stu_numrec" width="1%" align="right" value="@item.group_id">@i</td>
-                    @*<td class="stu_numrec" width="1%" align="right">@item.group_id</td>*@
                     <td class="stu_name" width="10%">@item.group_name</td>
+                    <td class="stu_active" width="10%" style="color:@(item.active ? "Green": "Red")">    @(item.active ? "ใช้งาน": "ไม่ใช้")  </td>
                 </tr>
                 i++;
             }}

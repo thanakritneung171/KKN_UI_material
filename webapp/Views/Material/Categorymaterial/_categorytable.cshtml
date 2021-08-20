@@ -7,16 +7,18 @@
             <th align="right">#</th>
             <th align="center">กลุ่ม</th>
             <th>ประเภท</th>
+            <th>สถานะ</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in categorySQL)
         {
-            <tr class="trid" id="@item.category_id" value="@item.category_id" onclick="openmodaleditC(this.id)">
-                <td class="stu_numrec" width="1%" align="right">@item.category_id</td>
-                <td class="stu_gid" width="2%" align="center" value="@item.group_id">@item.GroupModel.group_name</td>
-                <td class="stu_name" width="10%">@item.category_name</td>
-            </tr>
+        <tr class="trid" id="@item.category_id" value="@item.category_id" onclick="openmodaleditC(this.id)">
+            <td class="stu_numrec" width="1%" align="right">@item.category_id</td>
+            <td class="stu_gid" width="2%" align="center" value="@item.group_id">@item.GroupModel.group_name</td>
+            <td class="stu_name" width="10%">@item.category_name</td>
+            <td class="stu_active" width="10%" style="color:@(item.active ? "Green": "Red")">    @(item.active ? "ใช้งาน": "ไม่ใช้")  </td>
+        </tr>
         }
     </tbody>
 </table>

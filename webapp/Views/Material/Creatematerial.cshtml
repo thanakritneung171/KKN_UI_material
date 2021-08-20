@@ -8,6 +8,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@*@{ if( result.MaterialSQLdataselect.item_id != 0)
+            {
+                <style>
+                    .form-control 
+                    {
+                        background-color:red;
+
+                    }
+                </style>
+            }
+ 
+}*@
+
 <style>
     #Msg_ajaxloader {
         position: fixed;
@@ -949,6 +963,9 @@
                     var cvalidate = document.getElementById("category");
                     var maccdata = document.getElementById("material_account");
                     var costingdata = document.getElementById("costing_method_material");
+                    let r = new RegExp('^[a-zA-Zก-๛ \s]+$')
+
+                    console.log(r.test('test นะจ๊ะ'))
 
                     if (itemnodate.value == "") {
                         itemnodate.classList.add("invalid");
