@@ -263,7 +263,7 @@
                                     <input type="text" class="form-control" id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>
                                 }
                             }*@
-                        <input type="text" class="form-control " id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name"  @ViewBag.dis >
+                        <input type="text" class="form-control " id="item_name" placeholder="ระบุ ชื่อวัสดุ" value="@result.MaterialSQLdataselect.item_name" name="item_name" @ViewBag.dis>
 
                         @*<input type="text" class="form-control @HtmlHelperExtensions.ConditionalDisable(true, new { @class="form-control", autocomplete = "off" })   " id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>*@
                         @* <input type="text" class="form-control @Html.isActive( action : "Editmaterial")  " id="item_name" value="@result.MaterialSQLdataselect.item_name" name="item_name" disabled>*@
