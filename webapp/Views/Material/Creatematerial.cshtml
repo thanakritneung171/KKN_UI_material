@@ -728,7 +728,9 @@
     <script>
         function getobjectmodal() {
             var material = new Object();
+            if (document.getElementById("item_id").value != 0) {
             material.item_id = document.getElementById("item_id").value;
+            }
             material.item_no = document.getElementById("item_no").value;
             material.item_name = document.getElementById("item_name").value;
             material.group_id = document.getElementById("group").value;
@@ -758,7 +760,7 @@
 
             console.log(form_data);
 
-            if (material.item_id != null) {
+            if (material.item_id != 0) {
             form_data.append('material.item_id', material.item_id)
             }
             form_data.append('material.item_no', material.item_no)
