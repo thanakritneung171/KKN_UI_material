@@ -483,7 +483,7 @@
 
                         <div class="col-sm-4 col-xs-4">
                            
-                                    <input type="text" class="form-control" id="qty_stock" value="@(TypePage == true ? 1 : Convert.ToDouble(result.MaterialSQLdataselect.qty_stock))" name="qty_stock"  @ViewBag.dis >
+                                    <input type="text" class="form-control autonumber" @ViewBag.dis  id="qty_stock" value="@(TypePage == true ? 1 : Convert.ToDouble(result.MaterialSQLdataselect.qty_stock))" name="qty_stock"  >
                  
                         </div>
 
@@ -725,7 +725,67 @@
         </div>
     </div>
 
+    <script>
+        function getobjectmodal() {
+            var material = new Object();
+            material.item_id = document.getElementById("item_id").value;
+            material.item_no = document.getElementById("item_no").value;
+            material.item_name = document.getElementById("item_name").value;
+            material.group_id = document.getElementById("group").value;
+            material.category_id = document.getElementById("category").value;
+            material.material_acc_id = document.getElementById("material_account").value;
+            material.costing_method_id = document.getElementById("costing_method_material").value;
+            material.description = document.getElementById("description").value;
+            material.status = document.getElementById("status").checked;
+            material.stock_count = document.getElementById("stock_count").checked;
+            material.overdraw_stock = document.getElementById("overdraw_stock").checked;
+            material.brand = document.getElementById("brand").value;
+            material.version = document.getElementById("version").value;
+            material.color = document.getElementById("color").value;
+            material.size = document.getElementById("size").value;
+            material.uom_in = document.getElementById("uom_in").value;
+            material.uom_stock = document.getElementById("uom_stock").value;
+            material.qty_in = document.getElementById("qty_in").value;
+            material.qty_stock = document.getElementById("qty_stock").value;
+            material.picture_path = document.getElementById("blah").alt;
+            return material;
+        }
 
+        function getobjectformdata(material) {
+            var file_data = $('#input').prop('files')[0];
+            var form_data = new FormData();
+            form_data.append('file', file_data);
+
+            console.log(form_data);
+
+            if (material.item_id != null) {
+            form_data.append('material.item_id', material.item_id)
+            }
+            form_data.append('material.item_no', material.item_no)
+            form_data.append('material.item_name', material.item_name)
+            form_data.append('material.group_id', material.group_id)
+            form_data.append('material.category_id', material.category_id)
+            form_data.append('material.material_acc_id', material.material_acc_id)
+            form_data.append('material.costing_method_id', material.costing_method_id)
+            form_data.append('material.description', material.description)
+            form_data.append('material.status', material.status)
+            form_data.append('material.stock_count', material.stock_count)
+            form_data.append('material.overdraw_stock', material.overdraw_stock)
+            form_data.append('material.brand', material.brand)
+            form_data.append('material.version', material.version)
+            form_data.append('material.color', material.color)
+            form_data.append('material.size', material.size)
+            form_data.append('material.uom_in', material.uom_in)
+            form_data.append('material.uom_stock', material.uom_stock)
+            form_data.append('material.qty_in', material.qty_in)
+            form_data.append('material.qty_stock', material.qty_stock)
+            form_data.append('material.picture_path', material.picture_path)
+
+            console.log(material.picture_path + "path get ");
+
+            return form_data;
+        }
+    </script>
 
     @{
         if (result.MaterialSQLdataselect.item_id == 0)
@@ -813,7 +873,7 @@
                         console.log("validate")
                         return false;
                     }
-                    return true;
+                    console.log("complete validate")
 
 
 
@@ -843,54 +903,9 @@
                 console.log("in function")
                 //alert("in function")
                 ///get input to val
-                var material = new Object();
-                material.item_no            = document.getElementById("item_no").value;
-                material.item_name          = document.getElementById("item_name").value;
-                material.group_id           = document.getElementById("group").value;
-                material.category_id        = document.getElementById("category").value;
-                material.material_acc_id    = document.getElementById("material_account").value;
-                material.costing_method_id  = document.getElementById("costing_method_material").value;
-                material.description        = document.getElementById("description").value;
-                material.status             = document.getElementById("status").checked;
-                material.stock_count        = document.getElementById("stock_count").checked;
-                material.overdraw_stock     = document.getElementById("overdraw_stock").checked;
-                material.brand              = document.getElementById("brand").value;
-                material.version            = document.getElementById("version").value;
-                material.color              = document.getElementById("color").value;
-                material.size               = document.getElementById("size").value;
-                material.uom_in             = document.getElementById("uom_in").value;
-                material.uom_stock          = document.getElementById("uom_stock").value;
-                material.qty_in             = document.getElementById("qty_in").value;
-                material.qty_stock          = document.getElementById("qty_stock").value;
-                material.picture_path       = document.getElementById("blah").alt;
 
-
-                var file_data = $('#input').prop('files')[0];
-                var form_data = new FormData();
-                form_data.append('file', file_data);
-                console.log('form_data');
-                //alert(form_data);
-
-                form_data.append('material.item_no', material.item_no)
-                form_data.append('material.item_name', material.item_name)
-                form_data.append('material.group_id', material.group_id)
-                form_data.append('material.category_id', material.category_id)
-                form_data.append('material.material_acc_id', material.material_acc_id)
-                form_data.append('material.costing_method_id', material.costing_method_id)
-                form_data.append('material.description', material.description)
-                form_data.append('material.status', material.status)
-                form_data.append('material.stock_count', material.stock_count)
-                form_data.append('material.overdraw_stock', material.overdraw_stock)
-                form_data.append('material.brand', material.brand)
-                form_data.append('material.version', material.version)
-                form_data.append('material.color', material.color)
-                form_data.append('material.size', material.size)
-                form_data.append('material.uom_in', material.uom_in)
-                form_data.append('material.uom_stock', material.uom_stock)
-                form_data.append('material.qty_in', material.qty_in)
-                form_data.append('material.qty_stock', material.qty_stock)
-                //form_data.append('material.picture_path', material.picture_path)
-
+                var material = getobjectmodal();
+                var form_data = getobjectformdata(material);
 
                 //////////////////////////////////
                 $("#content_ajaxloader").show();
@@ -1109,69 +1124,9 @@
                 console.log("in function")
                 //alert("in function")
                 ///get input to val
-                var material = new Object();
-                material.item_id                    = document.getElementById("item_id").value;
-                material.item_no                    = document.getElementById("item_no").value;
-                material.item_name                  = document.getElementById("item_name").value;
-                material.group_id                   = document.getElementById("group").value;
-                material.category_id                = document.getElementById("category").value;
-                material.material_acc_id            = document.getElementById("material_account").value;
-                material.costing_method_id          = document.getElementById("costing_method_material").value;
-                material.description                = document.getElementById("description").value;
-                material.status                     = document.getElementById("status").checked;
-                material.stock_count                = document.getElementById("stock_count").checked;
-                material.overdraw_stock             = document.getElementById("overdraw_stock").checked;
-                material.brand                      = document.getElementById("brand").value;
-                material.version                    = document.getElementById("version").value;
-                material.color                      = document.getElementById("color").value;
-                material.size                       = document.getElementById("size").value;
-                material.uom_in                     = document.getElementById("uom_in").value;
-                material.uom_stock                  = document.getElementById("uom_stock").value;
-                material.qty_in                     = document.getElementById("qty_in").value;
-                material.qty_stock                  = document.getElementById("qty_stock").value;
-                material.picture_path               = document.getElementById("blah").alt;
+                var material = getobjectmodal();
+                var form_data = getobjectformdata(material);
 
-
-
-                var file_data = $('#input').prop('files')[0];
-
-                var form_data = new FormData();
-
-                form_data.append('file', file_data);
-                //if (file_data == null) {
-
-                //}
-
-                console.log('form_data');
-                console.log(form_data);
-                //alert(form_data);
-
-                form_data.append('material.item_id', material.item_id)
-                form_data.append('material.item_no', material.item_no)
-                form_data.append('material.item_name', material.item_name)
-                form_data.append('material.group_id', material.group_id)
-                form_data.append('material.category_id', material.category_id)
-                form_data.append('material.material_acc_id', material.material_acc_id)
-                form_data.append('material.costing_method_id', material.costing_method_id)
-                form_data.append('material.description', material.description)
-                form_data.append('material.status', material.status)
-                form_data.append('material.stock_count', material.stock_count)
-                form_data.append('material.overdraw_stock', material.overdraw_stock)
-                form_data.append('material.brand', material.brand)
-                form_data.append('material.version', material.version)
-                form_data.append('material.color', material.color)
-                form_data.append('material.size', material.size)
-                form_data.append('material.uom_in', material.uom_in)
-                form_data.append('material.uom_stock', material.uom_stock)
-                form_data.append('material.qty_in', material.qty_in)
-                form_data.append('material.qty_stock', material.qty_stock)
-                form_data.append('material.picture_path', material.picture_path)
-
-                console.log(material.picture_path + "path get ");
-
-
-
-                console.log(material);
                 $("#content_ajaxloader").show();
                     $.ajax({
 
