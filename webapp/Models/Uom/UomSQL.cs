@@ -9,6 +9,7 @@ namespace KKN_UI.Models.Uom
     {
         public int uom_id { get; set; }
         public string uom_name { get; set; }
+        public bool active { get; set; }
     }
 
     public class UomSQLlist
@@ -18,5 +19,10 @@ namespace KKN_UI.Models.Uom
         //{
         //    this.Uomlist = new List<UomSQL>();
         //}
+    }
+    public class RowUom
+    {
+        public int row { get; set; }
+        public string check { get; set; }
     }
 }

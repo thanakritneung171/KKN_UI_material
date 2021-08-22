@@ -906,7 +906,118 @@ namespace KKN_UI.Controllers
         {
             return PartialView("Categorymaterial/_comfirmcategory");
         }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///
 
+        public ActionResult _uomView()
+        {
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+            List<GroupSQL> Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
+
+            return PartialView("Groupmaterial/_groupView", Grouplistdata);
+        }
+
+        public ActionResult _uomViewActive(bool active)
+        {
+            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
+
+            List<GroupSQL> Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
+
+            return PartialView("Groupmaterial/_groupView", Grouplistdata);
+        }
+
+
+        [HttpPost]
+        public JsonResult CreateUom(GroupSQL groupdata)
+        {
+            GroupSQL output = new GroupSQL();
+            var check = new GroupDao().CheckGroupNew(groupdata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+                output = new GroupDao().InsertGroup(groupdata);
+            }
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult _createuom()
+        {
+            GroupSQL gdata = new GroupSQL();
+            return PartialView("Groupmaterial/_creategroup", gdata);
+        }
+
+        public ActionResult _edituom(int id)
+        {
+            GroupSQL gdata = new GroupDao().GetdataByid(id);
+            return PartialView("Groupmaterial/_creategroup", gdata);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateUom(GroupSQL groupdata)
+        {
+
+            GroupSQL output = new GroupSQL();
+            var check = new GroupDao().CheckGroupNew(groupdata);
+            if (check == true)
+            {
+                output = null;
+            }
+            else
+            {
+                new GroupDao().UpdateGroup(groupdata);
+            }
+
+
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateUomActive(GroupSQL groupSQL)
+        {
+            GroupSQL output = new GroupSQL();
+            new GroupDao().UpdateGroupActive(groupSQL);
+            return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteUom(GroupSQL groupdata)
+        {
+            Rowgroup rowgroup = new Rowgroup();
+            var checkdeleteitem = new GroupDao().DeleteCheckItem(groupdata);
+            if (checkdeleteitem.row == 0)
+            {
+                var checkdeletecategory = new GroupDao().DeleteCheckCategory(groupdata);
+                if (checkdeletecategory.row == 0)
+                {
+                    new GroupDao().DeleteGroup(groupdata);
+                }
+                else
+                {
+                    rowgroup = checkdeletecategory;
+                    rowgroup.check = "checkcategory";
+                }
+            }
+            else
+            {
+                rowgroup = checkdeleteitem;
+                rowgroup.check = "checkitem";
+            }
+
+
+
+            return Json(new { output = rowgroup }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _comfirmuom()
+        {
+            return PartialView("Groupmaterial/_comfirmgroup");
+        }
 
         //public ActionResult DeleteService(int id)
         //{
