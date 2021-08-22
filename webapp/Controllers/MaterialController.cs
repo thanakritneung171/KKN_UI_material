@@ -226,6 +226,13 @@ namespace KKN_UI.Controllers
             //return  Json(new { listindex }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult _selectgroup()
+        {
+            MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
+            MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+
+            return PartialView(MaterialSQLlistindex.GroupSQLlist);
+        }
         public ActionResult _selectcategory(int id, string page)
         {
 
@@ -233,6 +240,8 @@ namespace KKN_UI.Controllers
 
             return PartialView(Cdata);
         }
+
+
 
         public ActionResult Creatematerial()
         {

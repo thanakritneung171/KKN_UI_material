@@ -202,13 +202,9 @@
             </div>
 
             <div class="row col-lg-2 col-md-2 col-sm-12 hidden-xs" style="padding: 2.5px; margin-right:15px">
-                <select class="form-control" id="selgroup" name="selgroup" @*onchange="selgr(this)"*@ onchange="myselect(this)">
+                <select class="form-control" id="selgroup" name="selgroup" @*onchange="myselect(this)"*@ onclick="myselect(this)">
                     <option disabled selected value="เลือกกลุ่มวัสดุ">เลือกกลุ่มวัสดุ</option>
-                    <option value="">ทั้งหมด</option>
-                    @foreach (var itemgroup in result.GroupSQLlist)
-                    {
-                        <option value="@itemgroup.group_id">@itemgroup.group_name </option>
-                    }
+
                 </select>
             </div>
 
@@ -283,6 +279,10 @@
 
                 function myselect(th) {
                     console.log("select");
+                    if (th.value == "เลือกกลุ่มวัสดุ") {
+                        console.log("selectAddoptionG");
+                    AddoptionG();
+                    }
                     document.getElementById("selcategory").options.selectedIndex = 0;
                     //selcat(document.getElementById("selcategory"))
                     //var sc = document.getElementById("selcategory");
@@ -291,13 +291,19 @@
                     //getSelectedOptions(sc, sg)
                     document.getElementById("dontcate").select = true;
                     //selgr(th)
-                    if (sg != "") {
+                    if (sg != "" && sg != "เลือกกลุ่มวัสดุ") {
                         AddoptionC(sg)
                     } else {
+                        console.log("########")
                         $("#selcategory").html('<option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>');
                     }
                 }
-
+                function AddoptionG() {
+                 $('#content_ajaxloader').fadeIn();
+                    $("#selgroup").load('@Url.Action("_selectgroup", "Material")', function (result) {
+                        $('#content_ajaxloader').fadeOut();
+                    });
+                }
                 function AddoptionC(sg) {
                  $('#content_ajaxloader').fadeIn();
                     $("#selcategory").load('@Url.Action("_selectcategory", "Material")',  { id: sg}, function (result) {
@@ -375,35 +381,6 @@
                     display: none;
                 }
             </style>
-
-
-            @*<div class="hidden-lg hidden-md col-sm-8 col-xs-4 ">
-
-                </div>*@
-
-            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row col-xs-4 col-sm-3 col-md-3 col-lg-2  " style="padding: 2.5px;">
-                    <button class="btn btn-primary" onclick="AddPanel('#panel-div')">จัดการกลุ่ม</button>
-                </div>
-
-                <div class="row col-xs-4 col-sm-3 col-md-3 col-lg-2  " style="padding: 2.5px;">
-                    <button class="btn btn-primary" onclick="AddPanelcate()">จัดการประเภท</button>
-                </div>
-
-                <div class="row  col-xs-4 col-sm-3 col-md-3 col-lg-2 " style="padding: 2.5px;">
-                    <a-->
-            @*href='@Url.Action("Editmaterial", "Material")'*@
-            <!--class="btn btn-primary glyphicon">จัดการบัญชีวัสดุ</a>
-                </div>
-
-                <div class="row   col-xs-12  col-sm-3   col-md-3 col-lg-6 float-right text-right" style="padding: 2.5px; ">
-                    <a href=' class="btn btn-success glyphicon glyphicon-plus">เพิ่มวัสดุใหม่</a>
-                </div>
-
-            </div>-->
-            @*<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                </div>*@
         </div>
 
 
@@ -532,7 +509,7 @@
 
 @section pagespecific {
     <script type="text/javascript">
-        // DO NOT REMOVE : GLOBAL FUNCTIONS!                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
         $(document).ready(function () {
             console.log("ready!");
@@ -565,7 +542,7 @@
             });
 
 
-          
+
         })
 
         ////////////  smart alert messga///////////////////////////

@@ -1,0 +1,8 @@
+﻿@{
+    List<GroupSQL> result = Model;
+}
+<option value="">ทั้งหมด</option>
+@foreach (var itemgroup in result)
+{
+    <option value="@itemgroup.group_id">@itemgroup.group_name </option>
+}

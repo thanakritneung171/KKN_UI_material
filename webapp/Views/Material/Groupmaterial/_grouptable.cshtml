@@ -1,7 +1,7 @@
 ﻿@{
     List<GroupSQL> groupSQL = Model;
 }
-<table id="dt_basic" class="table table-bordered table-hover">
+<table id="dt_basicGG" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th align="right">#</th>
@@ -51,7 +51,7 @@
         */
 
         /* BASIC ;*/
-        var responsiveHelper_dt_basic = undefined;
+        var responsiveHelper_dt_basicG = undefined;
         var responsiveHelper_datatable_fixed_column = undefined;
         var responsiveHelper_datatable_col_reorder = undefined;
         var responsiveHelper_datatable_tabletools = undefined;
@@ -61,7 +61,7 @@
             phone: 480
         };
 
-        $('#dt_basic').dataTable({
+        $('#dt_basicG').dataTable({
             "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'>r>" +
                 "t" +
                 "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
@@ -73,15 +73,15 @@
             ////////////////////////
             "preDrawCallback": function () {
                 // Initialize the responsive datatables helper once.
-                if (!responsiveHelper_dt_basic) {
-                    responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
+                if (!responsiveHelper_dt_basicG) {
+                    responsiveHelper_dt_basicG = new ResponsiveDatatablesHelper($('#dt_basicG'), breakpointDefinition);
                 }
             },
             "rowCallback": function (nRow) {
-                responsiveHelper_dt_basic.createExpandIcon(nRow);
+                responsiveHelper_dt_basicG.createExpandIcon(nRow);
             },
             "drawCallback": function (oSettings) {
-                responsiveHelper_dt_basic.respond();
+                responsiveHelper_dt_basicG.respond();
             }
         });
 

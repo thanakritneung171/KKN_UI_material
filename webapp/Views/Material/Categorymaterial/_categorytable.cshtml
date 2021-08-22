@@ -1,7 +1,7 @@
 ﻿@{
     List<CategorySQL> categorySQL = Model;
 }
-<table id="dt_basic" class="table table-bordered table-hover">
+<table id="dt_basicCC" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th align="right">#</th>
@@ -11,15 +11,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in categorySQL)
-        {
-        <tr class="trid" id="@item.category_id" value="@item.category_id" onclick="openmodaleditC(this.id)">
-            <td class="stu_numrec" width="1%" align="right">@item.category_id</td>
-            <td class="stu_gid" width="2%" align="center" value="@item.group_id">@item.GroupModel.group_name</td>
-            <td class="stu_name" width="10%">@item.category_name</td>
-            <td class="stu_active" width="10%" style="color:@(item.active ? "Green": "Red")">    @(item.active ? "ใช้งาน": "ไม่ใช้")  </td>
-        </tr>
+        @{
+            int i = 1;
+            foreach (var item in categorySQL)
+            {
+                <tr class="trid" id="@item.category_id" value="@item.category_id" onclick="openmodaleditC(this.id)">
+                    <td class="stu_numrec" width="1%" align="right" value="@item.category_id">@i</td>
+                    <td class="stu_gid" width="2%" align="center" value="@item.group_id">@item.GroupModel.group_name</td>
+                    <td class="stu_name" width="10%">@item.category_name</td>
+                    <td class="stu_active" width="10%" style="color:@(item.active ? "Green": "Red")">    @(item.active ? "ใช้งาน": "ไม่ใช้")  </td>
+                </tr>
+                i++;
+            }
         }
+
     </tbody>
 </table>
 
@@ -48,7 +53,7 @@
         */
 
         /* BASIC ;*/
-        var responsiveHelper_dt_basic = undefined;
+        var responsiveHelper_dt_basicC = undefined;
         var responsiveHelper_datatable_fixed_column = undefined;
         var responsiveHelper_datatable_col_reorder = undefined;
         var responsiveHelper_datatable_tabletools = undefined;
@@ -58,7 +63,7 @@
             phone: 480
         };
 
-        $('#dt_basic').dataTable({
+        $('#dt_basicC').dataTable({
             "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'>r>" +
                 "t" +
                 "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
@@ -70,15 +75,15 @@
             ////////////////////////
             "preDrawCallback": function () {
                 // Initialize the responsive datatables helper once.
-                if (!responsiveHelper_dt_basic) {
-                    responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
+                if (!responsiveHelper_dt_basicC) {
+                    responsiveHelper_dt_basicC = new ResponsiveDatatablesHelper($('#dt_basicC'), breakpointDefinition);
                 }
             },
             "rowCallback": function (nRow) {
-                responsiveHelper_dt_basic.createExpandIcon(nRow);
+                responsiveHelper_dt_basicC.createExpandIcon(nRow);
             },
             "drawCallback": function (oSettings) {
-                responsiveHelper_dt_basic.respond();
+                responsiveHelper_dt_basicC.respond();
             }
         });
 

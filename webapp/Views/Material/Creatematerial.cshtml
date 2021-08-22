@@ -237,42 +237,104 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                           <input type="text" class="form-control required"  @dis id="item_no" placeholder="ระบุ รหัสวัสดุ" value="@result.MaterialSQLdataselect.item_no" name="item_no" maxlength="10">
+                        <input type="text" class="form-control required" @dis id="item_no" placeholder="ระบุ รหัสวัสดุ" value="@result.MaterialSQLdataselect.item_no" name="item_no" maxlength="10">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                        <input type="text" class="form-control required"  @ViewBag.dis id="item_name" placeholder="ระบุ ชื่อวัสดุ" value="@result.MaterialSQLdataselect.item_name" name="item_name">
+                        <input type="text" class="form-control required" @ViewBag.dis id="item_name" placeholder="ระบุ ชื่อวัสดุ" value="@result.MaterialSQLdataselect.item_name" name="item_name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                            <select class="form-control required "  @ViewBag.dis id="group" name="group" onchange="myselect(this)">
-                                @if (TypePage == true) {<option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>}
-                                @foreach (var item in result.GroupSQLlist)
-                                {
-                                    <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
-                                }
-                            </select>
+                        <select class="form-control required " @ViewBag.dis id="group" name="group" onchange="myselect(this)">
+                            @if (TypePage == true)
+                            {
+                                <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+                            }
+                            @foreach (var item in result.GroupSQLlist)
+                            {
+                                <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
+                            }
+                        </select>
                     </div>
-                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0"><i class="glyphicon glyphicon-plus "></i></a>
-                    
+                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0" onclick="CreateAddPanel('#panel-div')"><i class="glyphicon glyphicon-plus "></i></a>
+
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
                         <select class="form-control required" @ViewBag.dis id="category" name="category" onchange="console.log(document.getElementById('category').value + 'select category')">
-                                <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
-                                @foreach (var item in result.CategorySQLlist)
-                                {
-                                    <option value="@item.category_id" style="display:none" id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
-                                }
-                            </select>
+                            <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
+                            @foreach (var item in result.CategorySQLlist)
+                            {
+                                <option value="@item.category_id" style="display:none" id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
+                            }
+                        </select>
                     </div>
-                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0"><i class=" glyphicon glyphicon-plus "></i></a>
+                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0" onclick="CreateAddPanelcate('#panel-div')"><i class=" glyphicon glyphicon-plus "></i></a>
                 </div>
+
+                @* partial *@
+                <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+                    <div id="panel-div">
+                    </div>
+                </div>
+                @* modal *@
+                <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
+
+                        </div>
+                    </div>
+                </div>
+                @* confirm *@
+                <div class="modal fade" id="Modalconfirm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8002 !important;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content" style="overflow: hidden;" id="Modal_Content_confirm">
+
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function CreateAddPanel(id) {
+                                 $('#content_ajaxloader').fadeIn();
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("_groupView", "Material")',
+                                dataType: 'html',
+                                data: {},
+                                success: function (result) {
+                                    $(id).html('');
+                                    $('#panel-div').html(result);
+                                    $('.cd-panel').addClass("cd-panel--is-visible"); //แสดงแถบ right Panel$('#Modal').modal('show');
+                                    $('#content_ajaxloader').fadeOut();
+                                }
+                            });
+                            }
+
+                            function jaxloaderin() {
+                                $('#content_ajaxloader').fadeIn();
+                            }
+                    function CreateAddPanelcate(id) {
+                                 jaxloaderin();
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("_categoryView", "Material")',
+                                dataType: 'html',
+                                data: {},
+                                success: function (result) {
+                                    $('#panel-div').html('');
+                                    $('#panel-div').html(result);
+                                    $('.cd-panel').addClass("cd-panel--is-visible"); //แสดงแถบ right Panel$('#Modal').modal('show');
+                                    $('#content_ajaxloader').fadeOut();
+                                }
+                            });
+                        }
+                </script>
 
                 <script>
                     //document.addEventListener("DOMContentLoaded", function (event) {
@@ -312,28 +374,34 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                     
-                                <select class="form-control required" @ViewBag.dis id="material_account" name="material_account">
-                                      @if (TypePage == true) { <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>}
-                                   
-                                    @foreach (var item in result.Material_accSQLlist)
-                                    {
-                                        <option value="@item.material_acc_id" @(item.material_acc_id == result.MaterialSQLdataselect.material_acc_id ? "selected" : "")>@item.material_acc_name</option>
-                                    }
-                                </select>
+
+                        <select class="form-control required" @ViewBag.dis id="material_account" name="material_account">
+                            @if (TypePage == true)
+                            {
+                                <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
+                            }
+
+                            @foreach (var item in result.Material_accSQLlist)
+                            {
+                                <option value="@item.material_acc_id" @(item.material_acc_id == result.MaterialSQLdataselect.material_acc_id ? "selected" : "")>@item.material_acc_name</option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                       
-                                <select class="form-control required" @ViewBag.dis  id="costing_method_material" name="costing_method_material">
-                                    @if (TypePage == true) {<option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>}
-                                    @foreach (var item in result.Costing_methodSQL_list)
-                                    {
-                                        <option value="@item.costing_method_id" @(item.costing_method_id == result.MaterialSQLdataselect.costing_method_id ? "selected" : "")>@item.costing_method_name</option>
-                                    }
-                                </select>
+
+                        <select class="form-control required" @ViewBag.dis id="costing_method_material" name="costing_method_material">
+                            @if (TypePage == true)
+                            {
+                                <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
+                            }
+                            @foreach (var item in result.Costing_methodSQL_list)
+                            {
+                                <option value="@item.costing_method_id" @(item.costing_method_id == result.MaterialSQLdataselect.costing_method_id ? "selected" : "")>@item.costing_method_name</option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <style>
@@ -344,27 +412,27 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                           
-                                <label><input type="checkbox" @ViewBag.dis id="stock_count" name="stock_count" value="@result.MaterialSQLdataselect.stock_count" @(result.MaterialSQLdataselect.stock_count ? "checked" : "") > วัสดุนับสต๊อก</label>
-                               
+
+                            <label><input type="checkbox" @ViewBag.dis id="stock_count" name="stock_count" value="@result.MaterialSQLdataselect.stock_count" @(result.MaterialSQLdataselect.stock_count ? "checked" : "")> วัสดุนับสต๊อก</label>
+
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                        
-                                    <label><input type="checkbox" @ViewBag.dis id="overdraw_stock" name="overdraw_stock" value="@result.MaterialSQLdataselect.overdraw_stock" @(result.MaterialSQLdataselect.overdraw_stock ? "checked" : "") > ให้เบิกเกินสต๊อกได้</label>
-                               
+
+                            <label><input type="checkbox" @ViewBag.dis id="overdraw_stock" name="overdraw_stock" value="@result.MaterialSQLdataselect.overdraw_stock" @(result.MaterialSQLdataselect.overdraw_stock ? "checked" : "")> ให้เบิกเกินสต๊อกได้</label>
+
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
-                           
-                                    <label><input type="checkbox" @ViewBag.dis id="status" name="status" value="@result.MaterialSQLdataselect.status" @(result.MaterialSQLdataselect.status ? "checked" : "") > ใช้งานวัสดุ</label>
-                                
+
+                            <label><input type="checkbox" @ViewBag.dis id="status" name="status" value="@result.MaterialSQLdataselect.status" @(result.MaterialSQLdataselect.status ? "checked" : "")> ใช้งานวัสดุ</label>
+
                         </div>
                     </div>
                 </div>
@@ -374,39 +442,39 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="brand">ยี่ห้อ:</label>
                     <div class="col-sm-4">
-                        
-                                <input type="text"  @ViewBag.dis class="form-control" id="brand"  placeholder="ระบุ ยี่ห้อ" value="@result.MaterialSQLdataselect.brand" name="brand" >
-                       
+
+                        <input type="text" @ViewBag.dis class="form-control" id="brand" placeholder="ระบุ ยี่ห้อ" value="@result.MaterialSQLdataselect.brand" name="brand">
+
                     </div>
 
                     <label class="control-label col-sm-2" for="version">รุ่น:</label>
                     <div class="col-sm-4">
-                       
-                                <input type="text" @ViewBag.dis class="form-control" placeholder="ระบุ รุ่น" id="version" value="@result.MaterialSQLdataselect.version" name="version" >
-                            
+
+                        <input type="text" @ViewBag.dis class="form-control" placeholder="ระบุ รุ่น" id="version" value="@result.MaterialSQLdataselect.version" name="version">
+
 
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="color">สี:</label>
                     <div class="col-sm-4">
-                       
-                                <input type="text" @ViewBag.dis class="form-control" id="color"  placeholder="ระบุ สี" value="@result.MaterialSQLdataselect.color" name="color" >
-                         
+
+                        <input type="text" @ViewBag.dis class="form-control" id="color" placeholder="ระบุ สี" value="@result.MaterialSQLdataselect.color" name="color">
+
                     </div>
                     <label class="control-label col-sm-2" for="size">ขนาด:</label>
                     <div class="col-sm-4">
-                       
-                                <input type="text" @ViewBag.dis class="form-control" id="size"  placeholder="ระบุ ขนาด" value="@result.MaterialSQLdataselect.size" name="size" >
-                           
+
+                        <input type="text" @ViewBag.dis class="form-control" id="size" placeholder="ระบุ ขนาด" value="@result.MaterialSQLdataselect.size" name="size">
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">ข้อมูลจำเพาะ:</label>
                     <div class="col-sm-10">
-                       
-                                <textarea class="form-control" @ViewBag.dis rows="3" id="description" placeholder="ระบุข้อมูลจำเพาะ" >@result.MaterialSQLdataselect.description</textarea>
-                           
+
+                        <textarea class="form-control" @ViewBag.dis rows="3" id="description" placeholder="ระบุข้อมูลจำเพาะ">@result.MaterialSQLdataselect.description</textarea>
+
                     </div>
                 </div>
 
@@ -414,6 +482,9 @@
             <div class="col-lg-4">
                 <div id="horizonform2">
                     <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
+                    <div class="form-group">
+                        <button class="btn btn-success pull-right margin-right-15">เพิ่มหน่วย</button>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
                         <div class="col-sm-8">
