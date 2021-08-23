@@ -549,7 +549,7 @@
                         </label>
 
                         @*@foreach (var item in result.UomSQL_list)
-            {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}*@
+                {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}*@
 
                         <div class="col-sm-1 col-xs-1">
                             <p style="color: blue; margin-top: 7px; margin-left:5px">&#9868;</p>
@@ -578,16 +578,16 @@
 
                     @*<div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">*@
 
-                        @*<img id="blah" src="#" alt="" style="display: none; max-width: 100%" />*@
+                    @*<img id="blah" src="#" alt="" style="display: none; max-width: 100%" />*@
 
-                         @*<img id="blah"
-                             src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
-                             alt="@result.MaterialSQLdataselect.picture_path"
-                             style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />*@
+                    @*<img id="blah"
+            src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
+            alt="@result.MaterialSQLdataselect.picture_path"
+            style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />*@
 
 
-                        @*<p id="pdisplay"><br /><br /></p>*@
-                        @*<input class="hidden" type="file" id="input" name="file" value="" />*@
+                    @*<p id="pdisplay"><br /><br /></p>*@
+                    @*<input class="hidden" type="file" id="input" name="file" value="" />*@
                     @*</div>*@
 
 
@@ -596,27 +596,7 @@
                     <br />
 
 
-                      <button class="btn-danger" onclick="imggg()"> img</button>
-            <script>
-                function imggg() {
-                    var leght = document.getElementById("image_uploads").files.length;
-                    alert(leght)
-                    var form_data = new FormData();
-                    //var file_data = $('#input').prop('files')[0];
-                    //console.log("immgg")
-                    for (let i = 0; i <= leght.length; i++) {
-                        alert("")
-                        console.log("file" + File[i].name);
-                    }
-                    //var file_data = $('#input').prop('files')[0];
-                    //form_data.append('file', file_data);
-                    //console.log(form_data);
-                   //console.log()
-                    //form_data.append('material.picture_path', material.picture_path)
-                   
-                    //return form_data;
-                }
-            </script>
+
 
 
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -626,7 +606,7 @@
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
                     <style>
-                      /*  html {
+                        /*  html {
                             font-family: sans-serif;
                         }*/
 
@@ -643,7 +623,7 @@
                                 padding-left: 0;
                             }
 
-                            .immg li,.immg div > p {
+                            .immg li, .immg div > p {
                                 background: #eee;
                                 display: flex;
                                 justify-content: space-between;
@@ -653,10 +633,10 @@
                             }
 
                             .immg img {
-                                height:70px;
+                                height: 70px;
                                 order: 1;
                             }
-/*
+                            /*
                         img.ccl {
                             border: solid;
                             border-color: chocolate;
@@ -697,8 +677,8 @@
                             <p>ไม่ได้เลือกไฟล์ที่จะอัปโหลดในขณะนี้</p>
                         </div>
                         @*<div>
-                            <button>Submit</button>
-                        </div>*@
+                    <button>Submit</button>
+                </div>*@
                     </div>
 
 
@@ -711,44 +691,44 @@
 
 
                     @*<input id="file-input" type="file" multiple>
-        <div id="preview"></div>
+            <div id="preview"></div>
 
-        <script>
+            <script>
 
-            function previewImages() {
+                function previewImages() {
 
-                var preview = document.querySelector('#preview');
+                    var preview = document.querySelector('#preview');
 
-                if (this.files) {
-                    [].forEach.call(this.files, readAndPreview);
+                    if (this.files) {
+                        [].forEach.call(this.files, readAndPreview);
+                    }
+
+                    function readAndPreview(file) {
+
+                        // Make sure `file.name` matches our extensions criteria
+                        if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                            return alert(file.name + " is not an image");
+                        } // else...
+
+                        var reader = new FileReader();
+
+                        reader.addEventListener("load", function () {
+                            var image = new Image();
+                            image.height = 100;
+                            image.title = file.name;
+                            image.src = this.result;
+                            preview.appendChild(image);
+
+                        });
+
+                        reader.readAsDataURL(file);
+
+                    }
+
                 }
 
-                function readAndPreview(file) {
-
-                    // Make sure `file.name` matches our extensions criteria
-                    if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
-                        return alert(file.name + " is not an image");
-                    } // else...
-
-                    var reader = new FileReader();
-
-                    reader.addEventListener("load", function () {
-                        var image = new Image();
-                        image.height = 100;
-                        image.title = file.name;
-                        image.src = this.result;
-                        preview.appendChild(image);
-
-                    });
-
-                    reader.readAsDataURL(file);
-
-                }
-
-            }
-
-            document.querySelector('#file-input').addEventListener("change", previewImages);
-        </script>*@
+                document.querySelector('#file-input').addEventListener("change", previewImages);
+            </script>*@
 
 
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -758,59 +738,94 @@
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                     <br />
                     @*<script>
-                        function importData() {
-                            //let input = document.createElement('input');
-                            //input.type = 'file';
-                            //input.name = 'file';
-                            //input.id = 'file';
+                function importData() {
+                    //let input = document.createElement('input');
+                    //input.type = 'file';
+                    //input.name = 'file';
+                    //input.id = 'file';
 
-                            let input = document.getElementById('input');
-                            var ffill = document.getElementById('input').value;
-                            input.onchange = evt => {
-                                const [file] = input.files
-                                if (file) {
-                                    blah.src = URL.createObjectURL(file)
-                                    blah.alt = (file.name)
-                                }
-                                let files = Array.from(input.files);
-                                console.log(files);
-                                console.log(input.files);
-
-                                console.log(file.name);
-                                console.log(file.size);
-                                console.log(file.type);
-
-
-                                const reader = new FileReader();
-                                reader.addEventListener("load", () => {
-                                    console.log("111111111");
-                                    console.log(reader.result);
-                                    localStorage.setItem("recent-image", reader.result);
-                                });
-
-                                document.getElementById("blah").style.display = "block";
-                                document.getElementById("pdisplay").style.display = "none";
-                                var elementqqqq = document.getElementById('qqqq');
-                                elementqqqq.style.removeProperty("border-style");
-                                elementqqqq.style.removeProperty("border-width");
-                                elementqqqq.style.removeProperty("margin-bottom");
-
-                            };
-
-                            input.click();
+                    let input = document.getElementById('input');
+                    var ffill = document.getElementById('input').value;
+                    input.onchange = evt => {
+                        const [file] = input.files
+                        if (file) {
+                            blah.src = URL.createObjectURL(file)
+                            blah.alt = (file.name)
                         }
+                        let files = Array.from(input.files);
+                        console.log(files);
+                        console.log(input.files);
 
-                    </script>*@
+                        console.log(file.name);
+                        console.log(file.size);
+                        console.log(file.type);
+
+
+                        const reader = new FileReader();
+                        reader.addEventListener("load", () => {
+                            console.log("111111111");
+                            console.log(reader.result);
+                            localStorage.setItem("recent-image", reader.result);
+                        });
+
+                        document.getElementById("blah").style.display = "block";
+                        document.getElementById("pdisplay").style.display = "none";
+                        var elementqqqq = document.getElementById('qqqq');
+                        elementqqqq.style.removeProperty("border-style");
+                        elementqqqq.style.removeProperty("border-width");
+                        elementqqqq.style.removeProperty("margin-bottom");
+
+                    };
+
+                    input.click();
+                }
+
+            </script>*@
                 </div>
+                <script>
+                    function imggg() {
+                        const curFiles = input.files;
+                        console.log(curFiles.length)
 
+                        for (const file of curFiles) {
+                            console.log(file.name)
+                            console.log(file.size)
+
+                        }
+                        alert(curFiles)
+                        //var elem = document.getElementById("image_uploads");
+                        //var names = [];
+                        //for (var i = 0; i < elem.files.length; ++i) {
+                        //    names.push(elem.files[i].name);
+                        //    console.log(elem.files[i].name)
+                        //}
+                        //comsole.log(names)
+                        ////var file_data = $('#input').prop('files')[0];
+                        ////console.log("immgg")
+                        //for (let i = 0; i <= leght.length; i++) {
+                        //    alert("for")
+                        //    var file_data = $('#image_uploads').prop('files')[i];
+                        //    console.log(file_data);
+                        //    //alert("file" + File[i].name);
+                        //}
+                        //return false
+                        ////var file_data = $('#input').prop('files')[0];
+                        ////form_data.append('file', file_data);
+                        ////console.log(form_data);
+                        ////console.log()
+                        ////form_data.append('material.picture_path', material.picture_path)
+
+                        ////return form_data;
+                    };
+                </script>
 
                 @{
-                    if (TypePage==false)
+                    if (TypePage == false)
                     {
                         <div class="margin-top-10">
-                                    <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="@(result.MaterialSQLdataselect.status == true? "false" : "true")" onclick="checkactiveitem()"><i class="glyphicon @(result.MaterialSQLdataselect.status == true? "glyphicon-ok" : "glyphicon-remove")"></i></a> <label id="activeupdatlabele" onclick="checkactiveitem()"> @(result.MaterialSQLdataselect.status == true? "เปลี่ยนสถานะ ใช้งาน" : "เปลี่ยนสถานะ ไม่ใช้งาน")</label>
-                       
-               <script>
+                            <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="@(result.MaterialSQLdataselect.status == true? "false" : "true")" onclick="checkactiveitem()"><i class="glyphicon @(result.MaterialSQLdataselect.status == true? "glyphicon-ok" : "glyphicon-remove")"></i></a> <label id="activeupdatlabele" onclick="checkactiveitem()"> @(result.MaterialSQLdataselect.status == true? "เปลี่ยนสถานะ ใช้งาน" : "เปลี่ยนสถานะ ไม่ใช้งาน")</label>
+
+                            <script>
                     function checkactiveitem() {
                         var material = new Object();
                         material.item_id = document.getElementById("item_id").value;
@@ -913,13 +928,20 @@
                         }
                     });
                 }
-                                                                                                                                                                                                                                                                                                                          </script>
+                            </script>
 
                         </div>
                     }
                 }
 
+                <div class="row">
+                    <div class="col-xs-6"></div>
+                    <div class="col-xs-5 ">
+                        <button class="btn-lg btn-success pull-right margin-top-10" style="margin:5px;" onclick="imggg()">img</button>
+                    </div>
+                    <div class="col-xs-1"></div>
 
+                </div>
 
                 @{
                     if (result.MaterialSQLdataselect.item_id == 0)
@@ -935,7 +957,7 @@
                     }
                 }
 
-          
+
             </div>
         </form>
     </div>
@@ -1559,6 +1581,8 @@
 
 
         function validatedata() {
+
+
             //function validatedata() {
             console.log("val function")
 
