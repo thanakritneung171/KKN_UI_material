@@ -488,15 +488,15 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
                         <div class="col-sm-8">
-                         
-                                    <select class="form-control" @ViewBag.dis id="uom_in" name="uom_in" onchange="uom_inchange()">
-                                        <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
-                                        @foreach (var item in result.UomSQL_list)
-                                        {
-                                            <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_in ? "selected" : "")>@item.uom_name</option>
-                                        }
-                                    </select>
-                             
+
+                            <select class="form-control" @ViewBag.dis id="uom_in" name="uom_in" onchange="uom_inchange()">
+                                <option disabled value="0" selected>เลือกหน่วยซื้อ</option>
+                                @foreach (var item in result.UomSQL_list)
+                                {
+                                    <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_in ? "selected" : "")>@item.uom_name</option>
+                                }
+                            </select>
+
                         </div>
                     </div>
                     <script>
@@ -521,52 +521,55 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="uom_stock">หน่วยเก็บ<span style="color:red; ">*</span></label>
                         <div class="col-sm-8">
-                          
-                                    <select class="form-control" @ViewBag.dis id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
-                                        <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
-                                        @foreach (var item in result.UomSQL_list)
-                                        {
-                                            <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_stock ? "selected" : "")>@item.uom_name</option>
-                                        }
-                                    </select>
+
+                            <select class="form-control" @ViewBag.dis id="uom_stock" name="uom_stock" onchange="uom_stockchange()">
+                                <option disabled value="0" selected>เลือกหน่วยเก็บ</option>
+                                @foreach (var item in result.UomSQL_list)
+                                {
+                                    <option value="@item.uom_id" @(item.uom_id == result.MaterialSQLdataselect.uom_stock ? "selected" : "")>@item.uom_name</option>
+                                }
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-4 col-xs-4">
-                            <input type="text" class="form-control autonumber" @ViewBag.dis id="qty_in" value="@(TypePage == true ? 1 : Convert.ToDouble(result.MaterialSQLdataselect.qty_in))" name="qty_in" >
+                            <input type="text" class="form-control autonumber" @ViewBag.dis id="qty_in" value="@(TypePage == true ? 1 : Convert.ToDouble(result.MaterialSQLdataselect.qty_in))" name="qty_in">
                         </div>
-                     
 
-                                                <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1" style="text-align:left" id="qty_inshow" for="qty_in"  >
-                                                    @(TypePage == true ? "หน่วย" : "" )
-                                                    @{ if (TypePage == false)
-                                                        { foreach (var item in result.UomSQL_list) {@(item.uom_id == result.MaterialSQLdataselect.uom_in ? item.uom_name : "")} }
-                                                    }
-                                                </label>
 
-                                    @*@foreach (var item in result.UomSQL_list)
-                                    {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}*@
-            
+                        <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1" style="text-align:left" id="qty_inshow" for="qty_in">
+                            @(TypePage == true ? "หน่วย" : "" )
+                            @{ if (TypePage == false)
+                                {
+                                    foreach (var item in result.UomSQL_list)
+                                    {@(item.uom_id == result.MaterialSQLdataselect.uom_in ? item.uom_name : "")}
+                                }
+                            }
+                        </label>
+
+                        @*@foreach (var item in result.UomSQL_list)
+            {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}*@
+
                         <div class="col-sm-1 col-xs-1">
                             <p style="color: blue; margin-top: 7px; margin-left:5px">&#9868;</p>
                         </div>
 
                         <div class="col-sm-4 col-xs-4">
-                           
-                                    <input type="text" class="form-control autonumber" @ViewBag.dis  id="qty_stock" value="@(TypePage == true ? 1 : Convert.ToDouble(result.MaterialSQLdataselect.qty_stock))" name="qty_stock"  >
-                 
+
+                            <input type="text" class="form-control autonumber" @ViewBag.dis id="qty_stock" value="@(TypePage == true ? 1 : Convert.ToDouble(result.MaterialSQLdataselect.qty_stock))" name="qty_stock">
+
                         </div>
 
-                                    <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">
-                                        @(TypePage == true ? "หน่วย" : "" )
-                                        @{ if (TypePage == false)
-                                            {
-                                                foreach (var item in result.UomSQL_list)
-                                                {@(item.uom_id == result.MaterialSQLdataselect.uom_stock ? item.uom_name : "")}
-                                            }
-                                        }
-                                    </label>
+                        <label class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1 text-align-left" id="qty_stockshow" for="qty_stock">
+                            @(TypePage == true ? "หน่วย" : "" )
+                            @{ if (TypePage == false)
+                                {
+                                    foreach (var item in result.UomSQL_list)
+                                    {@(item.uom_id == result.MaterialSQLdataselect.uom_stock ? item.uom_name : "")}
+                                }
+                            }
+                        </label>
                     </div>
 
 
@@ -574,22 +577,160 @@
                     <h3 class="margin-left-10" id="hrw">รูปภาพวัสดุ</h3>
 
                     <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
-                     
-                                @*<img id="blah" src="#" alt="" style="display: none; max-width: 100%" />*@
-                          
-                                <img id="blah"
-                                     src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
-                                     alt="@result.MaterialSQLdataselect.picture_path"
-                                     style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />
-                          
+
+                        @*<img id="blah" src="#" alt="" style="display: none; max-width: 100%" />*@
+
+                        <img id="blah"
+                             src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
+                             alt="@result.MaterialSQLdataselect.picture_path"
+                             style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />
+
 
                         <p id="pdisplay"><br /><br /></p>
-                        <input class="hidden" type="file" id="input" name="file" value="" />
+                        @*<input class="hidden" type="file" id="input" name="file" value="" />*@
                     </div>
                     <br />
 
 
 
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                    <style>
+                      /*  html {
+                            font-family: sans-serif;
+                        }*/
+
+                        .immg {
+                            width: auto;
+                            background: #ccc;
+                            margin: 0 auto;
+                            padding: 20px;
+                            border: 1px solid black;
+                            font-family: sans-serif;
+                        }
+
+                            .immg ol {
+                                padding-left: 0;
+                            }
+
+                            .immg li, div > p {
+                                background: #eee;
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: 10px;
+                                list-style-type: none;
+                                border: 1px solid black;
+                            }
+
+                            .immg img {
+                                height:50px;
+                                order: 1;
+                            }
+/*
+                        img.ccl {
+                            border: solid;
+                            border-color: chocolate;
+                        }*/
+                            .immg p {
+                                line-height: 32px;
+                                padding-left: 10px;
+                            }
+
+                            .immg label, .immg button {
+                                background-color: #7F9CCB;
+                                padding: 5px 10px;
+                                border-radius: 5px;
+                                border: 1px ridge black;
+                                font-size: 1.5rem;
+                                height: auto;
+                            }
+
+                                .immg label:hover, .immg button:hover {
+                                    background-color: #2D5BA3;
+                                    color: white;
+                                }
+
+                                .immg label:active, .immg button:active {
+                                    background-color: #0D3F8F;
+                                    color: white;
+                                }
+                    </style>
+
+                    <div class="immg">
+                        <div>
+                            <label for="image_uploads">เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
+                            @*<label for="image_uploads">Choose images to upload (PNG, JPG)</label>*@
+                            <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple>
+                        </div>
+                        <div class="preview">
+                            @*<p>No files currently selected for upload</p>*@
+                            <p>ไม่ได้เลือกไฟล์ที่จะอัปโหลดในขณะนี้</p>
+                        </div>
+                        @*<div>
+                            <button>Submit</button>
+                        </div>*@
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    @*<input id="file-input" type="file" multiple>
+        <div id="preview"></div>
+
+        <script>
+
+            function previewImages() {
+
+                var preview = document.querySelector('#preview');
+
+                if (this.files) {
+                    [].forEach.call(this.files, readAndPreview);
+                }
+
+                function readAndPreview(file) {
+
+                    // Make sure `file.name` matches our extensions criteria
+                    if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                        return alert(file.name + " is not an image");
+                    } // else...
+
+                    var reader = new FileReader();
+
+                    reader.addEventListener("load", function () {
+                        var image = new Image();
+                        image.height = 100;
+                        image.title = file.name;
+                        image.src = this.result;
+                        preview.appendChild(image);
+
+                    });
+
+                    reader.readAsDataURL(file);
+
+                }
+
+            }
+
+            document.querySelector('#file-input').addEventListener("change", previewImages);
+        </script>*@
+
+
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <br />
                     <script>
                         function importData() {
                             //let input = document.createElement('input');
@@ -1252,6 +1393,88 @@
 @section pagespecific {
     <script type="text/javascript">
 
+        $(document).ready(function () {
+            console.log("ready!");
+
+
+            const input = document.querySelector('#image_uploads');
+            const preview = document.querySelector('.preview');
+
+            input.style.opacity = 0;
+
+            input.addEventListener('change', updateImageDisplay);
+
+            function updateImageDisplay() {
+                while (preview.firstChild) {
+                    preview.removeChild(preview.firstChild);
+                }
+                console.log("ready!");
+                const curFiles = input.files;
+                if (curFiles.length === 0) {
+                    const para = document.createElement('p');
+                    para.textContent = 'No files currently selected for upload';
+                    preview.appendChild(para);
+                } else {
+                    const list = document.createElement('ol');
+                    preview.appendChild(list);
+
+                    for (const file of curFiles) {
+                        const listItem = document.createElement('li');
+                        const para = document.createElement('p');
+
+                        if (validFileType(file)) {
+                            para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+                            const image = document.createElement('img');
+                            image.setAttribute("class", "ccl");
+                            image.src = URL.createObjectURL(file);
+                            image.height = 64;
+                            listItem.appendChild(image);
+                            listItem.appendChild(para);
+                        } else {
+                            para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+                            listItem.appendChild(para);
+                        }
+
+                        list.appendChild(listItem);
+                    }
+                }
+            }
+
+            // https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+            const fileTypes = [
+                'image/apng',
+                'image/bmp',
+                'image/gif',
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/svg+xml',
+                'image/tiff',
+                'image/webp',
+                `image/x-icon`
+            ];
+
+            function validFileType(file) {
+                return fileTypes.includes(file.type);
+            }
+
+            function returnFileSize(number) {
+                if (number < 1024) {
+                    return number + 'bytes';
+                } else if (number > 1024 && number < 1048576) {
+                    return (number / 1024).toFixed(1) + 'KB';
+                } else if (number > 1048576) {
+                    return (number / 1048576).toFixed(1) + 'MB';
+                }
+            }
+
+
+
+        });
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $('.autonumber').autoNumeric();
         function completesmartconfirmmessagebox(string = '', content) {
             $.smallBox({
