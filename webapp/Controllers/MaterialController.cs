@@ -198,6 +198,15 @@ namespace KKN_UI.Controllers
 
             return PartialView("Groupmaterial/_grouptable", Grouplistdata);
         }
+        public ActionResult _uomtable(bool active)
+        {
+            List<UomSQL> Uomlistdata = new List<UomSQL>();
+
+            Uomlistdata = new uomDao().GetdataByActive(active).Uomlist.ToList();
+            
+
+            return PartialView("Uom/_uomtable", Uomlistdata);
+        }
 
         public ActionResult _categorytable(bool active)
         {
@@ -915,7 +924,7 @@ namespace KKN_UI.Controllers
 
             List<GroupSQL> Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
 
-            return PartialView("Groupmaterial/_groupView", Grouplistdata);
+            return PartialView("Uom/_uomView", Grouplistdata);
         }
 
         public ActionResult _uomViewActive(bool active)
@@ -924,7 +933,7 @@ namespace KKN_UI.Controllers
 
             List<GroupSQL> Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
 
-            return PartialView("Groupmaterial/_groupView", Grouplistdata);
+            return PartialView("Uom/_uomView", Grouplistdata);
         }
 
 
@@ -949,13 +958,13 @@ namespace KKN_UI.Controllers
         public ActionResult _createuom()
         {
             GroupSQL gdata = new GroupSQL();
-            return PartialView("Groupmaterial/_creategroup", gdata);
+            return PartialView("Uom/_createuom", gdata);
         }
 
         public ActionResult _edituom(int id)
         {
             GroupSQL gdata = new GroupDao().GetdataByid(id);
-            return PartialView("Groupmaterial/_creategroup", gdata);
+            return PartialView("Uom/_createuom", gdata);
         }
 
         [HttpPost]
@@ -1016,7 +1025,7 @@ namespace KKN_UI.Controllers
 
         public ActionResult _comfirmuom()
         {
-            return PartialView("Groupmaterial/_comfirmgroup");
+            return PartialView("Groupmaterial/_comfirmuom");
         }
 
         //public ActionResult DeleteService(int id)

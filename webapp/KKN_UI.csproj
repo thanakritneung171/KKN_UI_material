@@ -1043,6 +1043,9 @@
     <Content Include="Views\Material\Groupmaterial\_grouptable.cshtml" />
     <Content Include="Views\Material\Categorymaterial\_categorytable.cshtml" />
     <Content Include="Views\Material\_selectgroup.cshtml" />
+    <Content Include="Views\Material\Uom\_uomtable.cshtml" />
+    <Content Include="Views\Material\Uom\_createuom.cshtml" />
+    <Content Include="Views\Material\Uom\_uomView.cshtml" />
     <None Include="Web References\KKN_Demo_Service\KKN_Demo_Service.wsdl" />
     <None Include="Web References\KKN_Demo_Service\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -1129,7 +1132,6 @@
     <Folder Include="Repositories\" />
     <Folder Include="UploadedFiles\Photo\" />
     <Folder Include="Views\Material\Item\" />
-    <Folder Include="Views\Material\Uom\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

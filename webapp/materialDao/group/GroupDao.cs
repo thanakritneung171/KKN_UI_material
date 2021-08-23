@@ -24,13 +24,12 @@ namespace KKN_UI.material.group
 
         private const string READ = "group_itemRead";
         private const string CREATE = "group_itemCreate";
+        private const string UPDATE = "group_itemUpdate";
+        private const string UPDATEACTIVE = "group_itemUpdateActive";
+
         private const string DELETE = "group_itemDelete";
         private const string DELETECHECKITEM = "group_itemDeleteCheckItem";
         private const string DELETECHECKCATEGORY = "group_itemDeleteCheckCategory";
-
-
-        private const string UPDATE = "group_itemUpdate";
-        private const string UPDATEACTIVE = "group_itemUpdateActive";
 
         private const string READ_BYID = "group_itemRead_Byid";
         private const string READ_BYACTIVE = "group_itemReadAllactive";
