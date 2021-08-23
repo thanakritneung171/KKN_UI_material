@@ -576,21 +576,47 @@
 
                     <h3 class="margin-left-10" id="hrw">รูปภาพวัสดุ</h3>
 
-                    <div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">
+                    @*<div class="margin-left-10 margin-right-10" id="qqqq" style="border-style: dashed; border-width: 1px; margin-bottom:5px" onclick="importData()">*@
 
                         @*<img id="blah" src="#" alt="" style="display: none; max-width: 100%" />*@
 
-                        <img id="blah"
+                         @*<img id="blah"
                              src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
                              alt="@result.MaterialSQLdataselect.picture_path"
-                             style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />
+                             style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />*@
 
 
-                        <p id="pdisplay"><br /><br /></p>
+                        @*<p id="pdisplay"><br /><br /></p>*@
                         @*<input class="hidden" type="file" id="input" name="file" value="" />*@
-                    </div>
+                    @*</div>*@
+
+
+
+
                     <br />
 
+
+                      <button class="btn-danger" onclick="imggg()"> img</button>
+            <script>
+                function imggg() {
+                    var leght = document.getElementById("image_uploads").files.length;
+                    alert(leght)
+                    var form_data = new FormData();
+                    //var file_data = $('#input').prop('files')[0];
+                    //console.log("immgg")
+                    for (let i = 0; i <= leght.length; i++) {
+                        alert("")
+                        console.log("file" + File[i].name)
+                    }
+                    //var file_data = $('#input').prop('files')[0];
+                    //form_data.append('file', file_data);
+                    //console.log(form_data);
+                   //console.log()
+                    //form_data.append('material.picture_path', material.picture_path)
+                   
+                    //return form_data;
+                }
+            </script>
 
 
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -617,7 +643,7 @@
                                 padding-left: 0;
                             }
 
-                            .immg li, div > p {
+                            .immg li,.immg div > p {
                                 background: #eee;
                                 display: flex;
                                 justify-content: space-between;
@@ -627,7 +653,7 @@
                             }
 
                             .immg img {
-                                height:50px;
+                                height:70px;
                                 order: 1;
                             }
 /*
@@ -731,7 +757,7 @@
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                     <br />
-                    <script>
+                    @*<script>
                         function importData() {
                             //let input = document.createElement('input');
                             //input.type = 'file';
@@ -774,7 +800,7 @@
                             input.click();
                         }
 
-                    </script>
+                    </script>*@
                 </div>
 
 
@@ -909,7 +935,7 @@
                     }
                 }
 
-
+          
             </div>
         </form>
     </div>
@@ -1426,8 +1452,9 @@
                             para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
                             const image = document.createElement('img');
                             image.setAttribute("class", "ccl");
+                            image.setAttribute("alt", file.name);
                             image.src = URL.createObjectURL(file);
-                            image.height = 64;
+                            //image.height = 64;
                             listItem.appendChild(image);
                             listItem.appendChild(para);
                         } else {
