@@ -1,1 +1,364 @@
-﻿
+﻿@{
+    UomSQL result = Model;
+}
+
+<div class="modal-content" id="madalwindow">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="headermanu">@(result.uom_id == 0 ? "สร้างหน่วย" : "แก้ไขหน่วย")</h4>
+    </div>
+    <div class="modal-body">
+        <form align="center">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
+                    <label id="labelUid" class="margin-top-10" hidden>รหัสหน่วย</label>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
+                    <input type="hidden" id="inputUid" class="form-control" name="name" value="@result.uom_id" disabled />
+                </div>
+            </div>
+            <div class="row margin-top-10">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
+                    <label class="margin-top-10">ชื่อหน่วย</label>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
+                    <input type="text" class="form-control" id="insertU" name="insertU" value="@result.uom_name" @(result.uom_id != 0 ? "disabled" : "" ) />
+                </div>
+            </div>
+            <div class="row margin-top-10">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-align-right">
+
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
+                    <label class="checkbox-inline pull-left" style="display:@(result.uom_id != 0 ? "inline" : "none");">
+                        <input type="checkbox" id="statusU" class="checkbox style-0" value="@result.active" @(result.active ? "checked" : "") onclick="checkactiveU()">
+                        <span>สถานะการใช้งาน</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+
+
+
+
+        <script>
+            function smartconfirmmessageboxedit(stringY = '', stringN = '', callbackY, callbackN) {
+                $.SmartMessageBox({
+                    title: "Confirm!",
+                    content: "คุณต้องการ" + stringY + "หรือไม่",
+                    buttons: '[ไม่][ใช่]'
+                }, function (ButtonPressed) {
+                    if (ButtonPressed === "ใช่") {
+
+                        //$.smallBox({
+                        //    title: "กำลัง" + stringY,
+                        //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
+                        //    color: "#659265",
+                        //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                        //    timeout: 4000
+                        //});
+                        callbackY();
+                        //true;
+                    }
+                    if (ButtonPressed === "ไม่") {
+                        $.smallBox({
+                            title: stringN,
+                            content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
+                            color: "#C46A69",
+                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                            timeout: 5000
+                        });
+                        callbackN();
+                        //false;
+                    }
+                });
+            }
+
+            function checkactiveU() {
+                var material = new Object();
+                material.active = document.getElementById("statusU").checked;
+                material.uom_id = document.getElementById("inputUid").value;
+                console.log(material.active)
+                smartconfirmmessageboxedit("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
+                    function callbackY() {
+                        console.log("to do update active");
+                        updateuiuomactive(material);
+                    },
+                    function callbackN() {
+                        canceleditcallback();
+                    });
+              
+            }
+        function updateuiuomactive(material) {
+                 $("#content_ajaxloader").show();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UpdateUomActive", "Material")',
+                    data: JSON.stringify(material),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.output != 1) {
+                            //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                            //warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว");
+                            //$("#content_ajaxloader").fadeOut("fast");
+                            //return;
+                        }
+                        console.log("insert complete");
+                        console.log(response.output);
+
+                        completesmartconfirmmessagebox("เปลี่ยนสถานะการใช้งาน","เปลี่ยนสถานะสำเร็จ")
+
+                        $("#content_ajaxloader").fadeOut("fast");
+                        //alert("บันทึกเรียบร้อย");
+                        $('#Modal').modal('hide');
+
+                        showunactiveUom();
+                        //AddPanel();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                 })
+            }
+        </script>
+
+
+        @*<button class="btn btn-labeled btn-success"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>สร้าง </button>*@
+        <button id="createbtn" class="btn btn-lg btn-labeled btn-success " style="display:@(result.uom_id == 0 ? "inline" : "none");" onclick="confirmandsaveU()">
+            <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>สร้าง
+        </button>
+        <button id="editbtn" class="btn btn-lg btn-labeled btn-warning margin-right-5 " style="display:@(result.uom_id != 0 ? "inline" : "none");" onclick="editopen()"><span class="btn-label"><i class="glyphicon glyphicon-pencil"></i></span>แก้ไข</button>
+        <button id="delebtn" class="btn btn-lg btn-labeled btn-danger margin-right-5 " style="display: @(result.uom_id != 0 ? "inline" : "none");" onclick="confirmanddeleteU()"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>ลบ</button>
+        <button id="savebtn" class="btn btn-lg btn-labeled btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateG()"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>บันทึก</button>
+        <button id="cacelbtn" class="btn btn-lg btn-labeled btn-danger margin-right-5" style="display:none" @*onclick="caceledit()"*@ onclick="canceleditcallback()"><span class="btn-label"><i class="glyphicon glyphicon-repeat"></i></span>ยกเลิก</button>
+
+        <button id="backbtn" class="btn btn-lg btn-labeled btn-info margin-right-5" data-dismiss="modal"><span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>กลับ</button>
+
+    </div>
+</div>
+
+<script>
+    function canceleditcallback() {
+        var id = document.getElementById("inputUid").value;
+        console.log(id);
+        $('#content_ajaxloader').show();
+        $.ajax({
+            type: "POST",
+            url:'@Url.Action("_edituom", "Material")',
+                dataType: 'html',
+            data: { id: id},
+                success: function (result) {
+                    $('#Modal_Content').html('');
+                    $('#Modal_Content').html(result);
+                    $('#Modal').modal('show');
+                    $('#content_ajaxloader').hide();
+                }
+        })
+    }
+</script>
+
+<style>
+    .validuom {
+        border-color: red;
+    }
+</style>
+
+<script>
+    function editopen() {
+        document.getElementById("backbtn").style.display = "none";
+        document.getElementById("editbtn").style.display = "none";
+        document.getElementById("delebtn").style.display = "none";
+        document.getElementById("savebtn").style.display = "inline";
+        document.getElementById("cacelbtn").style.display = "inline";
+        document.getElementById("insertU").disabled = false;
+        document.getElementById("inputUid").setAttribute('type', 'text');
+        document.getElementById("labelUid").hidden = false;
+        //document.getElementById("status").disabled = true;
+        //document.getElementById("btnConfirm").removeEventListener("click", function (e) { e.preventDefault(); }, false);
+        document.getElementById('statusU').removeAttribute("onclick");
+    }
+
+    function caceledit() {
+        document.getElementById("backbtn").style.display = "inline";
+        document.getElementById("cacelbtn").style.display = "none"
+        document.getElementById("savebtn").style.display = "none";
+        document.getElementById("editbtn").style.display = "inline";
+        document.getElementById("delebtn").style.display = "inline";
+        document.getElementById("insertU").disabled = true;
+        document.getElementById("inputUid").setAttribute('type', 'hidden');
+        document.getElementById("labelUid").hidden = true;
+        document.getElementById("statusU").disabled = false;
+
+    }
+
+    function confirmandsaveU() {
+        var inGC = new Object();
+        inGC.uom_name = document.getElementById("insertU").value;
+        if (inGC.uom_name == "") {
+            alert("โปรดระบุข้อมูลU");
+            document.getElementById("insertU").className += " validuom";
+            document.getElementById("insertU").focus();
+            return;
+        }
+        document.getElementById("insertU").classList.remove("validuom")
+        var headermanu = document.getElementById("headermanu")
+        console.log(headermanu.textContent);
+        smartconfirmmessagebox(headermanu.textContent, function () {
+            console.log("DO FUNCTION callback");
+            createU();
+        })
+    }
+
+    function createU() {
+        var inG = new Object();
+        inG.uom_id = document.getElementById("insertU").value;
+        console.log(inG);
+         $("#content_ajaxloader").show();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CreateUom", "Material")',
+            data: JSON.stringify(inG),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.output != 1) {
+                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertU").focus();
+                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อหน่วย มีบันทึกอยู่แล้ว");
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
+                }
+                console.log("insert complete");
+                console.log(response.output);
+
+                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent,"โหลดข้อมูล");
+
+                $("#content_ajaxloader").fadeOut("fast");
+                //alert("บันทึกเรียบร้อย");
+                $('#Modal').modal('hide');
+                //window.location.href = "/material/";
+                AddPanel();
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+         })
+
+    }
+
+
+    function confirmandupdateU() {
+        var inGC = new Object();
+        inGC.uom_name = document.getElementById("insertU").value;
+        if (inGC.uom_name == "") {
+            //alert("โปรกระบุข้อมูล");
+            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรกระบุข้อมูล");
+            document.getElementById("insertu").focus();
+            return;
+        }
+        var headermanu = document.getElementById("headermanu")
+        console.log(headermanu.textContent);
+        smartconfirmmessagebox(headermanu.textContent, function () {
+            ////////
+            //smartconfirmmessagebox("แก้ไขสถานะการใช้งาน", function () {
+            //    console.log("DO FUNCTION callback");
+            //    updateG();
+            //})
+            console.log("DO FUNCTION callback");
+            updateU();
+        })
+    }
+
+    function updateU() {
+        var inU = new Object();
+        inU.uom_id = document.getElementById("inputUid").value;
+        inU.uom_name = document.getElementById("insertU").value;
+        inU.active = document.getElementById("statusU").checked;
+         $("#content_ajaxloader").show();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateUom", "Material")',
+            data: JSON.stringify(inU),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.output != 1) {
+                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, 'ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    document.getElementById("insertU").focus();
+                    $("#content_ajaxloader").fadeOut("fast");
+                    return;
+                }
+                console.log("insert complete");
+                console.log(response.output);
+                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "บันทึกเรียบร้อย");
+                $("#content_ajaxloader").fadeOut("fast");
+                //alert("บันทึกเรียบร้อย");
+                $('#Modal').modal('hide');
+
+                showunactiveUom();
+                //AddPanel();
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+         })
+    }
+
+    function confirmanddeleteU() {
+        smartconfirmmessagebox("ลบข้อมูลหน่วย", function () {
+            console.log("DO FUNCTION callback");
+            deleteG();
+        })
+    }
+
+    function deleteU() {
+                         var dg = new Object();
+                         dg.uom_id = document.getElementById("inputUid").value;
+                          $("#content_ajaxloader").show();
+                         $.ajax({
+                             type: "POST",
+                             url: '@Url.Action("DeleteUom", "Material")',
+                             data: JSON.stringify(dg) ,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                             success: function (response) {
+                                 console.log(response)
+                                 if (response.output.check == "checkitem") {
+                                     console.log(response.output.check)
+                                     console.log(response.output.row)
+                                     warningmartconfirmmessagebox("ไม่สามารถลบได้", "มี " +response.output.row+"วัสดุ ที่ใช้กลุ่มนี้อยู่" );
+                                     $("#content_ajaxloader").fadeOut("fast");
+                                     return;
+                                 }
+
+                        console.log("delete complete");
+                        $("#content_ajaxloader").fadeOut("fast");
+                        completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "ลบกลุ่มสำเร็จ");
+                        //alert("ลบเรียบร้อย")
+                        $('#Modal').modal('hide');
+                        AddPanel();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+    }
+</script>

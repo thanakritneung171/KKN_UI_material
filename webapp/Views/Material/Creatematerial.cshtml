@@ -333,7 +333,9 @@
                                     $('#content_ajaxloader').fadeOut();
                                 }
                             });
-                        }
+                    }
+
+                     
                 </script>
 
                 <script>
@@ -483,7 +485,26 @@
                 <div id="horizonform2">
                     <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
                     <div class="form-group">
-                        <button class="btn btn-success pull-right margin-right-15">เพิ่มหน่วย</button>
+                        <a href="javascript:void(0);" class="btn btn-success pull-right margin-right-15" style="margin-left:0" onclick="CreateAddPanelUom('#panel-div')">เพิ่มหน่วย</a>
+                        @*<button class="btn btn-success pull-right margin-right-15" onclick="CreateAddPanelUom('#panel-div')">เพิ่มหน่วย</button>*@
+
+                    <script>
+                        function CreateAddPanelUom(id) {
+                                 jaxloaderin();
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("_uomView", "Material")',
+                                dataType: 'html',
+                                data: {},
+                                success: function (result) {
+                                    $('#panel-div').html('');
+                                    $('#panel-div').html(result);
+                                    $('.cd-panel').addClass("cd-panel--is-visible"); //แสดงแถบ right Panel$('#Modal').modal('show');
+                                    $('#content_ajaxloader').fadeOut();
+                                }
+                            });
+                        }
+                    </script>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
@@ -668,26 +689,109 @@
 
                     <div class="immg">
                         <div>
+                          
                             <label for="image_uploads">เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
                             @*<label for="image_uploads">Choose images to upload (PNG, JPG)</label>*@
-                            <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple>
+                            <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" onchange="updateImageDisplay()">
                         </div>
                         <div class="preview">
                             @*<p>No files currently selected for upload</p>*@
                             <p>ไม่ได้เลือกไฟล์ที่จะอัปโหลดในขณะนี้</p>
                         </div>
-                        @*<div>
-                <button>Submit</button>
-            </div>*@
+                     
                     </div>
-                    <input type="file" id="file" multiple />
+                    @*<input type="file" id="file" multiple />
                     <p id="fp"></p>
 
                     <input type="submit" value="Show Details"
-                           onclick="FileDetails()">
+                           onclick="FileDetails()">*@
 
 
+                    <script>
 
+                        function imggg() {
+                            var form_data = new FormData();
+                               var elem = document.getElementById("image_uploads");
+                                var names = [];
+                                for (var i = 0; i < elem.files.length; ++i) {
+                                    names.push(elem.files[i].name);
+                                    console.log(elem.files[i].name)
+                                    //alert(elem.files[i].name)
+                                    var file_data = $('#image_uploads').prop('files')[i];
+                                    form_data.append('file', file_data);
+                            }
+                            console.log(names);
+                            console.log(form_data);
+                            
+                           /* alert("hello")*/
+                            
+
+
+                        //      var file_data = $('#input').prop('files')[0];
+                        //form_data.append('file', file_data);
+                        //console.log(form_data);
+                        //console.log()
+                        //form_data.append('material.picture_path', material.picture_path)
+
+
+                        //        var file_data = $('#input').prop('files')[0];
+                        //console.log("immgg")
+                        //for (let i = 0; i <= leght.length; i++) {
+                        //    alert("for")
+                        //    var file_data = $('#image_uploads').prop('files')[i];
+                        //    console.log(file_data);
+                        //    alert("file" + File[i].name);
+                        //}
+
+                        //return form_data;
+                            
+                            //updateImageDisplay(input, preview);
+            //input.style.opacity = 0;
+
+            //input.addEventListener('change', updateImageDisplay);            
+                        }
+
+                        function updateImageDisplay() {
+                            const input = document.getElementById('image_uploads');
+                            const preview = document.querySelector('.preview');
+                            while (preview.firstChild) {
+                                preview.removeChild(preview.firstChild);
+                                console.log("remove")
+                            }
+                            console.log("ready!");
+                            const curFiles = input.files;
+                            if (curFiles.length === 0) {
+                                const para = document.createElement('p');
+                                para.textContent = 'No files currently selected for upload';
+                                preview.appendChild(para);
+                            } else {
+                                const list = document.createElement('ol');
+                                preview.appendChild(list);
+
+                                for (const file of curFiles) {
+                                    const listItem = document.createElement('li');
+                                    const para = document.createElement('p');
+
+                                    if (validFileType(file)) {
+                                        para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+                                        const image = document.createElement('img');
+                                        image.setAttribute("class", "ccl");
+                                        image.setAttribute("alt", file.name);
+                                        image.src = URL.createObjectURL(file);
+                                        //image.height = 64;
+                                        listItem.appendChild(image);
+                                        listItem.appendChild(para);
+                                    } else {
+                                        para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+                                        listItem.appendChild(para);
+                                    }
+
+                                    list.appendChild(listItem);
+                                }
+                            }
+                        }
+
+                    </script>
 
 
 
@@ -783,7 +887,7 @@
 
         </script>*@
                 </div>
-                <script>
+                @*<script>
                     function FileDetails() {
 
                         // GET THE FILE INPUT.
@@ -847,7 +951,7 @@
 
                         ////return form_data;
                     };
-                </script>
+                </script>*@
 
                 @{
                     if (TypePage == false)
@@ -1039,15 +1143,21 @@
             material.uom_stock = document.getElementById("uom_stock").value;
             material.qty_in = document.getElementById("qty_in").value;
             material.qty_stock = document.getElementById("qty_stock").value;
-            material.picture_path = document.getElementById("blah").alt;
+            //material.picture_path = document.getElementById("blah").alt;
             return material;
         }
 
         function getobjectformdata(material) {
-            var file_data = $('#input').prop('files')[0];
             var form_data = new FormData();
-            form_data.append('file', file_data);
+            //var file_data = $('#input').prop('files')[0];
+            //form_data.append('file', file_data);
 
+            var elem = document.getElementById("image_uploads");
+            for (var i = 0; i < elem.files.length; i++) {
+                var file_data = $('#image_uploads').prop('files')[i];
+                console.log(file_data);
+                form_data.append('file', file_data);
+            }
             console.log(form_data);
 
             if (material.item_id != 0) {
@@ -1071,12 +1181,13 @@
             form_data.append('material.uom_stock', material.uom_stock)
             form_data.append('material.qty_in', material.qty_in)
             form_data.append('material.qty_stock', material.qty_stock)
-            form_data.append('material.picture_path', material.picture_path)
+            //form_data.append('material.picture_path', material.picture_path)
 
-            console.log(material.picture_path + "path get ");
+            //console.log(material.picture_path + "path get ");
 
             return form_data;
         }
+       
     </script>
 
     @{
@@ -1093,6 +1204,34 @@
             <script>
 
                 function comfirmsaveinsert() {
+
+                    //var form_data = new FormData();
+                    //var elem = document.getElementById("image_uploads");
+                    //var names = [];
+                    //for (var i = 0; i < elem.files.length; ++i) {
+                    //    names.push(elem.files[i].name);
+                    //    console.log(elem.files[i].name)
+                    //    //alert(elem.files[i].name)
+                    //    var file_data = $('#image_uploads').prop('files')[i];
+                    //    form_data.append('file', file_data);
+                    //}
+                    //console.log(names);
+                    //console.log(form_data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    ///////////////////
                     //var va = validate();
 
                     //validatedata()
@@ -1471,55 +1610,55 @@
 @section pagespecific {
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            console.log("ready!");
+        //$(document).ready(function () {
+        //    console.log("ready!");
 
 
-            const input = document.querySelector('#image_uploads');
-            const preview = document.querySelector('.preview');
+            //const input = document.querySelector('#image_uploads');
+            //const preview = document.querySelector('.preview');
 
-            input.style.opacity = 0;
+            //input.style.opacity = 0;
 
-            input.addEventListener('change', updateImageDisplay);
+            //input.addEventListener('change', updateImageDisplay);
 
-            function updateImageDisplay() {
-                while (preview.firstChild) {
-                    preview.removeChild(preview.firstChild);
-                }
-                console.log("ready!");
-                const curFiles = input.files;
-                if (curFiles.length === 0) {
-                    const para = document.createElement('p');
-                    para.textContent = 'No files currently selected for upload';
-                    preview.appendChild(para);
-                } else {
-                    const list = document.createElement('ol');
-                    preview.appendChild(list);
+            //function updateImageDisplay() {
+            //    while (preview.firstChild) {
+            //        preview.removeChild(preview.firstChild);
+            //    }
+            //    console.log("ready!");
+            //    const curFiles = input.files;
+            //    if (curFiles.length === 0) {
+            //        const para = document.createElement('p');
+            //        para.textContent = 'No files currently selected for upload';
+            //        preview.appendChild(para);
+            //    } else {
+            //        const list = document.createElement('ol');
+            //        preview.appendChild(list);
 
-                    for (const file of curFiles) {
-                        const listItem = document.createElement('li');
-                        const para = document.createElement('p');
+            //        for (const file of curFiles) {
+            //            const listItem = document.createElement('li');
+            //            const para = document.createElement('p');
 
-                        if (validFileType(file)) {
-                            para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
-                            const image = document.createElement('img');
-                            image.setAttribute("class", "ccl");
-                            image.setAttribute("alt", file.name);
-                            image.src = URL.createObjectURL(file);
-                            //image.height = 64;
-                            listItem.appendChild(image);
-                            listItem.appendChild(para);
-                        } else {
-                            para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
-                            listItem.appendChild(para);
-                        }
+            //            if (validFileType(file)) {
+            //                para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+            //                const image = document.createElement('img');
+            //                image.setAttribute("class", "ccl");
+            //                image.setAttribute("alt", file.name);
+            //                image.src = URL.createObjectURL(file);
+            //                //image.height = 64;
+            //                listItem.appendChild(image);
+            //                listItem.appendChild(para);
+            //            } else {
+            //                para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+            //                listItem.appendChild(para);
+            //            }
 
-                        list.appendChild(listItem);
-                    }
-                }
-            }
+            //            list.appendChild(listItem);
+            //        }
+            //    }
+            //}
 
-            // https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+            //// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
             const fileTypes = [
                 'image/apng',
                 'image/bmp',
@@ -1549,7 +1688,7 @@
 
 
 
-        });
+        //});
 
 
 
@@ -1560,6 +1699,16 @@
                 title: "กำลัง" + string,
                 content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
                 color: "#659265",
+                iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                timeout: 5000
+            });
+        }
+
+        function warningmartconfirmmessagebox(string = '', content) {
+            $.smallBox({
+                title: string,
+                content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
+                color: "rgb(199, 145, 33)",
                 iconSmall: "fa fa-check fa-2x fadeInRight animated",
                 timeout: 5000
             });

@@ -14,7 +14,6 @@ using KKN_UI.material.uom;
 using KKN_UI.Models.Material;
 //using KKN_UI.Models.Group;
 //using KKN_UI.Models.Category;
-using KKN_UI.Models.Uom;
 using KKN_UI.Models.Material_acc;
 using KKN_UI.Models.Costing_method;
 using KKN_UI.material.group;
@@ -385,7 +384,7 @@ namespace KKN_UI.Controllers
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
             MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
-            MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
+            MaterialSQLlistindex.UomSQL_list = new uomDao().Getdata().Uomlist.ToList();
 
 
             return View(MaterialSQLlistindex);
@@ -422,7 +421,7 @@ namespace KKN_UI.Controllers
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
             MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
-            MaterialSQLlistindex.UomSQL_list = new uomDao().uomlistdata.ToList();
+            MaterialSQLlistindex.UomSQL_list = new uomDao().Getdata().Uomlist.ToList();
             ViewBag.dis = "disabled";
 
             return View("Creatematerial", MaterialSQLlistindex);
@@ -480,21 +479,16 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Createtodata(MaterialSQL material, HttpPostedFileBase file)
+        public JsonResult Createtodata(MaterialSQL material, List<HttpPostedFileBase> file)
         {
             //if(ModelState.IsValid)
             //{
 
             //}
-            MaterialSQL output = new MaterialSQL();
-            if (file != null)
-            {
-                genaratePathfile(material, file);
-            }
-
 
             //var output = new item_masterDao().CheckItemNo(material);
 
+            MaterialSQL output = new MaterialSQL();
             var checkitemno = new item_masterDao().CheckItemNo(material);
             if (checkitemno == true)
             {
@@ -522,15 +516,24 @@ namespace KKN_UI.Controllers
                 }
             }
 
-            //var output = new item_masterDao().CheckItemName(material);
-            if (output.msg == 1)
+            foreach (HttpPostedFileBase ff in file)
             {
-                var path = Server.MapPath("~/UploadedFiles/Photo/");
                 if (file != null)
                 {
-                    Createfile(path, material.picture_path, file);
+                    genaratePathfile(material, ff);
+                }
+
+                //var output = new item_masterDao().CheckItemName(material);
+                if (output.msg == 1)
+                {
+                    var path = Server.MapPath("~/UploadedFiles/Photo/");
+                    if (file != null)
+                    {
+                        Createfile(path, material.picture_path, ff);
+                    }
                 }
             }
+         
 
 
             //new  MaterialController().Createfile(material, file);
@@ -922,33 +925,32 @@ namespace KKN_UI.Controllers
         {
             //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
 
-            List<GroupSQL> Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
+            List<UomSQL> Uomlistdata = new uomDao().Getdata().Uomlist.ToList();
 
-            return PartialView("Uom/_uomView", Grouplistdata);
+            return PartialView("Uom/_uomView", Uomlistdata);
         }
 
         public ActionResult _uomViewActive(bool active)
         {
-            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
 
-            List<GroupSQL> Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
+            List<UomSQL> Uomlistdata = new uomDao().GetdataByActive(active).Uomlist.ToList();
 
-            return PartialView("Uom/_uomView", Grouplistdata);
+            return PartialView("Uom/_uomView", Uomlistdata);
         }
 
 
         [HttpPost]
-        public JsonResult CreateUom(GroupSQL groupdata)
+        public JsonResult CreateUom(UomSQL uomdata)
         {
-            GroupSQL output = new GroupSQL();
-            var check = new GroupDao().CheckGroupNew(groupdata);
+            UomSQL output = new UomSQL();
+            var check = new uomDao().CheckUomNew(uomdata);
             if (check == true)
             {
                 output = null;
             }
             else
             {
-                output = new GroupDao().InsertGroup(groupdata);
+                output = new uomDao().InsertUom(uomdata);
             }
 
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
@@ -957,29 +959,29 @@ namespace KKN_UI.Controllers
 
         public ActionResult _createuom()
         {
-            GroupSQL gdata = new GroupSQL();
-            return PartialView("Uom/_createuom", gdata);
+            UomSQL udata = new UomSQL();
+            return PartialView("Uom/_createuom", udata);
         }
 
         public ActionResult _edituom(int id)
         {
-            GroupSQL gdata = new GroupDao().GetdataByid(id);
-            return PartialView("Uom/_createuom", gdata);
+            UomSQL udata = new uomDao().GetdataByid(id);
+            return PartialView("Uom/_createuom", udata);
         }
 
         [HttpPost]
-        public JsonResult UpdateUom(GroupSQL groupdata)
+        public JsonResult UpdateUom(UomSQL uomdata)
         {
 
-            GroupSQL output = new GroupSQL();
-            var check = new GroupDao().CheckGroupNew(groupdata);
+            UomSQL output = new UomSQL();
+            var check = new uomDao().CheckUomNew(uomdata);
             if (check == true)
             {
                 output = null;
             }
             else
             {
-                new GroupDao().UpdateGroup(groupdata);
+                new uomDao().UpdateUom(uomdata);
             }
 
 
@@ -987,58 +989,35 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateUomActive(GroupSQL groupSQL)
+        public JsonResult UpdateUomActive(UomSQL uomdata)
         {
-            GroupSQL output = new GroupSQL();
-            new GroupDao().UpdateGroupActive(groupSQL);
+            UomSQL output = new UomSQL();
+            new uomDao().UpdateUomActive(uomdata);
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult DeleteUom(GroupSQL groupdata)
+        public JsonResult DeleteUom(UomSQL uomdata)
         {
-            Rowgroup rowgroup = new Rowgroup();
-            var checkdeleteitem = new GroupDao().DeleteCheckItem(groupdata);
+            RowUom rowuom = new RowUom();
+            var checkdeleteitem = new uomDao().DeleteCheckItem(uomdata);
             if (checkdeleteitem.row == 0)
             {
-                var checkdeletecategory = new GroupDao().DeleteCheckCategory(groupdata);
-                if (checkdeletecategory.row == 0)
-                {
-                    new GroupDao().DeleteGroup(groupdata);
-                }
-                else
-                {
-                    rowgroup = checkdeletecategory;
-                    rowgroup.check = "checkcategory";
-                }
+                    new uomDao().DeleteUom(uomdata);
             }
             else
             {
-                rowgroup = checkdeleteitem;
-                rowgroup.check = "checkitem";
+                rowuom = checkdeleteitem;
+                rowuom.check = "checkitem";
             }
 
 
 
-            return Json(new { output = rowgroup }, JsonRequestBehavior.AllowGet);
+            return Json(new { output = rowuom }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult _comfirmuom()
-        {
-            return PartialView("Groupmaterial/_comfirmuom");
-        }
-
-        //public ActionResult DeleteService(int id)
-        //{
-        //    var code = CategoryDao().Code(string);
-        //    if (code != null)
-        //    {
-        //        return "duplicate";
-        //    }
-
-        //    var output = new CategoryDao().DeleteCategory(id);
-        //    return output;
-        //}
+     
+ 
 
     }
 }

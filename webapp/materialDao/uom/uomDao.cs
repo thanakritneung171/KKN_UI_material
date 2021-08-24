@@ -8,7 +8,6 @@ using System.Net;
 using System.Web.Mvc;
 using System.Data;
 using System.IO;
-using KKN_UI.Models.Uom;
 
 namespace KKN_UI.material.uom
 {
@@ -38,32 +37,54 @@ namespace KKN_UI.material.uom
         private const string READ_BYACTIVE = "uomReadAllactive";
         private const string CHECKUOMNAME = "CheckUomNew";
 
-        public IEnumerable<UomSQL> uomlistdata
-        {
-            get
-            {
+        //public IEnumerable<UomSQL> uomlistdata
+        //{
+        //    get
+        //    {
                
-                List<UomSQL> uomlist = new List<UomSQL>();
-                using (var conn = OpenDbConnection())
-                {
-                    using (SqlCommand cmd = new SqlCommand(READ,conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+        //        List<UomSQL> uomlist = new List<UomSQL>();
+        //        using (var conn = OpenDbConnection())
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand(READ,conn))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
 
-                        using (var rdr = cmd.ExecuteReader())
+        //                using (var rdr = cmd.ExecuteReader())
+        //                {
+        //                    while(rdr.Read())
+        //                    {
+        //                        //UomSQL uomdata = new UomSQL();
+        //                        //uomdata.uom_id = Convert.ToInt32(rdr["uom_id"]);
+        //                        //uomdata.uom_name = rdr["uom_name"].ToString();
+        //                        uomlist.Add(maplistuom(rdr));
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        return uomlist;
+        //    }
+        //}
+        public UomSQLlist Getdata()
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(READ, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    UomSQLlist result = new UomSQLlist();
+                    //var result = new List<GroupSQL>()
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
                         {
-                            while(rdr.Read())
-                            {
-                                //UomSQL uomdata = new UomSQL();
-                                //uomdata.uom_id = Convert.ToInt32(rdr["uom_id"]);
-                                //uomdata.uom_name = rdr["uom_name"].ToString();
-                                uomlist.Add(maplistuom(rdr));
-                            }
+                            result.Uomlist.Add(maplistuom(rdr));
                         }
                     }
+                    return result;
                 }
-                return uomlist;
+
             }
+
         }
 
         public UomSQL GetdataByid(int id)

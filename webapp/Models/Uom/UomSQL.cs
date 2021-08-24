@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KKN_UI.Models.Uom
+namespace KKN_UI.Models
+//namespace KKN_UI.Models.Uom
 {
     public class UomSQL
     {
@@ -15,10 +16,10 @@ namespace KKN_UI.Models.Uom
     public class UomSQLlist
     {
         public List<UomSQL> Uomlist { get; set; }
-        //public UomSQLlist()
-        //{
-        //    this.Uomlist = new List<UomSQL>();
-        //}
+        public UomSQLlist()
+        {
+            this.Uomlist = new List<UomSQL>();
+        }
     }
     public class RowUom
     {
