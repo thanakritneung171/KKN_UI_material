@@ -32,6 +32,7 @@ namespace KKN_UI.Models.Material
         public GroupSQL GroupSQLModel { get; set; }
         public CategorySQL CategorySQLModel { get; set; }
         public int msg { get; set; }
+        //public picture_master picturemodel { get; set; }
 
     }
     public class MaterialSearch : MaterialSQL
@@ -49,6 +50,7 @@ namespace KKN_UI.Models.Material
     }
    public class picture_master
     {
+        public int id { get; set; }
         public string picture_path { get; set; }
         public string item_no { get; set; }
         public int msg { get; set; }

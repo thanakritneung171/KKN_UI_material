@@ -385,7 +385,7 @@ namespace KKN_UI.Controllers
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
             MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
             MaterialSQLlistindex.UomSQL_list = new uomDao().Getdata().Uomlist.ToList();
-
+            MaterialSQLlistindex.Picturelist = new List<picture_master>();
 
             return View(MaterialSQLlistindex);
         }
@@ -399,29 +399,30 @@ namespace KKN_UI.Controllers
             List<Material_accSQL> macclist = new List<Material_accSQL>();
             List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
             List<UomSQL> uomlist = new List<UomSQL>();
-            using (var conn = OpenDbConnection())
-            {
-                var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'" + id + "'";
+            //using (var conn = OpenDbConnection())
+            //{
+            //    var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'" + id + "'";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
+            //    using (SqlCommand cmd = new SqlCommand(query, conn))
+            //    {
+            //        cmd.CommandType = CommandType.Text;
 
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            mtlist = new item_masterDao().mapView(rdr);
-                        }
-                    }
-                }
-            }
+            //        using (var rdr = cmd.ExecuteReader())
+            //        {
+            //            while (rdr.Read())
+            //            {
+            //                mtlist = new item_masterDao().mapView(rdr);
+            //            }
+            //        }
+            //    }
+            //}
             MaterialSQLlistindex.MaterialSQLdataselect = new materialviewDao().GetdataByid(id);
             MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
             MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
             MaterialSQLlistindex.UomSQL_list = new uomDao().Getdata().Uomlist.ToList();
+            MaterialSQLlistindex.Picturelist = new item_masterDao().GetPicturedataByid(id).ToList();
             ViewBag.dis = "disabled";
 
             return View("Creatematerial", MaterialSQLlistindex);

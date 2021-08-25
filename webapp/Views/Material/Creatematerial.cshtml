@@ -335,7 +335,7 @@
                             });
                     }
 
-                     
+
                 </script>
 
                 <script>
@@ -438,6 +438,24 @@
                         </div>
                     </div>
                 </div>
+
+
+                
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <div class="smart-form">
+                            <label class="input">
+                                <i class="icon-append fa fa-calendar"></i>
+                                <input type="text" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy'>
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+               
+
+
 
 
                 <h3 id="hrw">รายละเอียดวัสดุเพิ่มเติม</h3>
@@ -696,7 +714,35 @@
                         </div>
                         <div class="preview">
                             @*<p>No files currently selected for upload</p>*@
-                            <p>ไม่ได้เลือกไฟล์ที่จะอัปโหลดในขณะนี้</p>
+
+
+                            @{ if (result.Picturelist.Count == 0)
+                                {
+                                    <p>ไม่ได้เลือกไฟล์ที่จะอัปโหลดในขณะนี้</p>
+                                }
+                                else
+                                {
+                                    foreach (var item in result.Picturelist)
+                                    {
+
+                                        <ol>
+                                            <li>
+                                                <img class="ccl" alt="@item.picture_path" src="@path@item.picture_path " />
+                                                <p>
+                                                    File name @item.picture_path
+                                                </p>
+                                            </li>
+                                        </ol>
+                                        
+                                }
+                            }
+                            }
+
+
+
+
+
+
                         </div>
                      
                     </div>
@@ -750,7 +796,35 @@
 
             //input.addEventListener('change', updateImageDisplay);            
                         }
+                        function showpicture(picture_path) {
 
+
+                            const preview = document.querySelector('.preview');
+                            preview.appendChild(list);
+                            const listItem = document.createElement('li');
+                            const para = document.createElement('p');
+                            para.textContent = `File name ` + picture_path;
+                            const image = document.createElement('img');
+                            image.setAttribute("class", "ccl");
+                            image.setAttribute("alt", picture_path);
+
+                            //image.src = @path+picture_path;
+
+                            listItem.appendChild(image);
+                            listItem.appendChild(para);
+                            list.appendChild(listItem);
+                        }
+
+                        function nofilecurrently() {
+                            const preview = document.querySelector('.preview');
+                            while (preview.firstChild) {
+                                preview.removeChild(preview.firstChild);
+                                console.log("remove")
+                            }
+                            const para = document.createElement('p');
+                            para.textContent = 'No files currently selected for upload';
+                            preview.appendChild(para);
+                        }
                         function updateImageDisplay() {
                             const input = document.getElementById('image_uploads');
                             const preview = document.querySelector('.preview');
@@ -1627,6 +1701,7 @@
         //$(document).ready(function () {
         //    console.log("ready!");
 
+            
 
             //const input = document.querySelector('#image_uploads');
             //const preview = document.querySelector('.preview');
@@ -1670,7 +1745,10 @@
             //            list.appendChild(listItem);
             //        }
             //    }
-            //}
+          //  //}
+          //});
+
+
 
             //// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
             const fileTypes = [
@@ -1702,7 +1780,7 @@
 
 
 
-        //});
+
 
 
 

@@ -42,6 +42,8 @@ namespace KKN_UI.materialDao.item_master
 
         private const string CHECKUPDATEITEM = "Checkupdateitem";
 
+        private const string PICTUREREAD = "picture_masterReadByitemNo";
+
         public MaterialSQLlist Getdata()
         {
             using (var conn = OpenDbConnection())
@@ -85,6 +87,38 @@ namespace KKN_UI.materialDao.item_master
             }
         }
 
+        public List<picture_master> GetPicturedataByid(string id)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(PICTUREREAD, conn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@item_no", id);
+                    List<picture_master> result = new List<picture_master>();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            result.Add(mappic(rdr));
+                        }
+                    }
+                    return (result);
+                }
+            }
+        }
+
+        public picture_master mappic(SqlDataReader rdr)
+        {
+            var result = new picture_master();
+
+            result.id = Convert.ToInt32(rdr["id"]);
+            result.item_no = rdr["item_no"].ToString();
+            result.picture_path = rdr["picture_path"].ToString();
+
+            return result;
+        }
 
         public /*MaterialSQL*/ Boolean CheckItemNo(MaterialSQL materialobject)
         {
