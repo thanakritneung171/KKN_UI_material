@@ -452,9 +452,9 @@ namespace KKN_UI.Controllers
         }
 
         private static string FILE_PATH = @"C:\UploadedFiles";
-        public static void Createfile(string path, string newnamesave, HttpPostedFileBase file)
+        public static void Createfile(string path, picture_master picture, HttpPostedFileBase file)
         {
-            var pathus = Path.Combine(path, newnamesave);
+            var pathus = Path.Combine(path, picture.picture_path);
             file.SaveAs(pathus);
 
         }
@@ -465,17 +465,18 @@ namespace KKN_UI.Controllers
 
         }
 
-        public static MaterialSQL genaratePathfile(MaterialSQL material, HttpPostedFileBase file)
+        public static picture_master genaratePathfile(MaterialSQL material, HttpPostedFileBase file)
         {
-
+            picture_master picture = new picture_master();
             var originalFilename = Path.GetFileName(file.FileName);
             string fileId = Guid.NewGuid().ToString().Replace("-", "");
             //string userId = GetUserId(); // Function to get user id based on your schema
             string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
 
-            material.picture_path = newnamesave;
+            picture.picture_path = newnamesave;
+            picture.item_no = material.item_no;
 
-            return material;
+            return picture;
         }
 
         [HttpPost]
@@ -489,6 +490,9 @@ namespace KKN_UI.Controllers
             //var output = new item_masterDao().CheckItemNo(material);
 
             MaterialSQL output = new MaterialSQL();
+            picture_master picture = new picture_master();
+            var path = Server.MapPath("~/UploadedFiles/Photo/");
+
             var checkitemno = new item_masterDao().CheckItemNo(material);
             if (checkitemno == true)
             {
@@ -515,25 +519,21 @@ namespace KKN_UI.Controllers
                     output = new item_masterDao().InsertItem_master(material);
                 }
             }
-
-            foreach (HttpPostedFileBase ff in file)
+            if (output.msg == 1)
             {
                 if (file != null)
                 {
-                    genaratePathfile(material, ff);
-                }
-
-                //var output = new item_masterDao().CheckItemName(material);
-                if (output.msg == 1)
-                {
-                    var path = Server.MapPath("~/UploadedFiles/Photo/");
-                    if (file != null)
+                    foreach (HttpPostedFileBase ff in file)
                     {
-                        Createfile(path, material.picture_path, ff);
+                        picture = genaratePathfile(material, ff);
+
+                        var pictureoutput = new item_masterDao().InsertPicture_master(picture);
+                        picture.msg = pictureoutput.msg;
+                        Createfile(path, picture, ff);
                     }
                 }
             }
-         
+
 
 
             //new  MaterialController().Createfile(material, file);
@@ -579,7 +579,7 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Editmaterialdata(MaterialSQL material, HttpPostedFileBase file)
+        public JsonResult Editmaterialdata(MaterialSQL material, List<HttpPostedFileBase> file)
         {
 
             #region old
@@ -616,34 +616,9 @@ namespace KKN_UI.Controllers
             #endregion
 
             MaterialSQL output = new MaterialSQL();
-
+            picture_master picture = new picture_master();
             var path = Server.MapPath("~/UploadedFiles/Photo/");
-            if (file != null)
-            {
-                genaratePathfile(material, file);
-            }
-
-            var namepathdelete = searchdeletefile(material.item_id);
-
-
-            //var checkitemname = new item_masterDao().CheckItemName(material);
-            //if (checkitemname == true)
-            //{
-            //    var checkdetailitem = new item_masterDao().CheckDetialItem(material);
-            //    if (checkdetailitem == true)
-            //    {
-            //        output.msg = 3;
-            //    }
-            //    else if (checkdetailitem == false)
-            //    {
-            //        output = new item_masterDao().UpdateItem_master(material);
-            //    }
-
-            //}
-            //else if (checkitemname == false)
-            //{
-            //    output = new item_masterDao().UpdateItem_master(material);
-            //}
+           
 
             var checkupdateitem = new item_masterDao().Checkupdateitem(material);
             if (checkupdateitem == true)
@@ -655,16 +630,30 @@ namespace KKN_UI.Controllers
                 output = new item_masterDao().UpdateItem_master(material);
             }
 
-
-            if (output.msg == 1 && file != null && namepathdelete.picture_path != "")
+            foreach (HttpPostedFileBase ff in file)
             {
-                Deletefile(path, namepathdelete.picture_path);
+                if (file != null)
+                {
+                    genaratePathfile(material, ff);
+                }
+
+                var namepathdelete = searchdeletefile(material.item_no);
+
+                if (output.msg == 1 && file != null && namepathdelete.picture_path != "")
+                {
+                    Deletefile(path, namepathdelete.picture_path);
+                }
+                if (output.msg == 1 && file != null)
+                {
+                    var pictureoutput = new item_masterDao().InsertPicture_master(picture);
+                    picture.msg = pictureoutput.msg;
+                    Createfile(path, picture, ff);
+                }
             }
 
-            if (output.msg == 1 && file != null)
-            {
-                Createfile(path, material.picture_path, file);
-            }
+        
+
+          
 
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
@@ -677,11 +666,11 @@ namespace KKN_UI.Controllers
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
-        public static MaterialSQL searchdeletefile(int id)
+        public static picture_master searchdeletefile(string id)
         {
-            MaterialSQL material = new MaterialSQL();
-            material = new item_masterDao().deletefilepath(id);
-            return material;
+            picture_master picture = new picture_master();
+            picture = new item_masterDao().deletefilepath(id);
+            return picture;
         }
 
         [HttpPost]

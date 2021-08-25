@@ -47,4 +47,18 @@ namespace KKN_UI.Models.Material
             this.materiallist = new List<MaterialSQL>();
         }
     }
+   public class picture_master
+    {
+        public string picture_path { get; set; }
+        public string item_no { get; set; }
+        public int msg { get; set; }
+    }
+    public class picturemasterlist
+    {
+        public List<picture_master> picturelist { get; set; }
+        public picturemasterlist()
+        {
+            this.picturelist = new List<picture_master>();
+        }
+    }
 }

@@ -28,6 +28,8 @@ namespace KKN_UI.materialDao.item_master
 
         private const string READ = "item_masterRead";
         private const string CREATE = "item_masterCreate";
+        private const string CREATEPICTURE = "picture_masterCreate";
+
         private const string DELETE = "item_masterDelete";
         private const string UPDATE = "item_masterUpdate";
         private const string UPDATEACTIVE = "item_masterUpdateActive";
@@ -265,7 +267,49 @@ namespace KKN_UI.materialDao.item_master
                 }
             }
         }
+       
 
+        public picture_master InsertPicture_master(picture_master pictureobject)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(CREATEPICTURE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@picture_path", pictureobject.picture_path);
+                    cmd.Parameters.AddWithValue("@item_no", pictureobject.item_no);
+
+                    picture_master result = new picture_master();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result = mapinsertpic(rdr);
+                        }
+
+                    }
+                    return (result);
+
+                }
+            }
+        }
+        public picture_master mapinsertpic(SqlDataReader rdr)
+        {
+            var result = new picture_master();
+
+            result.item_no = rdr["item_no"].ToString();
+            result.picture_path = rdr["picture_path"].ToString();
+
+            if (rdr["msg"] != null)
+            {
+                result.msg = Convert.ToInt32(rdr["msg"]);
+            }
+            //result.GroupSQLModel = new GroupDao().maplistgroupDao(rdr);
+            //result.CategorySQLModel = new CategoryDao().maplistcategory(rdr);
+
+            return result;
+        }
         public MaterialSQL UpdateItem_master(MaterialSQL materialobject)
         {
             using (var conn = OpenDbConnection())
@@ -351,9 +395,9 @@ namespace KKN_UI.materialDao.item_master
         }
 
 
-        public MaterialSQL deletefilepath(int id)
+        public picture_master deletefilepath(string id)
         {
-            var query = "SELECT   picture_path, 1 as msg FROM   dbo.item_master WHERE item_id =" + "'" + id + "'";
+            var query = "SELECT   picture_path, 1 as msg FROM   dbo.pictur_master WHERE item_no =" + "'" + id + "'";
 
             using (var conn = OpenDbConnection())
             {
@@ -361,8 +405,8 @@ namespace KKN_UI.materialDao.item_master
                 {
 
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@item_id", id);
-                    MaterialSQL result = null;
+                    cmd.Parameters.AddWithValue("@item_no", id);
+                    picture_master result = null;
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
@@ -374,9 +418,9 @@ namespace KKN_UI.materialDao.item_master
                 }
             }
         }
-        public MaterialSQL mapideletefil(SqlDataReader rdr)
+        public picture_master mapideletefil(SqlDataReader rdr)
         {
-            var result = new MaterialSQL();
+            var result = new picture_master();
 
             result.picture_path = rdr["picture_path"].ToString();
 
