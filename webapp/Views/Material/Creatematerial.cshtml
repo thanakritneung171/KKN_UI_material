@@ -706,11 +706,11 @@
                     </style>
 
                     <div class="immg">
-                        <div>
+                        <div >
                           
-                            <label for="image_uploads">เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
+                            <label for="image_uploads" @ViewBag.dis>เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
                             @*<label for="image_uploads">Choose images to upload (PNG, JPG)</label>*@
-                            <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" onchange="updateImageDisplay()">
+                            <input type="file" id="image_uploads" @ViewBag.dis name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" onchange="updateImageDisplay()">
                         </div>
                         <div class="preview">
                             @*<p>No files currently selected for upload</p>*@
