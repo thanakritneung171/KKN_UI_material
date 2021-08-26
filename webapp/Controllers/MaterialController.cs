@@ -457,7 +457,6 @@ namespace KKN_UI.Controllers
         {
             var pathus = Path.Combine(path, picture.picture_path);
             file.SaveAs(pathus);
-
         }
         public static void Deletefile(string path, string newnamedel)
         {

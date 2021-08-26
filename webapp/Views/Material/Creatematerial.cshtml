@@ -440,7 +440,7 @@
                 </div>
 
 
-                
+
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-4">
@@ -453,7 +453,7 @@
                         </div>
                     </div>
                 </div>
-               
+
 
 
 
@@ -588,7 +588,7 @@
                         </label>
 
                         @*@foreach (var item in result.UomSQL_list)
-            {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}*@
+                            {@(item.uom_id == result.MaterialSQLdataselect.uom_in ?item.uom_name: "")}*@
 
                         <div class="col-sm-1 col-xs-1">
                             <p style="color: blue; margin-top: 7px; margin-left:5px">&#9868;</p>
@@ -622,9 +622,9 @@
                     @*<img id="blah" src="#" alt="" style="display: none; max-width: 100%" />*@
 
                     @*<img id="blah"
-        src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
-        alt="@result.MaterialSQLdataselect.picture_path"
-        style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />*@
+                        src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
+                        alt="@result.MaterialSQLdataselect.picture_path"
+                        style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />*@
 
 
                     @*<p id="pdisplay"><br /><br /></p>*@
@@ -707,19 +707,17 @@
                                 }
                     </style>
 
-                    <canvas  id="myCanvas">
+                    <canvas id="myCanvas">
                     </canvas>
 
                     <div class="immg">
                         <div>
-
-                            <label for="image_uploads">เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
+                            <label class="input-file-trigger" for="image_uploads">เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
                             @*<label for="image_uploads">Choose images to upload (PNG, JPG)</label>*@
-                            <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" onchange="updateImageDisplay()">
+                            <input type="file" class="input-file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" @*onchange="updateImageDisplay()"*@>
                         </div>
                         <div class="preview">
                             @*<p>No files currently selected for upload</p>*@
-
 
                             @{ if (result.Picturelist.Count == 0)
                                 {
@@ -729,7 +727,6 @@
                                 {
                                     foreach (var item in result.Picturelist)
                                     {
-
                                         <ol>
                                             <li>
                                                 <img class="ccl" alt="@item.picture_path" src="@path@item.picture_path " />
@@ -738,7 +735,6 @@
                                                 </p>
                                             </li>
                                         </ol>
-
                                     }
                                 }
                             }
@@ -752,10 +748,10 @@
 
                     </div>
                     @*<input type="file" id="file" multiple />
-        <p id="fp"></p>
+                        <p id="fp"></p>
 
-        <input type="submit" value="Show Details"
-               onclick="FileDetails()">*@
+                        <input type="submit" value="Show Details"
+                               onclick="FileDetails()">*@
 
 
                     <script>
@@ -854,51 +850,51 @@
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                     <br />
                     @*<script>
-            function importData() {
-                //let input = document.createElement('input');
-                //input.type = 'file';
-                //input.name = 'file';
-                //input.id = 'file';
+                            function importData() {
+                                //let input = document.createElement('input');
+                                //input.type = 'file';
+                                //input.name = 'file';
+                                //input.id = 'file';
 
-                let input = document.getElementById('input');
-                var ffill = document.getElementById('input').value;
-                input.onchange = evt => {
-                    const [file] = input.files
-                    if (file) {
-                        blah.src = URL.createObjectURL(file)
-                        blah.alt = (file.name)
-                    }
-                    let files = Array.from(input.files);
-                    console.log(files);
-                    console.log(input.files);
+                                let input = document.getElementById('input');
+                                var ffill = document.getElementById('input').value;
+                                input.onchange = evt => {
+                                    const [file] = input.files
+                                    if (file) {
+                                        blah.src = URL.createObjectURL(file)
+                                        blah.alt = (file.name)
+                                    }
+                                    let files = Array.from(input.files);
+                                    console.log(files);
+                                    console.log(input.files);
 
-                    console.log(file.name);
-                    console.log(file.size);
-                    console.log(file.type);
+                                    console.log(file.name);
+                                    console.log(file.size);
+                                    console.log(file.type);
 
 
-                    const reader = new FileReader();
-                    reader.addEventListener("load", () => {
-                        console.log("111111111");
-                        console.log(reader.result);
-                        localStorage.setItem("recent-image", reader.result);
-                    });
+                                    const reader = new FileReader();
+                                    reader.addEventListener("load", () => {
+                                        console.log("111111111");
+                                        console.log(reader.result);
+                                        localStorage.setItem("recent-image", reader.result);
+                                    });
 
-                    document.getElementById("blah").style.display = "block";
-                    document.getElementById("pdisplay").style.display = "none";
-                    var elementqqqq = document.getElementById('qqqq');
-                    elementqqqq.style.removeProperty("border-style");
-                    elementqqqq.style.removeProperty("border-width");
-                    elementqqqq.style.removeProperty("margin-bottom");
+                                    document.getElementById("blah").style.display = "block";
+                                    document.getElementById("pdisplay").style.display = "none";
+                                    var elementqqqq = document.getElementById('qqqq');
+                                    elementqqqq.style.removeProperty("border-style");
+                                    elementqqqq.style.removeProperty("border-width");
+                                    elementqqqq.style.removeProperty("margin-bottom");
 
-                };
+                                };
 
-                input.click();
-            }
+                                input.click();
+                            }
 
-        </script>*@
+                        </script>*@
                 </div>
-        
+
 
                 @{
                     if (TypePage == false)
@@ -1095,80 +1091,16 @@
         }
 
         function getobjectformdata(material) {
-            ///////
 
             var form_data = new FormData();
 
+
             var elem = document.getElementById("image_uploads");
-
-            for (var i = 0; i < elem.files.length; i++)
-            {
+            for (var i = 0; i < elem.files.length; i++) {
                 var file_data = $('#image_uploads').prop('files')[i];
-            //var filesToUpload = input.files;
-            //var file = filesToUpload[0];
-
-                var img = new Image();
-                //var img = document.createElement("img");
-                //var img = document.getElementsByTagName("img")
-                var reader = new FileReader();
-
-                //reader.onload = function (e) { img.src = e.target.result }
-        
-                reader.readAsDataURL(file_data);
-                //console.log("this scr")
-                //console.log(img.src)
-                //console.log("this file_data");
-                //console.log(file_data);
-                console.log("this reader");
-                console.log(reader);
-                //img.src = reader.result;
-
-                 console.log("this scr")
-                console.log(reader.result);
-                var canvas = document.getElementById("myCanvas");
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-
-            var MAX_WIDTH = 800;
-            var MAX_HEIGHT = 600;
-            var width = img.width;
-            var height = img.height;
-
-             if (width > height) {
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-             }
-            } else {
-            if (height > MAX_HEIGHT) {
-                width *= MAX_HEIGHT / height;
-                height = MAX_HEIGHT;
-                }
-             }
-            canvas.width = width;
-            canvas.height = height;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-
-            var dataurl = canvas.toDataURL("image/jpeg");
-           /* var fd = new FormData();*/
-                alert(dataurl)
-            form_data.append("file", dataurl);
-        
+                console.log(file_data);
+                form_data.append('file', file_data);
             }
-
-
-
-            //////
-            //var form_data = new FormData();
-
-
-            //var elem = document.getElementById("image_uploads");
-            //for (var i = 0; i < elem.files.length; i++) {
-            //    var file_data = $('#image_uploads').prop('files')[i];
-            //    console.log(file_data);
-            //    form_data.append('file', file_data);
-            //}
             console.log(form_data);
 
             if (material.item_id != 0) {
@@ -1198,7 +1130,7 @@
 
             return form_data;
         }
-       
+
     </script>
 
     @{
@@ -1216,7 +1148,7 @@
 
                 function comfirmsaveinsert() {
 
-                 
+
                     ///////////////////
                     //var va = validate();
 
@@ -1594,85 +1526,187 @@
 @section pagespecific {
     <script type="text/javascript">
 
+
+        $(document).ready(function () {
+            console.log("ready!");
+
+            var fileInput = document.querySelector(".input-file"),
+                the_return = document.querySelector(".file-return");
+
+            fileInput.addEventListener("change", function (ev) {
+                var elem = document.getElementById("image_uploads");
+                const preview = document.querySelector('.preview');
+                while (preview.firstChild) {
+                    preview.removeChild(preview.firstChild);
+                    console.log("remove")
+                }
+                console.log("ready!");
+                if (elem.files.length === 0) {
+                    const para = document.createElement('p');
+                    para.textContent = 'No files currently selected for upload';
+                    preview.appendChild(para);
+                } else {
+                    const list = document.createElement('ol');
+                    preview.appendChild(list);
+                    for (var i = 0; i < elem.files.length; i++) {
+                        var file = $('#image_uploads').prop('files')[i];
+                        const blobURL = URL.createObjectURL(file);
+                        const img = new Image();
+                        img.src = blobURL;
+                        img.onerror = function () {
+                            URL.revokeObjectURL(this.src);
+                            // Handle the failure properly
+                            console.log("Cannot load image");
+                        };
+                        img.onload = function () {
+                            URL.revokeObjectURL(this.src);
+
+                            var MAX_WIDTH = 800;
+                            var MAX_HEIGHT = 600;
+                            var width = img.width;
+                            var height = img.height;
+                            if (width > height) {
+                                if (width > MAX_WIDTH) {
+                                    height *= MAX_WIDTH / width;
+                                    width = MAX_WIDTH;
+                                }
+                            } else {
+                                if (height > MAX_HEIGHT) {
+                                    width *= MAX_HEIGHT / height;
+                                    height = MAX_HEIGHT;
+                                }
+                            }
+                            const canvas = document.createElement("canvas");
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext("2d");
+                            ctx.drawImage(img, 0, 0, width, height);
+
+                            const listItem = document.createElement('li');
+                            const para = document.createElement('p');
+
+                            if (validFileType(file)) {
+                                para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+                                const image = document.createElement('img');
+                                image.setAttribute("class", "ccl");
+                                image.setAttribute("alt", file.name);
+                                image.src = canvas.toDataURL();
+                                //document.getElementById("uploadPreview").src = canvas.toDataURL();
+                                listItem.appendChild(image);
+                                listItem.appendChild(para);
+                            } else {
+                                para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+                                listItem.appendChild(para);
+                            }
+
+                            list.appendChild(listItem);
+
+                            var data = canvas.toDataURL();
+                            var ImageURL = data
+                            // Split the base64 string in data and contentType
+                            var block = ImageURL.split(";");
+                            // Get the content type of the image
+                            var contentType = block[0].split(":")[1];// In this case "image/gif"
+                            // get the real base64 content of the file
+                            var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+                            var ImageType = contentType.split("/")[1];
+
+                            var input = document.createElement("input");
+                            input.setAttribute("class", "detail-img");
+                            input.setAttribute("type", "hidden");
+                            input.setAttribute("name","detailimg"+i);
+                            input.setAttribute("namepath", realData);
+                            input.setAttribute("valuetype", ImageType);
+                            document.body.appendChild(input);
+
+                            //$("#ImagePath").val(realData);
+                            //$("#ImageType").val(ImageType);
+                        }
+                    };
+                }
+            });
+        });
+
+
         //$(document).ready(function () {
         //    console.log("ready!");
 
-            
-
-            //const input = document.querySelector('#image_uploads');
-            //const preview = document.querySelector('.preview');
-
-            //input.style.opacity = 0;
-
-            //input.addEventListener('change', updateImageDisplay);
-
-            //function updateImageDisplay() {
-            //    while (preview.firstChild) {
-            //        preview.removeChild(preview.firstChild);
-            //    }
-            //    console.log("ready!");
-            //    const curFiles = input.files;
-            //    if (curFiles.length === 0) {
-            //        const para = document.createElement('p');
-            //        para.textContent = 'No files currently selected for upload';
-            //        preview.appendChild(para);
-            //    } else {
-            //        const list = document.createElement('ol');
-            //        preview.appendChild(list);
-
-            //        for (const file of curFiles) {
-            //            const listItem = document.createElement('li');
-            //            const para = document.createElement('p');
-
-            //            if (validFileType(file)) {
-            //                para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
-            //                const image = document.createElement('img');
-            //                image.setAttribute("class", "ccl");
-            //                image.setAttribute("alt", file.name);
-            //                image.src = URL.createObjectURL(file);
-            //                //image.height = 64;
-            //                listItem.appendChild(image);
-            //                listItem.appendChild(para);
-            //            } else {
-            //                para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
-            //                listItem.appendChild(para);
-            //            }
-
-            //            list.appendChild(listItem);
-            //        }
-            //    }
-          //  //}
-          //});
 
 
+        //const input = document.querySelector('#image_uploads');
+        //const preview = document.querySelector('.preview');
 
-            //// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
-            const fileTypes = [
-                'image/apng',
-                'image/bmp',
-                'image/gif',
-                'image/jpeg',
-                'image/pjpeg',
-                'image/png',
-                'image/svg+xml',
-                'image/tiff',
-                'image/webp',
-                `image/x-icon`
-            ];
+        //input.style.opacity = 0;
 
-            function validFileType(file) {
-                return fileTypes.includes(file.type);
+        //input.addEventListener('change', updateImageDisplay);
+
+        //function updateImageDisplay() {
+        //    while (preview.firstChild) {
+        //        preview.removeChild(preview.firstChild);
+        //    }
+        //    console.log("ready!");
+        //    const curFiles = input.files;
+        //    if (curFiles.length === 0) {
+        //        const para = document.createElement('p');
+        //        para.textContent = 'No files currently selected for upload';
+        //        preview.appendChild(para);
+        //    } else {
+        //        const list = document.createElement('ol');
+        //        preview.appendChild(list);
+
+        //        for (const file of curFiles) {
+        //            const listItem = document.createElement('li');
+        //            const para = document.createElement('p');
+
+        //            if (validFileType(file)) {
+        //                para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+        //                const image = document.createElement('img');
+        //                image.setAttribute("class", "ccl");
+        //                image.setAttribute("alt", file.name);
+        //                image.src = URL.createObjectURL(file);
+        //                //image.height = 64;
+        //                listItem.appendChild(image);
+        //                listItem.appendChild(para);
+        //            } else {
+        //                para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+        //                listItem.appendChild(para);
+        //            }
+
+        //            list.appendChild(listItem);
+        //        }
+        //    }
+        //  //}
+        //});
+
+
+
+        //// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+        const fileTypes = [
+            'image/apng',
+            'image/bmp',
+            'image/gif',
+            'image/jpeg',
+            'image/pjpeg',
+            'image/png',
+            'image/svg+xml',
+            'image/tiff',
+            'image/webp',
+            `image/x-icon`
+        ];
+
+        function validFileType(file) {
+            return fileTypes.includes(file.type);
+        }
+
+        function returnFileSize(number) {
+            if (number < 1024) {
+                return number + 'bytes';
+            } else if (number > 1024 && number < 1048576) {
+                return (number / 1024).toFixed(1) + 'KB';
+            } else if (number > 1048576) {
+                return (number / 1048576).toFixed(1) + 'MB';
             }
-
-            function returnFileSize(number) {
-                if (number < 1024) {
-                    return number + 'bytes';
-                } else if (number > 1024 && number < 1048576) {
-                    return (number / 1024).toFixed(1) + 'KB';
-                } else if (number > 1048576) {
-                    return (number / 1048576).toFixed(1) + 'MB';
-                }
-            }
+        }
 
 
 
