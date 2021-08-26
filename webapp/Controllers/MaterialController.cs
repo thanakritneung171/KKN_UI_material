@@ -475,6 +475,7 @@ namespace KKN_UI.Controllers
             string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
 
             picture.picture_path = newnamesave;
+            picture.picture_name = originalFilename;
             picture.item_no = material.item_no;
 
             return picture;
@@ -631,30 +632,28 @@ namespace KKN_UI.Controllers
                 output = new item_masterDao().UpdateItem_master(material);
             }
 
-            foreach (HttpPostedFileBase ff in file)
+            var namepathdelete = searchdeletefile(material.item_no);
+
+            if (output.msg == 1 && file != null && namepathdelete != null )
             {
-                if (file != null)
-                {
-                    genaratePathfile(material, ff);
-                }
-
-                var namepathdelete = searchdeletefile(material.item_no);
-
-                if (output.msg == 1 && file != null && namepathdelete.picture_path != "")
-                {
-                    Deletefile(path, namepathdelete.picture_path);
-                }
-                if (output.msg == 1 && file != null)
-                {
-                    var pictureoutput = new item_masterDao().InsertPicture_master(picture);
-                    picture.msg = pictureoutput.msg;
-                    Createfile(path, picture, ff);
+                
+                foreach (var items in namepathdelete) {
+                    if (!String.IsNullOrEmpty(items.picture_path)) {
+                        Deletefile(path, items.picture_path);
+                    }
                 }
             }
 
-        
-
-          
+            foreach (HttpPostedFileBase ff in file)
+            {
+                if (output.msg == 1 && file != null)
+                {
+                  var genaratepathfile =   genaratePathfile(material, ff);
+                    var pictureoutput = new item_masterDao().InsertPicture_master(genaratepathfile);
+                    picture.msg = pictureoutput.msg;
+                    Createfile(path, genaratepathfile, ff);
+                }
+            }
 
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
@@ -667,11 +666,12 @@ namespace KKN_UI.Controllers
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
-        public static picture_master searchdeletefile(string id)
+        public static List<picture_master> searchdeletefile(string id)
         {
-            picture_master picture = new picture_master();
-            picture = new item_masterDao().deletefilepath(id);
-            return picture;
+            //var pictureserch = new picture_master();
+            var pictureserch = new item_masterDao().deletefilepath(id);
+            new item_masterDao().Picture_masterDelete(id);
+            return pictureserch;
         }
 
         [HttpPost]

@@ -44,6 +44,8 @@ namespace KKN_UI.materialDao.item_master
 
         private const string PICTUREREAD = "picture_masterReadByitemNo";
 
+        private const string PICTUREDELETE = "Picture_masterDelete";
+
         public MaterialSQLlist Getdata()
         {
             using (var conn = OpenDbConnection())
@@ -116,6 +118,7 @@ namespace KKN_UI.materialDao.item_master
             result.id = Convert.ToInt32(rdr["id"]);
             result.item_no = rdr["item_no"].ToString();
             result.picture_path = rdr["picture_path"].ToString();
+            result.picture_name = rdr["picture_name"].ToString();
 
             return result;
         }
@@ -311,6 +314,7 @@ namespace KKN_UI.materialDao.item_master
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@picture_path", pictureobject.picture_path);
+                    cmd.Parameters.AddWithValue("@picture_name", pictureobject.picture_name);
                     cmd.Parameters.AddWithValue("@item_no", pictureobject.item_no);
 
                     picture_master result = new picture_master();
@@ -328,12 +332,38 @@ namespace KKN_UI.materialDao.item_master
                 }
             }
         }
+        public picture_master Picture_masterDelete(string id)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(PICTUREDELETE, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@item_no", id);
+
+                    picture_master result = new picture_master();
+                    using (var rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        if (rdr.HasRows)
+                        {
+                            result.msg = Convert.ToInt32("1");
+                        }
+
+                    }
+                    return (result);
+
+                }
+            }
+        }
+        
         public picture_master mapinsertpic(SqlDataReader rdr)
         {
             var result = new picture_master();
 
             result.item_no = rdr["item_no"].ToString();
             result.picture_path = rdr["picture_path"].ToString();
+            result.picture_path = rdr["picture_name"].ToString();
 
             if (rdr["msg"] != null)
             {
@@ -429,9 +459,9 @@ namespace KKN_UI.materialDao.item_master
         }
 
 
-        public picture_master deletefilepath(string id)
+        public List<picture_master> deletefilepath(string id)
         {
-            var query = "SELECT   picture_path, 1 as msg FROM   dbo.pictur_master WHERE item_no =" + "'" + id + "'";
+            var query = "SELECT   picture_path, 1 as msg FROM   dbo.Picture_master WHERE item_no =" + "'" + id + "'";
 
             using (var conn = OpenDbConnection())
             {
@@ -440,12 +470,12 @@ namespace KKN_UI.materialDao.item_master
 
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@item_no", id);
-                    picture_master result = null;
+                    List<picture_master> result = new List<picture_master>(); ;
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
                         {
-                            result = mapideletefil(rdr);
+                            result.Add(mapideletefil(rdr));
                         }
                     }
                     return (result);
