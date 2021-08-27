@@ -481,7 +481,7 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Createtodata(MaterialSQL material, List<HttpPostedFileBase> file)
+        public JsonResult Createtodata(MaterialSQL material, List<HttpPostedFileBase> file, List<string> input)
         {
             //if(ModelState.IsValid)
             //{

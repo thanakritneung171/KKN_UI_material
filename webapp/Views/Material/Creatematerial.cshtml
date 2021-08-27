@@ -447,7 +447,7 @@
                         <div class="smart-form">
                             <label class="input">
                                 <i class="icon-append fa fa-calendar"></i>
-                                <input type="text" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy'>
+                                <input type="text" @ViewBag.dis  id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy' value="@result.MaterialSQLdataselect.expiry" >
                             </label>
 
                         </div>
@@ -747,30 +747,9 @@
                         </div>
 
                     </div>
-                    @*<input type="file" id="file" multiple />
-                        <p id="fp"></p>
-
-                        <input type="submit" value="Show Details"
-                               onclick="FileDetails()">*@
-
 
                     <script>
 
-                        function imggg() {
-                            var form_data = new FormData();
-                               var elem = document.getElementById("image_uploads");
-                                var names = [];
-                                for (var i = 0; i < elem.files.length; ++i) {
-                                    names.push(elem.files[i].name);
-                                    console.log(elem.files[i].name)
-                                    //alert(elem.files[i].name)
-                                    var file_data = $('#image_uploads').prop('files')[i];
-                                    form_data.append('file', file_data);
-                            }
-                            console.log(names);
-                            console.log(form_data);
-
-                        }
                         function showpicture(picture_path) {
 
 
@@ -867,12 +846,9 @@
                                     let files = Array.from(input.files);
                                     console.log(files);
                                     console.log(input.files);
-
                                     console.log(file.name);
                                     console.log(file.size);
                                     console.log(file.type);
-
-
                                     const reader = new FileReader();
                                     reader.addEventListener("load", () => {
                                         console.log("111111111");
@@ -1011,14 +987,7 @@
                     }
                 }
 
-                <div class="row">
-                    <div class="col-xs-6"></div>
-                    <div class="col-xs-5 ">
-                        <button class="btn-lg btn-success pull-right margin-top-10" style="margin:5px;" onclick="imggg()">img</button>
-                    </div>
-                    <div class="col-xs-1"></div>
-
-                </div>
+               
 
                 @{
                     if (result.MaterialSQLdataselect.item_id == 0)
@@ -1086,6 +1055,7 @@
             material.uom_stock = document.getElementById("uom_stock").value;
             material.qty_in = document.getElementById("qty_in").value;
             material.qty_stock = document.getElementById("qty_stock").value;
+            material.expiry = document.getElementById("expiry").value;
             //material.picture_path = document.getElementById("blah").alt;
             return material;
         }
@@ -1094,14 +1064,27 @@
 
             var form_data = new FormData();
 
+            var inputArray = $(".detail-img").serializeArray();
+            console.log(inputArray)
+            console.log(inputArray.value)
 
-            var elem = document.getElementById("image_uploads");
-            for (var i = 0; i < elem.files.length; i++) {
-                var file_data = $('#image_uploads').prop('files')[i];
-                console.log(file_data);
-                form_data.append('file', file_data);
-            }
-            console.log(form_data);
+            //var elem = document.getElementById("image_uploads");
+            //for (var i = 0; i < elem.files.length; i++) {
+            //    var file_data = $('#image_uploads').prop('files')[i];
+            //    console.log(file_data);
+            //    form_data.append('file', file_data);
+            //}
+
+            //const dataurl = document.querySelectorAll("input[type=file].detail-img");
+            ////const inputdata = dataurl.querySelectorAll(".detail-img");
+            //dataurl.forEach(function () {
+            //    form_data.append("input.namepath", dataurl.namepath);
+            //    form_data.append("input.valuetype", dataurl.valuetype);
+            //    form_data.append("input.name", dataurl.name);
+
+            //});
+
+            console.log(form_data );
 
             if (material.item_id != 0) {
                 form_data.append('material.item_id', material.item_id)
@@ -1124,6 +1107,7 @@
             form_data.append('material.uom_stock', material.uom_stock)
             form_data.append('material.qty_in', material.qty_in)
             form_data.append('material.qty_stock', material.qty_stock)
+            form_data.append('material.expiry', material.expiry)
             //form_data.append('material.picture_path', material.picture_path)
 
             //console.log(material.picture_path + "path get ");
@@ -1552,17 +1536,18 @@
                     preview.appendChild(list);
                     for (var i = 0; i < elem.files.length; i++) {
                         var file = $('#image_uploads').prop('files')[i];
+                        var filename = file.name;
+                        var filetype = file.type;
+                        console.log(filetype);
                         const blobURL = URL.createObjectURL(file);
                         const img = new Image();
                         img.src = blobURL;
-                        img.onerror = function () {
-                            URL.revokeObjectURL(this.src);
-                            // Handle the failure properly
-                            console.log("Cannot load image");
-                        };
+                        img.name = filename;
+                        img.Value = i;
+                        img.valuetype = filetype;
                         img.onload = function () {
                             URL.revokeObjectURL(this.src);
-
+                            console.log(this.Value+" "+ this.name);
                             var MAX_WIDTH = 800;
                             var MAX_HEIGHT = 600;
                             var width = img.width;
@@ -1582,43 +1567,37 @@
                             canvas.width = width;
                             canvas.height = height;
                             const ctx = canvas.getContext("2d");
-                            ctx.drawImage(img, 0, 0, width, height);
+                            ctx.drawImage(img, 0, 0, width, height,);
 
                             const listItem = document.createElement('li');
                             const para = document.createElement('p');
+                            console.log("creale P" + this.Value)
 
-                            if (validFileType(file)) {
-                                para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
                                 const image = document.createElement('img');
                                 image.setAttribute("class", "ccl");
-                                image.setAttribute("alt", file.name);
+                                image.setAttribute("alt", this.name);
                                 image.src = canvas.toDataURL();
+                                para.textContent = `File name ${this.name}`;
                                 //document.getElementById("uploadPreview").src = canvas.toDataURL();
                                 listItem.appendChild(image);
                                 listItem.appendChild(para);
-                            } else {
-                                para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
-                                listItem.appendChild(para);
-                            }
-
                             list.appendChild(listItem);
 
                             var data = canvas.toDataURL();
                             var ImageURL = data
-                            // Split the base64 string in data and contentType
                             var block = ImageURL.split(";");
-                            // Get the content type of the image
-                            var contentType = block[0].split(":")[1];// In this case "image/gif"
-                            // get the real base64 content of the file
-                            var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+                            var contentType = block[0].split(":")[1];
+                            var realData = block[1].split(",")[1];
                             var ImageType = contentType.split("/")[1];
 
                             var input = document.createElement("input");
                             input.setAttribute("class", "detail-img");
                             input.setAttribute("type", "hidden");
-                            input.setAttribute("name","detailimg"+i);
-                            input.setAttribute("namepath", realData);
-                            input.setAttribute("valuetype", ImageType);
+                            input.setAttribute("nameinput", "input-target");
+                            input.setAttribute("name",this.name);
+                            //input.setAttribute("namepath", realData);
+                            input.setAttribute("value", realData);
+                            input.setAttribute("valuetype", this.valuetype);
                             document.body.appendChild(input);
 
                             //$("#ImagePath").val(realData);
@@ -1628,57 +1607,6 @@
                 }
             });
         });
-
-
-        //$(document).ready(function () {
-        //    console.log("ready!");
-
-
-
-        //const input = document.querySelector('#image_uploads');
-        //const preview = document.querySelector('.preview');
-
-        //input.style.opacity = 0;
-
-        //input.addEventListener('change', updateImageDisplay);
-
-        //function updateImageDisplay() {
-        //    while (preview.firstChild) {
-        //        preview.removeChild(preview.firstChild);
-        //    }
-        //    console.log("ready!");
-        //    const curFiles = input.files;
-        //    if (curFiles.length === 0) {
-        //        const para = document.createElement('p');
-        //        para.textContent = 'No files currently selected for upload';
-        //        preview.appendChild(para);
-        //    } else {
-        //        const list = document.createElement('ol');
-        //        preview.appendChild(list);
-
-        //        for (const file of curFiles) {
-        //            const listItem = document.createElement('li');
-        //            const para = document.createElement('p');
-
-        //            if (validFileType(file)) {
-        //                para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
-        //                const image = document.createElement('img');
-        //                image.setAttribute("class", "ccl");
-        //                image.setAttribute("alt", file.name);
-        //                image.src = URL.createObjectURL(file);
-        //                //image.height = 64;
-        //                listItem.appendChild(image);
-        //                listItem.appendChild(para);
-        //            } else {
-        //                para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
-        //                listItem.appendChild(para);
-        //            }
-
-        //            list.appendChild(listItem);
-        //        }
-        //    }
-        //  //}
-        //});
 
 
 
@@ -1709,11 +1637,6 @@
                 return (number / 1048576).toFixed(1) + 'MB';
             }
         }
-
-
-
-
-
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
