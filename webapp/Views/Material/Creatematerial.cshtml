@@ -1063,10 +1063,30 @@
         function getobjectformdata(material) {
 
             var form_data = new FormData();
+            var img = new Object();
+            var imgs = document.getElementsByClassName("ccl");
+            var imgSrcs = [];
 
-            var inputArray = $(".detail-img").serializeArray();
-            console.log(inputArray)
-            console.log(inputArray.value)
+            for (var i = 0; i < imgs.length; i++) {
+                var scrimg = imgs[i].src ;
+                imgSrcs.push(imgs[i].src);
+                //console.log(i+"imgappen")
+                //console.log(scrimg)
+                img.pathimg = scrimg;
+            }
+            console.log(img)
+            console.log(img.pathimg)
+            form_data.append('img', imgSrcs)
+            //console.log(form_data);
+            //console.log(imgSrcs);
+            //alert(4444);
+
+
+            //form_data.append('')
+
+            //var inputArray = $(".detail-img").serializeArray();
+            //console.log(inputArray)
+            //console.log(inputArray.value)
 
             //var elem = document.getElementById("image_uploads");
             //for (var i = 0; i < elem.files.length; i++) {
@@ -1607,7 +1627,6 @@
                 }
             });
         });
-
 
 
         //// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types

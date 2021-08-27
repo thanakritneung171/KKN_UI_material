@@ -65,4 +65,10 @@ namespace KKN_UI.Models.Material
             this.picturelist = new List<picture_master>();
         }
     }
+    public class img
+    {
+        public string pathimg { get; set; }
+        public string nameimg { get; set; }
+        public string typeimg { get; set; }
+    }
 }
