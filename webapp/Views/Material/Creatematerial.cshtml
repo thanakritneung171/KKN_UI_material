@@ -712,9 +712,9 @@
 
                     <div class="immg">
                         <div>
-                            <label class="input-file-trigger" for="image_uploads">เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
+                            <label class="input-file-trigger" id="label-input-trigger" for="image_uploads" style="display: @(TypePage == true? "inline" : "none")">เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
                             @*<label for="image_uploads">Choose images to upload (PNG, JPG)</label>*@
-                            <input type="file" class="input-file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" @*onchange="updateImageDisplay()"*@>
+                            <input type="file" class="input-file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" : @(TypePage == true? "block" : "none") @*onchange="updateImageDisplay()"*@>
                         </div>
                         <div class="preview">
                             @*<p>No files currently selected for upload</p>*@
@@ -1395,6 +1395,8 @@
                 document.getElementById("qty_stock").disabled = false;
                 document.getElementById("activeupdate").style.display = "none";
                 document.getElementById("activeupdatlabele").style.display = "none";
+                document.getElementById("label-input-trigger").style.display = "inline";
+                document.getElementById("image_uploads").style.display = "inline";
 
             }
             function canceledit() {
