@@ -21,6 +21,7 @@ using KKN_UI.material.category;
 using KKN_UI.material.Costing_method;
 using KKN_UI.material.Material_acc;
 using KKN_UI.materialDao.item_master;
+using System.Drawing;
 
 namespace KKN_UI.Controllers
 {
@@ -480,10 +481,23 @@ namespace KKN_UI.Controllers
             return picture;
         }
 
+        private void SaveByteArrayAsImage(string fullOutputPath, string base64String)
+        {
+            byte[] bytes = Convert.FromBase64String(base64String);
+
+            Image image;
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                image = Image.FromStream(ms);
+            }
+
+            image.Save(fullOutputPath, System.Drawing.Imaging.ImageFormat.Png);
+
+        }
         [HttpPost]
         public JsonResult Createtodata(MaterialSQL material, List<HttpPostedFileBase> file, List<img> img)
         {
-           
+
             //var output = new item_masterDao().CheckItemNo(material);
             Object img1 = new img();
             MaterialSQL output = new MaterialSQL();
@@ -518,6 +532,16 @@ namespace KKN_UI.Controllers
             }
             if (output.msg == 1)
             {
+                if (img != null)
+                {
+                    foreach (img im in img)
+                    {
+                        //picture = genaratePathfile(material, im);
+                        SaveByteArrayAsImage(path, im.pathimg);
+                    }
+                }
+
+
                 if (file != null)
                 {
                     foreach (HttpPostedFileBase ff in file)
@@ -527,6 +551,9 @@ namespace KKN_UI.Controllers
                         var pictureoutput = new item_masterDao().InsertPicture_master(picture);
                         picture.msg = pictureoutput.msg;
                         Createfile(path, picture, ff);
+
+                        ////
+                        //SaveByteArrayAsImage(path, img.pathimg);
                     }
                 }
             }
