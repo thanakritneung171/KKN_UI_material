@@ -202,7 +202,7 @@ namespace KKN_UI.Controllers
             List<UomSQL> Uomlistdata = new List<UomSQL>();
 
             Uomlistdata = new uomDao().GetdataByActive(active).Uomlist.ToList();
-            
+
 
             return PartialView("Uom/_uomtable", Uomlistdata);
         }
@@ -483,13 +483,9 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Createtodata(MaterialSQL material, List<HttpPostedFileBase> file, List<img> img)
         {
-            //if(ModelState.IsValid)
-            //{
-
-            //}
-
+           
             //var output = new item_masterDao().CheckItemNo(material);
-
+            Object img1 = new img();
             MaterialSQL output = new MaterialSQL();
             picture_master picture = new picture_master();
             var path = Server.MapPath("~/UploadedFiles/Photo/");
@@ -580,7 +576,7 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Editmaterialdata(MaterialSQL material, List<HttpPostedFileBase> file)
+        public JsonResult Editmaterialdata(MaterialSQL material, List<HttpPostedFileBase> file, Object img)
         {
 
             #region old
@@ -615,11 +611,11 @@ namespace KKN_UI.Controllers
             //    }
             //}
             #endregion
-
+            Object img1 = new img();
             MaterialSQL output = new MaterialSQL();
             picture_master picture = new picture_master();
             var path = Server.MapPath("~/UploadedFiles/Photo/");
-           
+
 
             var checkupdateitem = new item_masterDao().Checkupdateitem(material);
             if (checkupdateitem == true)
@@ -633,11 +629,13 @@ namespace KKN_UI.Controllers
 
             var namepathdelete = searchdeletefile(material.item_no);
 
-            if (output.msg == 1 && file != null && namepathdelete != null )
+            if (output.msg == 1 && file != null && namepathdelete != null)
             {
-                
-                foreach (var items in namepathdelete) {
-                    if (!String.IsNullOrEmpty(items.picture_path)) {
+
+                foreach (var items in namepathdelete)
+                {
+                    if (!String.IsNullOrEmpty(items.picture_path))
+                    {
                         Deletefile(path, items.picture_path);
                     }
                 }
@@ -647,7 +645,7 @@ namespace KKN_UI.Controllers
             {
                 if (output.msg == 1 && file != null)
                 {
-                  var genaratepathfile =   genaratePathfile(material, ff);
+                    var genaratepathfile = genaratePathfile(material, ff);
                     var pictureoutput = new item_masterDao().InsertPicture_master(genaratepathfile);
                     picture.msg = pictureoutput.msg;
                     Createfile(path, genaratepathfile, ff);
@@ -992,7 +990,7 @@ namespace KKN_UI.Controllers
             var checkdeleteitem = new uomDao().DeleteCheckItem(uomdata);
             if (checkdeleteitem.row == 0)
             {
-                    new uomDao().DeleteUom(uomdata);
+                new uomDao().DeleteUom(uomdata);
             }
             else
             {
@@ -1005,8 +1003,8 @@ namespace KKN_UI.Controllers
             return Json(new { output = rowuom }, JsonRequestBehavior.AllowGet);
         }
 
-     
- 
+
+
 
     }
 }

@@ -447,7 +447,7 @@
                         <div class="smart-form">
                             <label class="input">
                                 <i class="icon-append fa fa-calendar"></i>
-                                <input type="text" @ViewBag.dis  id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy' value="@result.MaterialSQLdataselect.expiry" >
+                                <input type="text" @ViewBag.dis id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy' value="@result.MaterialSQLdataselect.expiry">
                             </label>
 
                         </div>
@@ -714,7 +714,7 @@
                         <div>
                             <label class="input-file-trigger" id="label-input-trigger" for="image_uploads" style="display: @(TypePage == true? "inline" : "none")">เลือกภาพที่จะอัปโหลด(JPG, PNG)</label>
                             @*<label for="image_uploads">Choose images to upload (PNG, JPG)</label>*@
-                            <input type="file" class="input-file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" : @(TypePage == true? "block" : "none") @*onchange="updateImageDisplay()"*@>
+                            <input type="file" class="input-file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple style="opacity:0" : @(TypePage == true ? "block" : "none") @*onchange="updateImageDisplay()"*@>
                         </div>
                         <div class="preview">
                             @*<p>No files currently selected for upload</p>*@
@@ -987,7 +987,7 @@
                     }
                 }
 
-               
+
 
                 @{
                     if (result.MaterialSQLdataselect.item_id == 0)
@@ -1063,20 +1063,33 @@
         function getobjectformdata(material) {
 
             var form_data = new FormData();
+
             var img = new Object();
             var imgs = document.getElementsByClassName("ccl");
             var imgSrcs = [];
 
             for (var i = 0; i < imgs.length; i++) {
-                var scrimg = imgs[i].src ;
+                var scrimg = imgs[i].src;
+                var altimg = imgs[i].alt;
+                var typeimg = imgs[i].getAttribute("valuetype");
                 imgSrcs.push(imgs[i].src);
                 //console.log(i+"imgappen")
                 //console.log(scrimg)
                 img.pathimg = scrimg;
+                console.log("scr" + scrimg)
+                console.log("alt" + altimg)
+                console.log("valuetype" + typeimg)
+                form_data.append("img["+i+"].pathimg", scrimg)
+                form_data.append("img["+i+"].nameimg", altimg)
+                form_data.append("img["+i+"].typeimg", typeimg)
             }
             console.log(img)
             console.log(img.pathimg)
-            form_data.append('img', imgSrcs)
+            //form_data.append('img', imgSrcs)
+            console.log(img.scrimg)
+
+
+
             //console.log(form_data);
             //console.log(imgSrcs);
             //alert(4444);
@@ -1093,7 +1106,7 @@
             //    var file_data = $('#image_uploads').prop('files')[i];
             //    console.log(file_data);
             //    form_data.append('file', file_data);
-            //}
+            ////}
 
             //const dataurl = document.querySelectorAll("input[type=file].detail-img");
             ////const inputdata = dataurl.querySelectorAll(".detail-img");
@@ -1104,7 +1117,7 @@
 
             //});
 
-            console.log(form_data );
+            console.log(form_data);
 
             if (material.item_id != 0) {
                 form_data.append('material.item_id', material.item_id)
@@ -1567,7 +1580,7 @@
                         img.valuetype = filetype;
                         img.onload = function () {
                             URL.revokeObjectURL(this.src);
-                            console.log(this.Value+" "+ this.name);
+                            console.log(this.Value + " " + this.name);
                             var MAX_WIDTH = 800;
                             var MAX_HEIGHT = 600;
                             var width = img.width;
@@ -1593,14 +1606,16 @@
                             const para = document.createElement('p');
                             console.log("creale P" + this.Value)
 
-                                const image = document.createElement('img');
-                                image.setAttribute("class", "ccl");
-                                image.setAttribute("alt", this.name);
-                                image.src = canvas.toDataURL();
-                                para.textContent = `File name ${this.name}`;
-                                //document.getElementById("uploadPreview").src = canvas.toDataURL();
-                                listItem.appendChild(image);
-                                listItem.appendChild(para);
+                            const image = document.createElement('img');
+                            image.setAttribute("class", "ccl");
+                            image.setAttribute("alt", this.name);
+                            image.setAttribute("valuetype", this.valuetype);
+                            console.log(this.valuetype)
+                            image.src = canvas.toDataURL();
+                            para.textContent = `File name ${this.name}`;
+                            //document.getElementById("uploadPreview").src = canvas.toDataURL();
+                            listItem.appendChild(image);
+                            listItem.appendChild(para);
                             list.appendChild(listItem);
 
                             var data = canvas.toDataURL();
@@ -1614,7 +1629,7 @@
                             input.setAttribute("class", "detail-img");
                             input.setAttribute("type", "hidden");
                             input.setAttribute("nameinput", "input-target");
-                            input.setAttribute("name",this.name);
+                            input.setAttribute("name", this.name);
                             //input.setAttribute("namepath", realData);
                             input.setAttribute("value", realData);
                             input.setAttribute("valuetype", this.valuetype);
