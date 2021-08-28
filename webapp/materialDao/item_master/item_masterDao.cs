@@ -315,6 +315,7 @@ namespace KKN_UI.materialDao.item_master
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@picture_path", pictureobject.picture_path);
                     cmd.Parameters.AddWithValue("@picture_name", pictureobject.picture_name);
+                    cmd.Parameters.AddWithValue("@picture_type", pictureobject.picture_type);
                     cmd.Parameters.AddWithValue("@item_no", pictureobject.item_no);
 
                     picture_master result = new picture_master();

@@ -454,7 +454,7 @@ namespace KKN_UI.Controllers
         }
 
         private static string FILE_PATH = @"C:\UploadedFiles";
-        public static void Createfile(string path, picture_master picture, HttpPostedFileBase file)
+        public static void Createfile(string path, picture_master picture , HttpPostedFileBase file)
         {
             var pathus = Path.Combine(path, picture.picture_path);
             file.SaveAs(pathus);
@@ -466,16 +466,19 @@ namespace KKN_UI.Controllers
 
         }
 
-        public static picture_master genaratePathfile(MaterialSQL material, HttpPostedFileBase file)
+        public static picture_master genaratePathfile(MaterialSQL material, /*HttpPostedFileBase file*/ img img)
         {
             picture_master picture = new picture_master();
-            var originalFilename = Path.GetFileName(file.FileName);
+            //var originalFilename = Path.GetFileName(file.FileName);
+            var originalFilename = Path.GetFileName(img.nameimg);
             string fileId = Guid.NewGuid().ToString().Replace("-", "");
             //string userId = GetUserId(); // Function to get user id based on your schema
             string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
 
             picture.picture_path = newnamesave;
+            //picture.picture_newnamesave = newnamesave;
             picture.picture_name = originalFilename;
+            picture.picture_type = img.typeimg;
             picture.item_no = material.item_no;
 
             return picture;
@@ -499,7 +502,7 @@ namespace KKN_UI.Controllers
         {
 
             //var output = new item_masterDao().CheckItemNo(material);
-            Object img1 = new img();
+            //Object img1 = new img();
             MaterialSQL output = new MaterialSQL();
             picture_master picture = new picture_master();
             var path = Server.MapPath("~/UploadedFiles/Photo/");
@@ -536,26 +539,29 @@ namespace KKN_UI.Controllers
                 {
                     foreach (img im in img)
                     {
-                        //picture = genaratePathfile(material, im);
-                        SaveByteArrayAsImage(path, im.pathimg);
-                    }
-                }
-
-
-                if (file != null)
-                {
-                    foreach (HttpPostedFileBase ff in file)
-                    {
-                        picture = genaratePathfile(material, ff);
-
+                        picture = genaratePathfile(material, im);
+                        var  fullOutputPath = Path.Combine(path, picture.picture_path); 
                         var pictureoutput = new item_masterDao().InsertPicture_master(picture);
+                        SaveByteArrayAsImage(fullOutputPath, im.pathimg);
                         picture.msg = pictureoutput.msg;
-                        Createfile(path, picture, ff);
-
-                        ////
-                        //SaveByteArrayAsImage(path, img.pathimg);
                     }
                 }
+
+
+                //if (file != null)
+                //{
+                //    foreach (HttpPostedFileBase ff in file)
+                //    {
+                //        //picture = genaratePathfile(material, ff);
+
+                //        var pictureoutput = new item_masterDao().InsertPicture_master(picture);
+                //        picture.msg = pictureoutput.msg;
+                //        Createfile(path, picture, ff);
+
+                //        ////
+                //        //SaveByteArrayAsImage(path, img.pathimg);
+                //    }
+                //}
             }
 
 
@@ -603,7 +609,7 @@ namespace KKN_UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Editmaterialdata(MaterialSQL material, List<HttpPostedFileBase> file, Object img)
+        public JsonResult Editmaterialdata(MaterialSQL material, List<HttpPostedFileBase> file, List<img> img)
         {
 
             #region old
@@ -668,16 +674,28 @@ namespace KKN_UI.Controllers
                 }
             }
 
-            foreach (HttpPostedFileBase ff in file)
+            if (img != null)
             {
-                if (output.msg == 1 && file != null)
+                foreach (img im in img)
                 {
-                    var genaratepathfile = genaratePathfile(material, ff);
-                    var pictureoutput = new item_masterDao().InsertPicture_master(genaratepathfile);
+                    picture = genaratePathfile(material, im);
+                    var fullOutputPath = Path.Combine(path, picture.picture_path);
+                    var pictureoutput = new item_masterDao().InsertPicture_master(picture);
+                    SaveByteArrayAsImage(fullOutputPath, im.pathimg);
                     picture.msg = pictureoutput.msg;
-                    Createfile(path, genaratepathfile, ff);
                 }
             }
+
+            //foreach (HttpPostedFileBase ff in file)
+            //{
+            //    if (output.msg == 1 && file != null)
+            //    {
+            //        var genaratepathfile = genaratePathfile(material, ff);
+            //        var pictureoutput = new item_masterDao().InsertPicture_master(genaratepathfile);
+            //        picture.msg = pictureoutput.msg;
+            //        Createfile(path, genaratepathfile, ff);
+            //    }
+            //}
 
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }

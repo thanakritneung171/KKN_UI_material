@@ -54,6 +54,8 @@ namespace KKN_UI.Models.Material
         public int id { get; set; }
         public string picture_path { get; set; }
         public string picture_name { get; set; }
+        public string picture_type { get; set; }
+        //public string picture_newnamesave { get; set; }
         public string item_no { get; set; }
         public int msg { get; set; }
     }
