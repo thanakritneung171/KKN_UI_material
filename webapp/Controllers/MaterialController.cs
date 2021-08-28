@@ -423,7 +423,7 @@ namespace KKN_UI.Controllers
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
             MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
-            MaterialSQLlistindex.UomSQL_list = new uomDao().Getdata().Uomlist.ToList();
+               MaterialSQLlistindex.UomSQL_list = new uomDao().Getdata().Uomlist.ToList();
             MaterialSQLlistindex.Picturelist = new item_masterDao().GetPicturedataByid(id).ToList();
             ViewBag.dis = "disabled";
 
@@ -667,7 +667,7 @@ namespace KKN_UI.Controllers
 
             var namepathdelete = searchdeletefile(material.item_no);
 
-            if (output.msg == 1 && file != null && namepathdelete != null)
+            if (output.msg == 1/* && file != null */  && namepathdelete != null)
             {
 
                 foreach (var items in namepathdelete)
