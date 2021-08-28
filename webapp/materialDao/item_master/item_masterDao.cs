@@ -365,6 +365,7 @@ namespace KKN_UI.materialDao.item_master
             result.item_no = rdr["item_no"].ToString();
             result.picture_path = rdr["picture_path"].ToString();
             result.picture_path = rdr["picture_name"].ToString();
+            result.picture_path = rdr["picture_type"].ToString();
 
             if (rdr["msg"] != null)
             {

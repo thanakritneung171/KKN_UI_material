@@ -22,6 +22,7 @@ using KKN_UI.material.Costing_method;
 using KKN_UI.material.Material_acc;
 using KKN_UI.materialDao.item_master;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace KKN_UI.Controllers
 {
@@ -454,6 +455,8 @@ namespace KKN_UI.Controllers
         }
 
         private static string FILE_PATH = @"C:\UploadedFiles";
+        private string base64File;
+
         public static void Createfile(string path, picture_master picture , HttpPostedFileBase file)
         {
             var pathus = Path.Combine(path, picture.picture_path);
@@ -486,7 +489,9 @@ namespace KKN_UI.Controllers
 
         private void SaveByteArrayAsImage(string fullOutputPath, string base64String)
         {
-            byte[] bytes = Convert.FromBase64String(base64String);
+            Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
+            base64File = regex.Replace(base64String, string.Empty);
+            byte[] bytes = Convert.FromBase64String(base64File);
 
             Image image;
             using (MemoryStream ms = new MemoryStream(bytes))
