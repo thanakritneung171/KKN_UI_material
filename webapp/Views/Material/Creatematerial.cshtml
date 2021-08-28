@@ -447,13 +447,13 @@
                         <div class="smart-form">
                             <label class="input">
                                 <i class="icon-append fa fa-calendar"></i>
-                                <input type="text" @ViewBag.dis id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy' value="@result.MaterialSQLdataselect.expiry">
+                                <input type="text" @ViewBag.dis id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy' value="@(result.MaterialSQLdataselect.expiry !=null ? DateTime.Now : result.MaterialSQLdataselect.expiry) ">
                             </label>
 
                         </div>
                     </div>
                 </div>
-
+                 
 
 
 
@@ -1641,6 +1641,20 @@
                     };
                 }
             });
+
+            $('#expiry').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'dd/mm/yy',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>'
+
+            })
+
+
+
+
         });
 
 
@@ -1735,9 +1749,6 @@
 
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
-
-
-        //$(document).ready(validatedata());
 
 
         function validatedata() {

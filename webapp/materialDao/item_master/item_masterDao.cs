@@ -286,6 +286,7 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@uom_stock         ", materialobject.uom_stock);
                     cmd.Parameters.AddWithValue("@qty_in            ", materialobject.qty_in);
                     cmd.Parameters.AddWithValue("@qty_stock         ", materialobject.qty_stock);
+                    cmd.Parameters.AddWithValue("@expiry         ", materialobject.expiry);
 
                     MaterialSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
@@ -522,6 +523,8 @@ namespace KKN_UI.materialDao.item_master
             result.qty_in = Convert.ToDecimal(rdr["qty_in"]);
             result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
+            result.expiry = DateTime.Parse((string)rdr["expiry"]);
+            //result.expiry = rdr.GetDateTimeNullable("expiry");
 
             if (rdr["msg"] != null)
             {
@@ -560,6 +563,7 @@ namespace KKN_UI.materialDao.item_master
             result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
             result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
+            result.expiry = DateTime.Parse((string)rdr["item_master_expiry"]);
 
             result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
             result.CategorySQLModel = new CategoryDao().mapviewlistcategory(rdr);
@@ -595,6 +599,7 @@ namespace KKN_UI.materialDao.item_master
             result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
             result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
+            result.expiry = DateTime.Parse((string)rdr["item_master_expiry"]);
 
             result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
             result.CategorySQLModel = new CategoryDao().mapviewlistcategory(rdr);
