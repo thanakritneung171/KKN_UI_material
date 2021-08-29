@@ -23,18 +23,18 @@ namespace KKN_UI.material.category
             return conn;
         }
 
-        private const string READ       = "categoryRead";
-        private const string READVIEW       = "categoryReadView";
-        private const string CREATE     = "categoryCreate";
-        private const string DELETE     = "categoryDelete";
-        private const string DELETECHECKITEM     = "categoryDeleteCheckItem";
+        private const string READ = "categoryRead";
+        private const string READVIEW = "categoryReadView";
+        private const string CREATE = "categoryCreate";
+        private const string DELETE = "categoryDelete";
+        private const string DELETECHECKITEM = "categoryDeleteCheckItem";
 
-        private const string UPDATE     = "categoryUpdate";
+        private const string UPDATE = "categoryUpdate";
         private const string UPDATEACTIVE = "categoryUpdateActive";
 
-        private const string READ_BYID  = "categoryRead_Byid";
+        private const string READ_BYID = "categoryRead_Byid";
         private const string READ_BYACTIVE = "categoryReadAllactive";
-        private const string READ_BYGROUPID  = "categoryRead_ByGroupid";
+        private const string READ_BYGROUPID = "categoryRead_ByGroupid";
         private const string CHECKCATEGORYNEW = "CheckCategoryNew";
 
         public CategorySQLlist Getdata()
@@ -45,7 +45,6 @@ namespace KKN_UI.material.category
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     CategorySQLlist result = new CategorySQLlist();
-                    //var result = new List<GroupSQL>()
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
@@ -68,7 +67,6 @@ namespace KKN_UI.material.category
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     CategorySQLlist result = new CategorySQLlist();
-                    //var result = new List<GroupSQL>()
                     using (var rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
@@ -89,7 +87,6 @@ namespace KKN_UI.material.category
             {
                 using (SqlCommand cmd = new SqlCommand(READ_BYID, conn))
                 {
-
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@category_id", id);
                     CategorySQL result = null;
@@ -102,9 +99,7 @@ namespace KKN_UI.material.category
                     }
                     return (result);
                 }
-
             }
-
         }
 
         public CategorySQLlist GetdataByActive(bool active)
@@ -145,7 +140,7 @@ namespace KKN_UI.material.category
                         {
                             result.Categorylist.Add(maplistcategory(rdr));
                         }
-                                                                                                                                                                                                                                                                                                                                                                                            }
+                    }
                     return (result);
                 }
 
@@ -187,7 +182,7 @@ namespace KKN_UI.material.category
         {
             using (var conn = OpenDbConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(CREATE,conn))
+                using (SqlCommand cmd = new SqlCommand(CREATE, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
@@ -198,7 +193,7 @@ namespace KKN_UI.material.category
                     using (var rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
-                        if(rdr.HasRows)
+                        if (rdr.HasRows)
                         {
                             result = maplistcategory(rdr);
                         }
@@ -212,7 +207,7 @@ namespace KKN_UI.material.category
         {
             using (var conn = OpenDbConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(UPDATE,conn))
+                using (SqlCommand cmd = new SqlCommand(UPDATE, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
@@ -224,7 +219,7 @@ namespace KKN_UI.material.category
                     using (var rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
-                        if(rdr.HasRows)
+                        if (rdr.HasRows)
                         {
                             result = maplistcategory(rdr);
                         }
@@ -263,7 +258,7 @@ namespace KKN_UI.material.category
         {
             using (var conn = OpenDbConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(DELETE,conn))
+                using (SqlCommand cmd = new SqlCommand(DELETE, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
@@ -272,7 +267,7 @@ namespace KKN_UI.material.category
                     using (var rdr = cmd.ExecuteReader())
                     {
                         rdr.Read();
-                        if(rdr.HasRows)
+                        if (rdr.HasRows)
                         {
                             result = maplistcategory(rdr);
                         }
@@ -284,9 +279,9 @@ namespace KKN_UI.material.category
 
         public Rowcategory DeleteCheckItem(CategorySQL categoryobject)
         {
-            using (var conn=OpenDbConnection())
+            using (var conn = OpenDbConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(DELETECHECKITEM,conn))
+                using (SqlCommand cmd = new SqlCommand(DELETECHECKITEM, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@category_id", categoryobject.category_id);
@@ -353,9 +348,9 @@ namespace KKN_UI.material.category
             resultcategory.category_id = Convert.ToInt32(rdr["category_category_id"]);
             resultcategory.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
             resultcategory.category_name = rdr["category_category_name"].ToString();
-            resultcategory.active =  (bool)rdr["category_active"];
+            resultcategory.active = (bool)rdr["category_active"];
 
-            resultcategory.GroupModel =  GroupDao.mapviewlistgroupDao(rdr);
+            resultcategory.GroupModel = GroupDao.mapviewlistgroupDao(rdr);
             return resultcategory;
         }
     }

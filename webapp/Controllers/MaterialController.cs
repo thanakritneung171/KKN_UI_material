@@ -12,8 +12,6 @@ using System.Data.SqlClient;
 using System.Configuration;
 using KKN_UI.material.uom;
 using KKN_UI.Models.Material;
-//using KKN_UI.Models.Group;
-//using KKN_UI.Models.Category;
 using KKN_UI.Models.Material_acc;
 using KKN_UI.Models.Costing_method;
 using KKN_UI.material.group;
@@ -58,51 +56,11 @@ namespace KKN_UI.Controllers
                     {
                         while (rdr.Read())
                         {
-                            //mtlist.Add(mapView(rdr));
                             mtlist.Add(new item_masterDao().mapView(rdr));
                         }
                     }
                 }
-
-                #region old
-                //var query2 = "SELECT * FROM  group_item";
-
-                //using (SqlCommand cmd = new SqlCommand(query2, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            gtlist.Add(maplistgroup(rdr));
-                //        }
-                //    }
-                //}
-
-                //var query3 = "SELECT * FROM  category";
-
-                //using (SqlCommand cmd = new SqlCommand(query3, conn))
-                //{
-                //    cmd.CommandType = CommandType.Text;
-
-                //    using (var rdr = cmd.ExecuteReader())
-                //    {
-                //        while (rdr.Read())
-                //        {
-                //            ctlist.Add(maplistcategory(rdr));
-                //        }
-                //    }
-                //}
-                #endregion
             }
-            //listindex.GroupSQLlist = gtlist.ToList();
-            //listindex.CategorySQLlist = ctlist.ToList();
-
-
-            //uomDao uomd = new uomDao();
-            //List<UomSQL> uud = new uomDao().uomlistdata.ToList();
-
             listindex.MaterialSQLlist = mtlist.ToList();
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
@@ -113,7 +71,6 @@ namespace KKN_UI.Controllers
         public /*JsonResult*/ ActionResult _tabledatalist(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
-
 
             if (search.category_id == 0 && search.group_id == 0 && search.text == null)
             {
@@ -145,13 +102,11 @@ namespace KKN_UI.Controllers
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             return PartialView(listindex);
-            //return Json(new { listindex }, JsonRequestBehavior.AllowGet);
         }
 
         public /*JsonResult*/ ActionResult _tabledatalistIndex(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
-
 
             //if (search.category_id == 0 && search.group_id == 0 && search.text == null)
             //{
@@ -188,39 +143,21 @@ namespace KKN_UI.Controllers
         public ActionResult _grouptable(bool active)
         {
             List<GroupSQL> Grouplistdata = new List<GroupSQL>();
-            //if (active == true)
-            //{
-            //    Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
-            //}
-            //else
-            //{
             Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
-            //}
 
             return PartialView("Groupmaterial/_grouptable", Grouplistdata);
         }
         public ActionResult _uomtable(bool active)
         {
             List<UomSQL> Uomlistdata = new List<UomSQL>();
-
             Uomlistdata = new uomDao().GetdataByActive(active).Uomlist.ToList();
-
-
             return PartialView("Uom/_uomtable", Uomlistdata);
         }
 
         public ActionResult _categorytable(bool active)
         {
             List<CategorySQL> categorylistdata = new List<CategorySQL>();
-            //if (active == true)
-            //{
-            //    categorylistdata = new CategoryDao().GetdataView().Categorylist.ToList();
-            //}
-            //else
-            //{
             categorylistdata = new CategoryDao().GetdataByActive(active).Categorylist.ToList();
-            //}
-
             return PartialView("Categorymaterial/_categorytable", categorylistdata);
         }
 
@@ -228,26 +165,21 @@ namespace KKN_UI.Controllers
         public /*JsonResult*/ ActionResult IndexSearch(SearchItem search)
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
-            //List<MaterialSQL> mlist = new List<MaterialSQL>();
             listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             return PartialView(listindex);
-            //return  Json(new { listindex }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _selectgroup()
         {
             MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
             MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
-
             return PartialView(MaterialSQLlistindex.GroupSQLlist);
         }
         public ActionResult _selectcategory(int id, string page)
         {
-
             CategorySQLlist Cdata = new CategoryDao().GetdataCategoryGourpByid(id);
-
             return PartialView(Cdata);
         }
 
@@ -256,131 +188,6 @@ namespace KKN_UI.Controllers
         public ActionResult Creatematerial()
         {
             MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
-
-            #region older
-            ////List<MaterialSQL> mtlist = new List<MaterialSQL>();
-            //List<GroupSQL> gtlist = new List<GroupSQL>();
-            //List<CategorySQL> ctlist = new List<CategorySQL>();
-            //List<Material_accSQL> macclist = new List<Material_accSQL>();
-            //List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
-            //List<UomSQL> uomlist = new List<UomSQL>();
-
-
-            //using (var conn = OpenDbConnection())
-            //{
-            //    //var query = "SELECT * FROM  MaterialView";
-            //    //using (SqlCommand cmd = new SqlCommand(query, conn))
-            //    //{
-            //    //    cmd.CommandType = CommandType.Text;
-
-            //    //    using (var rdr = cmd.ExecuteReader())
-            //    //    {
-            //    //        while (rdr.Read())
-            //    //        {
-            //    //            mtlist.Add(mapView(rdr));
-            //    //        }
-            //    //    }
-            //    //} 
-
-            //    //var query2 = "SELECT * FROM  group_item";
-
-            //    //// Build a command to execute this
-            //    //using (SqlCommand cmd = new SqlCommand(query2, conn))
-            //    //{
-            //    //    cmd.CommandType = CommandType.Text;
-
-            //    //    //var result = new MaterialSQL();
-            //    //    using (var rdr = cmd.ExecuteReader())
-            //    //    {
-            //    //        while (rdr.Read())
-            //    //        {
-            //    //            //result=mapView(rdr);
-            //    //            gtlist.Add(maplistgroup(rdr));
-            //    //        }
-            //    //    }
-            //    //}
-
-            //    //var query3 = "SELECT * FROM  category";
-
-            //    //// Build a command to execute this
-            //    //using (SqlCommand cmd = new SqlCommand(query3, conn))
-            //    //{
-            //    //    cmd.CommandType = CommandType.Text;
-
-            //    //    //var result = new MaterialSQL();
-            //    //    using (var rdr = cmd.ExecuteReader())
-            //    //    {
-            //    //        while (rdr.Read())
-            //    //        {
-            //    //            //result=mapView(rdr);
-            //    //            ctlist.Add(maplistcategory(rdr));
-            //    //        }
-            //    //    }
-            //    //}
-
-            //    //var query4 = "SELECT * FROM  material_acc";
-
-            //    //// Build a command to execute this
-            //    //using (SqlCommand cmd = new SqlCommand(query4, conn))
-            //    //{
-            //    //    cmd.CommandType = CommandType.Text;
-
-            //    //    //var result = new MaterialSQL();
-            //    //    using (var rdr = cmd.ExecuteReader())
-            //    //    {
-            //    //        while (rdr.Read())
-            //    //        {
-            //    //            //result=mapView(rdr);
-            //    //            macclist.Add(maplistmaterialacc(rdr));
-            //    //        }
-            //    //    }
-
-
-            //    //}
-
-            //    //var query5 = "SELECT * FROM  costing_method";
-
-            //    //// Build a command to execute this
-            //    //using (SqlCommand cmd = new SqlCommand(query5, conn))
-            //    //{
-            //    //    cmd.CommandType = CommandType.Text;
-
-            //    //    using (var rdr = cmd.ExecuteReader())
-            //    //    {
-            //    //        while (rdr.Read())
-            //    //        {
-            //    //            costinglist.Add(maplistcosting(rdr));
-            //    //        }
-            //    //    }
-            //    //}
-
-            //    //var query6 = "SELECT * FROM  uom";
-
-            //    //using (SqlCommand cmd = new SqlCommand(query6, conn))
-            //    //{
-            //    //    cmd.CommandType = CommandType.Text;
-
-            //    //    //var result = new MaterialSQL();
-            //    //    using (var rdr = cmd.ExecuteReader())
-            //    //    {
-            //    //        while (rdr.Read())
-            //    //        {
-            //    //            uomlist.Add(maplistuom(rdr));
-            //    //        }
-            //    //    }
-            //    //}
-            //}
-
-
-            ////MaterialSQLlistindex.MaterialSQLlist = mtlist.ToList();
-            //MaterialSQLlistindex.GroupSQLlist = gtlist.ToList();
-            //MaterialSQLlistindex.CategorySQLlist = ctlist.ToList();
-            //MaterialSQLlistindex.Material_accSQLlist = macclist.ToList();
-            //MaterialSQLlistindex.Costing_methodSQL_list = costinglist.ToList();
-            //MaterialSQLlistindex.UomSQL_list = uomlist.ToList();       
-            #endregion
-
-            //MaterialSQLlistindex.MaterialSQLlist = mtlist.ToList();
             MaterialSQLlistindex.MaterialSQLdataselect = new MaterialSQL();
             MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
@@ -393,71 +200,23 @@ namespace KKN_UI.Controllers
         }
         public ActionResult Editmaterial(string id)
         {
-
             MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
-            MaterialSQL mtlist = new MaterialSQL();
-            List<GroupSQL> gtlist = new List<GroupSQL>();
-            List<CategorySQL> ctlist = new List<CategorySQL>();
-            List<Material_accSQL> macclist = new List<Material_accSQL>();
-            List<Costing_methodSQL> costinglist = new List<Costing_methodSQL>();
-            List<UomSQL> uomlist = new List<UomSQL>();
-            //using (var conn = OpenDbConnection())
-            //{
-            //    var query = "SELECT TOP 1 * FROM MaterialView WHERE item_master_item_no=" + "'" + id + "'";
-
-            //    using (SqlCommand cmd = new SqlCommand(query, conn))
-            //    {
-            //        cmd.CommandType = CommandType.Text;
-
-            //        using (var rdr = cmd.ExecuteReader())
-            //        {
-            //            while (rdr.Read())
-            //            {
-            //                mtlist = new item_masterDao().mapView(rdr);
-            //            }
-            //        }
-            //    }
-            //}
             MaterialSQLlistindex.MaterialSQLdataselect = new materialviewDao().GetdataByid(id);
             MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             MaterialSQLlistindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
             MaterialSQLlistindex.Material_accSQLlist = new Material_accDao().Getdata().Material_acclist.ToList();
             MaterialSQLlistindex.Costing_methodSQL_list = new Costing_methodDao().Getdata().Costing_methodlist.ToList();
-               MaterialSQLlistindex.UomSQL_list = new uomDao().Getdata().Uomlist.ToList();
+            MaterialSQLlistindex.UomSQL_list = new uomDao().Getdata().Uomlist.ToList();
             MaterialSQLlistindex.Picturelist = new item_masterDao().GetPicturedataByid(id).ToList();
             ViewBag.dis = "disabled";
 
             return View("Creatematerial", MaterialSQLlistindex);
         }
 
-        private static string FILE_PATH111 = @"C:\UploadedFiles";
-        [HttpPost]
-        public ActionResult Createfile111111(MaterialSQL material, HttpPostedFileBase file)
-        {
-            if (ModelState.IsValid)
-            {
-                var originalFilename = Path.GetFileName(file.FileName);
-                string fileId = Guid.NewGuid().ToString().Replace("-", "");
-                //string userId = GetUserId(); // Function to get user id based on your schema
-                string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
-
-                var path = Path.Combine(Server.MapPath("~/UploadedFiles/Photo/") + newnamesave);
-                file.SaveAs(path);
-
-                //eventmodel.picture_path = fileId;
-                material.picture_path = newnamesave;
-
-                //_db.EventModels.AddObject(eventmodel);
-                //_db.SaveChanges();
-                //return Json(new {success = true, Error = "" },JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { success = material.picture_path, Error = "error cant save" }, JsonRequestBehavior.AllowGet);
-        }
-
         private static string FILE_PATH = @"C:\UploadedFiles";
         private string base64File;
 
-        public static void Createfile(string path, picture_master picture , HttpPostedFileBase file)
+        public static void Createfile(string path, picture_master picture, HttpPostedFileBase file)
         {
             var pathus = Path.Combine(path, picture.picture_path);
             file.SaveAs(pathus);
@@ -472,14 +231,10 @@ namespace KKN_UI.Controllers
         public static picture_master genaratePathfile(MaterialSQL material, /*HttpPostedFileBase file*/ img img)
         {
             picture_master picture = new picture_master();
-            //var originalFilename = Path.GetFileName(file.FileName);
             var originalFilename = Path.GetFileName(img.nameimg);
             string fileId = Guid.NewGuid().ToString().Replace("-", "");
-            //string userId = GetUserId(); // Function to get user id based on your schema
             string newnamesave = string.Format("{0}{1}{2}", fileId, DateTime.Now.Year.ToString(), originalFilename);
-
             picture.picture_path = newnamesave;
-            //picture.picture_newnamesave = newnamesave;
             picture.picture_name = originalFilename;
             picture.picture_type = img.typeimg;
             picture.item_no = material.item_no;
@@ -505,9 +260,6 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult Createtodata(MaterialSQL material, List<HttpPostedFileBase> file, List<img> img)
         {
-
-            //var output = new item_masterDao().CheckItemNo(material);
-            //Object img1 = new img();
             MaterialSQL output = new MaterialSQL();
             picture_master picture = new picture_master();
             var path = Server.MapPath("~/UploadedFiles/Photo/");
@@ -545,116 +297,22 @@ namespace KKN_UI.Controllers
                     foreach (img im in img)
                     {
                         picture = genaratePathfile(material, im);
-                        var  fullOutputPath = Path.Combine(path, picture.picture_path); 
+                        var fullOutputPath = Path.Combine(path, picture.picture_path);
                         var pictureoutput = new item_masterDao().InsertPicture_master(picture);
                         SaveByteArrayAsImage(fullOutputPath, im.pathimg);
                         picture.msg = pictureoutput.msg;
                     }
                 }
-
-
-                //if (file != null)
-                //{
-                //    foreach (HttpPostedFileBase ff in file)
-                //    {
-                //        //picture = genaratePathfile(material, ff);
-
-                //        var pictureoutput = new item_masterDao().InsertPicture_master(picture);
-                //        picture.msg = pictureoutput.msg;
-                //        Createfile(path, picture, ff);
-
-                //        ////
-                //        //SaveByteArrayAsImage(path, img.pathimg);
-                //    }
-                //}
             }
-
-
-
-            //new  MaterialController().Createfile(material, file);
-
-            //var output =   new item_masterDao().InsertItem_master(materialdata);
-
-            #region hidden
-            //using (var conn = OpenDbConnection())
-            //{
-            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterCreate", conn))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        //cmd.Parameters.AddWithValue("@item_id           ",materialdata.item_id);
-            //        cmd.Parameters.AddWithValue("@item_no           ",materialdata.item_no);
-            //        cmd.Parameters.AddWithValue("@item_name         ",materialdata.item_name        );
-            //        cmd.Parameters.AddWithValue("@group_id          ",materialdata.group_id         );
-            //        cmd.Parameters.AddWithValue("@category_id       ",materialdata.category_id      );
-            //        cmd.Parameters.AddWithValue("@material_acc_id   ",materialdata.material_acc_id  );
-            //        cmd.Parameters.AddWithValue("@costing_method_id ",materialdata.costing_method_id);
-            //        cmd.Parameters.AddWithValue("@description       ", materialdata.description);
-            //        cmd.Parameters.AddWithValue("@status            ",materialdata.status           );
-            //        cmd.Parameters.AddWithValue("@stock_count       ",materialdata.stock_count      );
-            //        cmd.Parameters.AddWithValue("@overdraw_stock    ",materialdata.overdraw_stock   );
-            //        //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
-            //        cmd.Parameters.AddWithValue("@brand             ",materialdata.brand            );
-            //        cmd.Parameters.AddWithValue("@version           ",materialdata.version          );
-            //        cmd.Parameters.AddWithValue("@color             ",materialdata.color            );
-            //        cmd.Parameters.AddWithValue("@size              ",materialdata.size             );
-            //        cmd.Parameters.AddWithValue("@uom_in            ",materialdata.uom_in           );
-            //        cmd.Parameters.AddWithValue("@uom_stock         ",materialdata.uom_stock        );
-            //        cmd.Parameters.AddWithValue("@qty_in            ",materialdata.qty_in           );
-            //        cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
-
-            //        cmd.ExecuteReader();
-            //    }
-            //}
-            #endregion
-
-
-
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult Editmaterialdata(MaterialSQL material, List<HttpPostedFileBase> file, List<img> img)
         {
-
-            #region old
-            //using (var conn = OpenDbConnection())
-            //{
-            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterUpdate", conn))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.AddWithValue("@item_id           ", materialdata.item_id);
-            //        cmd.Parameters.AddWithValue("@item_no           ", materialdata.item_no);
-            //        cmd.Parameters.AddWithValue("@item_name         ", materialdata.item_name);
-            //        cmd.Parameters.AddWithValue("@group_id          ", materialdata.group_id);
-            //        cmd.Parameters.AddWithValue("@category_id       ", materialdata.category_id);
-            //        cmd.Parameters.AddWithValue("@material_acc_id   ", materialdata.material_acc_id);
-            //        cmd.Parameters.AddWithValue("@costing_method_id ", materialdata.costing_method_id);
-            //        cmd.Parameters.AddWithValue("@description       ", materialdata.description);
-            //        cmd.Parameters.AddWithValue("@status            ", materialdata.status);
-            //        cmd.Parameters.AddWithValue("@stock_count       ", materialdata.stock_count);
-            //        cmd.Parameters.AddWithValue("@overdraw_stock    ", materialdata.overdraw_stock);
-            //        //cmd.Parameters.AddWithValue("@picture_path      ",materialdata.picture_path     );
-            //        cmd.Parameters.AddWithValue("@brand             ", materialdata.brand);
-            //        cmd.Parameters.AddWithValue("@version           ", materialdata.version);
-            //        cmd.Parameters.AddWithValue("@color             ", materialdata.color);
-            //        cmd.Parameters.AddWithValue("@size              ", materialdata.size);
-            //        cmd.Parameters.AddWithValue("@uom_in            ", materialdata.uom_in);
-            //        cmd.Parameters.AddWithValue("@uom_stock         ", materialdata.uom_stock);
-            //        cmd.Parameters.AddWithValue("@qty_in            ", materialdata.qty_in);
-            //        cmd.Parameters.AddWithValue("@qty_stock         ", materialdata.qty_stock);
-
-            //        cmd.ExecuteReader();
-            //    }
-            //}
-            #endregion
-            Object img1 = new img();
             MaterialSQL output = new MaterialSQL();
             picture_master picture = new picture_master();
             var path = Server.MapPath("~/UploadedFiles/Photo/");
-
-
             var checkupdateitem = new item_masterDao().Checkupdateitem(material);
             if (checkupdateitem == true)
             {
@@ -669,7 +327,6 @@ namespace KKN_UI.Controllers
 
             if (output.msg == 1/* && file != null */  && namepathdelete != null)
             {
-
                 foreach (var items in namepathdelete)
                 {
                     if (!String.IsNullOrEmpty(items.picture_path))
@@ -691,17 +348,6 @@ namespace KKN_UI.Controllers
                 }
             }
 
-            //foreach (HttpPostedFileBase ff in file)
-            //{
-            //    if (output.msg == 1 && file != null)
-            //    {
-            //        var genaratepathfile = genaratePathfile(material, ff);
-            //        var pictureoutput = new item_masterDao().InsertPicture_master(genaratepathfile);
-            //        picture.msg = pictureoutput.msg;
-            //        Createfile(path, genaratepathfile, ff);
-            //    }
-            //}
-
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
 
@@ -715,7 +361,6 @@ namespace KKN_UI.Controllers
 
         public static List<picture_master> searchdeletefile(string id)
         {
-            //var pictureserch = new picture_master();
             var pictureserch = new item_masterDao().deletefilepath(id);
             new item_masterDao().Picture_masterDelete(id);
             return pictureserch;
@@ -724,41 +369,21 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult DeleteMaterial(MaterialSQL mateid)
         {
-            #region old
-            //using (var coon = OpenDbConnection())
-            //{
-            //    using (SqlCommand cmd = new SqlCommand("dbo.item_masterDelete",coon))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.AddWithValue("@item_id", mateid.item_id);
-            //        cmd.ExecuteReader();
-            //    }
-            //}
-            #endregion
-
             new item_masterDao().DeleteItem_master(mateid);
             return Json(JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _groupView()
         {
-            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
-
             List<GroupSQL> Grouplistdata = new GroupDao().Getdata().Grouplist.ToList();
-
             return PartialView("Groupmaterial/_groupView", Grouplistdata);
         }
 
         public ActionResult _groupViewActive(bool active)
         {
-            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
-
             List<GroupSQL> Grouplistdata = new GroupDao().GetdataByActive(active).Grouplist.ToList();
-
             return PartialView("Groupmaterial/_groupView", Grouplistdata);
         }
-
 
         [HttpPost]
         public JsonResult CreateGroup(GroupSQL groupdata)
@@ -773,7 +398,6 @@ namespace KKN_UI.Controllers
             {
                 output = new GroupDao().InsertGroup(groupdata);
             }
-
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
@@ -793,7 +417,6 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult UpdateGroup(GroupSQL groupdata)
         {
-
             GroupSQL output = new GroupSQL();
             var check = new GroupDao().CheckGroupNew(groupdata);
             if (check == true)
@@ -804,8 +427,6 @@ namespace KKN_UI.Controllers
             {
                 new GroupDao().UpdateGroup(groupdata);
             }
-
-
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
@@ -840,9 +461,6 @@ namespace KKN_UI.Controllers
                 rowgroup = checkdeleteitem;
                 rowgroup.check = "checkitem";
             }
-
-
-
             return Json(new { output = rowgroup }, JsonRequestBehavior.AllowGet);
         }
 
@@ -851,22 +469,15 @@ namespace KKN_UI.Controllers
             return PartialView("Groupmaterial/_comfirmgroup");
         }
 
-        ///////////////////////////////////////////////////
         public ActionResult _categoryView()
         {
-            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
-
-            //CategorySQL CGlist = new CategorySQL();
             List<CategorySQL> Categorylistdata = new CategoryDao().GetdataView().Categorylist.ToList();
             return PartialView("Categorymaterial/_categoryView", Categorylistdata);
         }
 
         public ActionResult _categoryViewActive(bool active)
         {
-            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
-
             List<CategorySQL> Categorylistdata = new CategoryDao().GetdataByActive(active).Categorylist.ToList();
-
             return PartialView("Groupmaterial/_groupView", Categorylistdata);
         }
 
@@ -883,7 +494,6 @@ namespace KKN_UI.Controllers
             {
                 output = new CategoryDao().InsertCategory(categorydata);
             }
-
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
@@ -919,7 +529,6 @@ namespace KKN_UI.Controllers
             {
                 new CategoryDao().UpdateCategory(categorydata);
             }
-
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
@@ -945,9 +554,6 @@ namespace KKN_UI.Controllers
                 rowcategory = checkdeleteitem;
                 rowcategory.check = "checkitem";
             }
-
-
-            //var output = DeleteService(12);
             return Json(new { output = rowcategory }, JsonRequestBehavior.AllowGet);
         }
 
@@ -955,23 +561,16 @@ namespace KKN_UI.Controllers
         {
             return PartialView("Categorymaterial/_comfirmcategory");
         }
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///
 
         public ActionResult _uomView()
         {
-            //List<GroupSQL> Grouplistdata = new List<GroupSQL>();
-
             List<UomSQL> Uomlistdata = new uomDao().Getdata().Uomlist.ToList();
-
             return PartialView("Uom/_uomView", Uomlistdata);
         }
 
         public ActionResult _uomViewActive(bool active)
         {
-
             List<UomSQL> Uomlistdata = new uomDao().GetdataByActive(active).Uomlist.ToList();
-
             return PartialView("Uom/_uomView", Uomlistdata);
         }
 
@@ -989,7 +588,6 @@ namespace KKN_UI.Controllers
             {
                 output = new uomDao().InsertUom(uomdata);
             }
-
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1009,7 +607,6 @@ namespace KKN_UI.Controllers
         [HttpPost]
         public JsonResult UpdateUom(UomSQL uomdata)
         {
-
             UomSQL output = new UomSQL();
             var check = new uomDao().CheckUomNew(uomdata);
             if (check == true)
@@ -1020,8 +617,6 @@ namespace KKN_UI.Controllers
             {
                 new uomDao().UpdateUom(uomdata);
             }
-
-
             return Json(new { output = output is null ? 0 : 1 }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1047,14 +642,7 @@ namespace KKN_UI.Controllers
                 rowuom = checkdeleteitem;
                 rowuom.check = "checkitem";
             }
-
-
-
             return Json(new { output = rowuom }, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
     }
 }

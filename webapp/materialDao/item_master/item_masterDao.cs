@@ -563,7 +563,11 @@ namespace KKN_UI.materialDao.item_master
             result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
             result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
+            if (rdr["item_master_expiry"] != null)
+            {
             result.expiry = DateTime.Parse((string)rdr["item_master_expiry"]);
+                
+            }
 
             result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
             result.CategorySQLModel = new CategoryDao().mapviewlistcategory(rdr);
