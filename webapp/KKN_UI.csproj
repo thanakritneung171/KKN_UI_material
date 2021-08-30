@@ -1117,6 +1117,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="materialDao\SqlDataReaderExtension.cs" />
     <Compile Include="Web References\KKN_Demo_Service\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

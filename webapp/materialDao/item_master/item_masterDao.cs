@@ -404,6 +404,7 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@uom_stock", materialobject.uom_stock);
                     cmd.Parameters.AddWithValue("@qty_in", materialobject.qty_in);
                     cmd.Parameters.AddWithValue("@qty_stock", materialobject.qty_stock);
+                    cmd.Parameters.AddWithValue("@expiry", materialobject.expiry);
 
                     MaterialSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
@@ -514,7 +515,7 @@ namespace KKN_UI.materialDao.item_master
             result.active = (bool)rdr["active"];
             result.stock_count = (bool)rdr["stock_count"];
             result.overdraw_stock = (bool)rdr["overdraw_stock"];
-            result.picture_path = rdr["picture_path"].ToString();
+            //result.picture_path = rdr["picture_path"].ToString();
             result.brand = rdr["brand"].ToString();
             result.version = rdr["version"].ToString();
             result.color = rdr["color"].ToString();
@@ -523,8 +524,10 @@ namespace KKN_UI.materialDao.item_master
             result.qty_in = Convert.ToDecimal(rdr["qty_in"]);
             result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
-            result.expiry = DateTime.Parse((string)rdr["expiry"]);
-            //result.expiry = rdr.GetDateTimeNullable("expiry");
+            if (rdr["item_master_expiry"] != DBNull.Value)
+            {
+                result.expiry = Convert.ToDateTime(rdr["item_master_expiry"]);
+            }
 
             if (rdr["msg"] != null)
             {
@@ -554,7 +557,7 @@ namespace KKN_UI.materialDao.item_master
             result.costing_method_id = Convert.ToInt32(rdr["item_master_costing_meterial"]);
             result.stock_count = (bool)rdr["item_master_stock_count"];
             result.overdraw_stock = (bool)rdr["item_master_overdraw_stock"];
-            result.picture_path = rdr["item_master_picture_path"].ToString();
+            //result.picture_path = rdr["item_master_picture_path"].ToString();
             result.brand = rdr["item_master_brand"].ToString();
             result.version = rdr["item_master_version"].ToString();
             result.color = rdr["item_master_color"].ToString();
@@ -563,11 +566,14 @@ namespace KKN_UI.materialDao.item_master
             result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
             result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
-            if (rdr["item_master_expiry"] != null)
+            if (rdr["item_master_expiry"] != DBNull.Value)
             {
-            result.expiry = DateTime.Parse((string)rdr["item_master_expiry"]);
-                
+            result.expiry = Convert.ToDateTime(rdr["item_master_expiry"]);
             }
+            
+
+            
+
 
             result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
             result.CategorySQLModel = new CategoryDao().mapviewlistcategory(rdr);
@@ -594,7 +600,7 @@ namespace KKN_UI.materialDao.item_master
             result.costing_method_id = Convert.ToInt32(rdr["item_master_costing_meterial"]);
             result.stock_count = (bool)rdr["item_master_stock_count"];
             result.overdraw_stock = (bool)rdr["item_master_overdraw_stock"];
-            result.picture_path = rdr["item_master_picture_path"].ToString();
+            //result.picture_path = rdr["item_master_picture_path"].ToString();
             result.brand = rdr["item_master_brand"].ToString();
             result.version = rdr["item_master_version"].ToString();
             result.color = rdr["item_master_color"].ToString();
@@ -603,21 +609,15 @@ namespace KKN_UI.materialDao.item_master
             result.qty_in = Convert.ToDecimal(rdr["item_master_qty_in"]);
             result.uom_stock = Convert.ToInt32(rdr["item_master_uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
-            result.expiry = DateTime.Parse((string)rdr["item_master_expiry"]);
-
+            if (rdr["item_master_expiry"] != DBNull.Value)
+            {
+                result.expiry = Convert.ToDateTime(rdr["item_master_expiry"]);
+            }
             result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
             result.CategorySQLModel = new CategoryDao().mapviewlistcategory(rdr);
 
             return result;
         }
-        //public MaterialSearch mapSearch(SqlDataReader rdr)
-        //{
-        //    var result = mapView(rdr);
 
-        //    if (rdr["Count"])
-        //    {
-        //        result.Count = Convert.ToInt32(rdr["item_master_uom_in"]);
-        //    }
-        //}
     }
 }

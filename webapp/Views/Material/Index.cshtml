@@ -17,7 +17,6 @@
         width: 100%;
         background: rgba( 255, 255, 255,0.5 ) url('/img/loadingclock.gif') 50% 50% no-repeat;
     }
-
     #content_ajaxloader {
         position: fixed;
         z-index: 8003 !important;
@@ -28,37 +27,29 @@
         /*background: rgba( 255, 255, 255,0.5 ) url('/content/img/unnamed.gif') 50% 50% no-repeat;*/
         background: rgba( 255, 255, 255,0.5 ) url('/content/img/Quarter-Circle-Loading-Image-1.gif') 50% 50% no-repeat;
     }
-
-
     body:not(.menu-on-top).desktop-detected {
         min-height: 0px !important;
     }
-
     .desktop-detected .inbox-body .table-wrap {
         min-height: 770px !important;
     }
-
     .status .comments li {
         border-bottom: 1px solid rgba(0,0,0,0);
         display: block;
         padding: 15px 0 15px 40px;
         position: relative;
     }
-
     .classli:hover {
         background: #ddd;
         cursor: pointer;
     }
-
     label:hover {
         cursor: pointer;
     }
-
     .carousel-indicators li {
         border-color: #999;
         background-color: #ccc;
     }
-
     .carousel-indicators {
         position: absolute;
         bottom: 10px;
@@ -70,32 +61,25 @@
         list-style: none;
         text-align: center;
     }
-
     .MessageCenter {
         padding: 12px 10px 8px 10px !important;
     }
-
-
     @@media (min-width: 1332px) {
         .col-lg-3 {
             width: 33.33%;
         }
-
         .col-lg-6 {
             width: 66.66%;
         }
     }
-
     @@media (min-width: 1500px) {
         .col-lg-3 {
             width: 25%;
         }
-
         .col-lg-6 {
             width: 50%;
         }
     }
-
     .label {
         display: inline;
         padding: .2em .6em .3em;
@@ -108,14 +92,12 @@
         vertical-align: baseline;
         border-radius: .25em;
     }
-
     .fix-iconsize {
         font-size: 40px;
         width: 40px;
         height: 40px;
         padding-top: 10px;
     }
-
     @@media (max-width: 769px) {
         .fix-iconsize {
             font-size: 40px;
@@ -128,39 +110,31 @@
             display: none;
         }
     }
-
     .form-group {
         margin-top: 10px;
     }
-
     .fix-margintop {
         margin-bottom: 40px;
     }
-
     .form-horizontal .form-group {
         margin-left: 20px !important;
         margin-right: 0px !important;
     }
-
     .fix-flaticon {
         font-size: 10px;
     }
-
     input[type=text].invalid {
         border: 2px solid red;
         border-radius: 4px;
     }
-
     select.invalid {
         border: 2px solid red;
         border-radius: 4px;
     }
-
     input[type=text].valid {
         border: 2px solid #49C204;
         border-radius: 4px;
     }
-
     select.valid {
         border: 2px solid #49C204;
         border-radius: 4px;
@@ -204,7 +178,6 @@
             <div class="row col-lg-2 col-md-2 col-sm-12 hidden-xs" style="padding: 2.5px; margin-right:15px">
                 <select class="form-control" id="selgroup" name="selgroup" @*onchange="myselect(this)"*@ onclick="myselect(this)">
                     <option disabled selected value="เลือกกลุ่มวัสดุ">เลือกกลุ่มวัสดุ</option>
-
                 </select>
             </div>
 
@@ -369,7 +342,6 @@
                     //    var table1ser = $('#dt_basic').DataTable();
                     //    table1ser.column(3).search(c.value).draw();
                     //}
-                    console.log("1111111111111111111")
                     console.log("ค้นหาประเภท" + c.options[c.selectedIndex].text)
                     //console.log("ค้นหากลุ่ม" + c.value + "out")
                 }

@@ -108,35 +108,31 @@ namespace KKN_UI.Controllers
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
 
-            //if (search.category_id == 0 && search.group_id == 0 && search.text == null)
+            //List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            //using (var conn = OpenDbConnection())
             //{
-            List<MaterialSQL> mtlist = new List<MaterialSQL>();
-            using (var conn = OpenDbConnection())
-            {
-                var query = "SELECT top 0 * FROM  MaterialView";
+            //    var query = "SELECT top 0 * FROM  MaterialView";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            //mtlist.Add(mapView(rdr));
-                            mtlist.Add(new item_masterDao().mapView(rdr));
-                        }
-                    }
-                }
-            }
-            listindex.MaterialSQLlist = mtlist.ToList();
+            //    using (SqlCommand cmd = new SqlCommand(query, conn))
+            //    {
+            //        cmd.CommandType = CommandType.Text;
+            //        using (var rdr = cmd.ExecuteReader())
+            //        {
+            //            while (rdr.Read())
+            //            {
+            //                //mtlist.Add(mapView(rdr));
+            //                mtlist.Add(new item_masterDao().mapView(rdr));
+            //            }
+            //        }
+            //    }
             //}
-            //else
-            //{
-            //    listindex.MaterialSQLlist = new materialviewDao().GetdataSearch(search).ToList();
-            //}
+            //listindex.MaterialSQLlist = mtlist.ToList();
+            //listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            //listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
 
-            listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
-            listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
+            listindex.MaterialSQLlist = new List<MaterialSQL>();
+            listindex.GroupSQLlist = new List<GroupSQL>();
+            listindex.CategorySQLlist = new List<CategorySQL>();
             return PartialView("_tabledatalist", listindex);
         }
 
@@ -177,7 +173,7 @@ namespace KKN_UI.Controllers
             MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             return PartialView(MaterialSQLlistindex.GroupSQLlist);
         }
-        public ActionResult _selectcategory(int id, string page)
+        public ActionResult _selectcategory(int id)
         {
             CategorySQLlist Cdata = new CategoryDao().GetdataCategoryGourpByid(id);
             return PartialView(Cdata);
