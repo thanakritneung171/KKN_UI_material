@@ -1,4 +1,5 @@
-﻿using KKN_UI.material.category;
+﻿using KKN.Dao.Extensions;
+using KKN_UI.material.category;
 using KKN_UI.material.group;
 using KKN_UI.Models.Material;
 using System;
@@ -276,7 +277,7 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@active            ", materialobject.active);
                     cmd.Parameters.AddWithValue("@stock_count       ", materialobject.stock_count);
                     cmd.Parameters.AddWithValue("@overdraw_stock    ", materialobject.overdraw_stock);
-                    cmd.Parameters.AddWithValue("@picture_path      ", materialobject.picture_path);
+                    //cmd.Parameters.AddWithValue("@picture_path      ", materialobject.picture_path);
                     cmd.Parameters.AddWithValue("@brand", (object)materialobject.brand ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@version", (object)materialobject.version ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@color", (object)materialobject.color ?? DBNull.Value);
@@ -395,7 +396,7 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@active", materialobject.active);
                     cmd.Parameters.AddWithValue("@stock_count", materialobject.stock_count);
                     cmd.Parameters.AddWithValue("@overdraw_stock", materialobject.overdraw_stock);
-                    cmd.Parameters.AddWithValue("@picture_path", materialobject.picture_path);
+                    //cmd.Parameters.AddWithValue("@picture_path", materialobject.picture_path);
                     cmd.Parameters.AddWithValue("@brand", materialobject.brand);
                     cmd.Parameters.AddWithValue("@version", materialobject.version);
                     cmd.Parameters.AddWithValue("@color", materialobject.color);
@@ -524,10 +525,10 @@ namespace KKN_UI.materialDao.item_master
             result.qty_in = Convert.ToDecimal(rdr["qty_in"]);
             result.uom_stock = Convert.ToInt32(rdr["uom_stock"]);
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
-            if (rdr["item_master_expiry"] != DBNull.Value)
-            {
-                result.expiry = Convert.ToDateTime(rdr["item_master_expiry"]);
-            }
+            //if (rdr["item_master_expiry"] != DBNull.Value)
+            //{
+            result.expiry = (DateTime)rdr.GetDateTimeNullable("expiry");
+            //}
 
             if (rdr["msg"] != null)
             {

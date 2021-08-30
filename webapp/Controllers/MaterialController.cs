@@ -319,7 +319,20 @@ namespace KKN_UI.Controllers
                 output = new item_masterDao().UpdateItem_master(material);
             }
 
+            foreach (img im in img)
+            {
+                if (im.idimg == null)
+                {
+                    int changimg = 1;
+                }
+            }
+            if(changimg != 1)
+            {
+
+            }
             var namepathdelete = searchdeletefile(material.item_no);
+
+
 
             if (output.msg == 1/* && file != null */  && namepathdelete != null)
             {

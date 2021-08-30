@@ -72,6 +72,7 @@ namespace KKN_UI.Models.Material
         public string pathimg { get; set; }
         public string nameimg { get; set; }
         public string typeimg { get; set; }
+        public string idimg { get; set; }
     }
 
     public class imgcontrollist

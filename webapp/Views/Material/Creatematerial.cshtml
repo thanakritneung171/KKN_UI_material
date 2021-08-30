@@ -447,7 +447,11 @@
                         <div class="smart-form">
                             <label class="input">
                                 <i class="icon-append fa fa-calendar"></i>
-                                <input type="text" @ViewBag.dis id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy' value="@(result.MaterialSQLdataselect.expiry !=null ? DateTime.Now : result.MaterialSQLdataselect.expiry) ">
+                                <input type="text" @ViewBag.dis id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy'
+                                       value="@{if (TypePage==true) { @DateTime.Now.ToString("dd/MM/yyyy") }
+                                           else{@result.MaterialSQLdataselect.expiry.ToString("dd/MM/yyyy")}}"
+                                    
+                                       >
                             </label>
 
                         </div>
@@ -728,7 +732,7 @@
                                     {
                                         <ol>
                                             <li>
-                                                <img class="ccl" alt="@item.picture_path" src="@path@item.picture_path " />
+                                                <img class="ccl" id="@item.id" alt="@item.picture_path" src="@path@item.picture_path " />
                                                 <p>
                                                     File name : @item.picture_name
                                                 </p>
@@ -1055,6 +1059,10 @@
             material.qty_in = document.getElementById("qty_in").value;
             material.qty_stock = document.getElementById("qty_stock").value;
             material.expiry = document.getElementById("expiry").value;
+
+            console.log("111111111111111111111111111111111111111111111")
+            console.log(document.getElementById("expiry").value)
+            console.log(material)
             //material.picture_path = document.getElementById("blah").alt;
             return material;
         }
@@ -1071,6 +1079,7 @@
                 var scrimg = imgs[i].src;
                 var altimg = imgs[i].alt;
                 var typeimg = imgs[i].getAttribute("valuetype");
+                var idimg = imgs[i].getAttribute("id");
                 imgSrcs.push(imgs[i].src);
                 //console.log(i+"imgappen")
                 //console.log(scrimg)
@@ -1078,9 +1087,11 @@
                 console.log("scr" + scrimg)
                 console.log("alt" + altimg)
                 console.log("valuetype" + typeimg)
-                form_data.append("img["+i+"].pathimg", scrimg)
-                form_data.append("img["+i+"].nameimg", altimg)
-                form_data.append("img["+i+"].typeimg", typeimg)
+                console.log("id" + idimg)
+                form_data.append("img[" + i + "].pathimg", scrimg)
+                form_data.append("img[" + i + "].nameimg", altimg)
+                form_data.append("img[" + i + "].typeimg", typeimg)
+                form_data.append("img[" + i + "].idimg", idimg)
             }
             console.log(img)
 
@@ -1115,6 +1126,7 @@
             form_data.append('material.qty_in', material.qty_in)
             form_data.append('material.qty_stock', material.qty_stock)
             form_data.append('material.expiry', material.expiry)
+            //console.log(form_data.material.expiry)
             //form_data.append('material.picture_path', material.picture_path)
 
             //console.log(material.picture_path + "path get ");
@@ -1384,6 +1396,7 @@
                 document.getElementById("uom_stock").disabled = false;
                 document.getElementById("qty_in").disabled = false;
                 document.getElementById("qty_stock").disabled = false;
+                document.getElementById("expiry").disabled = false;
                 document.getElementById("activeupdate").style.display = "none";
                 document.getElementById("activeupdatlabele").style.display = "none";
                 document.getElementById("label-input-trigger").style.display = "inline";
@@ -1415,6 +1428,7 @@
                 document.getElementById("uom_stock").disabled = true;
                 document.getElementById("qty_in").disabled = true;
                 document.getElementById("qty_stock").disabled = true;
+                document.getElementById("expiry").disabled = true;
             }
 
             function deleteedit()
