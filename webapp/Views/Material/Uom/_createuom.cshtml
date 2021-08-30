@@ -6,7 +6,7 @@
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" id="headermanu">@(result.uom_id == 0 ? "สร้างหน่วย" : "แก้ไขหน่วย")</h4>
+        <h4 class="modal-title" id="headermanuU">@(result.uom_id == 0 ? "สร้างหน่วย" : "แก้ไขหน่วย")</h4>
     </div>
     <div class="modal-body">
         <form align="center">
@@ -209,9 +209,9 @@
             return;
         }
         document.getElementById("insertU").classList.remove("validuom")
-        var headermanu = document.getElementById("headermanu")
-        console.log(headermanu.textContent);
-        smartconfirmmessagebox(headermanu.textContent, function () {
+        var headermanuU = document.getElementById("headermanuU")
+        console.log(headermanuU.textContent);
+        smartconfirmmessagebox(headermanuU.textContent, function () {
             console.log("DO FUNCTION callback");
             createU();
         })
@@ -232,14 +232,14 @@
                 if (response.output != 1) {
                     //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
                     document.getElementById("insertU").focus();
-                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อหน่วย มีบันทึกอยู่แล้ว");
+                    warningmartconfirmmessagebox(document.getElementById("headermanuU").textContent, "ชื่อหน่วย มีบันทึกอยู่แล้ว");
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
                 console.log("insert complete");
                 console.log(response.output);
 
-                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent,"โหลดข้อมูล");
+                completesmartconfirmmessagebox(document.getElementById("headermanuU").textContent,"โหลดข้อมูล");
 
                 $("#content_ajaxloader").fadeOut("fast");
                 //alert("บันทึกเรียบร้อย");
@@ -263,13 +263,13 @@
         inGC.uom_name = document.getElementById("insertU").value;
         if (inGC.uom_name == "") {
             //alert("โปรกระบุข้อมูล");
-            warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "โปรกระบุข้อมูล");
+            warningmartconfirmmessagebox(document.getElementById("headermanuU").textContent, "โปรกระบุข้อมูล");
             document.getElementById("insertu").focus();
             return;
         }
-        var headermanu = document.getElementById("headermanu")
-        console.log(headermanu.textContent);
-        smartconfirmmessagebox(headermanu.textContent, function () {
+        var headermanuU = document.getElementById("headermanuU")
+        console.log(headermanuU.textContent);
+        smartconfirmmessagebox(headermanuU.textContent, function () {
             ////////
             //smartconfirmmessagebox("แก้ไขสถานะการใช้งาน", function () {
             //    console.log("DO FUNCTION callback");
@@ -295,14 +295,14 @@
             success: function (response) {
                 if (response.output != 1) {
                     //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
-                    warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, 'ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
+                    warningmartconfirmmessagebox(document.getElementById("headermanuU").textContent, 'ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
                     document.getElementById("insertU").focus();
                     $("#content_ajaxloader").fadeOut("fast");
                     return;
                 }
                 console.log("insert complete");
                 console.log(response.output);
-                completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "บันทึกเรียบร้อย");
+                completesmartconfirmmessagebox(document.getElementById("headermanuU").textContent, "บันทึกเรียบร้อย");
                 $("#content_ajaxloader").fadeOut("fast");
                 //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');

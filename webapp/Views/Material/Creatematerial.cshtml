@@ -439,7 +439,15 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
 
+                            <label><input type="checkbox" @ViewBag.dis id="active" name="active" @*value="@result.MaterialSQLdataselect.active" @(result.MaterialSQLdataselect.active ? "checked" : "")*@> วันหมดอายุ</label>
+
+                        </div>
+                    </div>
+                </div>
 
 
                 <div class="form-group">
@@ -449,9 +457,7 @@
                                 <i class="icon-append fa fa-calendar"></i>
                                 <input type="text" @ViewBag.dis id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy'
                                        value="@{if (TypePage==true) { @DateTime.Now.ToString("dd/MM/yyyy") }
-                                           else{@result.MaterialSQLdataselect.expiry.ToString("dd/MM/yyyy")}}"
-                                    
-                                       >
+                                           else{@result.MaterialSQLdataselect.expiry.ToString("dd/MM/yyyy")}}">
                             </label>
 
                         </div>
@@ -507,7 +513,7 @@
                     <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
                     <div class="form-group">
                         <a href="javascript:void(0);" class="btn btn-success pull-right margin-right-15" style="margin-left:0" onclick="CreateAddPanelUom('#panel-div')">เพิ่มหน่วย</a>
-                        @*<button class="btn btn-success pull-right margin-right-15" onclick="CreateAddPanelUom('#panel-div')">เพิ่มหน่วย</button>*@
+
 
                         <script>
                         function CreateAddPanelUom(id) {
@@ -635,14 +641,6 @@
                     @*</div>*@
 
 
-
-
-                    <br />
-
-
-
-
-
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -709,9 +707,6 @@
                                     color: white;
                                 }
                     </style>
-
-                    <canvas id="myCanvas">
-                    </canvas>
 
                     <div class="immg">
                         <div>

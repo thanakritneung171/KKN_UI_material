@@ -319,43 +319,41 @@ namespace KKN_UI.Controllers
                 output = new item_masterDao().UpdateItem_master(material);
             }
 
-            foreach (img im in img)
+            var changimg = 0;
+            if (img != null)
             {
-                if (im.idimg == null)
-                {
-                    int changimg = 1;
+                if(img[0].idimg == "null"){
+                    changimg = 1;
                 }
             }
-            //if(changimg != 1)
-            //{
-
-            //}
-            var namepathdelete = searchdeletefile(material.item_no);
-
-
-
-            if (output.msg == 1/* && file != null */  && namepathdelete != null)
+           
+            if (changimg ==1)
             {
-                foreach (var items in namepathdelete)
+                var namepathdelete = searchdeletefile(material.item_no);
+                if (output.msg == 1/* && file != null */  && namepathdelete != null)
                 {
-                    if (!String.IsNullOrEmpty(items.picture_path))
+                    foreach (var items in namepathdelete)
                     {
-                        Deletefile(path, items.picture_path);
+                        if (!String.IsNullOrEmpty(items.picture_path))
+                        {
+                            Deletefile(path, items.picture_path);
+                        }
+                    }
+                }
+
+                if (img != null)
+                {
+                    foreach (img im in img)
+                    {
+                        picture = genaratePathfile(material, im);
+                        var fullOutputPath = Path.Combine(path, picture.picture_path);
+                        var pictureoutput = new item_masterDao().InsertPicture_master(picture);
+                        SaveByteArrayAsImage(fullOutputPath, im.pathimg);
+                        picture.msg = pictureoutput.msg;
                     }
                 }
             }
-
-            if (img != null)
-            {
-                foreach (img im in img)
-                {
-                    picture = genaratePathfile(material, im);
-                    var fullOutputPath = Path.Combine(path, picture.picture_path);
-                    var pictureoutput = new item_masterDao().InsertPicture_master(picture);
-                    SaveByteArrayAsImage(fullOutputPath, im.pathimg);
-                    picture.msg = pictureoutput.msg;
-                }
-            }
+           
 
             return Json(new { output = output }, JsonRequestBehavior.AllowGet);
         }
