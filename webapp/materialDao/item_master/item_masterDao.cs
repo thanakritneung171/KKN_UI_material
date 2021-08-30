@@ -273,7 +273,7 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@material_acc_id   ", materialobject.material_acc_id);
                     cmd.Parameters.AddWithValue("@costing_method_id ", materialobject.costing_method_id);
                     cmd.Parameters.AddWithValue("@description       ", (object)materialobject.description ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@status            ", materialobject.status);
+                    cmd.Parameters.AddWithValue("@active            ", materialobject.active);
                     cmd.Parameters.AddWithValue("@stock_count       ", materialobject.stock_count);
                     cmd.Parameters.AddWithValue("@overdraw_stock    ", materialobject.overdraw_stock);
                     cmd.Parameters.AddWithValue("@picture_path      ", materialobject.picture_path);
@@ -392,7 +392,7 @@ namespace KKN_UI.materialDao.item_master
                     cmd.Parameters.AddWithValue("@material_acc_id", materialobject.material_acc_id);
                     cmd.Parameters.AddWithValue("@costing_method_id", materialobject.costing_method_id);
                     cmd.Parameters.AddWithValue("@description", materialobject.description);
-                    cmd.Parameters.AddWithValue("@status", materialobject.status);
+                    cmd.Parameters.AddWithValue("@active", materialobject.active);
                     cmd.Parameters.AddWithValue("@stock_count", materialobject.stock_count);
                     cmd.Parameters.AddWithValue("@overdraw_stock", materialobject.overdraw_stock);
                     cmd.Parameters.AddWithValue("@picture_path", materialobject.picture_path);
@@ -427,7 +427,7 @@ namespace KKN_UI.materialDao.item_master
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@item_id", materialobject.item_id);
-                    cmd.Parameters.AddWithValue("@status", materialobject.status);
+                    cmd.Parameters.AddWithValue("@active", materialobject.active);
 
                     MaterialSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
@@ -511,7 +511,7 @@ namespace KKN_UI.materialDao.item_master
             result.material_acc_id = Convert.ToInt32(rdr["material_acc_id"]);
             result.costing_method_id = Convert.ToInt32(rdr["costing_method_id"]);
             result.description = rdr["description"].ToString();
-            result.status = (bool)rdr["status"];
+            result.active = (bool)rdr["active"];
             result.stock_count = (bool)rdr["stock_count"];
             result.overdraw_stock = (bool)rdr["overdraw_stock"];
             result.picture_path = rdr["picture_path"].ToString();
@@ -549,7 +549,7 @@ namespace KKN_UI.materialDao.item_master
             result.group_id = Convert.ToInt32(rdr["item_master_group_id"]);
             result.category_id = Convert.ToInt32(rdr["item_master_category_id"]);
             result.description = rdr["item_master_description"].ToString();
-            result.status = (bool)rdr["item_master_status"];
+            result.active = (bool)rdr["item_master_active"];
             result.material_acc_id = Convert.ToInt32(rdr["item_master_material_acc_id"]);
             result.costing_method_id = Convert.ToInt32(rdr["item_master_costing_meterial"]);
             result.stock_count = (bool)rdr["item_master_stock_count"];
@@ -589,7 +589,7 @@ namespace KKN_UI.materialDao.item_master
             result.group_id = Convert.ToInt32(rdr["item_master_group_id"]);
             result.category_id = Convert.ToInt32(rdr["item_master_category_id"]);
             result.description = rdr["item_master_description"].ToString();
-            result.status = (bool)rdr["item_master_status"];
+            result.active = (bool)rdr["item_master_active"];
             result.material_acc_id = Convert.ToInt32(rdr["item_master_material_acc_id"]);
             result.costing_method_id = Convert.ToInt32(rdr["item_master_costing_meterial"]);
             result.stock_count = (bool)rdr["item_master_stock_count"];

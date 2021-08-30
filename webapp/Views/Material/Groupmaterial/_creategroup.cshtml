@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
                     <label class="checkbox-inline pull-left" style="display:@(result.group_id != 0 ? "inline" : "none");">
-                        <input type="checkbox" id="status" class="checkbox style-0" value="@result.active" @(result.active ? "checked" : "") onclick="checkactive()">
+                        <input type="checkbox" id="active" class="checkbox style-0" value="@result.active" @(result.active ? "checked" : "") onclick="checkactive()">
                         <span>สถานะการใช้งาน</span>
                     </label>
                 </div>
@@ -80,7 +80,7 @@
 
             function checkactive() {
                 var material = new Object();
-                material.active = document.getElementById("status").checked;
+                material.active = document.getElementById("active").checked;
                 material.group_id = document.getElementById("inputGid").value;
                 console.log(material.active)
                 smartconfirmmessageboxedit("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
@@ -184,9 +184,9 @@
         document.getElementById("insertG").disabled = false;
         document.getElementById("inputGid").setAttribute('type', 'text');
         document.getElementById("labelGid").hidden = false;
-        //document.getElementById("status").disabled = true;
+        //document.getElementById("active").disabled = true;
         //document.getElementById("btnConfirm").removeEventListener("click", function (e) { e.preventDefault(); }, false);
-        document.getElementById('status').removeAttribute("onclick");
+        document.getElementById('active').removeAttribute("onclick");
     }
 
     function caceledit() {
@@ -198,7 +198,7 @@
         document.getElementById("insertG").disabled = true;
         document.getElementById("inputGid").setAttribute('type', 'hidden');
         document.getElementById("labelGid").hidden = true;
-        document.getElementById("status").disabled = false;
+        document.getElementById("active").disabled = false;
 
     }
 
@@ -287,7 +287,7 @@
         var inG = new Object();
         inG.group_id = document.getElementById("inputGid").value;
         inG.group_name = document.getElementById("insertG").value;
-        inG.active = document.getElementById("status").checked;
+        inG.active = document.getElementById("active").checked;
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",

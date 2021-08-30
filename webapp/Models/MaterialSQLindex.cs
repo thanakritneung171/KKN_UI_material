@@ -19,7 +19,7 @@ namespace KKN_UI.Models
     //    public int group_id { get; set; }
     //    public int category_id { get; set; }
     //    public string description { get; set; }
-    //    public Boolean status { get; set; }
+    //    public Boolean active { get; set; }
     //    public int material_acc_id { get; set; }
     //    public int costing_method_id { get; set; }
     //    public Boolean stock_count { get; set; }

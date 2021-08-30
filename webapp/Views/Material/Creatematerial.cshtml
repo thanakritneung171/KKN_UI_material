@@ -433,7 +433,7 @@
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
 
-                            <label><input type="checkbox" @ViewBag.dis id="status" name="status" value="@result.MaterialSQLdataselect.status" @(result.MaterialSQLdataselect.status ? "checked" : "")> ใช้งานวัสดุ</label>
+                            <label><input type="checkbox" @ViewBag.dis id="active" name="active" value="@result.MaterialSQLdataselect.active" @(result.MaterialSQLdataselect.active ? "checked" : "")> ใช้งานวัสดุ</label>
 
                         </div>
                     </div>
@@ -876,17 +876,17 @@
                     if (TypePage == false)
                     {
                         <div class="margin-top-10">
-                            <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="@(result.MaterialSQLdataselect.status == true? "false" : "true")" onclick="checkactiveitem()"><i class="glyphicon @(result.MaterialSQLdataselect.status == true? "glyphicon-ok" : "glyphicon-remove")"></i></a> <label id="activeupdatlabele" onclick="checkactiveitem()"> @(result.MaterialSQLdataselect.status == true? "เปลี่ยนสถานะ ใช้งาน" : "เปลี่ยนสถานะ ไม่ใช้งาน")</label>
+                            <a class="btn btn-default btn-circle btn-lg" id="activeupdate" value="@(result.MaterialSQLdataselect.active == true? "false" : "true")" onclick="checkactiveitem()"><i class="glyphicon @(result.MaterialSQLdataselect.active == true? "glyphicon-ok" : "glyphicon-remove")"></i></a> <label id="activeupdatlabele" onclick="checkactiveitem()"> @(result.MaterialSQLdataselect.active == true? "เปลี่ยนสถานะ ใช้งาน" : "เปลี่ยนสถานะ ไม่ใช้งาน")</label>
 
                             <script>
                     function checkactiveitem() {
                         var material = new Object();
                         material.item_id = document.getElementById("item_id").value;
-                        material.status = document.getElementById("activeupdate").getAttribute("value");
+                        material.active = document.getElementById("activeupdate").getAttribute("value");
                         console.log(material);
                         smartconfirmmessageboxedit1("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
                             function callbackY() {
-                                console.log("to do update status");
+                                console.log("to do update active");
                                 updateactivestatusitem(material);
                             },
                             function callbackN() {
@@ -1044,7 +1044,7 @@
             material.material_acc_id = document.getElementById("material_account").value;
             material.costing_method_id = document.getElementById("costing_method_material").value;
             material.description = document.getElementById("description").value;
-            material.status = document.getElementById("status").checked;
+            material.active = document.getElementById("active").checked;
             material.stock_count = document.getElementById("stock_count").checked;
             material.overdraw_stock = document.getElementById("overdraw_stock").checked;
             material.brand = document.getElementById("brand").value;
@@ -1129,7 +1129,7 @@
             form_data.append('material.material_acc_id', material.material_acc_id)
             form_data.append('material.costing_method_id', material.costing_method_id)
             form_data.append('material.description', material.description)
-            form_data.append('material.status', material.status)
+            form_data.append('material.active', material.active)
             form_data.append('material.stock_count', material.stock_count)
             form_data.append('material.overdraw_stock', material.overdraw_stock)
             form_data.append('material.brand', material.brand)
@@ -1400,7 +1400,7 @@
                 document.getElementById("costing_method_material").disabled = false;
                 document.getElementById("stock_count").disabled = false;
                 document.getElementById("overdraw_stock").disabled = false;
-                document.getElementById("status").disabled = false;
+                document.getElementById("active").disabled = false;
                 document.getElementById("brand").disabled = false;
                 document.getElementById("version").disabled = false;
                 document.getElementById("color").disabled = false;
@@ -1431,7 +1431,7 @@
                 document.getElementById("costing_method_material").disabled = true;
                 document.getElementById("stock_count").disabled = true;
                 document.getElementById("overdraw_stock").disabled = true;
-                document.getElementById("status").disabled = true;
+                document.getElementById("active").disabled = true;
                 document.getElementById("brand").disabled = true;
                 document.getElementById("version").disabled = true;
                 document.getElementById("color").disabled = true;
@@ -1477,7 +1477,7 @@
                 $('#myModal').modal('show')
                 var testttttt = document.getElementById("stock_count").checked
                 var testttttt1 = document.getElementById("overdraw_stock").checked
-                var testtttt2t = document.getElementById("status").checked
+                var testtttt2t = document.getElementById("active").checked
                // alert(testttttt + " " + testttttt1 + " " + testtttt2t);
             }
             function aabc() {

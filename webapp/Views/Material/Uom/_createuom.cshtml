@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
                     <label class="checkbox-inline pull-left" style="display:@(result.uom_id != 0 ? "inline" : "none");">
-                        <input type="checkbox" id="statusU" class="checkbox style-0" value="@result.active" @(result.active ? "checked" : "") onclick="checkactiveU()">
+                        <input type="checkbox" id="activeU" class="checkbox style-0" value="@result.active" @(result.active ? "checked" : "") onclick="checkactiveU()">
                         <span>สถานะการใช้งาน</span>
                     </label>
                 </div>
@@ -80,7 +80,7 @@
 
             function checkactiveU() {
                 var material = new Object();
-                material.active = document.getElementById("statusU").checked;
+                material.active = document.getElementById("activeU").checked;
                 material.uom_id = document.getElementById("inputUid").value;
                 console.log(material.active)
                 smartconfirmmessageboxedit("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
@@ -181,9 +181,9 @@
         document.getElementById("insertU").disabled = false;
         document.getElementById("inputUid").setAttribute('type', 'text');
         document.getElementById("labelUid").hidden = false;
-        //document.getElementById("status").disabled = true;
+        //document.getElementById("active").disabled = true;
         //document.getElementById("btnConfirm").removeEventListener("click", function (e) { e.preventDefault(); }, false);
-        document.getElementById('statusU').removeAttribute("onclick");
+        document.getElementById('activeU').removeAttribute("onclick");
     }
 
     function caceledit() {
@@ -195,7 +195,7 @@
         document.getElementById("insertU").disabled = true;
         document.getElementById("inputUid").setAttribute('type', 'hidden');
         document.getElementById("labelUid").hidden = true;
-        document.getElementById("statusU").disabled = false;
+        document.getElementById("activeU").disabled = false;
 
     }
 
@@ -284,7 +284,7 @@
         var inU = new Object();
         inU.uom_id = document.getElementById("inputUid").value;
         inU.uom_name = document.getElementById("insertU").value;
-        inU.active = document.getElementById("statusU").checked;
+        inU.active = document.getElementById("activeU").checked;
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",

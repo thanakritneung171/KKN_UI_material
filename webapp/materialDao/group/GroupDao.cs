@@ -301,7 +301,7 @@ namespace KKN_UI.material.group
             var resultgroup = new GroupSQL();
             resultgroup.group_id = Convert.ToInt32(rdr["group_id"]);
             resultgroup.group_name = rdr["group_name"].ToString();
-            resultgroup.active = (bool)rdr["status"];
+            resultgroup.active = (bool)rdr["active"];
             return resultgroup;
         }
         internal static GroupSQL mapviewlistgroupDao(SqlDataReader rdr)

@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 text-align-left">
                     <label class="checkbox-inline pull-left" style="display:@(result.CategorySQL.category_id  != 0 ? "inline" : "none");">
-                        <input type="checkbox" id="status" class="checkbox style-0" value="@result.CategorySQL.active" @(result.CategorySQL.active ? "checked" : "") onclick="checkactiveC()">
+                        <input type="checkbox" id="active" class="checkbox style-0" value="@result.CategorySQL.active" @(result.CategorySQL.active ? "checked" : "") onclick="checkactiveC()">
                         <span>สถานะการใช้งาน</span>
                     </label>
                 </div>
@@ -92,7 +92,7 @@
 
             function checkactiveC() {
                 var material = new Object();
-                material.active = document.getElementById("status").checked;
+                material.active = document.getElementById("active").checked;
                 material.category_id = document.getElementById("inputCid").value;
                 console.log(material.active)
                 smartconfirmmessageboxedit("เปลี่ยนสถานะการใช้งาน", "ยกเลิกเปลี่ยนสถานะ",
@@ -103,10 +103,7 @@
                     function callbackN() {
                         canceleditcallback();
                     });
-                //smartconfirmmessagebox("เปลี่ยนสถานะการใช้งาน", function () {
-                //    console.log("to do update active");
-                //    updategroupactive(material);
-                //});
+               
             }
             function updatecategoryactive(material) {
                  $("#content_ajaxloader").show();
@@ -190,7 +187,7 @@
         document.getElementById("inputCid").setAttribute('type', 'text');
         document.getElementById("labelCid").hidden = false;
         document.getElementById("groupC").disabled = false;
-        document.getElementById('status').removeAttribute("onclick");
+        document.getElementById('active').removeAttribute("onclick");
         document.getElementById("backbtn").style.display = "none";
     }
 
@@ -203,7 +200,7 @@
         document.getElementById("inputCid").setAttribute('type', 'hidden');
         document.getElementById("labelCid").hidden = true;
         document.getElementById("groupC").disabled = true;
-        document.getElementById("status").disabled = false;
+        document.getElementById("active").disabled = false;
     }
 
     function confirmandsaveC() {
@@ -298,7 +295,7 @@
         inG.category_id = document.getElementById("inputCid").value;
         inG.group_id = document.getElementById("groupC").value;
           inG.category_name = document.getElementById("insertC").value;
-          inG.active = document.getElementById("status").checked;
+          inG.active = document.getElementById("active").checked;
          $("#content_ajaxloader").show();
         $.ajax({
             type: "POST",

@@ -27,7 +27,7 @@
                     <td class="stu_group" width="10%" value="@item.GroupSQLModel.group_id">@item.GroupSQLModel.group_name</td>
                     <td class="stu_category" width="15%" value="@item.CategorySQLModel.category_id">@item.CategorySQLModel.category_name</td>
                     <td class="stu_des" width="50%">@item.item_name @item.size @item.brand @item.color @item.version</td>
-                    <td class="stu_status " width="5%" style="color:@(item.status? "Green": "Red")">  @(item.status ? "ใช้งาน": "ไม่ใช้")  </td>
+                    <td class="stu_active " width="5%" style="color:@(item.active? "Green": "Red")">  @(item.active ? "ใช้งาน": "ไม่ใช้")  </td>
                 </tr>
                 i++;
             } }
