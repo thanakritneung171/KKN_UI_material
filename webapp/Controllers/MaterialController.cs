@@ -326,10 +326,10 @@ namespace KKN_UI.Controllers
                     int changimg = 1;
                 }
             }
-            if(changimg != 1)
-            {
+            //if(changimg != 1)
+            //{
 
-            }
+            //}
             var namepathdelete = searchdeletefile(material.item_no);
 
 

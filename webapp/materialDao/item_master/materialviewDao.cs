@@ -54,7 +54,10 @@ namespace KKN_UI.materialDao.item_master
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@group_id", search.group_id);
                     cmd.Parameters.AddWithValue("@category_id", search.category_id);
+                    if (!string.IsNullOrEmpty(search.text))
+                    {
                     cmd.Parameters.AddWithValue("@text", search.text);
+                    }
                     List<MaterialSQL> result = new List<MaterialSQL>();
                     using (var rdr = cmd.ExecuteReader())
                     {
