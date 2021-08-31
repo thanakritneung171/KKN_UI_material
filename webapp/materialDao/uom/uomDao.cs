@@ -189,6 +189,7 @@ namespace KKN_UI.material.uom
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@uom_id", uomobject.uom_id);
                     cmd.Parameters.AddWithValue("@uom_name", uomobject.uom_name);
+                    cmd.Parameters.AddWithValue("@active", uomobject.active);
 
                     UomSQL result = null;
                     using (var rdr = cmd.ExecuteReader())
@@ -235,7 +236,6 @@ namespace KKN_UI.material.uom
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@uom_id", uomobject.uom_id);
-                    cmd.Parameters.AddWithValue("@uom_name", uomobject.uom_name);
 
                     UomSQL result = null;
                     using (var rdr = cmd.ExecuteReader())

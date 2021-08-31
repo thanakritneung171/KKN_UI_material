@@ -246,7 +246,7 @@
                             }
                         </select>
                     </div>
-                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0" onclick="CreateAddPanel()"><i class="glyphicon glyphicon-plus "></i></a>
+                    <a  id="btngroup" class="btn btn-default  bg-color-greenLight txt-color-white @ViewBag.dis"  style="margin-left:0" onclick="CreateAddPanel()"><i class="glyphicon glyphicon-plus "></i></a>
 
                 </div>
                 <div class="form-group">
@@ -260,7 +260,7 @@
                             }
                         </select>
                     </div>
-                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0" onclick="CreateAddPanelcate()"><i class=" glyphicon glyphicon-plus "></i></a>
+                    <a  id="btncategory" class="btn btn-default  bg-color-greenLight txt-color-white @ViewBag.dis"  style="margin-left:0" onclick="CreateAddPanelcate()"><i class=" glyphicon glyphicon-plus "></i></a>
                 </div>
 
 
@@ -296,8 +296,8 @@
                                 }
                             });
                     }
-                        function CreateAddPanelUom() {
-                                 jaxloaderin();
+                    function CreateAddPanelUom() {
+                        $('#content_ajaxloader').fadeIn();
                             $.ajax({
                                 type: "POST",
                                 url: '@Url.Action("_uomView", "Material")',
@@ -495,7 +495,7 @@
                 <div id="horizonform2">
                     <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
                     <div class="form-group">
-                        <a href="javascript:void(0);" class="btn btn-success pull-right margin-right-15" style="margin-left:0" onclick="CreateAddPanelUom()">เพิ่มหน่วย</a>
+                        <a  id="btnuom" class="btn btn-success pull-right margin-right-15 @ViewBag.dis"  style="margin-left:0" onclick="CreateAddPanelUom()">เพิ่มหน่วย</a>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
@@ -1168,7 +1168,7 @@
 
             </div> <br /><br />
 
-            <script>
+                         <script>
         function canceleditcallback() {
             var id = document.getElementById("item_id").value;
             console.log(id);
@@ -1210,6 +1210,11 @@
                 document.getElementById("qty_in").disabled = false;
                 document.getElementById("qty_stock").disabled = false;
                 document.getElementById("expiry").disabled = false;
+
+                document.getElementById("btngroup").classList.remove("@ViewBag.dis");
+                document.getElementById("btncategory").classList.remove("@ViewBag.dis");
+                document.getElementById("btnuom").classList.remove("@ViewBag.dis");
+
                 document.getElementById("activeupdate").style.display = "none";
                 document.getElementById("activeupdatlabele").style.display = "none";
                 document.getElementById("label-input-trigger").style.display = "inline";
@@ -1319,7 +1324,7 @@
                     }
                 })
             };
-            </script>
+                         </script>
 
         }
     }

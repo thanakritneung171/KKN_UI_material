@@ -99,7 +99,7 @@
         </button>
         <button id="editbtn" class="btn btn-lg btn-labeled btn-warning margin-right-5 " style="display:@(result.uom_id != 0 ? "inline" : "none");" onclick="editopen()"><span class="btn-label"><i class="glyphicon glyphicon-pencil"></i></span>แก้ไข</button>
         <button id="delebtn" class="btn btn-lg btn-labeled btn-danger margin-right-5 " style="display: @(result.uom_id != 0 ? "inline" : "none");" onclick="confirmanddeleteU()"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>ลบ</button>
-        <button id="savebtn" class="btn btn-lg btn-labeled btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateG()"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>บันทึก</button>
+        <button id="savebtn" class="btn btn-lg btn-labeled btn-success margin-right-5 " style="display:none;" onclick="confirmandupdateU()"><span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>บันทึก</button>
         <button id="cacelbtn" class="btn btn-lg btn-labeled btn-danger margin-right-5" style="display:none" @*onclick="caceledit()"*@ onclick="canceleditcallback()"><span class="btn-label"><i class="glyphicon glyphicon-repeat"></i></span>ยกเลิก</button>
 
         <button id="backbtn" class="btn btn-lg btn-labeled btn-info margin-right-5" data-dismiss="modal"><span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>กลับ</button>
@@ -181,7 +181,7 @@
 
     function createU() {
         var inG = new Object();
-        inG.uom_id = document.getElementById("insertU").value;
+        inG.uom_name = document.getElementById("insertU").value;
         console.log(inG);
          $("#content_ajaxloader").show();
         $.ajax({
@@ -283,7 +283,7 @@
     function confirmanddeleteU() {
         smartconfirmmessagebox("ลบข้อมูลหน่วย", function () {
             console.log("DO FUNCTION callback");
-            deleteG();
+            deleteU();
         })
     }
 
