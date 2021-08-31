@@ -205,7 +205,8 @@
                 $("#content_ajaxloader").fadeOut("fast");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
-                AddPanelUom();
+                showunactiveUom();
+                //AddPanelUom();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -311,7 +312,8 @@
                         completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "ลบกลุ่มสำเร็จ");
                         //alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
-                        AddPanelUom();
+                        showunactiveUom();
+                        //AddPanelUom();
                     },
                     failure: function (response) {
                         alert(response.responseText);

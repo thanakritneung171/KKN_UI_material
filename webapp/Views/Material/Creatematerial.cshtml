@@ -16,21 +16,7 @@
         TypePage = false;
         dis = "disabled";
     }
-
 }
-
-@*@{ if( result.MaterialSQLdataselect.item_id != 0)
-                {
-                    <style>
-                        .form-control
-                        {
-                            background-color:red;
-
-                        }
-                    </style>
-                }
-
-    }*@
 
 <style>
     #Msg_ajaxloader {
@@ -237,13 +223,13 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_no">รหัสวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                        <input type="text" class="form-control required" @dis id="item_no" placeholder="ระบุ รหัสวัสดุ" value="@result.MaterialSQLdataselect.item_no" name="item_no" maxlength="10">
+                        <input type="text" class="form-control required" @dis id="item_no" placeholder="ระบุ รหัสวัสดุ" value="@result.MaterialSQLdataselect.item_no" name="item_no" maxlength="10" onchange="myno()">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="item_name">ชื่อวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                        <input type="text" class="form-control required" @ViewBag.dis id="item_name" placeholder="ระบุ ชื่อวัสดุ" value="@result.MaterialSQLdataselect.item_name" name="item_name">
+                        <input type="text" class="form-control required" @ViewBag.dis id="item_name" placeholder="ระบุ ชื่อวัสดุ" value="@result.MaterialSQLdataselect.item_name" name="item_name" onchange="myname()">
                     </div>
                 </div>
                 <div class="form-group">
@@ -260,13 +246,13 @@
                             }
                         </select>
                     </div>
-                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0" onclick="CreateAddPanel('#panel-div')"><i class="glyphicon glyphicon-plus "></i></a>
+                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0" onclick="CreateAddPanel()"><i class="glyphicon glyphicon-plus "></i></a>
 
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                        <select class="form-control required" @ViewBag.dis id="category" name="category" onchange="console.log(document.getElementById('category').value + 'select category')">
+                        <select class="form-control required" @ViewBag.dis id="category" name="category" @*onchange="console.log(document.getElementById('category').value + 'select category')"*@ onchange="mycate()">
                             <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
                             @foreach (var item in result.CategorySQLlist)
                             {
@@ -274,12 +260,12 @@
                             }
                         </select>
                     </div>
-                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0" onclick="CreateAddPanelcate('#panel-div')"><i class=" glyphicon glyphicon-plus "></i></a>
+                    <a href="javascript:void(0);" class="btn btn-default  bg-color-greenLight txt-color-white" style="margin-left:0" onclick="CreateAddPanelcate()"><i class=" glyphicon glyphicon-plus "></i></a>
                 </div>
 
 
                 <script>
-                    function CreateAddPanel(id) {
+                    function CreateAddPanel() {
                                  $('#content_ajaxloader').fadeIn();
                             $.ajax({
                                 type: "POST",
@@ -287,7 +273,7 @@
                                 dataType: 'html',
                                 data: {},
                                 success: function (result) {
-                                    $(id).html('');
+                                    $('#panel-div').html('');
                                     $('#panel-div').html(result);
                                     $('.cd-panel').addClass("cd-panel--is-visible"); //แสดงแถบ right Panel$('#Modal').modal('show');
                                     $('#content_ajaxloader').fadeOut();
@@ -295,11 +281,8 @@
                             });
                             }
 
-                            function jaxloaderin() {
-                                $('#content_ajaxloader').fadeIn();
-                            }
                     function CreateAddPanelcate() {
-                                 jaxloaderin();
+                        $('#content_ajaxloader').fadeIn();
                             $.ajax({
                                 type: "POST",
                                 url: '@Url.Action("_categoryView", "Material")',
@@ -339,16 +322,49 @@
                     //    getSelectedOptions(sc, sg)
 
                     //});
+                    function myname() {
+                        if (document.getElementById("item_name").Value !='') {
+                            document.getElementById("item_name").classList.remove("invalid");
+                            document.getElementById("item_name").classList.add("valid");
+                        }
+                    }
+                    function myno() {
+                        if (document.getElementById("item_no").Value != '') {
+                            document.getElementById("item_no").classList.remove("invalid");
+                            document.getElementById("item_no").classList.add("valid");
+                        }
+                    }
 
-                    function myselect(th) {
+                    function myselect() {
                         console.log("select");
                         document.getElementById("category").options.selectedIndex = 0;
+                        document.getElementById("category").classList.remove("valid");
                         var sc = document.getElementById("category");
                         var sg = document.getElementById("group").value;
 
                         getSelectedOptions(sc, sg)
                         document.getElementById("dontcate").select = true;
                         document.getElementById("group").classList.add("valid");
+                    }
+                    function mycate() {
+                        if (document.getElementById("category").selectedIndex != 0) {
+                            document.getElementById("category").classList.remove("invalid");
+                        document.getElementById("category").classList.add("valid");
+                        }
+                    }
+
+                    function myselectmacc() {
+                        if (document.getElementById("material_account").selectedIndex != 0) {
+                            document.getElementById("material_account").classList.remove("invalid");
+                            document.getElementById("material_account").classList.add("valid");
+                        }
+                    }
+
+                    function myselectcositng() {
+                        if (document.getElementById("costing_method_material").selectedIndex != 0) {
+                            document.getElementById("costing_method_material").classList.remove("invalid");
+                            document.getElementById("costing_method_material").classList.add("valid");
+                        }
                     }
 
                     function getSelectedOptions(select, option) {
@@ -370,12 +386,11 @@
                     <label class="control-label col-sm-2" for="material_account">บัญชีวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
 
-                        <select class="form-control required" @ViewBag.dis id="material_account" name="material_account">
+                        <select class="form-control required" @ViewBag.dis id="material_account" name="material_account" onchange="myselectmacc()">
                             @if (TypePage == true)
                             {
                                 <option disabled value="0" selected>เลือกบัญชีวัสดุ</option>
                             }
-
                             @foreach (var item in result.Material_accSQLlist)
                             {
                                 <option value="@item.material_acc_id" @(item.material_acc_id == result.MaterialSQLdataselect.material_acc_id ? "selected" : "")>@item.material_acc_name</option>
@@ -387,7 +402,7 @@
                     <label class="control-label col-sm-2" for="costing_method_material">วิธีคิดต้นทุนวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
 
-                        <select class="form-control required" @ViewBag.dis id="costing_method_material" name="costing_method_material">
+                        <select class="form-control required" @ViewBag.dis id="costing_method_material" name="costing_method_material" onchange="myselectcositng()">
                             @if (TypePage == true)
                             {
                                 <option disabled value="0" selected>เลือกวิธีคิดต้นทุนวัสดุ</option>
@@ -583,10 +598,6 @@
 
 
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
                     <style>
                         /*  html {
@@ -751,10 +762,7 @@
 
 
                     <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                    <!-- multi pic -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
                     <br />
                     @*<script>
                             function importData() {
@@ -861,19 +869,19 @@
 
 
 
-                @{
-                    if (result.MaterialSQLdataselect.item_id == 0)
-                    {
-                        <div class="row">
-                            <div class="col-xs-6"></div>
-                            <div class="col-xs-5 ">
-                                <button class="btn-lg btn-success pull-right margin-top-10" style="margin:5px;" onclick="validatedata()">validate</button>
-                            </div>
-                            <div class="col-xs-1"></div>
+                @*@{
+                        if (result.MaterialSQLdataselect.item_id == 0)
+                        {
+                            <div class="row">
+                                <div class="col-xs-6"></div>
+                                <div class="col-xs-5 ">
+                                    <button class="btn-lg btn-success pull-right margin-top-10" style="margin:5px;" onclick="validatedata()">validate</button>
+                                </div>
+                                <div class="col-xs-1"></div>
 
-                        </div>
-                    }
-                }
+                            </div>
+                        }
+                    }*@
 
 
             </div>
@@ -988,9 +996,7 @@
 
 
             <div class="row margin-top-10 margin-bottom-10 ">
-
                 <button class="btn-lg btn-success " style="margin:5px;" onclick="comfirmsaveinsert()">บันทึก</button>
-
             </div> <br /><br />
 
             <script>
@@ -1007,7 +1013,7 @@
                     var costingdata = document.getElementById("costing_method_material");
                     let r = new RegExp('^[a-zA-Zก-๛ \s]+$')
 
-                    console.log(r.test('test นะจ๊ะ'))
+                    console.log(r.test('test'))
 
                     if (itemnodate.value == "") {
                         itemnodate.classList.add("invalid");
@@ -1027,7 +1033,6 @@
 
                     if (gvalidate.selectedIndex == 0) {
                         gvalidate.classList.add("invalid");
-                        //alert('Please select an item');
                         counter++;
                     } else {
                         gvalidate.classList.remove("invalid");
@@ -1057,18 +1062,7 @@
                         costingdata.classList.remove("invalid");
                         costingdata.classList.add("valid");
                     }
-
-
-                    console.log(counter)
-                    if (counter > 0) {
-                        console.log("validate")
-                        return false;
-                    }
-                    console.log("complete validate")
-
-
-
-                    //$(".required").each(function () {
+                    // $("input[type=text].required").each(function () {
                     //    if ($(this).val() == "") {
                     //        $(this).addClass("invalid");
                     //        console.log($(this))
@@ -1079,7 +1073,28 @@
                     //        $(this).addClass("valid");
                     //        console.log($(this))
                     //    }
-                    //});
+                    // })
+                    ////$("select.required").each(function () {
+                    ////    if ($(this).selectedIndex != 0) {
+                    ////        $(this).addClass("invalid");
+                    ////        counter++;
+                    ////        console.log($(this))
+                    ////    }
+                    ////    else {
+                    ////        console.log($(this))
+                    ////        $(this).removeClass("invalid");
+                    ////        $(this).addClass("valid");
+                    ////    }
+                    ////})
+
+                    console.log(counter)
+                    if (counter > 0) {
+                        console.log("validate")
+                        return false;
+                    }
+                    console.log("complete validate")
+
+
 
                     smartconfirmmessagebox(document.getElementById("headermanu").textContent, function () {
                         console.log("Do function call back ");

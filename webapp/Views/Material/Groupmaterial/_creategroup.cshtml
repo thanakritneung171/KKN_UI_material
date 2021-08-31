@@ -59,10 +59,6 @@
                     function callbackN() {
                         canceleditcallback();
                     });
-                //smartconfirmmessagebox("เปลี่ยนสถานะการใช้งาน", function () {
-                //    console.log("to do update active");
-                //    updategroupactive(material);
-                //});
             }
         function updategroupactive(material) {
                  $("#content_ajaxloader").show();
@@ -216,7 +212,8 @@
                 //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
-                AddPanel();
+                showunactive();
+                //AddPanel();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -265,7 +262,6 @@
             dataType: "json",
             success: function (response) {
                 if (response.output != 1) {
-                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
                     warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, 'ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
                     document.getElementById("insertG").focus();
                     $("#content_ajaxloader").fadeOut("fast");
@@ -275,7 +271,6 @@
                 console.log(response.output);
                 completesmartconfirmmessagebox(document.getElementById("headermanu").textContent, "บันทึกเรียบร้อย");
                 $("#content_ajaxloader").fadeOut("fast");
-                //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 
                 showunactive();
@@ -329,7 +324,8 @@
                         completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "ลบกลุ่มสำเร็จ");
                         //alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
-                        AddPanel();
+                        /*AddPanel();*/
+                        showunactive();
                     },
                     failure: function (response) {
                         alert(response.responseText);
