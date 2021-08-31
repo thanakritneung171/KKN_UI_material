@@ -527,7 +527,7 @@ namespace KKN_UI.materialDao.item_master
             result.qty_stock = Convert.ToDecimal(rdr["qty_stock"]);
             //if (rdr["item_master_expiry"] != DBNull.Value)
             //{
-            result.expiry = (DateTime)rdr.GetDateTimeNullable("expiry");
+            result.expiry = rdr.GetDateTimeNullable("expiry");
             //}
 
             if (rdr["msg"] != null)
@@ -541,10 +541,10 @@ namespace KKN_UI.materialDao.item_master
         }
         public MaterialSQL mapView(SqlDataReader rdr)
         {
-            if (Convert.ToInt32(rdr["item_master_item_id"]) == null)
-            {
-                return new MaterialSQL();
-            }
+            //if (Convert.ToInt32(rdr["item_master_item_id"]) == null)
+            //{
+            //    return new MaterialSQL();
+            //}
 
             var result = new MaterialSQL();
             result.item_id = Convert.ToInt32(rdr["item_master_item_id"]);
@@ -569,11 +569,12 @@ namespace KKN_UI.materialDao.item_master
             result.qty_stock = Convert.ToDecimal(rdr["item_master_qty_stock"]);
             if (rdr["item_master_expiry"] != DBNull.Value)
             {
-            result.expiry = Convert.ToDateTime(rdr["item_master_expiry"]);
+                result.expiry = Convert.ToDateTime(rdr["item_master_expiry"]);
             }
-            
+            //result.expiry = null;
 
-            
+
+
 
 
             result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
@@ -584,10 +585,10 @@ namespace KKN_UI.materialDao.item_master
 
         public MaterialSQL mapViewSearch(SqlDataReader rdr)
         {
-            if (Convert.ToInt32(rdr["item_master_item_id"]) == null)
-            {
-                return new MaterialSQL();
-            }
+            //if (Convert.ToInt32(rdr["item_master_item_id"]) == null)
+            //{
+            //    return new MaterialSQL();
+            //}
 
             var result = new MaterialSQL();
             result.item_id = Convert.ToInt32(rdr["item_master_item_id"]);

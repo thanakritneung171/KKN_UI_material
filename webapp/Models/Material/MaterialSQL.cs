@@ -32,7 +32,7 @@ namespace KKN_UI.Models.Material
         public GroupSQL GroupSQLModel { get; set; }
         public CategorySQL CategorySQLModel { get; set; }
         public int msg { get; set; }
-        public DateTime expiry { get; set; }
+        public DateTime? expiry { get; set; }
         //public picture_master picturemodel { get; set; }
 
     }

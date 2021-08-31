@@ -457,9 +457,10 @@
                                 <i class="icon-append fa fa-calendar"></i>
                                 <input type="text" @ViewBag.dis id="expiry" name="request" placeholder="วันหมดอายุ" class="datepicker" data-dateformat='dd/mm/yy'
                                        value="@{if (TypePage==true) { @DateTime.Now.ToString("dd/MM/yyyy") }
-                                           else{@result.MaterialSQLdataselect.expiry.ToString("dd/MM/yyyy")}}">
+                                           else{
+                                               @(result.MaterialSQLdataselect.expiry==null? "": Convert.ToDateTime(result.MaterialSQLdataselect.expiry).ToString("dd/MM/yyyy")  )
+                                           }}">
                             </label>
-
                         </div>
                     </div>
                 </div>

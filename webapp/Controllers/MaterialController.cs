@@ -42,26 +42,26 @@ namespace KKN_UI.Controllers
         public ActionResult Index()
         {
             MaterialSQLindex listindex = new MaterialSQLindex();
-            List<MaterialSQL> mtlist = new List<MaterialSQL>();
+            //List<MaterialSQL> mtlist = new List<MaterialSQL>();
             //List<GroupSQL> gtlist = new List<GroupSQL>();
             //List<CategorySQL> ctlist = new List<CategorySQL>();
-            using (var conn = OpenDbConnection())
-            {
-                var query = "SELECT top 100 * FROM  MaterialView";
+            //using (var conn = OpenDbConnection())
+            //{
+            //    var query = "SELECT top 100 * FROM  MaterialView";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
-                    using (var rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            mtlist.Add(new item_masterDao().mapView(rdr));
-                        }
-                    }
-                }
-            }
-            listindex.MaterialSQLlist = mtlist.ToList();
+            //    using (SqlCommand cmd = new SqlCommand(query, conn))
+            //    {
+            //        cmd.CommandType = CommandType.Text;
+            //        using (var rdr = cmd.ExecuteReader())
+            //        {
+            //            while (rdr.Read())
+            //            {
+            //                mtlist.Add(new item_masterDao().mapView(rdr));
+            //            }
+            //        }
+            //    }
+            //}
+            listindex.MaterialSQLlist = new List<MaterialSQL>();
             listindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
             listindex.CategorySQLlist = new CategoryDao().Getdata().Categorylist.ToList();
 
