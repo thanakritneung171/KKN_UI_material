@@ -58,37 +58,6 @@
     <div class="modal-footer">
 
         <script>
-            function smartconfirmmessageboxedit(stringY = '', stringN = '', callbackY, callbackN) {
-                $.SmartMessageBox({
-                    title: "Confirm!",
-                    content: "คุณต้องการ" + stringY + "หรือไม่",
-                    buttons: '[ไม่][ใช่]'
-                }, function (ButtonPressed) {
-                    if (ButtonPressed === "ใช่") {
-
-                        //$.smallBox({
-                        //    title: "กำลัง" + stringY,
-                        //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
-                        //    color: "#659265",
-                        //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                        //    timeout: 4000
-                        //});
-                        callbackY();
-                        //true;
-                    }
-                    if (ButtonPressed === "ไม่") {
-                        $.smallBox({
-                            title: stringN,
-                            content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
-                            color: "#C46A69",
-                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                            timeout: 5000
-                        });
-                        callbackN();
-                        //false;
-                    }
-                });
-            }
 
             function checkactiveC() {
                 var material = new Object();

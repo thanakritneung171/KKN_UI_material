@@ -46,38 +46,7 @@
 
 
         <script>
-            function smartconfirmmessageboxedit(stringY = '', stringN = '', callbackY, callbackN) {
-                $.SmartMessageBox({
-                    title: "Confirm!",
-                    content: "คุณต้องการ" + stringY + "หรือไม่",
-                    buttons: '[ไม่][ใช่]'
-                }, function (ButtonPressed) {
-                    if (ButtonPressed === "ใช่") {
-
-                        //$.smallBox({
-                        //    title: "กำลัง" + stringY,
-                        //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
-                        //    color: "#659265",
-                        //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                        //    timeout: 4000
-                        //});
-                        callbackY();
-                        //true;
-                    }
-                    if (ButtonPressed === "ไม่") {
-                        $.smallBox({
-                            title: stringN,
-                            content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
-                            color: "#C46A69",
-                            iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                            timeout: 5000
-                        });
-                        callbackN();
-                        //false;
-                    }
-                });
-            }
-
+ 
             function checkactiveU() {
                 var material = new Object();
                 material.active = document.getElementById("activeU").checked;
@@ -102,19 +71,12 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-                        if (response.output != 1) {
-                            //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
-                            //warningmartconfirmmessagebox(document.getElementById("headermanu").textContent, "ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว");
-                            //$("#content_ajaxloader").fadeOut("fast");
-                            //return;
-                        }
                         console.log("insert complete");
                         console.log(response.output);
 
                         completesmartconfirmmessagebox("เปลี่ยนสถานะการใช้งาน","เปลี่ยนสถานะสำเร็จ")
 
                         $("#content_ajaxloader").fadeOut("fast");
-                        //alert("บันทึกเรียบร้อย");
                         $('#Modal').modal('hide');
 
                         showunactiveUom();
@@ -203,7 +165,7 @@
         var inGC = new Object();
         inGC.uom_name = document.getElementById("insertU").value;
         if (inGC.uom_name == "") {
-            alert("โปรดระบุข้อมูลU");
+            warningsmartconfirmmessagebox("สร้างหน่วย", "โปรดระบุข้อมูลหน่วย");
             document.getElementById("insertU").className += " validuom";
             document.getElementById("insertU").focus();
             return;
@@ -230,7 +192,6 @@
             dataType: "json",
             success: function (response) {
                 if (response.output != 1) {
-                    //alert('ชื่อกลุ่มวัสดุ มีบันทึกอยู่แล้ว');
                     document.getElementById("insertU").focus();
                     warningmartconfirmmessagebox(document.getElementById("headermanuU").textContent, "ชื่อหน่วย มีบันทึกอยู่แล้ว");
                     $("#content_ajaxloader").fadeOut("fast");
@@ -242,10 +203,9 @@
                 completesmartconfirmmessagebox(document.getElementById("headermanuU").textContent,"โหลดข้อมูล");
 
                 $("#content_ajaxloader").fadeOut("fast");
-                //alert("บันทึกเรียบร้อย");
                 $('#Modal').modal('hide');
                 //window.location.href = "/material/";
-                AddPanel();
+                AddPanelUom();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -351,7 +311,7 @@
                         completesmartconfirmmessagebox("ลบข้อมูลกลุ่ม", "ลบกลุ่มสำเร็จ");
                         //alert("ลบเรียบร้อย")
                         $('#Modal').modal('hide');
-                        AddPanel();
+                        AddPanelUom();
                     },
                     failure: function (response) {
                         alert(response.responseText);
