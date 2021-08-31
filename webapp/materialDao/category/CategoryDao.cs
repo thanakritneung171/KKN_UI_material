@@ -335,9 +335,18 @@ namespace KKN_UI.material.category
         public CategorySQL mapviewlistcategory(SqlDataReader rdr)
         {
             var resultcategory = new CategorySQL();
+            if(rdr["category_category_id"] != DBNull.Value)
+            {
             resultcategory.category_id = Convert.ToInt32(rdr["category_category_id"]);
+            }
+            if (rdr["group_time_group_id"] != DBNull.Value)
+            {
             resultcategory.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
+            }
+            if (rdr["category_category_id"] != DBNull.Value)
+            {
             resultcategory.category_name = rdr["category_category_name"].ToString();
+            }
 
             return resultcategory;
         }

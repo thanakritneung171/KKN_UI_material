@@ -307,8 +307,15 @@ namespace KKN_UI.material.group
         internal static GroupSQL mapviewlistgroupDao(SqlDataReader rdr)
         {
             var resultgroup = new GroupSQL();
-            resultgroup.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
-            resultgroup.group_name = rdr["group_time_group_name"].ToString();
+            if (rdr["group_time_group_id"] != DBNull.Value)
+            {
+                resultgroup.group_id = Convert.ToInt32(rdr["group_time_group_id"]);
+            }
+            if (rdr["group_time_group_name"] != DBNull.Value)
+            {
+                resultgroup.group_name = rdr["group_time_group_name"].ToString();
+            }
+            
 
             return resultgroup;
         }

@@ -224,7 +224,6 @@
                     } else {
                         searchdatafunction(search);
                     }
-
                 }
 
                 function searchdatafunction(search) {
@@ -239,16 +238,6 @@
                     });
                 }
 
-                function MessageAlert(title, content, color, iconSmall, type = 1) {
-                    //if ()
-                    $.smallBox({
-                        title: title,
-                        content: content,
-                        color: color,
-                        iconSmall: iconSmall ,
-                        timeout: 5000
-                    });
-                }
 
                 function myselect(th) {
                     console.log("select");
@@ -365,7 +354,6 @@
         <div class="modal fade" id="Modal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8001 !important;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="overflow: hidden;" id="Modal_Content">
-
                 </div>
             </div>
         </div>
@@ -373,7 +361,6 @@
         <div class="modal fade" id="Modalconfirm" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" style="z-index: 8002 !important;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="overflow: hidden;" id="Modal_Content_confirm">
-
                 </div>
             </div>
         </div>
@@ -421,31 +408,21 @@
     @*<div class="container margin-top-5">*@
     <!-- widget grid -->
     <section id="widget-grid" class="">
-
         <!-- row -->
         <div class="row margin-top-5">
-
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
                 <style>
                     .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
                         background-color: #8adafe;
                     }
                 </style>
                 <div id="partialtabledata">           </div>
-
-                <!--------------------------------------------------------------------------------------------------------------------------------------------------------->
-                <!-- end widget -->
-
             </article>
             <!-- WIDGET END -->
-
         </div>
-
         <!-- end row -->
         <!-- end row -->
-
     </section>
     <!-- end widget grid -->
     <!-- END MAIN CONTENT -->
@@ -467,7 +444,6 @@
                 <div id="span12" class="span12"></div>
                 <div id="span13" class="span13"></div>
                 <div id="span14" class="span14"></div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -496,144 +472,16 @@
             $('#content_ajaxloader').fadeIn();
             $("#partialtabledata").load('@Url.Action("_tabledatalistIndex", "Material")',  function (result) {
                 $('#content_ajaxloader').fadeOut();
-
                 var pag = document.getElementById("materialheader").textContent
                 console.log(pag)
-
                 var m = document.querySelectorAll("td")
                 for (var index in m) {
                     if (m[index].textContent === "ไม่พบข้อมูล") {
                         m[index].textContent = "กรุณาค้นหาข้อมูล";
                     }
                 }
-                //if (pag == "  ข้อมูลวัสดุ") {
-                //    console.log("in ข้อมูลวัสดุ")
-                //    //$('.dataTables_empty').html('กรุณาค้นหาข้อมูล');
-                //}
-
             });
-
-
-
         })
-
-        ////////////  smart alert messga///////////////////////////
-
-        function completesmallbox() {
-
-            $.smallBox({
-                title: "บันทึกสำเร็จ",
-                content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                color: "#296191",
-                iconSmall: "fa fa-thumbs-up bounce animated",
-                timeout: 5000
-            });
-
-        }
-
-        function completesmartconfirmmessagebox(string = '', content) {
-            $.smallBox({
-                title: "กำลัง" + string,
-                content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
-                color: "#659265",
-                iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                timeout: 5000
-            });
-        }
-
-        function warningmartconfirmmessagebox(string = '', content) {
-            $.smallBox({
-                title:  string,
-                content: "<i class='fa fa-clock-o'></i> <i>" + content + "...</i>",
-                color: "rgb(199, 145, 33)",
-                iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                timeout: 5000
-            });
-        }
-
-
-
-        function smartconfirmmessagebox(string = '', callback) {
-            $.SmartMessageBox({
-                title: "Confirm!",
-                content: "คุณต้องการ" + string + "หรือไม่",
-                buttons: '[ไม่][ใช่]'
-            }, function (ButtonPressed) {
-                if (ButtonPressed === "ใช่") {
-
-                    //$.smallBox({
-                    //    title: "กำลัง" + string,
-                    //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
-                    //    color: "#659265",
-                    //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                    //    timeout: 4000
-                    //});
-                    callback();
-                    //true;
-                }
-                if (ButtonPressed === "ไม่") {
-                    $.smallBox({
-                        title: "ยกเลิกบันทึกข้อมูล",
-                        content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
-                        color: "#C46A69",
-                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                        timeout: 5000
-                    });
-                    //false;
-                }
-            });
-        }
-
-        function smartconfirmmessageboxbycase(stringY = '', stringN = '', callback) {
-            $.SmartMessageBox({
-                title: "Confirm!",
-                content: "คุณต้องการ" + stringY + "หรือไม่",
-                buttons: '[ไม่][ใช่]'
-            }, function (ButtonPressed) {
-                if (ButtonPressed === "ใช่") {
-
-                    //$.smallBox({
-                    //    title: "กำลัง" + string,
-                    //    content: "<i class='fa fa-clock-o'></i> <i>You pressed Yes...</i>",
-                    //    color: "#659265",
-                    //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
-                    //    timeout: 4000
-                    //});
-                    callback();
-                    //true;
-                }
-                if (ButtonPressed === "ไม่") {
-                    $.smallBox({
-                        title: stringN,
-                        content: "<i class='fa fa-clock-o'></i> <i>You pressed No...</i>",
-                        color: "#C46A69",
-                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
-                        timeout: 5000
-                    });
-                    //false;
-                }
-            });
-        }
-
-        function MessageAlert(title, content, color, iconSmall, type) {
-            if (type == true) {
-                $.smallBox({
-                    title: title,
-                    content: content,
-                    color: color,
-                    iconSmall: iconSmall + "fa-2x fadeInRight animated",
-                    timeout: 5000
-                });
-            } else {
-                $.smallBox({
-                    title: title,
-                    content: content,
-                    color: color,
-                    iconSmall: iconSmall + "fa-2x fadeInRight animated",
-                    timeout: 5000
-                });
-            }
-        }
 
     </script>
 }

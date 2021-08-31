@@ -475,6 +475,7 @@
     <Content Include="Content\fonts\fontawesome4.2\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome4.2\FontAwesome.otf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\helpersmart.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\plugin\autoNumeric\autoNumeric-2.0-BETA.htm" />
     <Content Include="Scripts\plugin\autoNumeric\autoNumeric-2.0-BETA.js" />
@@ -1031,7 +1032,6 @@
     <Content Include="Views\Shared\_TopRight.cshtml" />
     <Content Include="Views\Material\Index.cshtml" />
     <Content Include="Views\Material\Creatematerial.cshtml" />
-    <Content Include="Views\Material\Editmaterial.cshtml" />
     <Content Include="Views\Material\Groupmaterial\_groupView.cshtml" />
     <Content Include="Views\Material\Groupmaterial\_creategroup.cshtml" />
     <Content Include="Views\Material\Groupmaterial\_comfirmgroup.cshtml" />

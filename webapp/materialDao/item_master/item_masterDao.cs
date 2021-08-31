@@ -572,11 +572,6 @@ namespace KKN_UI.materialDao.item_master
                 result.expiry = Convert.ToDateTime(rdr["item_master_expiry"]);
             }
             //result.expiry = null;
-
-
-
-
-
             result.GroupSQLModel = GroupDao.mapviewlistgroupDao(rdr);
             result.CategorySQLModel = new CategoryDao().mapviewlistcategory(rdr);
 
