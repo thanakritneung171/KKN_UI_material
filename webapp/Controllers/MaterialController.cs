@@ -121,7 +121,7 @@ namespace KKN_UI.Controllers
         public ActionResult _selectgroup()
         {
             MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
-            MaterialSQLlistindex.GroupSQLlist = new GroupDao().Getdata().Grouplist.ToList();
+            MaterialSQLlistindex.GroupSQLlist = new GroupDao().GetdataByActive(true).Grouplist.ToList();
             return PartialView(MaterialSQLlistindex.GroupSQLlist);
         }
         public ActionResult _selectcategory(int id)

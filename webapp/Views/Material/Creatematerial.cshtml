@@ -342,6 +342,8 @@
                         var sc = document.getElementById("category");
                         var sg = document.getElementById("group").value;
 
+
+
                         getSelectedOptions(sc, sg)
                         document.getElementById("dontcate").select = true;
                         document.getElementById("group").classList.add("valid");
@@ -1005,87 +1007,92 @@
 
                     var counter = 0;
 
-                    var itemnodate = document.getElementById("item_no");
-                    var itemnamedate = document.getElementById("item_name");
-                    var gvalidate = document.getElementById("group");
-                    var cvalidate = document.getElementById("category");
-                    var maccdata = document.getElementById("material_account");
-                    var costingdata = document.getElementById("costing_method_material");
-                    let r = new RegExp('^[a-zA-Zก-๛ \s]+$')
+                    //var itemnodate = document.getElementById("item_no");
+                    //var itemnamedate = document.getElementById("item_name");
+                    //var gvalidate = document.getElementById("group");
+                    //var cvalidate = document.getElementById("category");
+                    //var maccdata = document.getElementById("material_account");
+                    //var costingdata = document.getElementById("costing_method_material");
+                    //let r = new RegExp('^[a-zA-Zก-๛ \s]+$')
 
-                    console.log(r.test('test'))
+                    //console.log(r.test('test'))
 
-                    if (itemnodate.value == "") {
-                        itemnodate.classList.add("invalid");
-                        counter++
-                    } else {
-                        itemnodate.classList.remove("invalid");
-                        itemnodate.classList.add("valid");
-                    }
+                    //if (itemnodate.value == "") {
+                    //    itemnodate.classList.add("invalid");
+                    //    counter++
+                    //} else {
+                    //    itemnodate.classList.remove("invalid");
+                    //    itemnodate.classList.add("valid");
+                    //}
 
-                    if (itemnamedate.value == "") {
-                        itemnamedate.classList.add("invalid");
-                        counter++
-                    } else {
-                        itemnamedate.classList.remove("invalid");
-                        itemnamedate.classList.add("valid");
-                    }
+                    //if (itemnamedate.value == "") {
+                    //    itemnamedate.classList.add("invalid");
+                    //    counter++
+                    //} else {
+                    //    itemnamedate.classList.remove("invalid");
+                    //    itemnamedate.classList.add("valid");
+                    //}
 
-                    if (gvalidate.selectedIndex == 0) {
-                        gvalidate.classList.add("invalid");
-                        counter++;
-                    } else {
-                        gvalidate.classList.remove("invalid");
-                        gvalidate.classList.add("valid");
-                    }
+                    //if (gvalidate.selectedIndex == 0) {
+                    //    gvalidate.classList.add("invalid");
+                    //    counter++;
+                    //} else {
+                    //    gvalidate.classList.remove("invalid");
+                    //    gvalidate.classList.add("valid");
+                    //}
 
-                    if (cvalidate.selectedIndex == 0) {
-                        cvalidate.classList.add("invalid");
-                        counter++
-                    } else {
-                        cvalidate.classList.remove("invalid");
-                        cvalidate.classList.add("valid");
-                    }
+                    //if (cvalidate.selectedIndex == 0) {
+                    //    cvalidate.classList.add("invalid");
+                    //    counter++
+                    //} else {
+                    //    cvalidate.classList.remove("invalid");
+                    //    cvalidate.classList.add("valid");
+                    //}
 
-                    if (maccdata.selectedIndex == 0) {
-                        maccdata.classList.add("invalid");
-                        counter++
-                    } else {
-                        maccdata.classList.remove("invalid");
-                        maccdata.classList.add("valid");
-                    }
+                    //if (maccdata.selectedIndex == 0) {
+                    //    maccdata.classList.add("invalid");
+                    //    counter++
+                    //} else {
+                    //    maccdata.classList.remove("invalid");
+                    //    maccdata.classList.add("valid");
+                    //}
 
-                    if (costingdata.selectedIndex == 0) {
-                        costingdata.classList.add("invalid");
-                        counter++
-                    } else {
-                        costingdata.classList.remove("invalid");
-                        costingdata.classList.add("valid");
-                    }
-                    // $("input[type=text].required").each(function () {
-                    //    if ($(this).val() == "") {
-                    //        $(this).addClass("invalid");
-                    //        console.log($(this))
-                    //        counter++;
-                    //    }
-                    //    else {
-                    //        $(this).removeClass("invalid");
-                    //        $(this).addClass("valid");
-                    //        console.log($(this))
-                    //    }
-                    // })
-                    ////$("select.required").each(function () {
-                    ////    if ($(this).selectedIndex != 0) {
-                    ////        $(this).addClass("invalid");
-                    ////        counter++;
-                    ////        console.log($(this))
-                    ////    }
-                    ////    else {
-                    ////        console.log($(this))
-                    ////        $(this).removeClass("invalid");
-                    ////        $(this).addClass("valid");
-                    ////    }
-                    ////})
+                    //if (costingdata.selectedIndex == 0) {
+                    //    costingdata.classList.add("invalid");
+                    //    counter++
+                    //} else {
+                    //    costingdata.classList.remove("invalid");
+                    //    costingdata.classList.add("valid");
+                    //}
+                     $("input[type=text].required").each(function () {
+                        if ($(this).val() == "") {
+                            $(this).addClass("invalid");
+                            console.log($(this))
+                            counter++;
+                        }
+                        else {
+                            $(this).removeClass("invalid");
+                            $(this).addClass("valid");
+                            console.log($(this))
+                        }
+                     })
+                    $("select.required").each(function () {
+                        if ($(this).val() == null) {
+                            $(this).addClass("invalid");
+                            counter++;
+                            //console.log($(this))
+                            console.log("in if ")
+                            console.log($(this).val());
+                        }
+                        else {
+                            //console.log($(this))
+                            $(this).removeClass("invalid");
+                            $(this).addClass("valid");
+
+                            console.log("in else ")
+                            console.log($(this).val());
+                        }
+                    })
 
                     console.log(counter)
                     if (counter > 0) {
