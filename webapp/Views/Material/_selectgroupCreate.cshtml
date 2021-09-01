@@ -1,0 +1,24 @@
+﻿@{
+    MaterialSQLindex result = Model;
+}
+@{
+    bool TypePage = true;
+    string dis = "";
+    //controll class disabled by string
+    if (result.MaterialSQLdataselect.item_id != 0)
+    {
+        TypePage = false;
+        dis = "disabled";
+    }
+}
+
+
+
+@if (TypePage == true)
+{
+    <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+}
+@foreach (var item in result.GroupSQLlist)
+{
+    <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
+}

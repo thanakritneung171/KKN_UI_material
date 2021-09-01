@@ -235,15 +235,16 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
-                        <select class="form-control required " @ViewBag.dis id="group" name="group" onchange="myselect(this)">
-                            @if (TypePage == true)
+                        <select class="form-control required " @ViewBag.dis id="group" name="group" onclick="myselect(this)">
+                            <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+                            @*@if (TypePage == true)
                             {
                                 <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
                             }
                             @foreach (var item in result.GroupSQLlist)
                             {
                                 <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
-                            }
+                            }*@
                         </select>
                     </div>
                     <a  id="btngroup" class="btn btn-default  bg-color-greenLight txt-color-white @ViewBag.dis"  style="margin-left:0" onclick="CreateAddPanel()"><i class="glyphicon glyphicon-plus "></i></a>
@@ -254,10 +255,10 @@
                     <div class="col-sm-4 ppd">
                         <select class="form-control required" @ViewBag.dis id="category" name="category" @*onchange="console.log(document.getElementById('category').value + 'select category')"*@ onchange="mycate()">
                             <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
-                            @foreach (var item in result.CategorySQLlist)
+                            @*@foreach (var item in result.CategorySQLlist)
                             {
-                                <option value="@item.category_id" style="display:none" id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
-                            }
+                                <option value="@item.category_id"  id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
+                            }*@
                         </select>
                     </div>
                     <a  id="btncategory" class="btn btn-default  bg-color-greenLight txt-color-white @ViewBag.dis"  style="margin-left:0" onclick="CreateAddPanelcate()"><i class=" glyphicon glyphicon-plus "></i></a>
@@ -335,18 +336,35 @@
                         }
                     }
 
-                    function myselect() {
+                    function myselect(th) {
                         console.log("select");
+                         var ob = new Object();
+                        ob = @Html.Raw(Json.Encode(result));
+                        console.log(th.value)
+                        if (th.value == "0") {
+                            console.log("selectAddoptionG");
+                        loadgroup(ob);
+                        }
                         document.getElementById("category").options.selectedIndex = 0;
                         document.getElementById("category").classList.remove("valid");
-                        var sc = document.getElementById("category");
+                        //var sc = document.getElementById("category");
                         var sg = document.getElementById("group").value;
 
-
-
-                        getSelectedOptions(sc, sg)
+                        //getSelectedOptions(sc, sg)
                         document.getElementById("dontcate").select = true;
-                        document.getElementById("group").classList.add("valid");
+                        
+                        console.log(sg)
+                        console.log("11111111111111")
+                        if (sg != "0" && sg != "เลือกกลุ่มวัสดุ") {
+                            console.log("load C")
+                            loadC(sg)
+                            document.getElementById("group").classList.add("valid");
+                        } else {
+                            console.log("########")
+                            $("#category").html('<option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>');
+                        }
+
+                        
                     }
                     function mycate() {
                         if (document.getElementById("category").selectedIndex != 0) {
@@ -1366,8 +1384,32 @@
 @section pagespecific {
     <script type="text/javascript">
 
+        function loadgroup(ob) {
+            console.log(ob)
+            $('#content_ajaxloader').show();
+            console.log("show")
+            $("#group").load('@Url.Action("_selectgroupCreate", "Material")', { result: ob} , function (result) {
+                console.log("fadeOut")
+                $('#content_ajaxloader').fadeOut();
+                    });
+        }
+
+        function loadC(sg) {
+            $('#content_ajaxloader').fadeIn();
+              var resultobject = new Object();
+            resultobject = @Html.Raw(Json.Encode(result))
+            console.log(resultobject)
+            $("#category").load('@Url.Action("_selectcategoryCreate", "Material")', { result: resultobject , id:sg } ,  function (result) {
+                $('#content_ajaxloader').fadeOut();
+                 });
+            }
+
         $(document).ready(function () {
-            console.log("ready!");
+            @*console.log("ready!");
+            var ob = new Object();
+            ob = @Html.Raw(Json.Encode(result));
+            console.log("0000000000000000000000000000000")
+            loadgroup(ob);*@
 
             var fileInput = document.querySelector(".input-file"),
                 the_return = document.querySelector(".file-return");

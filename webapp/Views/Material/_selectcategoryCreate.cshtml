@@ -1,0 +1,9 @@
+﻿
+@{
+    MaterialSQLindex result = Model;
+}
+<option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
+@foreach (var itemcategory in result.CategorySQLlist)
+{
+    <option value="@itemcategory.category_id" name="opcate" id="@itemcategory.group_id" @(itemcategory.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@itemcategory.category_name</option>
+}

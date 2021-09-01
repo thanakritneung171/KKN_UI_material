@@ -118,6 +118,29 @@ namespace KKN_UI.Controllers
             return PartialView(listindex);
         }
 
+        public ActionResult _selectgroupCreate(MaterialSQLindex result)
+        {
+            //MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
+            //MaterialSQLlistindex.GroupSQLlist = new GroupDao().GetdataByActive(true).Grouplist.ToList();
+            result.GroupSQLlist = new GroupDao().GetdataByActive(true).Grouplist.ToList();
+
+
+            return PartialView(result);
+        }
+        public ActionResult _selectuomCreate(MaterialSQLindex result)
+        {
+            //MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();
+            //MaterialSQLlistindex.GroupSQLlist = new GroupDao().GetdataByActive(true).Grouplist.ToList();
+            result.UomSQL_list = new uomDao().GetdataByActive(true).Uomlist.ToList();
+            return PartialView(result);
+        }
+        public ActionResult _selectcategoryCreate(MaterialSQLindex result, int id)
+        {
+            CategorySQLlist Cdata = new CategoryDao().GetdataCategoryGourpByid(id);
+            result.CategorySQLlist = Cdata.Categorylist.ToList();
+            return PartialView(result);
+        }
+
         public ActionResult _selectgroup()
         {
             MaterialSQLindex MaterialSQLlistindex = new MaterialSQLindex();

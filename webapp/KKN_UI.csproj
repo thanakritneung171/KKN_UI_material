@@ -1046,6 +1046,9 @@
     <Content Include="Views\Material\Uom\_uomtable.cshtml" />
     <Content Include="Views\Material\Uom\_createuom.cshtml" />
     <Content Include="Views\Material\Uom\_uomView.cshtml" />
+    <Content Include="Views\Material\_selectuomCreate.cshtml" />
+    <Content Include="Views\Material\_selectgroupCreate.cshtml" />
+    <Content Include="Views\Material\_selectcategoryCreate.cshtml" />
     <None Include="Web References\KKN_Demo_Service\KKN_Demo_Service.wsdl" />
     <None Include="Web References\KKN_Demo_Service\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
