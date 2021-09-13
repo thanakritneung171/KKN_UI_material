@@ -236,32 +236,62 @@
                     <label class="control-label col-sm-2" for="group">กลุ่มวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
                         <select class="form-control required " @ViewBag.dis id="group" name="group" onclick="myselect(this)">
-                            <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
-                            @*@if (TypePage == true)
+                            @if (TypePage == true)
                             {
                                 <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
                             }
-                            @foreach (var item in result.GroupSQLlist)
+                            @if (result.MaterialSQLdataselect.group_id != 0)
                             {
-                                <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
-                            }*@
+                                foreach (var item in result.GroupSQLlist)
+                                {
+                                    <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
+                                }
+                            }
+                            @*@if (TypePage == true)
+                    {
+                        <option disabled value="0" selected>เลือกกลุ่มวัสดุ</option>
+                    }
+                    @foreach (var item in result.GroupSQLlist)
+                    {
+                        <option value="@item.group_id" @(item.group_id == result.MaterialSQLdataselect.group_id ? "selected" : "")>@item.group_name</option>
+                    }*@
                         </select>
                     </div>
-                    <a  id="btngroup" class="btn btn-default  bg-color-greenLight txt-color-white @ViewBag.dis"  style="margin-left:0" onclick="CreateAddPanel()"><i class="glyphicon glyphicon-plus "></i></a>
+
+                    @if (TypePage == true)
+                    {
+                        <a id="btngroup" class="btn btn-default  bg-color-greenLight txt-color-white @ViewBag.dis" style="margin-left:0" onclick="CreateAddPanel()"><i class="glyphicon glyphicon-plus "></i></a>
+                    }
 
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="category">ประเภทวัสดุ<span style="color:red; ">*</span></label>
                     <div class="col-sm-4 ppd">
                         <select class="form-control required" @ViewBag.dis id="category" name="category" @*onchange="console.log(document.getElementById('category').value + 'select category')"*@ onchange="mycate()">
-                            <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
-                            @*@foreach (var item in result.CategorySQLlist)
+                            @if (TypePage == true)
                             {
-                                <option value="@item.category_id"  id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
-                            }*@
+                                <option disabled value="0" id="dontcate" selected>เลือกประเภทวัสดุ</option>
+                            }
+
+                            @if (result.MaterialSQLdataselect.group_id != 0)
+                            {
+                                foreach (var item in result.CategorySQLlist)
+                                {
+                                    <option value="@item.category_id" id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
+                                }
+                            }
+                            @*@foreach (var item in result.CategorySQLlist)
+                    {
+                        <option value="@item.category_id"  id="@item.group_id" @(item.category_id == result.MaterialSQLdataselect.category_id ? "selected" : "")>@item.category_name</option>
+                    }*@
                         </select>
                     </div>
-                    <a  id="btncategory" class="btn btn-default  bg-color-greenLight txt-color-white @ViewBag.dis"  style="margin-left:0" onclick="CreateAddPanelcate()"><i class=" glyphicon glyphicon-plus "></i></a>
+
+
+                    @if (TypePage == true)
+                    {
+                        <a id="btncategory" class="btn btn-default  bg-color-greenLight txt-color-white @ViewBag.dis" style="margin-left:0" onclick="CreateAddPanelcate()"><i class=" glyphicon glyphicon-plus "></i></a>
+                    }
                 </div>
 
 
@@ -316,13 +346,13 @@
                 </script>
 
                 <script>
-                    //document.addEventListener("DOMContentLoaded", function (event) {
-                    //    var sc = document.getElementById("category");
-                    //    var sg = document.getElementById("group").value;
+                    document.addEventListener("DOMContentLoaded", function (event) {
+                        var sc = document.getElementById("category");
+                        var sg = document.getElementById("group").value;
 
-                    //    getSelectedOptions(sc, sg)
+                        getSelectedOptions(sc, sg)
 
-                    //});
+                    });
                     function myname() {
                         if (document.getElementById("item_name").Value !='') {
                             document.getElementById("item_name").classList.remove("invalid");
@@ -336,6 +366,9 @@
                         }
                     }
 
+
+
+
                     function myselect(th) {
                         console.log("select");
                          var ob = new Object();
@@ -347,12 +380,12 @@
                         }
                         document.getElementById("category").options.selectedIndex = 0;
                         document.getElementById("category").classList.remove("valid");
-                        //var sc = document.getElementById("category");
+                        var sc = document.getElementById("category");
                         var sg = document.getElementById("group").value;
 
-                        //getSelectedOptions(sc, sg)
-                        document.getElementById("dontcate").select = true;
-                        
+                        getSelectedOptions(sc, sg)
+                           //document.getElementById("dontcate").select = true;
+
                         console.log(sg)
                         console.log("11111111111111")
                         if (sg != "0" && sg != "เลือกกลุ่มวัสดุ") {
@@ -363,9 +396,10 @@
                             console.log("########")
                             $("#category").html('<option id="dontcate" disabled selected value="">ไม่พบประเภทวัสดุ</option>');
                         }
-
-                        
                     }
+
+
+
                     function mycate() {
                         if (document.getElementById("category").selectedIndex != 0) {
                             document.getElementById("category").classList.remove("invalid");
@@ -467,9 +501,11 @@
                     </div>
                 </div>
 
+        
 
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-4">
+                    <label class="control-label col-sm-2">วันหมดอายุ</label>
+                    <div class="col-sm-4 ppd">
                         <div class="smart-form">
                             <label class="input">
                                 <i class="icon-append fa fa-calendar"></i>
@@ -514,9 +550,13 @@
             <div class="col-lg-4">
                 <div id="horizonform2">
                     <h3 class="margin-left-10" id="hrw">หน่วยวัสดุ</h3>
-                    <div class="form-group">
-                        <a  id="btnuom" class="btn btn-success pull-right margin-right-15 @ViewBag.dis"  style="margin-left:0" onclick="CreateAddPanelUom()">เพิ่มหน่วย</a>
-                    </div>
+                    @if (TypePage == true)
+                    {
+                        <div class="form-group">
+                            <a id="btnuom" class="btn btn-success pull-right margin-right-15 @ViewBag.dis" style="margin-left:0" onclick="CreateAddPanelUom()">เพิ่มหน่วย</a>
+                        </div>
+                    }
+
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="uom_in">หน่อยซื้อ<span style="color:red; ">*</span></label>
                         <div class="col-sm-8">
@@ -607,9 +647,9 @@
                     @*<img id="blah" src="#" alt="" style="display: none; max-width: 100%" />*@
 
                     @*<img id="blah"
-                        src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
-                        alt="@result.MaterialSQLdataselect.picture_path"
-                        style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />*@
+        src="@(result.MaterialSQLdataselect.picture_path == "" || result.MaterialSQLdataselect.picture_path == null ? "":path)@result.MaterialSQLdataselect.picture_path"
+        alt="@result.MaterialSQLdataselect.picture_path"
+        style="@(result.MaterialSQLdataselect.picture_path != null?"display: block;":"display: none;") max-width: 100%" />*@
 
 
                     @*<p id="pdisplay"><br /><br /></p>*@
@@ -785,46 +825,46 @@
 
                     <br />
                     @*<script>
-                            function importData() {
-                                //let input = document.createElement('input');
-                                //input.type = 'file';
-                                //input.name = 'file';
-                                //input.id = 'file';
+            function importData() {
+                //let input = document.createElement('input');
+                //input.type = 'file';
+                //input.name = 'file';
+                //input.id = 'file';
 
-                                let input = document.getElementById('input');
-                                var ffill = document.getElementById('input').value;
-                                input.onchange = evt => {
-                                    const [file] = input.files
-                                    if (file) {
-                                        blah.src = URL.createObjectURL(file)
-                                        blah.alt = (file.name)
-                                    }
-                                    let files = Array.from(input.files);
-                                    console.log(files);
-                                    console.log(input.files);
-                                    console.log(file.name);
-                                    console.log(file.size);
-                                    console.log(file.type);
-                                    const reader = new FileReader();
-                                    reader.addEventListener("load", () => {
-                                        console.log("111111111");
-                                        console.log(reader.result);
-                                        localStorage.setItem("recent-image", reader.result);
-                                    });
+                let input = document.getElementById('input');
+                var ffill = document.getElementById('input').value;
+                input.onchange = evt => {
+                    const [file] = input.files
+                    if (file) {
+                        blah.src = URL.createObjectURL(file)
+                        blah.alt = (file.name)
+                    }
+                    let files = Array.from(input.files);
+                    console.log(files);
+                    console.log(input.files);
+                    console.log(file.name);
+                    console.log(file.size);
+                    console.log(file.type);
+                    const reader = new FileReader();
+                    reader.addEventListener("load", () => {
+                        console.log("111111111");
+                        console.log(reader.result);
+                        localStorage.setItem("recent-image", reader.result);
+                    });
 
-                                    document.getElementById("blah").style.display = "block";
-                                    document.getElementById("pdisplay").style.display = "none";
-                                    var elementqqqq = document.getElementById('qqqq');
-                                    elementqqqq.style.removeProperty("border-style");
-                                    elementqqqq.style.removeProperty("border-width");
-                                    elementqqqq.style.removeProperty("margin-bottom");
+                    document.getElementById("blah").style.display = "block";
+                    document.getElementById("pdisplay").style.display = "none";
+                    var elementqqqq = document.getElementById('qqqq');
+                    elementqqqq.style.removeProperty("border-style");
+                    elementqqqq.style.removeProperty("border-width");
+                    elementqqqq.style.removeProperty("margin-bottom");
 
-                                };
+                };
 
-                                input.click();
-                            }
+                input.click();
+            }
 
-                        </script>*@
+        </script>*@
                 </div>
 
 
@@ -1236,9 +1276,9 @@
                 document.getElementById("qty_stock").disabled = false;
                 document.getElementById("expiry").disabled = false;
 
-                document.getElementById("btngroup").classList.remove("@ViewBag.dis");
-                document.getElementById("btncategory").classList.remove("@ViewBag.dis");
-                document.getElementById("btnuom").classList.remove("@ViewBag.dis");
+                //document.getElementById("btngroup").classList.remove("disabled");
+                //document.getElementById("btncategory").classList.remove("@ViewBag.dis");
+                //document.getElementById("btnuom").classList.remove("@ViewBag.dis");
 
                 document.getElementById("activeupdate").style.display = "none";
                 document.getElementById("activeupdatlabele").style.display = "none";
